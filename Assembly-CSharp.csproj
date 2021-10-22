@@ -94,7 +94,11 @@
     <Compile Include="Assets\Frame\Load\ResourcesLoad.cs" />
     <Compile Include="Assets\Frame\Load\SceneLoad.cs" />
     <Compile Include="Assets\Project\Script\Entry.cs" />
-    <Compile Include="Assets\Project\Script\Model\SlingShot.cs" />
+    <Compile Include="Assets\Project\Script\Model\BirdModel\Bird.cs" />
+    <Compile Include="Assets\Project\Script\Model\Camera\Camera2D.cs" />
+    <Compile Include="Assets\Project\Script\Model\Camera\CameraUI.cs" />
+    <Compile Include="Assets\Project\Script\Model\FlyPath\FlyPath.cs" />
+    <Compile Include="Assets\Project\Script\Model\SlingShot\SlingShot.cs" />
     <Reference Include="Unity.Timeline.Editor">
       <HintPath>S:/Unity Pro 2019.3.7f1/MyGitProject/Angry-Birds/Library/ScriptAssemblies/Unity.Timeline.Editor.dll</HintPath>
     </Reference>
