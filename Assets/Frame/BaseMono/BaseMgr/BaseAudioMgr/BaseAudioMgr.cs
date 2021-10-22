@@ -14,15 +14,22 @@ namespace Farme
         {
             base.Awake();
         }
+
+        protected override void Start()
+        {
+            base.Start();
+            if(SetVolume("Master","MasterVolume",1.0f))
+            {
+                Debug.Log("初始化主音量成功");
+            }
+        }
         public void Update()
         {
-            Debug.Log(m_InidleAudioControlLi.Count);
             if(m_InidleAudioControlLi.Count> m_cacheAudioMax)
             {
                 IAudioControl audioControl = m_InidleAudioControlLi[m_InidleAudioControlLi.Count - 1];
                 if((audioControl as BaseMono)!=null)
                 {
-                    Debug.Log(1);
                     m_InidleAudioControlLi.Remove(audioControl);
                     Destroy((audioControl as BaseAudio).gameObject); 
                 }
@@ -197,7 +204,7 @@ namespace Farme
         public static bool SetVolume(string groupName, string valueName,float value)
         {
             value = Mathf.Clamp(value, 0, 1);
-            value = value*100.0f -80.0f;
+            value = value*80.0f -80.0f;
             return SetFloat(groupName, valueName, value);         
         }
         /// <summary>
@@ -211,7 +218,7 @@ namespace Farme
         {
            if( GetFloat(groupName, valueName,out value))
             {
-                value = (value+80.0f)/100.0f;
+                value = (value + 80.0f) / 80.0f;
                 return true;
             }
             return false;
