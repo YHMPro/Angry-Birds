@@ -196,7 +196,6 @@ namespace Angry_Birds
             }
         }
         #endregion
-
         #region Rig
         public virtual void SetBirdRig2DVelocity(Vector2 velocity)
         {

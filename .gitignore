@@ -3,6 +3,9 @@
 [Bb]in/
 [Oo]bj/
 
+# Asset meta data should only be ignored when the corresponding asset is also ignored
+!/[Aa]ssets/**/*.meta
+
 # mstest test results
 TestResults
 
@@ -21,8 +24,8 @@ x64/
 *_i.c
 *_p.c
 *.ilk
-*.meta
 *.obj
+*.meta
 *.pch
 *.pdb
 *.pgc
@@ -37,7 +40,10 @@ x64/
 *.vspscc
 *.vssscc
 .builds
-
+# Unity3D generated meta files
+*.pidb.meta
+*.pdb.meta
+*.mdb.meta
 # Visual C++ cache files
 ipch/
 *.aps
