@@ -4,11 +4,11 @@ using UnityEngine;
 using Farme;
 namespace Angry_Birds
 {
-    public class YellowBird : Bird
+    public class GreenBird : Bird
     {
         protected override void Awake()
         {
-            m_ConfigInfo = NotMonoSingletonFactory<YellowBirdConfigInfo>.GetSingleton();
+            m_ConfigInfo = NotMonoSingletonFactory<GreenBirdConfigInfo>.GetSingleton();
             base.Awake();
         }
 
@@ -21,10 +21,9 @@ namespace Angry_Birds
         protected override void SkillUpdate()
         {
             base.SkillUpdate();
-            if(IsReleaseSkill)
+            if (IsReleaseSkill)
             {
-                m_Rig2D.velocity += m_Rig2D.velocity.normalized*5.0f;
-                PlaySkillAudio();
+                m_Rig2D.velocity = new Vector2(-m_Rig2D.velocity.x, m_Rig2D.velocity.y);
                 MonoSingletonFactory<ShareMono>.GetSingleton().RemoveUpdateUAction(SkillUpdate);
             }
         }

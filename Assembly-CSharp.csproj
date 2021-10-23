@@ -96,10 +96,12 @@
     <Compile Include="Assets\Project\Script\Entry.cs" />
     <Compile Include="Assets\Project\Script\GameAudio.cs" />
     <Compile Include="Assets\Project\Script\GameConfigInfo\BirdConfigInfo.cs" />
-    <Compile Include="Assets\Project\Script\GameConfigInfo\BirdConfigInfo\RedBirdConfigInfo.cs" />
-    <Compile Include="Assets\Project\Script\GameConfigInfo\BirdConfigInfo\YellowBirdConfigInfo.cs" />
     <Compile Include="Assets\Project\Script\GameLogic.cs" />
     <Compile Include="Assets\Project\Script\Model\BirdModel\Bird.cs" />
+    <Compile Include="Assets\Project\Script\Model\BirdModel\BlackBird.cs" />
+    <Compile Include="Assets\Project\Script\Model\BirdModel\GreenBird.cs" />
+    <Compile Include="Assets\Project\Script\Model\BirdModel\PinkBird.cs" />
+    <Compile Include="Assets\Project\Script\Model\BirdModel\PinkBird\Blister.cs" />
     <Compile Include="Assets\Project\Script\Model\BirdModel\RedBird.cs" />
     <Compile Include="Assets\Project\Script\Model\BirdModel\YellowBird.cs" />
     <Compile Include="Assets\Project\Script\Model\Camera\Camera2D.cs" />

@@ -7,18 +7,19 @@ namespace Angry_Birds
 { 
     public abstract class Bird : BaseMono
     {            
+
         /// <summary>
         /// 是否选中
         /// </summary>
-        private bool m_IsCheck = false;
-        /// <summary>
-        /// 是否受伤
-        /// </summary>
-        private bool m_IsHurt = false;
+        private bool m_IsCheck = false;      
         /// <summary>
         /// 是否释放技能
         /// </summary>
         private bool m_IsReleaseSkill = false;
+        /// <summary>
+        /// 是否受伤
+        /// </summary>
+        protected bool m_IsHurt = false;
         /// <summary>
         /// 配置信息
         /// </summary>
@@ -36,13 +37,17 @@ namespace Angry_Birds
         /// </summary>
         protected Animator m_Anim = null;
         /// <summary>
+        /// 拖尾
+        /// </summary>
+        protected TrailRenderer m_TRenderer = null;
+        /// <summary>
         /// 绘制线结束点
         /// </summary>
         protected Transform drawLineEnd;
         /// <summary>
         /// 射线检测的组
         /// </summary>
-        protected string[] rayCastGroup = new string[] { "Pig", "Barrier" };      
+        protected string[] rayCastGroup = new string[] { "Pig", "Barrier","Land" };      
         /// <summary>
         /// 是否冻结Z轴选中
         /// </summary>
@@ -82,6 +87,7 @@ namespace Angry_Birds
             m_CC2D = gameObject.AddComponent<CircleCollider2D>();
             m_Rig2D = GetComponent<Rigidbody2D>();
             m_Anim = GetComponent<Animator>();
+            m_TRenderer = GetComponent<TrailRenderer>();
         }
 
         protected override void Start()
@@ -90,6 +96,8 @@ namespace Angry_Birds
             m_Rig2D.mass = m_ConfigInfo.Mass;
             m_Anim.SetTrigger("IsDefault");
             drawLineEnd = transform.Find("DrawLineEnd");
+
+            SetTrailRenderer();//设置拖尾
         }
         protected virtual void OnMouseEnter()
         {
@@ -120,7 +128,8 @@ namespace Angry_Birds
                 slingShot.ClearLine();//清除线
             }
             PlayFlyAudio();//播放飞行音效
-            m_Anim.SetTrigger("IsFly");//飞行动画           
+            m_Anim.SetTrigger("IsFly");//飞行动画
+            m_TRenderer.enabled = true;//开启拖尾
         }
 
         protected virtual void OnMouseExit()
@@ -161,7 +170,7 @@ namespace Angry_Birds
             }
         }
 
-        public void BirdFlyUpdate()//用于处理鸟的飞行后的首次碰撞  
+        public virtual void BirdFlyUpdate()//用于处理鸟的飞行后的首次碰撞  
         {
             //小鸟面朝飞行方向
             transform.eulerAngles = new Vector3(0, 0, -Vector2.SignedAngle(m_Rig2D.velocity.normalized, Vector2.right));
@@ -172,12 +181,13 @@ namespace Angry_Birds
                     m_IsHurt = true;
                     PlayCrashAudio();//播放碰撞音效
                     m_Anim.SetTrigger("IsHurt");//受伤动画
+                    m_TRenderer.enabled = false;//关闭拖尾            
                     MonoSingletonFactory<ShareMono>.GetSingleton().RemoveUpdateUAction(BirdFlyUpdate);
                     MonoSingletonFactory<ShareMono>.GetSingleton().RemoveUpdateUAction(SkillUpdate);
                 }
             }
             else
-            {               
+            {              
                 MonoSingletonFactory<ShareMono>.GetSingleton().RemoveUpdateUAction(BirdFlyUpdate);
                 MonoSingletonFactory<ShareMono>.GetSingleton().RemoveUpdateUAction(SkillUpdate);
             }
@@ -225,6 +235,17 @@ namespace Angry_Birds
         protected virtual void PlaySkillAudio()
         {
             GameAudio.PlayBirdAudio(m_ConfigInfo.GetSkillAudioPath(true));
+        }
+        #endregion
+        #region TrailRenderer
+        protected virtual void SetTrailRenderer()
+        {
+            m_TRenderer.startWidth = 0.15f;
+            m_TRenderer.endWidth = 0.05f;
+            m_TRenderer.time = 0.5f;
+            m_TRenderer.startColor = Color.white;
+            m_TRenderer.endColor = new Color32(0, 0, 0, 0);
+            m_TRenderer.enabled = false;
         }
         #endregion
 

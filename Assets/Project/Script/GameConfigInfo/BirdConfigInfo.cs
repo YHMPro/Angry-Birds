@@ -94,8 +94,6 @@ namespace Angry_Birds
             }
             return FlyAudioPaths[index];
         }
-
-
         /// <summary>
         /// 获取死亡音效路径
         /// </summary>
@@ -143,6 +141,218 @@ namespace Angry_Birds
                 return SkillAudioPaths[random.Next(0, SkillAudioPaths.Length - 1)];
             }
             return SkillAudioPaths[index];
+        }
+    }
+    public class RedBirdConfigInfo : BirdConfigInfo
+    {
+        public override float Mass
+        {
+            get
+            {
+                return 1;
+            }
+        }
+        protected override string[] SelectAudioPaths
+        {
+            get
+            {
+                return new string[] { "Prefabs/Bird/RedBird/Audio/BRSelect1" };
+            }
+        }
+        protected override string[] FlyAudioPaths
+        {
+            get
+            {
+                return new string[] { "Prefabs/Bird/RedBird/Audio/BRFly1" };
+            }
+        }
+        protected override string[] CrashAudioPaths
+        {
+            get
+            {
+                return new string[] { "Prefabs/Bird/RedBird/Audio/BRCo1" };
+            }
+        }
+    }
+    public class YellowBirdConfigInfo : BirdConfigInfo
+    {
+        public override float Mass
+        {
+            get
+            {
+                return 1;
+            }
+        }
+        protected override string[] SelectAudioPaths
+        {
+            get
+            {
+                return new string[] {
+                    "Prefabs/Bird/BirdYellow/Audio/BYSelect1"
+                };
+            }
+        }
+        protected override string[] FlyAudioPaths
+        {
+            get
+            {
+                return new string[] {
+                    "Prefabs/Bird/BirdYellow/Audio/BYFly1"
+                };
+            }
+        }
+        protected override string[] CrashAudioPaths
+        {
+            get
+            {
+                return new string[] {
+                    "Prefabs/Bird/BirdYellow/Audio/BYCo1",
+                    "Prefabs/Bird/BirdYellow/Audio/BYCo2",
+                    "Prefabs/Bird/BirdYellow/Audio/BYCo3",
+                    "Prefabs/Bird/BirdYellow/Audio/BYCo4",
+                    "Prefabs/Bird/BirdYellow/Audio/BYCo5",
+                };
+            }
+        }
+
+        protected override string[] SkillAudioPaths
+        {
+            get
+            {
+                return new string[] {
+                    "Prefabs/Bird/BirdYellow/Audio/BYSkill1"
+                };
+            }
+        }
+    }
+
+    public class GreenBirdConfigInfo :BirdConfigInfo
+    {
+        public override float Mass
+        {
+            get
+            {
+                return 1;
+            }
+        }
+        protected override string[] SelectAudioPaths
+        {
+            get
+            {
+                return new string[] { "Prefabs/Bird/BirdGreen/Audio/BGSelect1" };
+            }
+        }
+        protected override string[] FlyAudioPaths
+        {
+            get
+            {
+                return new string[] { "Prefabs/Bird/BirdGreen/Audio/BGFly1" };
+            }
+        }
+        protected override string[] CrashAudioPaths
+        {
+            get
+            {
+                return new string[] { "Prefabs/Bird/BirdGreen/Audio/BGCo1",
+                    "Prefabs/Bird/BirdGreen/Audio/BGCo2",
+                    "Prefabs/Bird/BirdGreen/Audio/BGCo3",
+                    "Prefabs/Bird/BirdGreen/Audio/BGCo4"
+                };
+            }
+        }
+    }
+    public class BlackBirdConfigInfo : BirdConfigInfo
+    {
+        public override float Mass
+        {
+            get
+            {
+                return 1;
+            }
+        }
+        protected override string[] SkillAudioPaths
+        {
+            get
+            {
+                return new string[] { "Prefabs/Bird/BirdBlack/Audio/BBBlast1" };
+            }
+        }
+        protected override string[] SelectAudioPaths
+        {
+            get
+            {
+                return new string[] { "Prefabs/Bird/BirdBlack/Audio/BBSelect1" };
+            }
+        }
+        protected override string[] FlyAudioPaths
+        {
+            get
+            {
+                return new string[] { "Prefabs/Bird/BirdBlack/Audio/BBFly1" };
+            }
+        }
+        protected override string[] CrashAudioPaths
+        {
+            get
+            {
+                return new string[] { "Prefabs/Bird/BirdBlack/Audio/BBCo1",
+                    "Prefabs/Bird/BirdBlack/Audio/BBCo2",
+                    "Prefabs/Bird/BirdBlack/Audio/BBCo3",
+                    "Prefabs/Bird/BirdBlack/Audio/BBCo4"
+                };
+            }
+        }
+    }
+    public class PinkBirdConfigInfo : BirdConfigInfo
+    {
+        public override float Mass
+        {
+            get
+            {
+                return 1;
+            }
+        }
+        protected override string[] SkillAudioPaths
+        {
+            get
+            {
+                return new string[] { "Prefabs/Bird/BirdPink/Audio/BPSkill1",
+                    "Prefabs/Bird/BirdPink/Audio/BPSkill2",
+                    "Prefabs/Bird/BirdPink/Audio/BPSkill3"
+                };
+            }
+        }
+        protected override string[] SelectAudioPaths
+        {
+            get
+            {
+                return new string[] { "Prefabs/Bird/BirdPink/Audio/BPSelect1",
+                    "Prefabs/Bird/BirdPink/Audio/BPSelect2",
+                    "Prefabs/Bird/BirdPink/Audio/BPSelect3"
+                };
+            }
+        }
+        protected override string[] FlyAudioPaths
+        {
+            get
+            {
+                return new string[] { "Prefabs/Bird/BirdPink/Audio/BPFly1",
+                    "Prefabs/Bird/BirdPink/Audio/BPFly2",
+                    "Prefabs/Bird/BirdPink/Audio/BPFly3"
+                };
+            }
+        }
+        protected override string[] CrashAudioPaths
+        {
+            get
+            {
+                return new string[] { "Prefabs/Bird/BirdPink/Audio/BPCo1",
+                    "Prefabs/Bird/BirdPink/Audio/BPCo2",
+                    "Prefabs/Bird/BirdPink/Audio/BPCo3",
+                    "Prefabs/Bird/BirdPink/Audio/BPCo4",
+                    "Prefabs/Bird/BirdPink/Audio/BPCo5"
+                };
+            }
         }
     }
 }
