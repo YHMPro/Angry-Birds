@@ -94,7 +94,14 @@
     <Compile Include="Assets\Frame\Load\ResourcesLoad.cs" />
     <Compile Include="Assets\Frame\Load\SceneLoad.cs" />
     <Compile Include="Assets\Project\Script\Entry.cs" />
+    <Compile Include="Assets\Project\Script\GameAudio.cs" />
+    <Compile Include="Assets\Project\Script\GameConfigInfo\BirdConfigInfo.cs" />
+    <Compile Include="Assets\Project\Script\GameConfigInfo\BirdConfigInfo\RedBirdConfigInfo.cs" />
+    <Compile Include="Assets\Project\Script\GameConfigInfo\BirdConfigInfo\YellowBirdConfigInfo.cs" />
+    <Compile Include="Assets\Project\Script\GameLogic.cs" />
     <Compile Include="Assets\Project\Script\Model\BirdModel\Bird.cs" />
+    <Compile Include="Assets\Project\Script\Model\BirdModel\RedBird.cs" />
+    <Compile Include="Assets\Project\Script\Model\BirdModel\YellowBird.cs" />
     <Compile Include="Assets\Project\Script\Model\Camera\Camera2D.cs" />
     <Compile Include="Assets\Project\Script\Model\Camera\CameraUI.cs" />
     <Compile Include="Assets\Project\Script\Model\FlyPath\FlyPath.cs" />

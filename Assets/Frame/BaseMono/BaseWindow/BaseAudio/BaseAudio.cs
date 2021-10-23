@@ -96,15 +96,18 @@ namespace Farme
         {
             set
             {
-                if(value)
+                if (m_IsAutoRecycle != value)
                 {
-                    AppendRecoverer();
+                    if (value)
+                    {
+                        AppendRecoverer();
+                    }
+                    else
+                    {
+                        RemoveRecoverer();
+                    }
+                    m_IsAutoRecycle = value;
                 }
-                else
-                {
-                    RemoveRecoverer();
-                }
-                m_IsAutoRecycle = value;
             }
             get
             {
@@ -208,6 +211,7 @@ namespace Farme
             {
                 m_Recoverer = MonoSingletonFactory<ShareMono>.GetSingleton().DelayUAction(m_Ac.length - m_As.time, () =>//延迟回收时长为调用时音效剪辑总时长-已播放时长
                 {
+                    m_As.Stop();//停止播放
                     m_IsPause = false;//非暂停
                     m_IsPlay = false;//非播放
                     m_IsStop = true;//停止
@@ -243,12 +247,15 @@ namespace Farme
         protected virtual bool AudioPlay()
         {
             if (m_As != null && !m_IsPlay)
-            {
-                if (!m_Loop)//非循环
-                {
-                    AppendRecoverer();//添加回收器
-                }
+            {              
                 m_As.Play();
+                if (IsAutoRecycle)
+                {
+                    if (!m_Loop)//非循环
+                    {
+                        AppendRecoverer();//添加回收器
+                    }
+                }
                 m_IsPlay = true;//播放
                 m_IsPause = false;//非暂停
                 m_IsStop = false;//非停止
@@ -264,12 +271,15 @@ namespace Farme
         protected virtual bool AudioPause()
         {
             if (m_As != null && !m_IsPause)
-            {
-                if (!m_Loop)//非循环
-                {
-                    RemoveRecoverer();//移除回收器
-                }
+            {               
                 m_As.Pause();
+                if (IsAutoRecycle)
+                {
+                    if (!m_Loop)//非循环
+                    {
+                        RemoveRecoverer();//移除回收器
+                    }
+                }
                 m_IsPlay = false;//非播放
                 m_IsStop = false;//非停止
                 m_IsPause = true;//暂停
@@ -285,12 +295,15 @@ namespace Farme
         protected virtual bool AudioStop()
         {
             if (m_As != null && !m_IsStop)
-            {
-                if (!m_Loop)//非循环
-                {
-                    RemoveRecoverer();//移除回收器
-                }
+            {                
                 m_As.Stop();//停止播放
+                if (IsAutoRecycle)
+                {
+                    if (!m_Loop)//非循环
+                    {
+                        RemoveRecoverer();//移除回收器
+                    }
+                }
                 m_As.time = 0;//重置播放时长
                 m_IsPause = false;//非暂停
                 m_IsPlay = false;//非播放           
@@ -308,14 +321,17 @@ namespace Farme
         protected virtual bool AudioReplay()
         {
             if (m_As != null && !m_IsStop)
-            {
-                if (!m_As.loop)//非循环
-                {
-                    RemoveRecoverer();//移除回收器
-                }
+            {             
                 m_As.time = 0;//起始播放时长归零
                 m_As.Play();//播放
-                AppendRecoverer();//添加回收器
+                if (IsAutoRecycle)
+                {
+                    if (!m_As.loop)//非循环
+                    {
+                        RemoveRecoverer();//移除回收器
+                        AppendRecoverer();//添加回收器
+                    }
+                }
                 m_IsPlay = true;//播放
                 m_IsPause = false;//非暂停
                 m_IsStop = false;//非停止
@@ -391,15 +407,21 @@ namespace Farme
             {
                 if (m_Loop != loop)
                 {
-                    if(loop)
+                    if (IsAutoRecycle)
                     {
-                        RemoveRecoverer();//移除回收器
-                        
+                        if (loop)
+                        {
+                            RemoveRecoverer();//移除回收器                       
+                        }
+                        else
+                        {
+                            if (IsAutoRecycle)
+                            {
+
+                                AppendRecoverer();//添加回收器
+                            }
+                        }
                     }
-                    else
-                    {
-                        AppendRecoverer();//添加回收器
-                    }                      
                     m_As.loop = loop;
                     m_Loop = loop;
                 }
@@ -428,11 +450,14 @@ namespace Farme
             {
                 m_As.time = playedTime;
                 m_PlayedTime = playedTime;
-                if (!m_Loop)
+                if (IsAutoRecycle)
                 {
-                    //重新设置回收器
-                    RemoveRecoverer();//移除
-                    AppendRecoverer();//添加
+                    if (!m_Loop)
+                    {
+                        //重新设置回收器
+                        RemoveRecoverer();//移除
+                        AppendRecoverer();//添加
+                    }
                 }
                 return true;
             }

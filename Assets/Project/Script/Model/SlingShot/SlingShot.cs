@@ -9,7 +9,6 @@ namespace Angry_Birds
     /// </summary>
     public class SlingShot : BaseMono
     {
-        private Bird nowBindBird = null;
         private SpringJoint2D m_SJ2D;
 
         private float m_ApplyingMaxSpeed = 15;
@@ -33,9 +32,9 @@ namespace Angry_Birds
         {
             get
             {
-                if(nowBindBird!=null)
+                if(GameLogic.NowComeBird!=null)
                 {
-                    Vector2 birdToSelfDir = GetOriginGlobalPos(nowBindBird.transform.position.z) - nowBindBird.transform.position;
+                    Vector2 birdToSelfDir = GetOriginGlobalPos(GameLogic.NowComeBird.transform.position.z) - GameLogic.NowComeBird.transform.position;
                     return birdToSelfDir.normalized * birdToSelfDir.magnitude / StretchDis * m_ApplyingMaxSpeed;
                 }
                 return Vector2.zero;
@@ -46,6 +45,8 @@ namespace Angry_Birds
         {
             base.Awake();
             RegisterComponentsTypes<LineRenderer>();
+
+            m_SJ2D = GetComponent<SpringJoint2D>();
         }
 
         protected override void Start()
@@ -63,13 +64,11 @@ namespace Angry_Birds
                 rightLR.startWidth = 0.2f;
                 rightLR.endWidth = 0.1f;
             }
-            m_SJ2D = GetComponent<SpringJoint2D>();
+            
         }
 
-        public void RendererLine(Vector3 aimPoint,float radius)
+        public void RendererLine(Vector3 drawLineEndPoint)
         {
-            aimPoint = aimPoint - GetOriginGlobalPos(aimPoint.z);
-            aimPoint = GetOriginGlobalPos(aimPoint.z) + aimPoint.normalized * (aimPoint.magnitude + radius / 2.0f);
             if (GetComponent("LeftRendererLine",out LineRenderer leftLR))
             {
                 if(leftLR.positionCount!=2)
@@ -77,7 +76,7 @@ namespace Angry_Birds
                     leftLR.positionCount = 2;
                 }
                 leftLR.SetPosition(0, leftLR.transform.position);
-                leftLR.SetPosition(1, aimPoint);
+                leftLR.SetPosition(1, drawLineEndPoint);
             }
             if(GetComponent("RightRendererLine", out LineRenderer rightLR))
             {
@@ -86,7 +85,7 @@ namespace Angry_Birds
                     rightLR.positionCount = 2;
                 }
                 rightLR.SetPosition(0, rightLR.transform.position);
-                rightLR.SetPosition(1, aimPoint);
+                rightLR.SetPosition(1, drawLineEndPoint);
             }
         }
         public void ClearLine()
@@ -100,22 +99,25 @@ namespace Angry_Birds
                 rightLR.positionCount = 0;
             }
         }
-        public void BindBird(Bird bird)
+        public void BindBird()
         {
-            nowBindBird = bird;
-            if (MonoSingletonFactory<FlyPath>.SingletonExist)
-            {
-                MonoSingletonFactory<FlyPath>.GetSingleton().ActiveFlyPath(true);
-            }
-            MonoSingletonFactory<ShareMono>.GetSingleton().AddUpdateUAction(nowBindBird.BirdControlUpdate);
+            if (GameLogic.NowComeBird == null)
+                return;
+            m_SJ2D.connectedBody = GameLogic.NowComeBird.GetComponent<Rigidbody2D>();//设置刚体绑定链接
+            MonoSingletonFactory<ShareMono>.GetSingleton().AddUpdateUAction(GameLogic.NowComeBird.BirdControlUpdate);//添加小鸟控制更新
 
         }
 
         public void BreakBird()
         {
-            if (nowBindBird == null)
-                return;          
-            nowBindBird.SetBirdRig2DVelocity(ApplyingVelocity);
+            if (GameLogic.NowComeBird == null)
+                return;
+            m_SJ2D.connectedBody = null;
+            MonoSingletonFactory<ShareMono>.GetSingleton().RemoveUpdateUAction(GameLogic.NowComeBird.BirdControlUpdate);//移除小鸟控制更新
+            MonoSingletonFactory<ShareMono>.GetSingleton().AddUpdateUAction(GameLogic.NowComeBird.BirdFlyUpdate);//添加小鸟飞行更新
+            GameLogic.NowComeBird.SetBirdRig2DVelocity(ApplyingVelocity);//设置小鸟基于弹弓获得的初始速度
+            GameLogic.NowComeBird.IsFreeze_ZRotation = false;//解除小鸟Z轴选中冻结
+            
             //计算预瞄准点位置
             if (MonoSingletonFactory<FlyPath>.SingletonExist)
             {
@@ -125,11 +127,10 @@ namespace Angry_Birds
                  {
                      if(flyPath!=null)
                      {
-                         flyPath.BreakBird();
                          flyPath.ActiveFlyPath(false);
                      }
                  });
-            }       
+            }          
         }
 
         public Vector3 GetOriginGlobalPos(float z)

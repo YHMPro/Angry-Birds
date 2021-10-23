@@ -9,18 +9,18 @@ namespace Angry_Birds
         public Bird b;
         private void Awake()
         {
-            MonoSingletonFactory<Camera2D>.GetSingleton();
-            MonoSingletonFactory<FlyPath>.GetSingleton().BindBird(b);
-            MonoSingletonFactory<SlingShot>.GetSingleton().BindBird(b);
-
-
-
+           
+            
 
         }
         // Start is called before the first frame update
         void Start()
         {
-
+            GameLogic.NowComeBird = b;
+            MonoSingletonFactory<Camera2D>.GetSingleton();
+            MonoSingletonFactory<FlyPath>.GetSingleton();
+            MonoSingletonFactory<Audio2DMgr>.GetSingleton();
+            MonoSingletonFactory<SlingShot>.GetSingleton().BindBird();
         }
 
         // Update is called once per frame

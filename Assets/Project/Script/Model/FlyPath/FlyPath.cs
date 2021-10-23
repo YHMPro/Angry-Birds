@@ -6,12 +6,9 @@ namespace Angry_Birds
 {
     public class FlyPath : MonoBehaviour
     {
-
-        private Bird nowBindBird = null;
-        private int m_PathPointCount = 5;
+        private int m_PathPointCount = 3;
         private Transform[] m_PointTrans;
         private bool m_Active = false;
-
         private Transform[] PointTrans
         {
             get
@@ -24,7 +21,7 @@ namespace Angry_Birds
                         if (GoLoad.Take("Prefabs/Point", out GameObject go, transform))
                         {
                             m_PointTrans[i] = go.transform;
-                            go.SetActive(m_Active);
+                            go.SetActive(false);                          
                         }
                     }
                 }
@@ -35,16 +32,11 @@ namespace Angry_Birds
         {       
             
         }
-        public void BindBird(Bird bird)
-        {
-            nowBindBird = bird;
-        }
-
-        public void BreakBird()
-        {
-            nowBindBird = null;
-        }
-
+      
+        /// <summary>
+        /// 飞行路径活动状态
+        /// </summary>
+        /// <param name="active"></param>
         public void ActiveFlyPath(bool active)
         {
             if(m_Active!=active)
@@ -54,13 +46,16 @@ namespace Angry_Birds
                 {
                     pointTran.gameObject.SetActive(m_Active);
                 }
-            }
-           
-
+            }          
         }
+        /// <summary>
+        /// 设置飞行路径
+        /// </summary>
+        /// <param name="startTime"></param>
+        /// <param name="timeInterval"></param>
         public void SetFlyPath(float startTime,float timeInterval)
         {
-            if (nowBindBird == null)
+            if (GameLogic.NowComeBird == null)
                 return;
             if (!m_Active)
                 return;
@@ -68,7 +63,7 @@ namespace Angry_Birds
             {
                 for(int i=0;i< PointTrans.Length; i++)
                 {
-                    PointTrans[i].position = MonoSingletonFactory<SlingShot>.GetSingleton().CountPathPoint(startTime+timeInterval * i) + (Vector2)nowBindBird.transform.position;           
+                    PointTrans[i].position = MonoSingletonFactory<SlingShot>.GetSingleton().CountPathPoint(startTime+timeInterval * i) + (Vector2)GameLogic.NowComeBird.transform.position;           
                 }
             }
         }
