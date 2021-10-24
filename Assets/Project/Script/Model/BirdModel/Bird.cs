@@ -7,7 +7,6 @@ namespace Angry_Birds
 { 
     public abstract class Bird : BaseMono
     {            
-
         /// <summary>
         /// 是否选中
         /// </summary>
@@ -88,6 +87,9 @@ namespace Angry_Birds
             m_Rig2D = GetComponent<Rigidbody2D>();
             m_Anim = GetComponent<Animator>();
             m_TRenderer = GetComponent<TrailRenderer>();
+
+
+            SetTrailRenderer();//设置拖尾
         }
 
         protected override void Start()
@@ -97,7 +99,7 @@ namespace Angry_Birds
             m_Anim.SetTrigger("IsDefault");
             drawLineEnd = transform.Find("DrawLineEnd");
 
-            SetTrailRenderer();//设置拖尾
+           
         }
 
         protected override void OnDestroy()
@@ -134,7 +136,7 @@ namespace Angry_Birds
             }
             PlayFlyAudio();//播放飞行音效
             m_Anim.SetTrigger("IsFly");//飞行动画
-            m_TRenderer.enabled = true;//开启拖尾
+            ActiveTrailRenderer(true);//开启拖尾
         }
 
         protected virtual void OnMouseExit()
@@ -186,15 +188,15 @@ namespace Angry_Birds
                     m_IsHurt = true;
                     PlayCrashAudio();//播放碰撞音效
                     m_Anim.SetTrigger("IsHurt");//受伤动画
-                    m_TRenderer.enabled = false;//关闭拖尾            
+                    ActiveTrailRenderer(false);//关闭拖尾            
                     MonoSingletonFactory<ShareMono>.GetSingleton().RemoveUpdateUAction(BirdFlyUpdate);
                     MonoSingletonFactory<ShareMono>.GetSingleton().RemoveUpdateUAction(SkillUpdate);
                 }
             }
             else
             {              
-                MonoSingletonFactory<ShareMono>.GetSingleton().RemoveUpdateUAction(BirdFlyUpdate);
-                MonoSingletonFactory<ShareMono>.GetSingleton().RemoveUpdateUAction(SkillUpdate);
+                //MonoSingletonFactory<ShareMono>.GetSingleton().RemoveUpdateUAction(BirdFlyUpdate);
+                //MonoSingletonFactory<ShareMono>.GetSingleton().RemoveUpdateUAction(SkillUpdate);
             }
         }
 
@@ -243,6 +245,14 @@ namespace Angry_Birds
         }
         #endregion
         #region TrailRenderer
+
+        protected virtual void ActiveTrailRenderer(bool active)
+        {
+            if(m_TRenderer!=null)
+            {
+                m_TRenderer.enabled = active;
+            }
+        }
         protected virtual void SetTrailRenderer()
         {
             m_TRenderer.startWidth = 0.15f;
@@ -250,9 +260,18 @@ namespace Angry_Birds
             m_TRenderer.time = 0.5f;
             m_TRenderer.startColor = Color.white;
             m_TRenderer.endColor = new Color32(0, 0, 0, 0);
-            m_TRenderer.enabled = false;
+            ActiveTrailRenderer(false);
         }
         #endregion
-
+        #region Boom
+        public void OpenBoom()
+        {
+            if(GoLoad.Take(GameConfigInfo.BoomPath,out GameObject go))
+            {
+                go.GetComponent<Boom>().OpenBoom("BirdBoom");
+            }
+            
+        }
+        #endregion
     }
 }

@@ -76,12 +76,13 @@ namespace Angry_Birds
             });
         }
         protected override void SkillUpdate()
-        {           
+        {
+            base.SkillUpdate();
             if (IsReleaseSkill)
             {
                 m_TRenderer.enabled = false;//关闭拖尾            
                 MonoSingletonFactory<ShareMono>.GetSingleton().RemoveUpdateUAction(SkillUpdate);
-                m_Anim.SetTrigger("IsSkill");              
+                MonoSingletonFactory<ShareMono>.GetSingleton().RemoveUpdateUAction(BirdFlyUpdate);
             }
         }
     }

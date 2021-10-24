@@ -6,12 +6,53 @@ namespace Angry_Birds
 {
     public class VanBird : Bird
     {
-        
+        private Transform m_AimTran;
+        protected override void Awake()
+        {
+            m_ConfigInfo = NotMonoSingletonFactory<VanBirdConfigInfo>.GetSingleton();
+            base.Awake();
+            m_AimTran=transform.Find("Aim");
+        }
+        protected override void Start()
+        {
+            base.Start();
+            m_AimTran.gameObject.SetActive(false);
+        }
+        protected override void OnMouseUp()
+        {
+            base.OnMouseUp();
+            MonoSingletonFactory<ShareMono>.GetSingleton().AddUpdateUAction(SkillUpdate);//持续监听技能释放指令
+        }
 
+        protected override void SkillUpdate()
+        {
+            base.SkillUpdate();
+            if (IsReleaseSkill)
+            {
+                m_AimTran.gameObject.SetActive(true);
+                m_Rig2D.isKinematic = true;
+                m_Rig2D.velocity = Vector2.zero;
+                MonoSingletonFactory<ShareMono>.GetSingleton().AddUpdateUAction(AimControlUpdate);
+                MonoSingletonFactory<ShareMono>.GetSingleton().RemoveUpdateUAction(SkillUpdate);
+            }
+        }
 
-
-
-
-
+        private void AimControlUpdate()
+        {
+            if (MonoSingletonFactory<Camera2D>.SingletonExist)
+            {
+                Vector3 movePos = MonoSingletonFactory<Camera2D>.GetSingleton().ScreenToWorldPoint(Input.mousePosition, transform.position.z);
+                m_AimTran.position = movePos;
+                if(Input.GetMouseButtonDown(0))
+                {
+                    Vector3 dir = (movePos - transform.position).normalized;
+                    m_Rig2D.isKinematic = false;
+                    m_Rig2D.velocity = dir *15.0f;
+                    MonoSingletonFactory<ShareMono>.GetSingleton().RemoveUpdateUAction(AimControlUpdate);
+                    m_AimTran.gameObject.SetActive(false);
+                }
+            }
+                
+        }
     }
 }

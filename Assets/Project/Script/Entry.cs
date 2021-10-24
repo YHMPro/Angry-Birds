@@ -9,8 +9,8 @@ namespace Angry_Birds
         public Bird b;
         private void Awake()
         {
-           
-            
+
+            Debug.Log(Mathf.Cos(60.0f/180.0f*Mathf.PI));
 
         }
         // Start is called before the first frame update

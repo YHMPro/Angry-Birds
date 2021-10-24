@@ -101,12 +101,17 @@
     <Compile Include="Assets\Project\Script\GameLogic.cs" />
     <Compile Include="Assets\Project\Script\Model\BirdModel\Bird.cs" />
     <Compile Include="Assets\Project\Script\Model\BirdModel\BlackBird.cs" />
+    <Compile Include="Assets\Project\Script\Model\BirdModel\BlueBird.cs" />
+    <Compile Include="Assets\Project\Script\Model\BirdModel\BlueBird\LittleBlueBird.cs" />
     <Compile Include="Assets\Project\Script\Model\BirdModel\GreenBird.cs" />
     <Compile Include="Assets\Project\Script\Model\BirdModel\PinkBird.cs" />
     <Compile Include="Assets\Project\Script\Model\BirdModel\PinkBird\Blister.cs" />
     <Compile Include="Assets\Project\Script\Model\BirdModel\RedBird.cs" />
     <Compile Include="Assets\Project\Script\Model\BirdModel\VanBird.cs" />
+    <Compile Include="Assets\Project\Script\Model\BirdModel\WriteBird.cs" />
+    <Compile Include="Assets\Project\Script\Model\BirdModel\WriteBird\Egg.cs" />
     <Compile Include="Assets\Project\Script\Model\BirdModel\YellowBird.cs" />
+    <Compile Include="Assets\Project\Script\Model\Boom.cs" />
     <Compile Include="Assets\Project\Script\Model\Camera\Camera2D.cs" />
     <Compile Include="Assets\Project\Script\Model\Camera\CameraUI.cs" />
     <Compile Include="Assets\Project\Script\Model\FlyPath\FlyPath.cs" />

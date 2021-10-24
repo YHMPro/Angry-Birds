@@ -355,4 +355,137 @@ namespace Angry_Birds
             }
         }
     }
+    public class VanBirdConfigInfo : BirdConfigInfo
+    {
+        public override float Mass
+        {
+            get
+            {
+                return 1;
+            }
+        }
+        protected override string[] SkillAudioPaths
+        {
+            get
+            {
+                return new string[] { "Prefabs/Bird/BirdVan/Audio/BVSkill1",
+                };
+            }
+        }
+        protected override string[] SelectAudioPaths
+        {
+            get
+            {
+                return new string[] { "Prefabs/Bird/BirdVan/Audio/BVSelect1",
+                };
+            }
+        }
+        protected override string[] FlyAudioPaths
+        {
+            get
+            {
+                return new string[] { "Prefabs/Bird/BirdVan/Audio/BVFly1",
+                };
+            }
+        }
+        protected override string[] CrashAudioPaths
+        {
+            get
+            {
+                return new string[] { "Prefabs/Bird/BirdVan/Audio/BVCo1",
+                    "Prefabs/Bird/BirdVan/Audio/BVCo2",
+                    "Prefabs/Bird/BirdVan/Audio/BVCo3",
+                    "Prefabs/Bird/BirdVan/Audio/BVCo4",
+                };
+            }
+        }
+    }
+    public class WriteBirdConfigInfo : BirdConfigInfo
+    {
+        public override float Mass
+        {
+            get
+            {
+                return 1;
+            }
+        }
+        protected override string[] SkillAudioPaths
+        {
+            get
+            {
+                return new string[] { "Prefabs/Bird/BirdWhite/Audio/BWSkill1",
+                };
+            }
+        }
+        protected override string[] SelectAudioPaths
+        {
+            get
+            {
+                return new string[] { "Prefabs/Bird/BirdWhite/Audio/BWSelect1",
+                };
+            }
+        }
+        protected override string[] FlyAudioPaths
+        {
+            get
+            {
+                return new string[] { "Prefabs/Bird/BirdWhite/Audio/BWFly1",
+                };
+            }
+        }
+        protected override string[] CrashAudioPaths
+        {
+            get
+            {
+                return new string[] { "Prefabs/Bird/BirdWhite/Audio/BWCo1",
+                    "Prefabs/Bird/BirdWhite/Audio/BWCo2",
+                    "Prefabs/Bird/BirdWhite/Audio/BWCo3",
+                    "Prefabs/Bird/BirdWhite/Audio/BWCo4",
+                    "Prefabs/Bird/BirdWhite/Audio/BWCo5"
+                };
+            }
+        }
+    }
+    public class BlueBirdConfigInfo : BirdConfigInfo
+    {
+        public override float Mass
+        {
+            get
+            {
+                return 1;
+            }
+        }
+        protected override string[] SkillAudioPaths
+        {
+            get
+            {
+                return new string[] { "Prefabs/Bird/BirdBlue/Audio/BBSkill1",
+                };
+            }
+        }
+        protected override string[] SelectAudioPaths
+        {
+            get
+            {
+                return new string[] { "Prefabs/Bird/BirdBlue/Audio/BBSelect1",
+                };
+            }
+        }
+        protected override string[] FlyAudioPaths
+        {
+            get
+            {
+                return new string[] { "Prefabs/Bird/BirdBlue/Audio/BBFly1",
+                };
+            }
+        }
+        protected override string[] CrashAudioPaths
+        {
+            get
+            {
+                return new string[] { "Prefabs/Bird/BirdBlue/Audio/BWCo1",                  
+                };
+            }
+        }
+    }
 }
