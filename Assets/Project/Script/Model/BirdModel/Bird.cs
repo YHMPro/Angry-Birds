@@ -99,6 +99,11 @@ namespace Angry_Birds
 
             SetTrailRenderer();//设置拖尾
         }
+
+        protected override void OnDestroy()
+        {
+            base.OnDestroy();
+        }
         protected virtual void OnMouseEnter()
         {
             

@@ -18,7 +18,7 @@ namespace Angry_Birds
                     m_PointTrans = new Transform[m_PathPointCount];
                     for (int i = 0; i < m_PathPointCount; i++)
                     {
-                        if (GoLoad.Take("Prefabs/Point", out GameObject go, transform))
+                        if (GoLoad.Take(GameConfigInfo.PointPath, out GameObject go, transform))
                         {
                             m_PointTrans[i] = go.transform;
                             go.SetActive(false);                          

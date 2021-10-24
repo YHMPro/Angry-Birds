@@ -39,12 +39,13 @@ namespace Angry_Birds
             {
                 if (Physics2D.OverlapCircle(transform.position, m_CC2D.radius + 0.15f, LayerMask.GetMask(rayCastGroup)))
                 {
+                    MonoSingletonFactory<ShareMono>.GetSingleton().RemoveUpdateUAction(BirdFlyUpdate);
+                    MonoSingletonFactory<ShareMono>.GetSingleton().RemoveUpdateUAction(SkillUpdate);
                     m_IsHurt = true;
                     PlayCrashAudio();//播放碰撞音效
                     m_Anim.SetTrigger("IsSkill");//播放技能动画
                     m_TRenderer.enabled = false;//关闭拖尾            
-                    MonoSingletonFactory<ShareMono>.GetSingleton().RemoveUpdateUAction(BirdFlyUpdate);
-                    MonoSingletonFactory<ShareMono>.GetSingleton().RemoveUpdateUAction(SkillUpdate);
+                   
                 }
             }
             else

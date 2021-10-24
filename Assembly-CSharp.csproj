@@ -96,6 +96,8 @@
     <Compile Include="Assets\Project\Script\Entry.cs" />
     <Compile Include="Assets\Project\Script\GameAudio.cs" />
     <Compile Include="Assets\Project\Script\GameConfigInfo\BirdConfigInfo.cs" />
+    <Compile Include="Assets\Project\Script\GameConfigInfo\GameConfigInfo.cs" />
+    <Compile Include="Assets\Project\Script\GameConfigInfo\PigConfigInfo.cs" />
     <Compile Include="Assets\Project\Script\GameLogic.cs" />
     <Compile Include="Assets\Project\Script\Model\BirdModel\Bird.cs" />
     <Compile Include="Assets\Project\Script\Model\BirdModel\BlackBird.cs" />
@@ -103,10 +105,13 @@
     <Compile Include="Assets\Project\Script\Model\BirdModel\PinkBird.cs" />
     <Compile Include="Assets\Project\Script\Model\BirdModel\PinkBird\Blister.cs" />
     <Compile Include="Assets\Project\Script\Model\BirdModel\RedBird.cs" />
+    <Compile Include="Assets\Project\Script\Model\BirdModel\VanBird.cs" />
     <Compile Include="Assets\Project\Script\Model\BirdModel\YellowBird.cs" />
     <Compile Include="Assets\Project\Script\Model\Camera\Camera2D.cs" />
     <Compile Include="Assets\Project\Script\Model\Camera\CameraUI.cs" />
     <Compile Include="Assets\Project\Script\Model\FlyPath\FlyPath.cs" />
+    <Compile Include="Assets\Project\Script\Model\PigModel\Pig.cs" />
+    <Compile Include="Assets\Project\Script\Model\PigModel\Pig1.cs" />
     <Compile Include="Assets\Project\Script\Model\SlingShot\SlingShot.cs" />
     <Reference Include="Unity.Timeline.Editor">
       <HintPath>S:/UnityPro2019.3.7f1/Project2/Angry-Birds/Library/ScriptAssemblies/Unity.Timeline.Editor.dll</HintPath>
