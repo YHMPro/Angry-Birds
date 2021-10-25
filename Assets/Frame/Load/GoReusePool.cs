@@ -9,7 +9,18 @@ namespace Farme
     {
         protected GoReusePool() { }
         #region 字段
-        private static Dictionary<string,List<GameObject>> _reuseGoDic = null;
+        private static Dictionary<string,List<GameObject>> m_ReuseGoDic = null;
+        private static Dictionary<string, List<GameObject>> ReuseGoDic
+        {
+            get
+            {
+                if(m_ReuseGoDic==null)
+                {
+                    m_ReuseGoDic = new Dictionary<string, List<GameObject>>();
+                }
+                return m_ReuseGoDic;
+            }
+        }
         #endregion
         #region 方法
         /// <summary>
@@ -21,12 +32,8 @@ namespace Farme
         /// <returns></returns>
         public static bool Take(string reuseGroup, out GameObject result)
         {
-            result = null;
-            if(_reuseGoDic==null)
-            {
-                _reuseGoDic = new Dictionary<string, List<GameObject>>();
-            }
-            if (_reuseGoDic.TryGetValue(reuseGroup,out List<GameObject> goLi))
+            result = null;         
+            if (ReuseGoDic.TryGetValue(reuseGroup,out List<GameObject> goLi))
             {
                 foreach(var go in goLi)
                 {
@@ -51,22 +58,18 @@ namespace Farme
         /// <param name="reuseGroup">复用组</param>
         /// <param name="target">对象</param>
         public static void Put(string reuseGroup,GameObject target)
-        {
-            if (_reuseGoDic == null)
-            {
-                _reuseGoDic = new Dictionary<string, List<GameObject>>();
-            }
+        {        
             if(target==null)
             {
                 return;
             }
             target.SetActive(false);
-            if (_reuseGoDic.TryGetValue(reuseGroup,out List<GameObject> goLi))
+            if (ReuseGoDic.TryGetValue(reuseGroup,out List<GameObject> goLi))
             {
                 goLi.Add(target);
                 return;
             }
-            _reuseGoDic.Add(reuseGroup, new List<GameObject>() { target });
+            ReuseGoDic.Add(reuseGroup, new List<GameObject>() { target });
         }
         /// <summary>
         /// 预热

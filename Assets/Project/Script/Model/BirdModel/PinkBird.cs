@@ -34,8 +34,7 @@ namespace Angry_Birds
                     MonoSingletonFactory<ShareMono>.GetSingleton().RemoveUpdateUAction(SkillUpdate);
                     m_IsHurt = true;
                     m_TRenderer.enabled = false;//关闭拖尾  
-                    m_Anim.SetTrigger("IsSkill");//播放技能动画
-                                                                 
+                    m_Anim.SetTrigger("IsSkill");//播放技能动画                                                             
                 }
             }
             else

@@ -143,7 +143,7 @@ namespace Angry_Birds
         {
             
         }
-        
+        #region Update
         public void BirdControlUpdate()
         {
             if (m_IsCheck)//是否选中
@@ -176,7 +176,6 @@ namespace Angry_Birds
                 slingShot.RendererLine(drawLineEnd.position);
             }
         }
-
         public virtual void BirdFlyUpdate()//用于处理鸟的飞行后的首次碰撞  
         {
             //小鸟面朝飞行方向
@@ -189,17 +188,13 @@ namespace Angry_Birds
                     PlayCrashAudio();//播放碰撞音效
                     m_Anim.SetTrigger("IsHurt");//受伤动画
                     ActiveTrailRenderer(false);//关闭拖尾            
+                    MonoSingletonFactory<ShareMono>.GetSingleton().DelayUAction(3.0f, OpenBoom);//延迟打开死亡特效
                     MonoSingletonFactory<ShareMono>.GetSingleton().RemoveUpdateUAction(BirdFlyUpdate);
                     MonoSingletonFactory<ShareMono>.GetSingleton().RemoveUpdateUAction(SkillUpdate);
                 }
-            }
-            else
-            {              
-                //MonoSingletonFactory<ShareMono>.GetSingleton().RemoveUpdateUAction(BirdFlyUpdate);
-                //MonoSingletonFactory<ShareMono>.GetSingleton().RemoveUpdateUAction(SkillUpdate);
-            }
+            }         
         }
-
+        #endregion
         #region SKill
         protected virtual void SkillUpdate()
         {
@@ -264,14 +259,21 @@ namespace Angry_Birds
         }
         #endregion
         #region Boom
-        public void OpenBoom()
+        public virtual void OpenBoom()
         {
-            if(GoLoad.Take(GameConfigInfo.BoomPath,out GameObject go))
+            GameObject go;
+            if(!GoReusePool.Take(typeof(Boom).Name,out go))
             {
-                go.GetComponent<Boom>().OpenBoom("BirdBoom");
+                if (!GoLoad.Take(GameConfigInfo.BoomPath, out go))
+                {
+                    return;
+                }
             }
-            
+            go.transform.position = transform.position;
+            go.GetComponent<Boom>().OpenBoom("BirdBoom");
         }
         #endregion
+
+       
     }
 }

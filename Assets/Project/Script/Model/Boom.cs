@@ -11,10 +11,6 @@ namespace Angry_Birds
         {
             m_Anim = GetComponent<Animator>();
         }
-
-
-
-
         public void OpenBoom(string boomName)
         {
             m_Anim.SetTrigger(boomName);
@@ -22,9 +18,7 @@ namespace Angry_Birds
 
         public void CloseBoom()
         {
-            gameObject.SetActive(false);
-            return;
-            Destroy(gameObject);
+            GoReusePool.Put(GetType().Name, gameObject);                          
         }
     }
 }

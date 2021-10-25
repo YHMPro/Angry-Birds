@@ -10,23 +10,26 @@ namespace Angry_Birds
         private void Awake()
         {
 
-            Debug.Log(Mathf.Cos(60.0f/180.0f*Mathf.PI));
-
+            
         }
+        
         // Start is called before the first frame update
-        void Start()
+        void OnEnable()
         {
-            GameLogic.NowComeBird = b;
-            MonoSingletonFactory<Camera2D>.GetSingleton();
-            MonoSingletonFactory<FlyPath>.GetSingleton();
-            MonoSingletonFactory<Audio2DMgr>.GetSingleton();
-            MonoSingletonFactory<SlingShot>.GetSingleton().BindBird();
+           
         }
 
         // Update is called once per frame
         void Update()
         {
-
+            if(Input.GetKeyDown(KeyCode.Space))
+            {
+                GameLogic.NowComeBird = b;
+                MonoSingletonFactory<Camera2D>.GetSingleton();
+                MonoSingletonFactory<FlyPath>.GetSingleton();
+                MonoSingletonFactory<Audio2DMgr>.GetSingleton();
+                MonoSingletonFactory<SlingShot>.GetSingleton().BindBird();
+            }
         }
     }
 }

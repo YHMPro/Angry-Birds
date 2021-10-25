@@ -17,6 +17,7 @@ namespace Angry_Birds
             base.OnMouseUp();
             MonoSingletonFactory<ShareMono>.GetSingleton().AddUpdateUAction(SkillUpdate);//持续监听技能释放指令
         }
+        
         protected override void SkillUpdate()
         {
             base.SkillUpdate();
