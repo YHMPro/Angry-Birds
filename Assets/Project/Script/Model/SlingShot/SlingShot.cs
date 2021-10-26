@@ -2,13 +2,14 @@
 using System.Collections.Generic;
 using UnityEngine;
 using Farme;
-namespace Angry_Birds
+namespace Bird_VS_Boar
 {
     /// <summary>
     /// 弹弓
     /// </summary>
     public class SlingShot : BaseMono
     {
+        private SlingShotConfig m_Config = null;
         private SpringJoint2D m_SJ2D;
 
         private float m_ApplyingMaxSpeed = 15.0f;
@@ -45,13 +46,13 @@ namespace Angry_Birds
         {
             base.Awake();
             RegisterComponentsTypes<LineRenderer>();
-
+            m_Config = NotMonoSingletonFactory<SlingShotConfig>.GetSingleton();
+            m_Config.InitResources();
             m_SJ2D = GetComponent<SpringJoint2D>();
         }
-
         protected override void Start()
         {
-            base.Start();
+            base.Start();          
             if (GetComponent("LeftRendererLine", out LineRenderer leftLR))
             {
                 leftLR.positionCount = 0;
@@ -103,9 +104,9 @@ namespace Angry_Birds
         {
             if (GameLogic.NowComeBird == null)
                 return;
+            GameLogic.NowComeBird.transform.position = GetOriginGlobalPos(GameLogic.NowComeBird.transform.position.z);
             m_SJ2D.connectedBody = GameLogic.NowComeBird.GetComponent<Rigidbody2D>();//设置刚体绑定链接
             MonoSingletonFactory<ShareMono>.GetSingleton().AddUpdateUAction(GameLogic.NowComeBird.BirdControlUpdate);//添加小鸟控制更新
-
         }
 
         public void BreakBird()
@@ -118,8 +119,8 @@ namespace Angry_Birds
                 MonoSingletonFactory<Camera2D>.GetSingleton().BindBird();
             }
             MonoSingletonFactory<ShareMono>.GetSingleton().RemoveUpdateUAction(GameLogic.NowComeBird.BirdControlUpdate);//移除小鸟控制更新
-            MonoSingletonFactory<ShareMono>.GetSingleton().AddUpdateUAction(GameLogic.NowComeBird.BirdFlyUpdate);//添加小鸟飞行更新
-            GameLogic.NowComeBird.SetBirdRig2DVelocity(ApplyingVelocity);//设置小鸟基于弹弓获得的初始速度
+            MonoSingletonFactory<ShareMono>.GetSingleton().AddUpdateUAction(GameLogic.NowComeBird.OnBirdFlyUpdate_Common);//添加小鸟飞行更新
+            GameLogic.NowComeBird.SetBirdFlyVelocity(ApplyingVelocity);//设置小鸟基于弹弓获得的初始速度
             GameLogic.NowComeBird.IsFreeze_ZRotation = false;//解除小鸟Z轴选中冻结
             
             //计算预瞄准点位置
@@ -136,7 +137,14 @@ namespace Angry_Birds
                  });
             }          
         }
-
+        public void PlaySlingShotAudio()
+        {
+            GameAudio.PlaySlingAudio(m_Config.SlingShotAudioPath);
+        }
+        public void PauseSlingShotAudio()
+        {
+            GameAudio.PauseSlingAudio();
+        }
         public Vector3 GetOriginGlobalPos(float z)
         {
             Vector3 origin = transform.position + (Vector3)m_SJ2D.anchor;

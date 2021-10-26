@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using Farme;
-namespace Angry_Birds
+namespace Bird_VS_Boar
 {
     public class Egg : MonoBehaviour
     {
@@ -43,15 +43,15 @@ namespace Angry_Birds
         }
         private void EggUpdate()
         {
-            if (Physics2D.OverlapCircle(transform.position, m_CC2D.radius, LayerMask.GetMask(rayCastGroup)))
-            {
-                MonoSingletonFactory<ShareMono>.GetSingleton().RemoveUpdateUAction(EggUpdate);
-                m_Rig2D.isKinematic = true;
-                m_Rig2D.velocity *= 0;
-                m_Rig2D.angularVelocity *= 0;
-                m_CC2D.isTrigger = true;
-                m_IsSelectable = true;
-            }
+            //if (Physics2D.OverlapCircle(transform.position, m_CC2D.radius, LayerMask.GetMask(rayCastGroup)))
+            //{
+            //    MonoSingletonFactory<ShareMono>.GetSingleton().RemoveUpdateUAction(EggUpdate);
+            //    m_Rig2D.isKinematic = true;
+            //    m_Rig2D.velocity *= 0;
+            //    m_Rig2D.angularVelocity *= 0;
+            //    m_CC2D.isTrigger = true;
+            //    m_IsSelectable = true;
+            //}
         }
     }
 }

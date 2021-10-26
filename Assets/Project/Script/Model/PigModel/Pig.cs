@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using Farme;
-namespace Angry_Birds
+namespace Bird_VS_Boar
 {
     /// <summary>
     /// 猪的受伤等级
@@ -19,7 +19,6 @@ namespace Angry_Birds
     public abstract class Pig : BaseMono
     {
         protected Rigidbody2D m_Rig2D = null;
-        protected PigConfigInfo m_ConfigInfo = null;
         protected Animator m_Anim = null;
         protected EnumPigHurtGrade m_HurtGrade = EnumPigHurtGrade.None;
         protected override void Awake()
@@ -67,15 +66,12 @@ namespace Angry_Birds
         #region Audio
         protected virtual void PlayDiedAudio()
         {
-            GameAudio.PlayEffectAudio(m_ConfigInfo.GetDiedAudioPath(true));
         }
         protected virtual void PlayCrashAudio()
         {
-            GameAudio.PlayEffectAudio(m_ConfigInfo.GetCrashAudioPath(true));
         }
         protected virtual void PlaySkillAudio()
         {
-            GameAudio.PlayEffectAudio(m_ConfigInfo.GetSkillAudioPath(true));
         }
         #endregion
         

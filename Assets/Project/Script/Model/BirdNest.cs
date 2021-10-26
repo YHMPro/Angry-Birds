@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using Farme;
-namespace Angry_Birds
+namespace Bird_VS_Boar
 {
     public class BirdNest : MonoBehaviour
     {
@@ -52,11 +52,11 @@ namespace Angry_Birds
                 if (!BirdLi.Contains(collision.gameObject))
                 {
                     Bird bird = collision.gameObject.GetComponent<Bird>();
-                    if (bird!=null&& bird.IsAbleBindBirdNets)
-                    {
+                    //if (bird!=null&& bird.IsAbleBindBirdNets)
+                    //{
 
-                        BirdLi.Add(collision.gameObject);
-                    }                
+                    //    BirdLi.Add(collision.gameObject);
+                    //}                
                 }
             }
             //if(m_Fix2D)

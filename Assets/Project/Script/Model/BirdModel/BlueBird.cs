@@ -2,45 +2,49 @@
 using System.Collections.Generic;
 using UnityEngine;
 using Farme;
-namespace Angry_Birds
+namespace Bird_VS_Boar
 {
-    public class BlueBird : Bird
+    public class BlueBird : SkillBird
     {
         protected override void Awake()
         {
-            m_ConfigInfo = NotMonoSingletonFactory<BlueBirdConfigInfo>.GetSingleton();
+            m_Config = NotMonoSingletonFactory<BlueBirdConfig>.GetSingleton();
             base.Awake();
         }
 
-        protected override void OnMouseUp()
+        protected override void OnSkillUpdate()
         {
-            base.OnMouseUp();
-            MonoSingletonFactory<ShareMono>.GetSingleton().AddUpdateUAction(SkillUpdate);//持续监听技能释放指令
+            PlaySkillAudio();
+            ProductLittleBlueBird();
         }
 
-        protected override void SkillUpdate()
+        protected  void ProductLittleBlueBird()
         {
-            base.SkillUpdate();
-            if (IsReleaseSkill)
+            for (int i = 0; i < 3; i++)
             {
-                for(int i=0;i<2;i++)
+                GameObject go;
+                if(!GoReusePool.Take(typeof(LittleBlueBird).Name,out go))
                 {
-                    if (GoLoad.Take("Prefabs/Bird/BirdBlue/BirdBlue", out GameObject go))
-                    {                 
-                        go.transform.position = transform.position;
-                        BlueBird blueBird = go.GetComponent<BlueBird>();                      
-                        Vector2 velocity = m_Rig2D.velocity;
-                        float angle = Vector2.SignedAngle(Vector2.right, velocity.normalized);
-                        angle += i % 2 == 0 ? 10 : -10;                        
-                        velocity = new Vector2(Mathf.Cos(angle/ 180.0f * Mathf.PI), Mathf.Sin(angle/ 180.0f * Mathf.PI));
-                        blueBird.SetBirdRig2DVelocity(velocity * m_Rig2D.velocity.magnitude);
-                        MonoSingletonFactory<ShareMono>.GetSingleton().AddUpdateUAction(blueBird.BirdFlyUpdate);
-                        blueBird.ActiveTrailRenderer(true);
+                    if (!GoLoad.Take(m_Config.SelfResPath, out go))
+                    {
+                        return;
                     }
                 }
-                MonoSingletonFactory<ShareMono>.GetSingleton().RemoveUpdateUAction(BirdFlyUpdate);
-                MonoSingletonFactory<ShareMono>.GetSingleton().RemoveUpdateUAction(SkillUpdate);
+                LittleBlueBird blueBird;
+                if (!go.TryGetComponent(out blueBird))
+                {
+                    blueBird = go.AddComponent<LittleBlueBird>();
+                }
+                go.transform.position = transform.position;              
+                Vector2 velocity = m_Rig2D.velocity;
+                float angle = Vector2.SignedAngle(Vector2.right, velocity.normalized);
+                angle += i == 0 ? 10 : i == 1 ? 0 : -10;
+                velocity = new Vector2(Mathf.Cos(angle / 180.0f * Mathf.PI), Mathf.Sin(angle / 180.0f * Mathf.PI));
+                blueBird.SetBirdFlyVelocity(velocity * m_Rig2D.velocity.magnitude);
+                MonoSingletonFactory<ShareMono>.GetSingleton().AddUpdateUAction(blueBird.OnBirdFlyUpdate_Common);
+                blueBird.ActiveTrailRenderer(true);                
             }
-        }
+            GoReusePool.Put(GetType().Name, gameObject);
+        }     
     }
 }

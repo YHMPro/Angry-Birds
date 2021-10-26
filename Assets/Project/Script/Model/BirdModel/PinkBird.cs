@@ -3,86 +3,73 @@ using System.Collections.Generic;
 using UnityEngine;
 using Farme;
 
-namespace Angry_Birds
+namespace Bird_VS_Boar
 {
-    public class PinkBird : Bird
+    public class PinkBird : SkillBird
     {
         /// <summary>
         /// 气泡数量
         /// </summary>
         private int m_BlisterCount = 3;
+        /// <summary>
+        /// 气泡间距
+        /// </summary>
+        private float m_IntervalDistance = 1.25f;
         protected override void Awake()
         {
-            m_ConfigInfo = NotMonoSingletonFactory<PinkBirdConfigInfo>.GetSingleton();
+            m_Config = NotMonoSingletonFactory<PinkBirdConfig>.GetSingleton();
             base.Awake();
         }
 
-        protected override void OnMouseUp()
+        protected override void OnBirdFlyUpdate()
         {
-            base.OnMouseUp();
-            MonoSingletonFactory<ShareMono>.GetSingleton().AddUpdateUAction(SkillUpdate);//持续监听技能释放指令
+            OnSkillUpdate();
+            PlaySkillAudio();
         }
-        public override void BirdFlyUpdate()
-        {
-            //小鸟面朝飞行方向
-            transform.eulerAngles = new Vector3(0, 0, -Vector2.SignedAngle(m_Rig2D.velocity.normalized, Vector2.right));
-            if (m_Rig2D.velocity.magnitude > 0.5f)
-            {
-                if (Physics2D.OverlapCircle(transform.position, m_CC2D.radius + 0.15f, LayerMask.GetMask(rayCastGroup)))
-                {
-                    MonoSingletonFactory<ShareMono>.GetSingleton().RemoveUpdateUAction(BirdFlyUpdate);
-                    MonoSingletonFactory<ShareMono>.GetSingleton().RemoveUpdateUAction(SkillUpdate);
-                    m_IsHurt = true;
-                    m_TRenderer.enabled = false;//关闭拖尾  
-                    m_Anim.SetTrigger("IsSkill");//播放技能动画                                                             
-                }
-            }
-            else
-            {
-                MonoSingletonFactory<ShareMono>.GetSingleton().RemoveUpdateUAction(BirdFlyUpdate);
-                MonoSingletonFactory<ShareMono>.GetSingleton().RemoveUpdateUAction(SkillUpdate);
-            }
-        }
-
+       
+        /// <summary>
+        /// 生成气球
+        /// </summary>
         public void ProductBlister()
         {
-            for(int index=0;index< m_BlisterCount;index++)
+            for (int index = 0; index < m_BlisterCount; index++)
             {
-                if(GoLoad.Take(GameConfigInfo.BlisterPath,out GameObject go))
+                GameObject go;
+                if(!GoReusePool.Take(typeof(Blister).Name,out go))
                 {
-                    if(index==0)
+                    if (!GoLoad.Take((m_Config as PinkBirdConfig).BlisterPath, out go))
                     {
-                        go.transform.position = transform.position;
+                        return;
+                    }
+                }
+                if (index == 0)
+                {
+                    go.transform.position = transform.position;
+                }
+                else
+                {
+                    Vector3 pos = transform.position;
+                    if (index % 2 == 0)
+                    {
+                        pos.x -= m_IntervalDistance;
                     }
                     else
                     {
-                        Vector3 pos = transform.position;
-                        if (index % 2 == 0)
-                        {
-                            pos.x -= 0.5f;
-                        }
-                        else
-                        {
-                            pos.x += 0.5f;
-                        }
-                        go.transform.position = pos;
-                    }                       
+                        pos.x += m_IntervalDistance;
+                    }
+                    go.transform.position = pos;
                 }
+               
             }
-            MonoSingletonFactory<ShareMono>.GetSingleton().DelayUAction(0.1f, () =>
-            {
-                Destroy(gameObject);
-            });
+            PlaySkillAudio();//播放技能音效
+            GoReusePool.Put(GetType().Name, gameObject);//回收小鸟
+            GameLogic.NowComeBird = null;//断开引用
         }
-        protected override void SkillUpdate()
-        {
-            base.SkillUpdate();
-            if (IsReleaseSkill)
-            {
-                m_TRenderer.enabled = false;//关闭拖尾            
-                MonoSingletonFactory<ShareMono>.GetSingleton().RemoveUpdateUAction(SkillUpdate);
-                MonoSingletonFactory<ShareMono>.GetSingleton().RemoveUpdateUAction(BirdFlyUpdate);
-            }
+
+        protected override void OnSkillUpdate()
+        {         
+            ProductBlister();
         }
+        
     }
 }

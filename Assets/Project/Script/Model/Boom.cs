@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using Farme;
-namespace Angry_Birds
+namespace Bird_VS_Boar
 {
     public class Boom : MonoBehaviour
     {

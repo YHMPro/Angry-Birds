@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using Farme;
-namespace Angry_Birds
+namespace Bird_VS_Boar
 {
     public class Entry : MonoBehaviour
     {
@@ -27,7 +27,17 @@ namespace Angry_Birds
         {
             if(Input.GetKeyDown(KeyCode.Space))
             {
-                GameLogic.NowComeBird = b;
+                if(!GoReusePool.Take("VanBird", out GameObject go))
+                {
+                    if(GoLoad.Take("VanBirdConfig/VanBird", out go))
+                    {
+                        if(!go.TryGetComponent(out VanBird bird))
+                        {
+                            go.AddComponent<VanBird>();
+                        }                       
+                    }       
+                }
+                GameLogic.NowComeBird = go.GetComponent<VanBird>();
                 MonoSingletonFactory<Camera2D>.GetSingleton();
                 MonoSingletonFactory<FlyPath>.GetSingleton();
                 MonoSingletonFactory<Audio2DMgr>.GetSingleton();

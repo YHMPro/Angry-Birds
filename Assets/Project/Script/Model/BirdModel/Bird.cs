@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using Farme;
 using UnityEngine.Audio;
-namespace Angry_Birds
+namespace Bird_VS_Boar
 { 
     public abstract class Bird : BaseMono
     {
@@ -14,19 +14,15 @@ namespace Angry_Birds
         /// <summary>
         /// 是否选中
         /// </summary>
-        private bool m_IsCheck = false;      
+        protected bool m_IsCheck = false;      
         /// <summary>
         /// 是否释放技能
         /// </summary>
-        private bool m_IsReleaseSkill = false;
+        protected bool m_IsReleaseSkill = false;        
         /// <summary>
-        /// 是否受伤
+        /// 配置
         /// </summary>
-        protected bool m_IsHurt = false;
-        /// <summary>
-        /// 配置信息
-        /// </summary>
-        protected BirdConfigInfo m_ConfigInfo = null;
+        protected BirdConfig m_Config = null;
         /// <summary>
         /// 碰撞盒子
         /// </summary>
@@ -72,27 +68,7 @@ namespace Angry_Birds
                 }
                 return m_Rig2D.freezeRotation;
             }
-        }
-        /// <summary>
-        /// 是否释放技能
-        /// </summary>
-        protected bool IsReleaseSkill
-        {
-            get
-            {
-                return m_IsReleaseSkill;
-            }
-        }
-        /// <summary>
-        /// 是否能绑定鸟巢
-        /// </summary>
-        public bool IsAbleBindBirdNets
-        {
-            get
-            {
-                return m_IsAbleBindBirdNets;
-            }
-        }
+        }            
         protected override void Awake()
         {
             base.Awake();
@@ -100,19 +76,24 @@ namespace Angry_Birds
             m_Rig2D = GetComponent<Rigidbody2D>();
             m_Anim = GetComponent<Animator>();
             m_TRenderer = GetComponent<TrailRenderer>();
-
-
-            SetTrailRenderer();//设置拖尾
+            drawLineEnd = transform.Find("DrawLineEnd");
         }
 
+        protected override void OnEnable()
+        {
+            base.OnEnable();
+            ActiveTrailRenderer(false);
+            m_Anim.SetTrigger("IsDefault");
+            m_IsReleaseSkill = false;
+            m_IsCheck = false;
+            IsFreeze_ZRotation = true;
+            transform.eulerAngles = Vector3.forward * 25;
+        }      
         protected override void Start()
         {
             base.Start();
-            m_Rig2D.mass = m_ConfigInfo.Mass;
-            m_Anim.SetTrigger("IsDefault");
-            drawLineEnd = transform.Find("DrawLineEnd");
-
-           
+            InitTrailRenderer();//初始化拖尾
+            m_Config.InitResources();//初始化资源路径
         }
 
         protected override void OnDestroy()
@@ -128,8 +109,12 @@ namespace Angry_Birds
         {
             if (!GameLogic.BirdIsNowComeBirdLogic(this))
                 return;
-            m_IsCheck = true;          
-            if(MonoSingletonFactory<FlyPath>.SingletonExist)
+            m_IsCheck = true;
+            if (MonoSingletonFactory<SlingShot>.SingletonExist)
+            {
+                MonoSingletonFactory<SlingShot>.GetSingleton().PlaySlingShotAudio();
+            }
+            if (MonoSingletonFactory<FlyPath>.SingletonExist)
             {
                 MonoSingletonFactory<FlyPath>.GetSingleton().ActiveFlyPath(true);
             }
@@ -144,6 +129,7 @@ namespace Angry_Birds
             if (MonoSingletonFactory<SlingShot>.SingletonExist)
             {
                 SlingShot slingShot = MonoSingletonFactory<SlingShot>.GetSingleton();
+                slingShot.PauseSlingShotAudio();
                 slingShot.BreakBird();//断开关联
                 slingShot.ClearLine();//清除线
             }
@@ -189,87 +175,129 @@ namespace Angry_Birds
                 slingShot.RendererLine(drawLineEnd.position);
             }
         }
-        public virtual void BirdFlyUpdate()//用于处理鸟的飞行后的首次碰撞  
-        {
+        /// <summary>
+        /// 监听小鸟飞行更新
+        /// </summary>
+        public void OnBirdFlyUpdate_Common()//用于处理鸟的飞行后的首次碰撞  
+        {            
+            if(!gameObject.activeInHierarchy)
+            {
+                MonoSingletonFactory<ShareMono>.GetSingleton().RemoveUpdateUAction(OnBirdFlyUpdate_Common);
+            }
             //小鸟面朝飞行方向
             transform.eulerAngles = new Vector3(0, 0, -Vector2.SignedAngle(m_Rig2D.velocity.normalized, Vector2.right));
             if (m_Rig2D.velocity.magnitude > 0.5f)
             {
                 if (Physics2D.OverlapCircle(transform.position, m_CC2D.radius + 0.15f, LayerMask.GetMask(rayCastGroup)))
-                {
-                    m_IsHurt = true;
-                    PlayCrashAudio();//播放碰撞音效
-                    m_Anim.SetTrigger("IsHurt");//受伤动画
-                    ActiveTrailRenderer(false);//关闭拖尾            
-                    MonoSingletonFactory<ShareMono>.GetSingleton().DelayUAction(3.0f, OpenBoom);//延迟打开死亡特效
-                    MonoSingletonFactory<ShareMono>.GetSingleton().RemoveUpdateUAction(BirdFlyUpdate);
-                    MonoSingletonFactory<ShareMono>.GetSingleton().RemoveUpdateUAction(SkillUpdate);
+                {                   
+                    MonoSingletonFactory<ShareMono>.GetSingleton().RemoveUpdateUAction(OnBirdFlyUpdate_Common);
+                    MonoSingletonFactory<ShareMono>.GetSingleton().RemoveUpdateUAction(OnSkillUpdate_Common);
+                    ActiveTrailRenderer(false);//关闭拖尾
+                    PlayCollisionAudio();//播放碰撞音效
+                    OnBirdFlyUpdate();                 
                 }
             }         
         }
-        #endregion
-        #region SKill
-        protected virtual void SkillUpdate()
+        /// <summary>
+        /// 监听小鸟飞行更新
+        /// </summary>
+        protected virtual void OnBirdFlyUpdate()
         {
-            if (!m_IsReleaseSkill)
+            m_Anim.SetTrigger("IsHurt");//受伤动画
+            MonoSingletonFactory<ShareMono>.GetSingleton().DelayUAction(3.0f,()=> 
             {
-                if (Input.GetMouseButtonDown(1))
-                {
-                    m_Anim.SetTrigger("IsSkill");
-                    m_IsReleaseSkill = true;
-                }
-            }
+                OpenBoom(); //打开死亡特效
+                PlayDestroyAudio();//播放销毁音效
+                GoReusePool.Put(GetType().Name, gameObject);//回收小鸟
+                GameLogic.NowComeBird = null;//断开引用
+            });
         }
         #endregion
-        #region Rig
-        public virtual void SetBirdRig2DVelocity(Vector2 velocity)
+        #region SKill
+        /// <summary>
+        /// 监听技能更新
+        /// </summary>
+        public virtual void OnSkillUpdate_Common()
         {
-            m_Rig2D.velocity *= 0;
+            
+        }
+        /// <summary>
+        /// 监听技能更新
+        /// </summary>
+        protected virtual void OnSkillUpdate()
+        {
+
+        }
+        #endregion
+        #region Velocity
+        /// <summary>
+        /// 设置小鸟飞行速度
+        /// </summary>
+        /// <param name="velocity">速度</param>
+        public virtual void SetBirdFlyVelocity(Vector2 velocity)
+        {
             m_Rig2D.velocity = velocity;
         }      
         #endregion
         #region Audio
+        /// <summary>
+        /// 播放飞行音效
+        /// </summary>
         protected virtual void PlayFlyAudio()
         {
-            GameAudio.PlayBirdAudio(m_ConfigInfo.GetFlyAudioPath(true));
+            GameAudio.PlayBirdAudio(m_Config.GetFlyAudioPath());
         }
-
+        /// <summary>
+        /// 播放选中音效
+        /// </summary>
         protected virtual void PlaySelectAudio()
         {
-            GameAudio.PlayBirdAudio(m_ConfigInfo.GetSelectAudioPath(true));
+            GameAudio.PlayBirdAudio(m_Config.GetSelectAudioPath());
         }
-
-        protected virtual void PlayDiedAudio()
+        /// <summary>
+        /// 播放销毁音效
+        /// </summary>
+        protected virtual void PlayDestroyAudio()
         {
-            GameAudio.PlayBirdAudio(m_ConfigInfo.GetDiedAudioPath(true)); 
+            GameAudio.PlayBirdAudio(m_Config.GetDestroyedAudioPath());
         }
-        protected virtual void PlayCrashAudio()
+        /// <summary>
+        /// 播放碰撞音效
+        /// </summary>
+        protected virtual void PlayCollisionAudio()
         {
-            GameAudio.PlayBirdAudio(m_ConfigInfo.GetCrashAudioPath(true));
+            GameAudio.PlayBirdAudio(m_Config.GetCollisionAudioPath());
         }
-        
+        /// <summary>
+        /// 播放技能音效
+        /// </summary>
         protected virtual void PlaySkillAudio()
         {
-            GameAudio.PlayBirdAudio(m_ConfigInfo.GetSkillAudioPath(true));
+           
         }
         #endregion
         #region TrailRenderer
-
-        protected virtual void ActiveTrailRenderer(bool active)
+        /// <summary>
+        /// 拖尾活动状态
+        /// </summary>
+        /// <param name="active"></param>
+        public virtual void ActiveTrailRenderer(bool active)
         {
             if(m_TRenderer!=null)
             {
                 m_TRenderer.enabled = active;
             }
         }
-        protected virtual void SetTrailRenderer()
+        /// <summary>
+        /// 初始化拖尾
+        /// </summary>
+        protected virtual void InitTrailRenderer()
         {
             m_TRenderer.startWidth = 0.15f;
             m_TRenderer.endWidth = 0.05f;
             m_TRenderer.time = 0.5f;
             m_TRenderer.startColor = Color.white;
-            m_TRenderer.endColor = new Color32(0, 0, 0, 0);
-            ActiveTrailRenderer(false);
+            m_TRenderer.endColor = new Color32(0, 0, 0, 0);            
         }
         #endregion
         #region Boom
@@ -278,7 +306,7 @@ namespace Angry_Birds
             GameObject go;
             if(!GoReusePool.Take(typeof(Boom).Name,out go))
             {
-                if (!GoLoad.Take(GameConfigInfo.BoomPath, out go))
+                if (!GoLoad.Take(m_Config.BoomPath, out go))
                 {
                     return;
                 }
@@ -286,8 +314,6 @@ namespace Angry_Birds
             go.transform.position = transform.position;
             go.GetComponent<Boom>().OpenBoom("BirdBoom");
         }
-        #endregion
-
-       
+        #endregion     
     }
 }

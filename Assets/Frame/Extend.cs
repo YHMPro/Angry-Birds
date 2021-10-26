@@ -62,5 +62,30 @@ namespace Farme
             BaseWindowMgr.UIEventRemove(target, eTType, callBack);
         }
         #endregion
+        #region//为Animator扩展相关功能
+        /// <summary>
+        /// 获取动画器中动画剪辑的时长
+        /// </summary>
+        /// <param name="target">发起对象</param>
+        /// <param name="clipName">剪辑名称</param>
+        /// <returns></returns>
+        public static float AnimatorClipTimeLength(this Animator target, string clipName)
+        {
+            //获取所有剪辑
+            var clips = target.runtimeAnimatorController.animationClips;
+            //遍历所有剪辑
+            foreach (var clip in clips)
+            {
+                //找到匹配的剪辑
+                if (clip.name == clipName)
+                {
+                    //返回剪辑时长
+                    return clip.length;
+                }
+            }
+            //没找到返回-1作为标记
+            return -1;
+        }
+        #endregion
     }
 }

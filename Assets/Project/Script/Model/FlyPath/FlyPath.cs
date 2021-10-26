@@ -2,10 +2,11 @@
 using System.Collections.Generic;
 using UnityEngine;
 using Farme;
-namespace Angry_Birds
+namespace Bird_VS_Boar
 {
     public class FlyPath : MonoBehaviour
     {
+        private FlyPathConfig m_Config = null;
         private int m_PathPointCount = 3;
         private Transform[] m_PointTrans;
         private bool m_Active = false;
@@ -17,8 +18,8 @@ namespace Angry_Birds
                 {
                     m_PointTrans = new Transform[m_PathPointCount];
                     for (int i = 0; i < m_PathPointCount; i++)
-                    {
-                        if (GoLoad.Take(GameConfigInfo.PointPath, out GameObject go, transform))
+                    {                       
+                        if (GoLoad.Take(m_Config.PointPath, out GameObject go, transform))
                         {
                             m_PointTrans[i] = go.transform;
                             go.SetActive(false);                          
@@ -27,6 +28,11 @@ namespace Angry_Birds
                 }
                 return m_PointTrans;
             }
+        }
+        private void Awake()
+        {
+            m_Config = NotMonoSingletonFactory<FlyPathConfig>.GetSingleton();
+            m_Config.InitResources();
         }
         private  void Start()
         {       

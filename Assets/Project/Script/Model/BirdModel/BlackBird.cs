@@ -2,87 +2,70 @@
 using System.Collections.Generic;
 using UnityEngine;
 using Farme;
-namespace Angry_Birds
+namespace Bird_VS_Boar
 {
-    public class BlackBird : Bird
+    public class BlackBird : SkillBird
     {
         [SerializeField]
         private List<GameObject> m_DestroyGoLi = null;
+        private List<GameObject>  DestroyGoLi
+        {
+            get
+            {
+                if(m_DestroyGoLi==null)
+                {
+                    m_DestroyGoLi = new List<GameObject>();
+                }
+                return m_DestroyGoLi;
+            }
+        }
         protected override void Awake()
         {
-            m_DestroyGoLi = new List<GameObject>();
-            m_ConfigInfo = NotMonoSingletonFactory<BlackBirdConfigInfo>.GetSingleton();
+            m_Config = NotMonoSingletonFactory<BlackBirdConfig>.GetSingleton();
             base.Awake();
         }
 
         protected override void Start()
         {
             base.Start();
-            m_IsAbleBindBirdNets = true;
+            //m_IsAbleBindBirdNets = true;
         }
-        protected override void OnMouseUp()
-        {
-            base.OnMouseUp();
-            MonoSingletonFactory<ShareMono>.GetSingleton().AddUpdateUAction(SkillUpdate);//持续监听技能释放指令
-        }
+     
 
-        protected override void SkillUpdate()
-        {            
-            base.SkillUpdate();
-            if (IsReleaseSkill)
-            {
-                m_Anim.SetTrigger("IsSkill");
-                MonoSingletonFactory<ShareMono>.GetSingleton().RemoveUpdateUAction(SkillUpdate);
-            }
-        }
-
-        public override void BirdFlyUpdate()
-        {
-            //小鸟面朝飞行方向
-            transform.eulerAngles = new Vector3(0, 0, -Vector2.SignedAngle(m_Rig2D.velocity.normalized, Vector2.right));
-            if (m_Rig2D.velocity.magnitude > 0.5f)
-            {
-                if (Physics2D.OverlapCircle(transform.position, m_CC2D.radius + 0.15f, LayerMask.GetMask(rayCastGroup)))
-                {
-                    MonoSingletonFactory<ShareMono>.GetSingleton().RemoveUpdateUAction(BirdFlyUpdate);
-                    MonoSingletonFactory<ShareMono>.GetSingleton().RemoveUpdateUAction(SkillUpdate);
-                    m_IsHurt = true;
-                    PlayCrashAudio();//播放碰撞音效
-                    m_Anim.SetTrigger("IsSkill");//播放技能动画
-                    m_TRenderer.enabled = false;//关闭拖尾            
-                   
-                }
-            }
-            else
-            {
-                MonoSingletonFactory<ShareMono>.GetSingleton().RemoveUpdateUAction(BirdFlyUpdate);
-                MonoSingletonFactory<ShareMono>.GetSingleton().RemoveUpdateUAction(SkillUpdate);
-            }
-        }
-        public void SetSkillTrigger()
+        protected override void OnBirdFlyUpdate()
         {
             m_Anim.SetTrigger("IsSkill");//播放技能动画
+            MonoSingletonFactory<ShareMono>.GetSingleton().DelayUAction(m_Anim.AnimatorClipTimeLength("BirdBlackSkill"), ()=> 
+            {
+                DestroyCheckGo();
+                OnSkillUpdate();
+            });
         }
+
+        protected override void OnSkillUpdate()
+        {
+            PlaySkillAudio();//播放技能音效
+            GoReusePool.Put(GetType().Name, gameObject);//回收小鸟
+            GameLogic.NowComeBird = null;//断开引用
+        }          
         /// <summary>
         /// 销毁检测到的Go
         /// </summary>
         public void DestroyCheckGo()
         {
-           PlaySkillAudio();
-           while(m_DestroyGoLi.Count>0)
+            while (m_DestroyGoLi.Count > 0)
             {
                 GameObject go = m_DestroyGoLi[m_DestroyGoLi.Count - 1];
-                m_DestroyGoLi.RemoveAt(m_DestroyGoLi.Count-1);
+                m_DestroyGoLi.RemoveAt(m_DestroyGoLi.Count - 1);
                 Destroy(go);
             }
-            Destroy(gameObject);
         }
 
         private void OnTriggerEnter2D(Collider2D collision)
         {
-            if(collision.gameObject.layer==9|| collision.gameObject.layer==10)
+            if (collision.gameObject.layer == 9 || collision.gameObject.layer == 10)
             {
-                if(!m_DestroyGoLi.Contains(collision.gameObject))
+                if (!m_DestroyGoLi.Contains(collision.gameObject))
                 {
                     m_DestroyGoLi.Add(collision.gameObject);
                 }

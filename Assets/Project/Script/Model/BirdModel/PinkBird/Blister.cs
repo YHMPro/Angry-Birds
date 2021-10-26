@@ -2,24 +2,50 @@
 using System.Collections.Generic;
 using UnityEngine;
 using Farme;
-namespace Angry_Birds
+namespace Bird_VS_Boar
 {
     public class Blister : MonoBehaviour
     {
-        private EdgeCollider2D m_EdgeCo2D = null;//碰撞器
-        private EdgeCollider2D m_EdgeTr2D = null;//触发器
-        private static List<GameObject> m_CheckGo = null;
-        private GameObject m_ControlGo = null;
+        private Coroutine m_C;
+        /// <summary>
+        /// 碰撞器
+        /// </summary>
+        private EdgeCollider2D m_EdgeCo2D = null;
+        /// <summary>
+        /// 检测的列表
+        /// </summary>
+        private static List<GameObject> m_CheckGoLi = null;
+        /// <summary>
+        /// 检测的列表
+        /// </summary>
+        private static List<GameObject> CheckGoLi
+        {
+            get
+            {
+                if(m_CheckGoLi != null)
+                {
+                    m_CheckGoLi = new List<GameObject>();
+                }
+                return m_CheckGoLi;
+            }
+        }
+        /// <summary>
+        /// 检测的对象
+        /// </summary>
+        private GameObject m_CheckGo = null;
         [SerializeField]
         private float m_UpMoveSpeed = 10f;
         private Vector3 m_MoveDir = new Vector3(0.5f, 1,0);
         private void Awake()
+        {            
+            m_EdgeCo2D = GetComponents<EdgeCollider2D>()[1];
+        }
+
+        private void OnEnable()
         {
-            if(m_CheckGo==null)
-            {
-                m_CheckGo = new List<GameObject>();
-            }
-            m_EdgeTr2D = GetComponent<EdgeCollider2D>();
+            m_CheckGo = null;
+            m_EdgeCo2D.enabled = false;
+            m_C=MonoSingletonFactory<ShareMono>.GetSingleton().DelayUAction(3.0f, Recycle);
         }
         private void Start()
         {
@@ -32,37 +58,34 @@ namespace Angry_Birds
 
         private void OnTriggerEnter2D(Collider2D collision)
         {
-            if (m_ControlGo == null)
+            if (m_CheckGo == null)
             {
-                if (!m_CheckGo.Contains(collision.gameObject))
+                if (!CheckGoLi.Contains(collision.gameObject))
                 {
-                    m_ControlGo = collision.gameObject;
-                    m_CheckGo.Add(collision.gameObject);
-                    transform.position = m_ControlGo.transform.position;
-                    m_ControlGo.GetComponent<Pig>().SetGravityScale(0.01f);
-
-                    if (m_EdgeCo2D==null)
-                    {
-                        m_EdgeCo2D = gameObject.AddComponent<EdgeCollider2D>();
-                        m_EdgeCo2D.points = m_EdgeTr2D.points;
-                    }
-                    else
-                    {
-                        m_EdgeCo2D.enabled = true;
-                    }
+                    StopCoroutine(m_C);
+                    m_CheckGo = collision.gameObject;
+                    CheckGoLi.Add(collision.gameObject);
+                    transform.position = m_CheckGo.transform.position;
+                    m_CheckGo.GetComponent<Pig>().SetGravityScale(0.01f);
+                    m_EdgeCo2D.enabled = true;
                     MonoSingletonFactory<ShareMono>.GetSingleton().AddUpdateUAction(FlyUpdate);
                     MonoSingletonFactory<ShareMono>.GetSingleton().DelayUAction(10f, () =>
                     {
                         MonoSingletonFactory<ShareMono>.GetSingleton().RemoveUpdateUAction(FlyUpdate);
-                        if(m_ControlGo!=null)
+                        if(m_CheckGo != null)
                         {
-                            m_ControlGo.GetComponent<Pig>().SetGravityScale(1.0f);
+                            m_CheckGo.GetComponent<Pig>().SetGravityScale(1.0f);
                         }
-                        m_CheckGo.Add(m_ControlGo);
-                        Destroy(gameObject);
+                        CheckGoLi.Remove(m_CheckGo);
+                        Recycle();
                     });
                 }
             }
+        }
+
+        private void Recycle()
+        {
+            GoReusePool.Put(GetType().Name, gameObject);
         }
 
     }

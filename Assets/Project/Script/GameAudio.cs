@@ -4,16 +4,48 @@ using UnityEngine;
 using Farme;
 using UnityEngine.Audio;
 
-namespace Angry_Birds
+namespace Bird_VS_Boar
 {
     public class GameAudio 
     {
-
+        private static IAudioControl slingShot;
         private static IAudioControl birdSelect;
         private static IAudioControl buttonSelect;
         private static IAudioControl backGround;
 
 
+        public static void PlaySlingAudio(string audioPath)
+        {
+            if (AudioClipMgr.GetAudioClip(audioPath, out AudioClip audioClip))
+            {
+                if (slingShot == null)
+                {
+                    slingShot = MonoSingletonFactory<Audio2DMgr>.GetSingleton().ApplyForAudioControl();
+                    if (AudioMixerMgr.GetAudioMixerGroup("Effect", out AudioMixerGroup group))
+                    {
+                        if (slingShot.SetAudioMixerGroup(group))
+                        {
+                            slingShot.SetLoop(true);
+                            (slingShot as Audio2D).IsAutoRecycle = false;
+                            Debug.Log("弹弓拉伸音效配置成功");
+                        }
+                    }
+                }
+                if (slingShot.SetAudioClip(audioClip))
+                {
+                    slingShot.Play();
+                }
+            }
+        }
+
+        public static void PauseSlingAudio()
+        {
+            if (slingShot == null)
+            {
+                return;
+            }
+            slingShot.Pause();
+        }
         /// <summary>
         /// 播放小鸟选择音效
         /// </summary>
