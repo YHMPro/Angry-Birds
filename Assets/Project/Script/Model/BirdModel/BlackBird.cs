@@ -15,6 +15,11 @@ namespace Angry_Birds
             base.Awake();
         }
 
+        protected override void Start()
+        {
+            base.Start();
+            m_IsAbleBindBirdNets = true;
+        }
         protected override void OnMouseUp()
         {
             base.OnMouseUp();
@@ -53,6 +58,10 @@ namespace Angry_Birds
                 MonoSingletonFactory<ShareMono>.GetSingleton().RemoveUpdateUAction(BirdFlyUpdate);
                 MonoSingletonFactory<ShareMono>.GetSingleton().RemoveUpdateUAction(SkillUpdate);
             }
+        }
+        public void SetSkillTrigger()
+        {
+            m_Anim.SetTrigger("IsSkill");//播放技能动画
         }
         /// <summary>
         /// 销毁检测到的Go

@@ -6,7 +6,11 @@ using UnityEngine.Audio;
 namespace Angry_Birds
 { 
     public abstract class Bird : BaseMono
-    {            
+    {
+        /// <summary>
+        /// 是否能绑定鸟巢
+        /// </summary>
+        protected bool m_IsAbleBindBirdNets = false;
         /// <summary>
         /// 是否选中
         /// </summary>
@@ -79,7 +83,16 @@ namespace Angry_Birds
                 return m_IsReleaseSkill;
             }
         }
-
+        /// <summary>
+        /// 是否能绑定鸟巢
+        /// </summary>
+        public bool IsAbleBindBirdNets
+        {
+            get
+            {
+                return m_IsAbleBindBirdNets;
+            }
+        }
         protected override void Awake()
         {
             base.Awake();
@@ -211,6 +224,7 @@ namespace Angry_Birds
         #region Rig
         public virtual void SetBirdRig2DVelocity(Vector2 velocity)
         {
+            m_Rig2D.velocity *= 0;
             m_Rig2D.velocity = velocity;
         }      
         #endregion

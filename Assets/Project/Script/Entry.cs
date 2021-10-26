@@ -9,7 +9,10 @@ namespace Angry_Birds
         public Bird b;
         private void Awake()
         {
-
+            if(MonoSingletonFactory<Camera2D>.SingletonExist)
+            {
+                MonoSingletonFactory<Camera2D>.GetSingleton().SetLimit(3, 5, 4, 5);
+            }
             
         }
         

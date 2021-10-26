@@ -11,10 +11,10 @@ namespace Angry_Birds
     {
         private SpringJoint2D m_SJ2D;
 
-        private float m_ApplyingMaxSpeed = 15;
+        private float m_ApplyingMaxSpeed = 15.0f;
         public float StretchDis
         {
-            get { return 1; }
+            get { return 1.0f; }
         }
         public bool SJ2DEnable
         {
@@ -113,6 +113,10 @@ namespace Angry_Birds
             if (GameLogic.NowComeBird == null)
                 return;
             m_SJ2D.connectedBody = null;
+            if(MonoSingletonFactory<Camera2D>.SingletonExist)
+            {
+                MonoSingletonFactory<Camera2D>.GetSingleton().BindBird();
+            }
             MonoSingletonFactory<ShareMono>.GetSingleton().RemoveUpdateUAction(GameLogic.NowComeBird.BirdControlUpdate);//移除小鸟控制更新
             MonoSingletonFactory<ShareMono>.GetSingleton().AddUpdateUAction(GameLogic.NowComeBird.BirdFlyUpdate);//添加小鸟飞行更新
             GameLogic.NowComeBird.SetBirdRig2DVelocity(ApplyingVelocity);//设置小鸟基于弹弓获得的初始速度

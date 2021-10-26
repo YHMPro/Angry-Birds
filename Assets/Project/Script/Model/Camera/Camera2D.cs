@@ -7,10 +7,10 @@ namespace Angry_Birds
     public class Camera2D : MonoBehaviour
     {
         private Camera m_Camera2D;
-        private float m_XMin = 0;
-        private float m_YMin = 0;
-        private float m_XMax = 0;
-        private float m_YMax = 0;
+        private float m_XMin = 3;
+        private float m_YMin = 4;
+        private float m_XMax = 5;
+        private float m_YMax = 5;
         private void Awake()
         {
             m_Camera2D = GetComponent<Camera>();
@@ -22,7 +22,7 @@ namespace Angry_Birds
         }
         public void BindBird()
         {        
-            MonoSingletonFactory<ShareMono>.GetSingleton().AddUpdateUAction(Follow);
+            MonoSingletonFactory<ShareMono>.GetSingleton().AddFixUpdateUAction(Follow);
         }
 
         public void Follow()
@@ -31,7 +31,7 @@ namespace Angry_Birds
                 return;
             Vector3 aimPos = GameLogic.NowComeBird.transform.position;
             aimPos = Limit(aimPos);
-            transform.position = Vector3.Lerp(transform.position, Limit(aimPos), 0.5f);
+            transform.position = Vector3.Lerp(transform.position, Limit(aimPos), 0.5f*Time.fixedDeltaTime);
         }
         public void SetLimit(float xMin,float xMax,float yMin,float yMax)
         {
@@ -50,7 +50,7 @@ namespace Angry_Birds
         }
         public void BreakBird()
         {
-            MonoSingletonFactory<ShareMono>.GetSingleton().RemoveUpdateUAction(Follow);
+            MonoSingletonFactory<ShareMono>.GetSingleton().AddFixUpdateUAction(Follow);
         }
         public Vector3 ScreenToWorldPoint(Vector3 vector3,float z=0)
         {

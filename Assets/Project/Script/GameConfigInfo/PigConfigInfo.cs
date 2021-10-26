@@ -103,8 +103,8 @@ namespace Angry_Birds
         {
             get
             {
-                return new string[] { "Prefab/Pig/Pig1/Audio/P1Hurt1",
-                    "Prefab/Pig/Pig1/Audio/P1Hurt2"
+                return new string[] { "Prefabs/Pig/Pig1/Audio/P1Hurt1",
+                    "Prefabs/Pig/Pig1/Audio/P1Hurt2"
                 };
             }
         }

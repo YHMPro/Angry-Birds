@@ -44,11 +44,13 @@ namespace Angry_Birds
                 relativeSpeed <= 15 ? EnumPigHurtGrade.Hurt2 : EnumPigHurtGrade.Destroy;
             if(m_HurtGrade!= EnumPigHurtGrade.Destroy)
             {
-                SetHurtGradeAnim();
+                PlayCrashAudio();
+                SetHurtGradeAnim();         
             }
             else
             {
                 OpenBoom();
+                PlayDiedAudio();
             }
         }
 
