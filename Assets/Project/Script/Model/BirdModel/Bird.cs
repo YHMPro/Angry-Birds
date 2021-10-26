@@ -8,6 +8,10 @@ namespace Bird_VS_Boar
     public abstract class Bird : BaseMono
     {
         /// <summary>
+        /// 音效控制
+        /// </summary>
+        protected static IAudioControl[] m_ACs = null;
+        /// <summary>
         /// 是否能绑定鸟巢
         /// </summary>
         protected bool m_IsAbleBindBirdNets = false;
@@ -77,6 +81,10 @@ namespace Bird_VS_Boar
             m_Anim = GetComponent<Animator>();
             m_TRenderer = GetComponent<TrailRenderer>();
             drawLineEnd = transform.Find("DrawLineEnd");
+            if(m_ACs==null)
+            {
+                m_ACs = new IAudioControl[2];            
+            }
         }
 
         protected override void OnEnable()
@@ -245,28 +253,29 @@ namespace Bird_VS_Boar
         /// </summary>
         protected virtual void PlayFlyAudio()
         {
-            GameAudio.PlayBirdAudio(m_Config.GetFlyAudioPath());
+            PlayBirdAudio(m_ACs[0], m_Config.GetFlyAudioPath());
+
         }
         /// <summary>
         /// 播放选中音效
         /// </summary>
         protected virtual void PlaySelectAudio()
         {
-            GameAudio.PlayBirdAudio(m_Config.GetSelectAudioPath());
+            PlayBirdAudio(m_ACs[0], m_Config.GetSelectAudioPath());
         }
         /// <summary>
         /// 播放销毁音效
         /// </summary>
         protected virtual void PlayDestroyAudio()
         {
-            GameAudio.PlayBirdAudio(m_Config.GetDestroyedAudioPath());
+            PlayBirdAudio(m_ACs[0], m_Config.GetDestroyedAudioPath());
         }
         /// <summary>
         /// 播放碰撞音效
         /// </summary>
         protected virtual void PlayCollisionAudio()
         {
-            GameAudio.PlayBirdAudio(m_Config.GetCollisionAudioPath());
+            PlayBirdAudio(m_ACs[0],m_Config.GetCollisionAudioPath());
         }
         /// <summary>
         /// 播放技能音效
@@ -274,6 +283,33 @@ namespace Bird_VS_Boar
         protected virtual void PlaySkillAudio()
         {
            
+        }
+        /// <summary>
+        /// 播放小鸟选择音效
+        /// </summary>
+        /// <param name="audioPath"></param>
+        protected void PlayBirdAudio(IAudioControl iAC,string audioPath)
+        {
+            if (AudioClipMgr.GetAudioClip(audioPath, out AudioClip audioClip))
+            {
+                if (iAC == null)
+                {
+                    iAC = MonoSingletonFactory<Audio2DMgr>.GetSingleton().ApplyForAudioControl();
+                    if (AudioMixerMgr.GetAudioMixerGroup("Effect", out AudioMixerGroup group))
+                    {
+                        if (iAC.SetAudioMixerGroup(group))
+                        {
+                            (iAC as Audio2D).IsAutoRecycle = false;
+                            Debug.Log("小鸟选择音效配置成功");
+                        }
+                    }
+                }
+                if (iAC.SetAudioClip(audioClip))
+                {
+                    iAC.Play();
+                }
+            }
+
         }
         #endregion
         #region TrailRenderer

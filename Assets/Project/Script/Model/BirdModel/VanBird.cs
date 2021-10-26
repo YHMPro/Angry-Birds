@@ -24,6 +24,12 @@ namespace Bird_VS_Boar
             MonoSingletonFactory<ShareMono>.GetSingleton().AddUpdateUAction(OnSkillUpdate_Common);//持续监听技能释放指令
         }
 
+        protected override void OnBirdFlyUpdate()
+        {
+            base.OnBirdFlyUpdate();
+            m_Rig2D.isKinematic = false;
+        }
+
         protected override void OnSkillUpdate()
         {           
             m_AimTran.gameObject.SetActive(true);
@@ -43,8 +49,7 @@ namespace Bird_VS_Boar
                 if (Input.GetMouseButtonDown(0))
                 {
                     PlaySkillAudio();
-                    Vector3 dir = (movePos - transform.position).normalized;
-                    m_Rig2D.isKinematic = false;
+                    Vector3 dir = (movePos - transform.position).normalized;                   
                     m_Rig2D.velocity = dir * 15.0f;
                     MonoSingletonFactory<ShareMono>.GetSingleton().RemoveUpdateUAction(AimControlUpdate);
                     m_AimTran.gameObject.SetActive(false);

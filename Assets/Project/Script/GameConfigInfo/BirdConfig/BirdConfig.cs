@@ -9,20 +9,7 @@ namespace Bird_VS_Boar
     public abstract class BirdConfig :AbleCollision
     {
         protected BirdConfig() { }
-        /// <summary>
-        /// 点路径
-        /// </summary>
-        private static string m_PointPath = null;
-        /// <summary>
-        /// 点路径
-        /// </summary>
-        public string PointPath
-        {
-            get
-            {
-                return m_PointPath;
-            }
-        }
+        
         /// <summary>
         /// 飞行音效路径数组
         /// </summary>
@@ -35,11 +22,7 @@ namespace Bird_VS_Boar
         {
             if(base.InitResources())
             {             
-                m_Common = "BirdCommon";
-                if (m_PointPath == null)
-                {
-                    m_PointPath = m_Common + "/Point";
-                }
+                m_Common = "BirdCommon";             
                 m_DestroyAudioPaths = new string[] { m_Common+ "/BDe1" };
                 return true;
             }

@@ -92,10 +92,10 @@ namespace Bird_VS_Boar
             GameObject go;
             if (!GoReusePool.Take(typeof(Boom).Name, out go))
             {
-                if (!GoLoad.Take(GameConfigInfo.BoomPath, out go))
-                {
-                    return;
-                }
+                //if (!GoLoad.Take(GameConfigInfo.BoomPath, out go))
+                //{
+                //    return;
+                //}
             }
             go.transform.position = transform.position;
             go.GetComponent<Boom>().OpenBoom("PigBoom");

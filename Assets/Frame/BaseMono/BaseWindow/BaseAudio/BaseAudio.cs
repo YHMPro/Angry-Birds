@@ -415,7 +415,7 @@ namespace Farme
                         }
                         else
                         {
-                            if (IsAutoRecycle)
+                            if (IsAutoRecycle&&m_IsPlay)
                             {
 
                                 AppendRecoverer();//添加回收器

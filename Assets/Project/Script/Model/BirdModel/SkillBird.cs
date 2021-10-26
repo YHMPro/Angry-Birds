@@ -37,7 +37,7 @@ namespace Bird_VS_Boar
         
         protected override void PlaySkillAudio()
         {
-            GameAudio.PlayBirdAudio((m_Config as SkillBirdConfig).GetSkillAudioPath());
+            PlayBirdAudio(m_ACs[0], (m_Config as SkillBirdConfig).GetSkillAudioPath());
         }
 
     }

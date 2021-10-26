@@ -35,7 +35,7 @@ namespace Bird_VS_Boar
         protected override void OnBirdFlyUpdate()
         {
             m_Anim.SetTrigger("IsSkill");//播放技能动画
-            MonoSingletonFactory<ShareMono>.GetSingleton().DelayUAction(m_Anim.AnimatorClipTimeLength("BirdBlackSkill"), ()=> 
+            MonoSingletonFactory<ShareMono>.GetSingleton().DelayUAction(m_Anim.AnimatorClipTimeLength("BlackBirdSkill"), ()=> 
             {
                 DestroyCheckGo();
                 OnSkillUpdate();
@@ -53,10 +53,10 @@ namespace Bird_VS_Boar
         /// </summary>
         public void DestroyCheckGo()
         {
-            while (m_DestroyGoLi.Count > 0)
+            while (DestroyGoLi.Count > 0)
             {
-                GameObject go = m_DestroyGoLi[m_DestroyGoLi.Count - 1];
-                m_DestroyGoLi.RemoveAt(m_DestroyGoLi.Count - 1);
+                GameObject go = DestroyGoLi[DestroyGoLi.Count - 1];
+                DestroyGoLi.RemoveAt(DestroyGoLi.Count - 1);
                 Destroy(go);
             }
         }
@@ -65,9 +65,9 @@ namespace Bird_VS_Boar
         {
             if (collision.gameObject.layer == 9 || collision.gameObject.layer == 10)
             {
-                if (!m_DestroyGoLi.Contains(collision.gameObject))
+                if (!DestroyGoLi.Contains(collision.gameObject))
                 {
-                    m_DestroyGoLi.Add(collision.gameObject);
+                    DestroyGoLi.Add(collision.gameObject);
                 }
             }
         }
@@ -75,9 +75,9 @@ namespace Bird_VS_Boar
         {
             if (collision.gameObject.layer == 9 || collision.gameObject.layer == 10)
             {
-                if (m_DestroyGoLi.Contains(collision.gameObject))
+                if (DestroyGoLi.Contains(collision.gameObject))
                 {
-                    m_DestroyGoLi.Remove(collision.gameObject);
+                    DestroyGoLi.Remove(collision.gameObject);
                 }
             }
         }

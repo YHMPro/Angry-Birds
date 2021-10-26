@@ -27,17 +27,17 @@ namespace Bird_VS_Boar
         {
             if(Input.GetKeyDown(KeyCode.Space))
             {
-                if(!GoReusePool.Take("VanBird", out GameObject go))
+                if(!GoReusePool.Take("BlackBird", out GameObject go))
                 {
-                    if(GoLoad.Take("VanBirdConfig/VanBird", out go))
+                    if(GoLoad.Take("BlackBirdConfig/BlackBird", out go))
                     {
-                        if(!go.TryGetComponent(out VanBird bird))
+                        if(!go.TryGetComponent(out BlackBird bird))
                         {
-                            go.AddComponent<VanBird>();
+                            go.AddComponent<BlackBird>();
                         }                       
                     }       
                 }
-                GameLogic.NowComeBird = go.GetComponent<VanBird>();
+                GameLogic.NowComeBird = go.GetComponent<BlackBird>();
                 MonoSingletonFactory<Camera2D>.GetSingleton();
                 MonoSingletonFactory<FlyPath>.GetSingleton();
                 MonoSingletonFactory<Audio2DMgr>.GetSingleton();
