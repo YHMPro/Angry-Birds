@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 4570809267338278}
   - component: {fileID: 4570809267338274}
   - component: {fileID: 4570809267338275}
+  - component: {fileID: 3730789925471731763}
   m_Layer: 8
   m_Name: YellowBird
   m_TagString: Bird
@@ -223,6 +224,18 @@ TrailRenderer:
   m_MinVertexDistance: 0.1
   m_Autodestruct: 0
   m_Emitting: 1
+--- !u!114 &3730789925471731763
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4570809267338276}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c7f215191421d3b49befe098e67a0bec, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &2666591562797733676
 GameObject:
   m_ObjectHideFlags: 0

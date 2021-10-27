@@ -8,97 +8,90 @@ namespace Bird_VS_Boar
 {
     public class GameAudio 
     {
-        private static IAudioControl slingShot;
-        private static IAudioControl birdSelect;
-        private static IAudioControl buttonSelect;
-        private static IAudioControl backGround;
+        private static IAudioControl m_SlingShot;
+        private static IAudioControl m_Button;
+        private static IAudioControl m_BackGround;
 
-
-        public static void PlaySlingAudio(string audioPath)
+        #region SlingShot
+        public static void PlaySlingShotAudio(string audioPath)
         {
             if (AudioClipMgr.GetAudioClip(audioPath, out AudioClip audioClip))
             {
-                if (slingShot == null)
+                if (m_SlingShot == null)
                 {
-                    slingShot = MonoSingletonFactory<Audio2DMgr>.GetSingleton().ApplyForAudioControl();
+                    m_SlingShot = MonoSingletonFactory<Audio2DMgr>.GetSingleton().ApplyForAudioControl();
                     if (AudioMixerMgr.GetAudioMixerGroup("Effect", out AudioMixerGroup group))
                     {
-                        if (slingShot.SetAudioMixerGroup(group))
+                        if (m_SlingShot.SetAudioMixerGroup(group))
                         {
-                            slingShot.SetLoop(true);
-                            (slingShot as Audio2D).IsAutoRecycle = false;
+                            m_SlingShot.SetLoop(true);
+                            (m_SlingShot as Audio2D).IsAutoRecycle = false;
                             Debug.Log("弹弓拉伸音效配置成功");
                         }
                     }
                 }
-                if (slingShot.SetAudioClip(audioClip))
+                if (m_SlingShot.SetAudioClip(audioClip))
                 {
-                    slingShot.Play();
+                    m_SlingShot.Play();
                 }
             }
         }
 
-        public static void PauseSlingAudio()
+        public static void PauseSlingShotAudio()
         {
-            if (slingShot == null)
+            if (m_SlingShot == null)
             {
                 return;
             }
-            slingShot.Pause();
+            m_SlingShot.Pause();
         }
+        #endregion
+        #region Bird
         /// <summary>
         /// 播放小鸟选择音效
         /// </summary>
         /// <param name="audioPath"></param>
-        public static void PlayBirdAudio(string audioPath)
+        public static void PlayBirdAudio(IAudioControl birdAC , string audioPath)
         {
             if (AudioClipMgr.GetAudioClip(audioPath, out AudioClip audioClip))
-            {
-                if (birdSelect == null)
+            {               
+                if (birdAC.SetAudioClip(audioClip))
                 {
-                    birdSelect = MonoSingletonFactory<Audio2DMgr>.GetSingleton().ApplyForAudioControl();
-                    if (AudioMixerMgr.GetAudioMixerGroup("Effect", out AudioMixerGroup group))
-                    {
-                        if (birdSelect.SetAudioMixerGroup(group))
-                        {
-                            (birdSelect as Audio2D).IsAutoRecycle = false;
-                            Debug.Log("小鸟选择音效配置成功");
-                        }
-                    }
-                }
-                if (birdSelect.SetAudioClip(audioClip))
-                {
-                    birdSelect.Play();
+                    birdAC.Play();
                 }
             }
 
         }
+        #endregion
+        #region Button
         /// <summary>
         /// 播放小按钮选择音效
         /// </summary>
         /// <param name="audioPath"></param>
-        public static void PlayButtonSelectAudio(string audioPath)
+        public static void PlayButtonAudio(string audioPath)
         {
             if (AudioClipMgr.GetAudioClip(audioPath, out AudioClip audioClip))
             {
-                if (buttonSelect == null)
+                if (m_Button == null)
                 {
-                    buttonSelect = MonoSingletonFactory<Audio2DMgr>.GetSingleton().ApplyForAudioControl();
+                    m_Button = MonoSingletonFactory<Audio2DMgr>.GetSingleton().ApplyForAudioControl();
                     if (AudioMixerMgr.GetAudioMixerGroup("Effect", out AudioMixerGroup group))
                     {
-                        if (buttonSelect.SetAudioMixerGroup(group))
+                        if (m_Button.SetAudioMixerGroup(group))
                         {
-                            (buttonSelect as Audio2D).IsAutoRecycle = false;
+                            (m_Button as Audio2D).IsAutoRecycle = false;
                             Debug.Log("小鸟选择音效配置成功");
                         }
                     }
                 }
-                if (buttonSelect.SetAudioClip(audioClip))
+                if (m_Button.SetAudioClip(audioClip))
                 {
-                    buttonSelect.Play();
+                    m_Button.Play();
                 }
             }
         }
+        #endregion
+        #region BG
         /// <summary>
         /// 播放背景音效
         /// </summary>
@@ -107,25 +100,35 @@ namespace Bird_VS_Boar
         {
             if (AudioClipMgr.GetAudioClip(audioPath, out AudioClip audioClip))
             {
-                if (backGround == null)
+                if (m_BackGround == null)
                 {
-                    backGround = MonoSingletonFactory<Audio2DMgr>.GetSingleton().ApplyForAudioControl();
+                    m_BackGround = MonoSingletonFactory<Audio2DMgr>.GetSingleton().ApplyForAudioControl();
                     if (AudioMixerMgr.GetAudioMixerGroup("Effect", out AudioMixerGroup group))
                     {
-                        if (backGround.SetAudioMixerGroup(group))
+                        if (m_BackGround.SetAudioMixerGroup(group))
                         {
-                            (backGround as Audio2D).IsAutoRecycle = false;
-                            backGround.SetLoop(true);
+                            (m_BackGround as Audio2D).IsAutoRecycle = false;
+                            m_BackGround.SetLoop(true);
                             Debug.Log("小鸟选择音效配置成功");
                         }
                     }
                 }
-                if (backGround.SetAudioClip(audioClip))
+                if (m_BackGround.SetAudioClip(audioClip))
                 {
-                    backGround.Play();
+                    m_BackGround.Play();
                 }
             }
         }
+        public static void PauseBackGroundAudio()
+        {
+            if (m_BackGround == null)
+            {
+                return;
+            }
+            m_BackGround.Pause();
+        }
+        #endregion
+
         /// <summary>
         /// 播放音效
         /// </summary>

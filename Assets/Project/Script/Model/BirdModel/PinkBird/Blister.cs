@@ -6,7 +6,7 @@ namespace Bird_VS_Boar
 {
     public class Blister : MonoBehaviour
     {
-        private Coroutine m_C;
+        private Coroutine m_C = null;
         /// <summary>
         /// 碰撞器
         /// </summary>
@@ -22,7 +22,7 @@ namespace Bird_VS_Boar
         {
             get
             {
-                if(m_CheckGoLi != null)
+                if(m_CheckGoLi == null)
                 {
                     m_CheckGoLi = new List<GameObject>();
                 }
@@ -62,9 +62,15 @@ namespace Bird_VS_Boar
             {
                 if (!CheckGoLi.Contains(collision.gameObject))
                 {
-                    StopCoroutine(m_C);
+                    if (m_C != null)
+                    {
+                        MonoSingletonFactory<ShareMono>.GetSingleton().StopCoroutine(m_C);
+                    }
                     m_CheckGo = collision.gameObject;
-                    CheckGoLi.Add(collision.gameObject);
+                    if (!CheckGoLi.Contains(collision.gameObject))
+                    {
+                        CheckGoLi.Add(collision.gameObject);
+                    }
                     transform.position = m_CheckGo.transform.position;
                     m_CheckGo.GetComponent<Pig>().SetGravityScale(0.01f);
                     m_EdgeCo2D.enabled = true;

@@ -30,7 +30,7 @@ namespace Bird_VS_Boar
                         return;
                     }
                 }
-                LittleBlueBird blueBird;
+                LittleBlueBird blueBird;              
                 if (!go.TryGetComponent(out blueBird))
                 {
                     blueBird = go.AddComponent<LittleBlueBird>();

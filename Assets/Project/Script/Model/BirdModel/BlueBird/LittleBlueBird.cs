@@ -8,6 +8,7 @@ namespace Bird_VS_Boar
     {
         protected override void Awake()
         {
+            Destroy(GetComponent<BlueBird>());
             m_Config = NotMonoSingletonFactory<BlueBirdConfig>.GetSingleton();
             base.Awake();
         }
@@ -19,7 +20,14 @@ namespace Bird_VS_Boar
         protected override void OnMouseDown()
         {
             
-        }  
+        }
+
+        protected override void OnBirdFlyUpdate()
+        {
+            base.OnBirdFlyUpdate();
+            m_Rig2D.freezeRotation = false;
+        }
+
         protected override void InitTrailRenderer()
         {
             m_TRenderer.startWidth = 0.075f;

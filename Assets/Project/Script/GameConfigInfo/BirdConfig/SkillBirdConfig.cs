@@ -11,17 +11,8 @@ namespace Bird_VS_Boar
     {
         protected SkillBirdConfig() { }
 
-        protected string[] m_SkillAudioPaths = null;
-        /// <summary>
-        /// 获取技能音效路径
-        /// </summary>
-        /// <param name="isRandom">是否随机索引</param>
-        /// <param name="index">自定义索引</param>
-        /// <returns>路径</returns>
-        public virtual string GetSkillAudioPath(bool isRandom = true, int index = 0)
-        {
-            return GetPath(m_SkillAudioPaths, isRandom, index);
-        }
+        
+       
     }
 
     public class VanBirdConfig : SkillBirdConfig
@@ -30,6 +21,8 @@ namespace Bird_VS_Boar
         {
             if (base.InitResources())
             {
+                m_IsInit = true;
+
                 m_SelfResPath = m_Tag + "/VanBird";
                 m_FlyAudioPaths = new string[] {
                     m_Tag+"/BVFly1",
@@ -53,24 +46,12 @@ namespace Bird_VS_Boar
     }
     public class WhiteBirdConfig : SkillBirdConfig
     {
-        /// <summary>
-        /// 蛋路径
-        /// </summary>
-        private string m_EggPath = "";
-        /// <summary>
-        /// 蛋路径
-        /// </summary>
-        public string EggPath
-        {
-            get
-            {
-                return m_EggPath;
-            }
-        }
         public override bool InitResources()
         {
             if (base.InitResources())
             {
+                m_IsInit = true;
+
                 m_EggPath = m_Tag + "/Egg";
                 m_SelfResPath = m_Tag + "/WriteBird";
                 m_FlyAudioPaths = new string[] {
@@ -103,6 +84,8 @@ namespace Bird_VS_Boar
         {
             if (base.InitResources())
             {
+                m_IsInit = true;
+
                 m_SelfResPath = m_Tag + "/BlueBird";
                 m_FlyAudioPaths = new string[] {
                     m_Tag+"/BBFly1",
@@ -119,25 +102,13 @@ namespace Bird_VS_Boar
     /// 粉色小鸟配置
     /// </summary>
     public class PinkBirdConfig : SkillBirdConfig
-    {
-        /// <summary>
-        /// 气泡路径
-        /// </summary>
-        private string m_BlisterPath = null;
-        /// <summary>
-        /// 气泡路径
-        /// </summary>
-        public string BlisterPath
-        {
-            get
-            {
-                return m_BlisterPath;
-            }
-        }
+    {       
         public override bool InitResources()
         {
             if (base.InitResources())
             {
+                m_IsInit = true;
+
                 m_SelfResPath = m_Tag + "/PinkBird";
                 m_BlisterPath = m_Tag + "/Blister";
                 m_FlyAudioPaths = new string[] {
@@ -176,6 +147,8 @@ namespace Bird_VS_Boar
         {
             if (base.InitResources())
             {
+                m_IsInit = true;
+
                 m_SelfResPath = m_Tag + "/BlackBird";
                 m_FlyAudioPaths = new string[] {
                     m_Tag+"/BBFly1"
@@ -206,6 +179,8 @@ namespace Bird_VS_Boar
         {
             if (base.InitResources())
             {
+                m_IsInit = true;
+
                 m_SelfResPath = m_Tag + "/GreenBird";
                 m_FlyAudioPaths = new string[] {
                     m_Tag+"/BGFly1"
@@ -238,6 +213,8 @@ namespace Bird_VS_Boar
         {
             if(base.InitResources())
             {
+                m_IsInit = true;
+
                 m_SelfResPath = m_Tag + "/YellowBird";
                 m_FlyAudioPaths = new string[] {
                     m_Tag+"/BYFly1"

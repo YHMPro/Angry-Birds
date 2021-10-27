@@ -9,7 +9,10 @@ namespace Bird_VS_Boar
         public Bird b;
         private void Awake()
         {
-            if(MonoSingletonFactory<Camera2D>.SingletonExist)
+            MonoSingletonFactory<Camera2D>.GetSingleton();
+            MonoSingletonFactory<FlyPath>.GetSingleton();
+            MonoSingletonFactory<Audio2DMgr>.GetSingleton();
+            if (MonoSingletonFactory<Camera2D>.SingletonExist)
             {
                 MonoSingletonFactory<Camera2D>.GetSingleton().SetLimit(3, 5, 4, 5);
             }
@@ -25,24 +28,24 @@ namespace Bird_VS_Boar
         // Update is called once per frame
         void Update()
         {
-            if(Input.GetKeyDown(KeyCode.Space))
-            {
-                if(!GoReusePool.Take("BlackBird", out GameObject go))
-                {
-                    if(GoLoad.Take("BlackBirdConfig/BlackBird", out go))
-                    {
-                        if(!go.TryGetComponent(out BlackBird bird))
-                        {
-                            go.AddComponent<BlackBird>();
-                        }                       
-                    }       
-                }
-                GameLogic.NowComeBird = go.GetComponent<BlackBird>();
-                MonoSingletonFactory<Camera2D>.GetSingleton();
-                MonoSingletonFactory<FlyPath>.GetSingleton();
-                MonoSingletonFactory<Audio2DMgr>.GetSingleton();
-                MonoSingletonFactory<SlingShot>.GetSingleton().BindBird();
-            }
+            //if(Input.GetKeyDown(KeyCode.Space))
+            //{
+            //    if(!GoReusePool.Take("BlackBird", out GameObject go))
+            //    {
+            //        if(GoLoad.Take("BlackBirdConfig/BlackBird", out go))
+            //        {
+            //            if(!go.TryGetComponent(out BlackBird bird))
+            //            {
+            //                go.AddComponent<BlackBird>();
+            //            }                       
+            //        }       
+            //    }
+            //    GameLogic.NowComeBird = go.GetComponent<BlackBird>();
+            //    MonoSingletonFactory<Camera2D>.GetSingleton();
+            //    MonoSingletonFactory<FlyPath>.GetSingleton();
+            //    MonoSingletonFactory<Audio2DMgr>.GetSingleton();
+            //    MonoSingletonFactory<SlingShot>.GetSingleton().BindBird();
+            //}
         }
     }
 }

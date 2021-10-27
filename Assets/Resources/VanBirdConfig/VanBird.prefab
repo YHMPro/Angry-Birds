@@ -125,6 +125,7 @@ GameObject:
   - component: {fileID: 6054264064671686841}
   - component: {fileID: 6054264064671686836}
   - component: {fileID: 3331262503731738117}
+  - component: {fileID: 787880314469282562}
   m_Layer: 8
   m_Name: VanBird
   m_TagString: Bird
@@ -336,3 +337,15 @@ TrailRenderer:
   m_MinVertexDistance: 0.1
   m_Autodestruct: 0
   m_Emitting: 1
+--- !u!114 &787880314469282562
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6054264064671686840}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fe8ad64813ed9b04a8dcc2ea99308575, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

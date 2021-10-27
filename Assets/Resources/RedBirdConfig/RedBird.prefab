@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 223289878307581299}
   - component: {fileID: 223289878307581296}
   - component: {fileID: 1631013714148047440}
+  - component: {fileID: 434839645324371279}
   m_Layer: 8
   m_Name: RedBird
   m_TagString: Untagged
@@ -223,6 +224,18 @@ TrailRenderer:
   m_MinVertexDistance: 0.1
   m_Autodestruct: 0
   m_Emitting: 1
+--- !u!114 &434839645324371279
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 223289878307581300}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b83b2419b0afa2d43894344578ede9f7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &3969183991163276157
 GameObject:
   m_ObjectHideFlags: 0

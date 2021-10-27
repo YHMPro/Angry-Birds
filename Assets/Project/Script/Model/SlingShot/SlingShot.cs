@@ -11,7 +11,6 @@ namespace Bird_VS_Boar
     {
         private SlingShotConfig m_Config = null;
         private SpringJoint2D m_SJ2D;
-
         private float m_ApplyingMaxSpeed = 15.0f;
         public float StretchDis
         {
@@ -128,22 +127,16 @@ namespace Bird_VS_Boar
             {
                 FlyPath flyPath = MonoSingletonFactory<FlyPath>.GetSingleton();
                 flyPath.SetFlyPath(0.2f,0.2f);
-                MonoSingletonFactory<ShareMono>.GetSingleton().DelayUAction(2, () =>
-                 {
-                     if(flyPath!=null)
-                     {
-                         flyPath.ActiveFlyPath(false);
-                     }
-                 });
+                flyPath.ActiveFlyPath(false);               
             }          
         }
         public void PlaySlingShotAudio()
         {
-            GameAudio.PlaySlingAudio(m_Config.SlingShotAudioPath);
+            GameAudio.PlaySlingShotAudio(m_Config.SlingShotAudioPath);
         }
         public void PauseSlingShotAudio()
         {
-            GameAudio.PauseSlingAudio();
+            GameAudio.PauseSlingShotAudio();
         }
         public Vector3 GetOriginGlobalPos(float z)
         {

@@ -18,6 +18,7 @@ namespace Bird_VS_Boar
     }
     public abstract class Pig : BaseMono
     {
+        protected PigConfig m_Config = null;
         protected Rigidbody2D m_Rig2D = null;
         protected Animator m_Anim = null;
         protected EnumPigHurtGrade m_HurtGrade = EnumPigHurtGrade.None;
@@ -28,6 +29,11 @@ namespace Bird_VS_Boar
             m_Anim = GetComponent<Animator>();
         }
 
+        protected override void Start()
+        {
+            base.Start();
+            m_Config.InitResources();//初始化资源路径
+        }
         protected override void OnDestroy()
         {          
             base.OnDestroy();          
@@ -43,13 +49,14 @@ namespace Bird_VS_Boar
                 relativeSpeed <= 15 ? EnumPigHurtGrade.Hurt2 : EnumPigHurtGrade.Destroy;
             if(m_HurtGrade!= EnumPigHurtGrade.Destroy)
             {
-                PlayCrashAudio();
+                PlayCollisionAudio();
                 SetHurtGradeAnim();         
             }
             else
             {
                 OpenBoom();
                 PlayDiedAudio();
+                Destroy(gameObject);
             }
         }
 
@@ -66,12 +73,15 @@ namespace Bird_VS_Boar
         #region Audio
         protected virtual void PlayDiedAudio()
         {
+            GameAudio.PlayEffectAudio(m_Config.GetDestroyedAudioPath());
         }
-        protected virtual void PlayCrashAudio()
+        protected virtual void PlayCollisionAudio()
         {
+            GameAudio.PlayEffectAudio(m_Config.GetCollisionAudioPath());
         }
         protected virtual void PlaySkillAudio()
         {
+
         }
         #endregion
         
@@ -92,10 +102,10 @@ namespace Bird_VS_Boar
             GameObject go;
             if (!GoReusePool.Take(typeof(Boom).Name, out go))
             {
-                //if (!GoLoad.Take(GameConfigInfo.BoomPath, out go))
-                //{
-                //    return;
-                //}
+                if (!GoLoad.Take(m_Config.BoomPath, out go))
+                {                  
+                    return;
+                }
             }
             go.transform.position = transform.position;
             go.GetComponent<Boom>().OpenBoom("PigBoom");

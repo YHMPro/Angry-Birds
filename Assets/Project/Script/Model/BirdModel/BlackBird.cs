@@ -37,16 +37,15 @@ namespace Bird_VS_Boar
             m_Anim.SetTrigger("IsSkill");//播放技能动画
             MonoSingletonFactory<ShareMono>.GetSingleton().DelayUAction(m_Anim.AnimatorClipTimeLength("BlackBirdSkill"), ()=> 
             {
-                DestroyCheckGo();
-                OnSkillUpdate();
+                OnSkillUpdate();                      
             });
         }
 
         protected override void OnSkillUpdate()
         {
             PlaySkillAudio();//播放技能音效
+            DestroyCheckGo();
             GoReusePool.Put(GetType().Name, gameObject);//回收小鸟
-            GameLogic.NowComeBird = null;//断开引用
         }          
         /// <summary>
         /// 销毁检测到的Go
@@ -56,6 +55,7 @@ namespace Bird_VS_Boar
             while (DestroyGoLi.Count > 0)
             {
                 GameObject go = DestroyGoLi[DestroyGoLi.Count - 1];
+                go.GetComponent<Pig>().OpenBoom();
                 DestroyGoLi.RemoveAt(DestroyGoLi.Count - 1);
                 Destroy(go);
             }

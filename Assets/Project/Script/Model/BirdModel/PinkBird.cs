@@ -23,7 +23,7 @@ namespace Bird_VS_Boar
 
         protected override void OnBirdFlyUpdate()
         {
-            OnSkillUpdate();
+            ProductBlister();
             PlaySkillAudio();
         }
        
@@ -63,7 +63,6 @@ namespace Bird_VS_Boar
             }
             PlaySkillAudio();//播放技能音效
             GoReusePool.Put(GetType().Name, gameObject);//回收小鸟
-            GameLogic.NowComeBird = null;//断开引用
         }
 
         protected override void OnSkillUpdate()
