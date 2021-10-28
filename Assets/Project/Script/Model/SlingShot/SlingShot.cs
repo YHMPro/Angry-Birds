@@ -46,7 +46,7 @@ namespace Bird_VS_Boar
             base.Awake();
             RegisterComponentsTypes<LineRenderer>();
             m_Config = NotMonoSingletonFactory<SlingShotConfig>.GetSingleton();
-            m_Config.InitResources();
+            m_Config.InitResourcesPath();
             m_SJ2D = GetComponent<SpringJoint2D>();
         }
         protected override void Start()

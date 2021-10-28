@@ -64,7 +64,7 @@ namespace Bird_VS_Boar
         private void OnGoodsClick()
         {
             BaseConfig config = ProjectTool.GetConfig(ProjectTool.GoodsTypeToConfigType(GoodsType));
-            config.InitResources();
+            config.InitResourcesPath();
             Debug.Log(config.SelfResPath);
             GameObject goods;
             if (!GoReusePool.Take(GoodsType.ToString(), out goods))

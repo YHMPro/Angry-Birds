@@ -16,7 +16,12 @@ namespace Bird_VS_Boar
             {
                 MonoSingletonFactory<Camera2D>.GetSingleton().SetLimit(3, 5, 4, 5);
             }
-            
+            Object[] atlas = Resources.LoadAll("BUTTONS_SHEET_1");
+            foreach(var sprite in atlas)
+            {
+                sprite.name = "SP";
+                Debug.Log(sprite);
+            }
         }
         
         // Start is called before the first frame update

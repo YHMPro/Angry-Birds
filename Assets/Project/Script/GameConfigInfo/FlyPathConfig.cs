@@ -6,9 +6,23 @@ namespace Bird_VS_Boar
 {
     public class FlyPathConfig : BaseConfig
     {
-        public override bool InitResources()
+        /// <summary>
+        /// 点路径
+        /// </summary>
+        protected string m_PointPath = "";
+        /// <summary>
+        /// 点路径
+        /// </summary>
+        public string PointPath
         {
-            if(base.InitResources())
+            get
+            {
+                return m_PointPath;
+            }
+        }
+        public override bool InitResourcesPath()
+        {
+            if(base.InitResourcesPath())
             {
                 m_IsInit = true;
                 m_PointPath = m_Tag + "/Point";

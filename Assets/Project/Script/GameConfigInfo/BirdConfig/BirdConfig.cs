@@ -9,11 +9,53 @@ namespace Bird_VS_Boar
     public abstract class BirdConfig :AbleCollision
     {
         protected BirdConfig() { }
-        
-        
-        public override bool InitResources()
+        /// <summary>
+        /// 自身默认精灵路径
+        /// </summary>
+        protected string m_SelfDefaultSpritePath = null;
+        /// <summary>
+        /// 自身默认精灵路径
+        /// </summary>
+        public string SelfDefaultSpritePath
         {
-            if(base.InitResources())
+            get
+            {
+                return m_SelfDefaultSpritePath;
+            }
+        }
+        /// <summary>
+        /// 飞行音效路径数组
+        /// </summary>
+        protected string[] m_FlyAudioPaths = null;
+        /// <summary>
+        /// 选中音效路径数组
+        /// </summary>
+        protected string[] m_SelectAudioPaths = null;
+        /// <summary>
+        /// 获取飞行音效路径
+        /// </summary>
+        /// <param name="isRandom">是否随机索引</param>
+        /// <param name="index">自定义索引</param>
+        /// <returns>路径</returns>
+        public virtual string GetFlyAudioPath(bool isRandom = true, int index = 0)
+        {
+            return GetPath(m_FlyAudioPaths, isRandom, index);
+        }
+        /// <summary>
+        /// 获取飞行音效路径
+        /// </summary>
+        /// <param name="isRandom">是否随机索引</param>
+        /// <param name="index">自定义索引</param>
+        /// <returns>路径</returns>
+        public virtual string GetSelectAudioPath(bool isRandom = true, int index = 0)
+        {
+            return GetPath(m_SelectAudioPaths, isRandom, index);
+        }
+
+
+        public override bool InitResourcesPath()
+        {
+            if(base.InitResourcesPath())
             {
                 m_IsInit = true;
 
@@ -24,9 +66,9 @@ namespace Bird_VS_Boar
             return false;
         }
 
-        public override bool InitAB()
+        public override bool InitABPath()
         {
-            if(base.InitAB())
+            if(base.InitABPath())
             {
                 m_IsInit = true;
 
@@ -43,12 +85,12 @@ namespace Bird_VS_Boar
     /// </summary>
     public class RedBirdConfig : BirdConfig
     {
-        public override bool InitResources()
+        public override bool InitResourcesPath()
         {
-            if(base.InitResources())
+            if(base.InitResourcesPath())
             {
                 m_IsInit = true;
-
+                m_SelfDefaultSpritePath = m_Tag + "RedBirdSprite";
                 m_SelfResPath = m_Tag + "/RedBird";
                 m_FlyAudioPaths = new string[] {
                     m_Tag+"/BRFly1"

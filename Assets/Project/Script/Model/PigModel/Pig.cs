@@ -32,7 +32,7 @@ namespace Bird_VS_Boar
         protected override void Start()
         {
             base.Start();
-            m_Config.InitResources();//初始化资源路径
+            m_Config.InitResourcesPath();//初始化资源路径
         }
         protected override void OnDestroy()
         {          

@@ -97,7 +97,7 @@ namespace Bird_VS_Boar
         {
             base.Start();
             InitTrailRenderer();//初始化拖尾
-            m_Config.InitResources();//初始化资源路径
+            m_Config.InitResourcesPath();//初始化资源路径
             InitAudio();//初始化音效播放器
         }
 

@@ -10,16 +10,28 @@ namespace Bird_VS_Boar
     public abstract class SkillBirdConfig : BirdConfig
     {
         protected SkillBirdConfig() { }
+        /// <summary>
+        /// 技能音效路径数组
+        /// </summary>
+        protected string[] m_SkillAudioPaths = null;
+        /// <summary>
+        /// 获取技能音效路径
+        /// </summary>
+        /// <param name="isRandom">是否随机索引</param>
+        /// <param name="index">自定义索引</param>
+        /// <returns>路径</returns>
+        public virtual string GetSkillAudioPath(bool isRandom = true, int index = 0)
+        {
+            return GetPath(m_SkillAudioPaths, isRandom, index);
+        }
 
-        
-       
     }
 
     public class VanBirdConfig : SkillBirdConfig
     {
-        public override bool InitResources()
+        public override bool InitResourcesPath()
         {
-            if (base.InitResources())
+            if (base.InitResourcesPath())
             {
                 m_IsInit = true;
 
@@ -46,9 +58,23 @@ namespace Bird_VS_Boar
     }
     public class WhiteBirdConfig : SkillBirdConfig
     {
-        public override bool InitResources()
+        /// <summary>
+        /// 蛋路径
+        /// </summary>
+        protected string m_EggPath = "";
+        /// <summary>
+        /// 蛋路径
+        /// </summary>
+        public string EggPath
         {
-            if (base.InitResources())
+            get
+            {
+                return m_EggPath;
+            }
+        }
+        public override bool InitResourcesPath()
+        {
+            if (base.InitResourcesPath())
             {
                 m_IsInit = true;
 
@@ -80,9 +106,9 @@ namespace Bird_VS_Boar
     /// </summary>
     public class BlueBirdConfig : SkillBirdConfig
     {
-        public override bool InitResources()
+        public override bool InitResourcesPath()
         {
-            if (base.InitResources())
+            if (base.InitResourcesPath())
             {
                 m_IsInit = true;
 
@@ -102,10 +128,24 @@ namespace Bird_VS_Boar
     /// 粉色小鸟配置
     /// </summary>
     public class PinkBirdConfig : SkillBirdConfig
-    {       
-        public override bool InitResources()
+    {
+        /// <summary>
+        /// 气泡路径
+        /// </summary>
+        protected string m_BlisterPath = null;
+        /// <summary>
+        /// 气泡路径
+        /// </summary>
+        public string BlisterPath
         {
-            if (base.InitResources())
+            get
+            {
+                return m_BlisterPath;
+            }
+        }
+        public override bool InitResourcesPath()
+        {
+            if (base.InitResourcesPath())
             {
                 m_IsInit = true;
 
@@ -143,9 +183,9 @@ namespace Bird_VS_Boar
     /// </summary>
     public class BlackBirdConfig :SkillBirdConfig
     {
-        public override bool InitResources()
+        public override bool InitResourcesPath()
         {
-            if (base.InitResources())
+            if (base.InitResourcesPath())
             {
                 m_IsInit = true;
 
@@ -175,9 +215,9 @@ namespace Bird_VS_Boar
     /// </summary>
     public class GreenBirdConfig:SkillBirdConfig
     {
-        public override bool InitResources()
+        public override bool InitResourcesPath()
         {
-            if (base.InitResources())
+            if (base.InitResourcesPath())
             {
                 m_IsInit = true;
 
@@ -209,9 +249,9 @@ namespace Bird_VS_Boar
     /// </summary>
     public class YellowBirdConfig: SkillBirdConfig
     {
-        public override bool InitResources()
+        public override bool InitResourcesPath()
         {
-            if(base.InitResources())
+            if(base.InitResourcesPath())
             {
                 m_IsInit = true;
 

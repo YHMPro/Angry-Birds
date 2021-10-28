@@ -10,13 +10,26 @@ namespace Bird_VS_Boar
     public class SlingShotConfig : BaseConfig
     {
         #region Resources资源       
-        
+        /// <summary>
+        /// 弹弓音效
+        /// </summary>
+        protected string m_SlingShotAudioPath = null;
+        /// <summary>
+        /// 弹弓音效
+        /// </summary>
+        public string SlingShotAudioPath
+        {
+            get
+            {
+                return m_SlingShotAudioPath;
+            }
+        }
         #endregion
 
-        public override bool InitResources()
+        public override bool InitResourcesPath()
         {
             
-            if (base.InitResources())
+            if (base.InitResourcesPath())
             {
                 m_SlingShotAudioPath=  m_Tag + "/SlingShotAudio1" ;
                 m_IsInit = true;
@@ -25,9 +38,9 @@ namespace Bird_VS_Boar
             return false;          
         }
 
-        public override bool InitAB()
+        public override bool InitABPath()
         {          
-            if (base.InitAB())
+            if (base.InitABPath())
             {
                 m_SlingShotAudioPath = "SlingShotAudio1";
                 m_IsInit = true;

@@ -10,9 +10,9 @@ namespace Bird_VS_Boar
     public abstract class PigConfig : AbleCollision
     {
         protected PigConfig() { }
-        public override bool InitResources()
+        public override bool InitResourcesPath()
         {
-            if (base.InitResources())
+            if (base.InitResourcesPath())
             {
                 m_Common = "PigCommon";                
                 m_DestroyAudioPaths = new string[] { m_Common + "/PDe1" };
@@ -23,9 +23,9 @@ namespace Bird_VS_Boar
     }
     public class Pig3Config : PigConfig
     {
-        public override bool InitResources()
+        public override bool InitResourcesPath()
         {
-            if (base.InitResources())
+            if (base.InitResourcesPath())
             {
                 m_SelfResPath = m_Tag + "/Pig3";
                 m_CollisionAudioPaths = new string[] {
@@ -39,9 +39,9 @@ namespace Bird_VS_Boar
     }
     public class Pig2Config : PigConfig
     {
-        public override bool InitResources()
+        public override bool InitResourcesPath()
         {
-            if (base.InitResources())
+            if (base.InitResourcesPath())
             {
                 m_SelfResPath = m_Tag + "/Pig2";
                 m_CollisionAudioPaths = new string[] {
@@ -55,9 +55,9 @@ namespace Bird_VS_Boar
     }
     public class Pig1Config: PigConfig
     {
-        public override bool InitResources()
+        public override bool InitResourcesPath()
         {
-            if (base.InitResources())
+            if (base.InitResourcesPath())
             {
                 m_SelfResPath = m_Tag + "/Pig1";
                 m_CollisionAudioPaths = new string[] {

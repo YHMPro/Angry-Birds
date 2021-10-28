@@ -33,7 +33,7 @@ namespace Bird_VS_Boar
         private void Awake()
         {
             m_Config = NotMonoSingletonFactory<FlyPathConfig>.GetSingleton();
-            m_Config.InitResources();
+            m_Config.InitResourcesPath();
         }
         private  void Start()
         {       
