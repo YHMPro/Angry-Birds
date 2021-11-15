@@ -13,7 +13,7 @@ namespace Bird_VS_Boar
         protected override void OnMouseUp()
         {
             base.OnMouseUp();
-            MonoSingletonFactory<ShareMono>.GetSingleton().AddUpdateUAction(OnSkillUpdate_Common);//持续监听技能释放指令
+            MonoSingletonFactory<ShareMono>.GetSingleton().ApplyUpdateAction(OnSkillUpdate_Common);//持续监听技能释放指令
         }
 
         public override void OnSkillUpdate_Common()
@@ -24,7 +24,7 @@ namespace Bird_VS_Boar
                 {
                     m_IsReleaseSkill = true;
                     OnSkillUpdate();                  
-                    MonoSingletonFactory<ShareMono>.GetSingleton().RemoveUpdateUAction(OnSkillUpdate_Common);
+                    MonoSingletonFactory<ShareMono>.GetSingleton().RemoveUpdateAction(OnSkillUpdate_Common);
                 }
             }
         }
@@ -37,7 +37,7 @@ namespace Bird_VS_Boar
         
         protected override void PlaySkillAudio()
         {
-            GameAudio.PlayBirdAudio(m_AC,(m_Config as SkillBirdConfig).GetSkillAudioPath());
+            //GameAudio.PlayBirdAudio(m_AC,(m_Config as SkillBirdConfig).GetSkillAudioPath());
         }
 
     }

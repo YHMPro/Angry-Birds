@@ -41,7 +41,7 @@ namespace Bird_VS_Boar
                 angle += i == 0 ? 10 : i == 1 ? 0 : -10;
                 velocity = new Vector2(Mathf.Cos(angle / 180.0f * Mathf.PI), Mathf.Sin(angle / 180.0f * Mathf.PI));
                 blueBird.SetBirdFlyVelocity(velocity * m_Rig2D.velocity.magnitude);
-                MonoSingletonFactory<ShareMono>.GetSingleton().AddUpdateUAction(blueBird.OnBirdFlyUpdate_Common);
+                MonoSingletonFactory<ShareMono>.GetSingleton().ApplyUpdateAction(blueBird.OnBirdFlyUpdate_Common);
                 blueBird.ActiveTrailRenderer(true);                
             }
             GoReusePool.Put(GetType().Name, gameObject);

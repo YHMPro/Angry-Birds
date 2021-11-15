@@ -73,11 +73,11 @@ namespace Bird_VS_Boar
         #region Audio
         protected virtual void PlayDiedAudio()
         {
-            GameAudio.PlayEffectAudio(m_Config.GetDestroyedAudioPath());
+            //GameAudio.PlayEffectAudio(m_Config.GetDestroyedAudioPath());
         }
         protected virtual void PlayCollisionAudio()
         {
-            GameAudio.PlayEffectAudio(m_Config.GetCollisionAudioPath());
+            //GameAudio.PlayEffectAudio(m_Config.GetCollisionAudioPath());
         }
         protected virtual void PlaySkillAudio()
         {

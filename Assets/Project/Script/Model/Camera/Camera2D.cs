@@ -22,7 +22,7 @@ namespace Bird_VS_Boar
         }
         public void BindBird()
         {        
-            MonoSingletonFactory<ShareMono>.GetSingleton().AddFixUpdateUAction(Follow);
+            MonoSingletonFactory<ShareMono>.GetSingleton().ApplyFixUpdateAction(Follow);
         }
 
         public void Follow()
@@ -50,7 +50,7 @@ namespace Bird_VS_Boar
         }
         public void BreakBird()
         {
-            MonoSingletonFactory<ShareMono>.GetSingleton().AddFixUpdateUAction(Follow);
+            MonoSingletonFactory<ShareMono>.GetSingleton().RemoveFixUpdateAction(Follow);
         }
         public Vector3 ScreenToWorldPoint(Vector3 vector3,float z=0)
         {

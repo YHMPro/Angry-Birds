@@ -62,7 +62,7 @@ namespace Bird_VS_Boar
                 }
                 else
                 {
-                    m_C = MonoSingletonFactory<ShareMono>.GetSingleton().DelayUAction(2, () =>
+                    m_C = MonoSingletonFactory<ShareMono>.GetSingleton().DelayAction(2, () =>
                     {
                         foreach (var pointTran in PointTrans)
                         {

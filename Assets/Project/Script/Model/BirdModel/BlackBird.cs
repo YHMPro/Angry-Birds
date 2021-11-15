@@ -35,7 +35,7 @@ namespace Bird_VS_Boar
         protected override void OnBirdFlyUpdate()
         {
             m_Anim.SetTrigger("IsSkill");//播放技能动画
-            MonoSingletonFactory<ShareMono>.GetSingleton().DelayUAction(m_Anim.AnimatorClipTimeLength("BlackBirdSkill"), ()=> 
+            MonoSingletonFactory<ShareMono>.GetSingleton().DelayAction(m_Anim.AnimatorClipTimeLength("BlackBirdSkill"), ()=> 
             {
                 OnSkillUpdate();                      
             });

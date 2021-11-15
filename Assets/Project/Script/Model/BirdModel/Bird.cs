@@ -10,7 +10,7 @@ namespace Bird_VS_Boar
         /// <summary>
         /// 音效控制
         /// </summary>
-        protected IAudioControl m_AC = null;
+        //protected IAudioControl m_AC = null;
         /// <summary>
         /// 是否能绑定鸟巢
         /// </summary>
@@ -188,7 +188,7 @@ namespace Bird_VS_Boar
         {            
             if(!gameObject.activeInHierarchy)
             {
-                MonoSingletonFactory<ShareMono>.GetSingleton().RemoveUpdateUAction(OnBirdFlyUpdate_Common);
+                MonoSingletonFactory<ShareMono>.GetSingleton().RemoveUpdateAction(OnBirdFlyUpdate_Common);
             }
             //小鸟面朝飞行方向
             transform.eulerAngles = new Vector3(0, 0, -Vector2.SignedAngle(m_Rig2D.velocity.normalized, Vector2.right));
@@ -196,8 +196,8 @@ namespace Bird_VS_Boar
             {
                 if (Physics2D.OverlapCircle(transform.position, m_CC2D.radius, LayerMask.GetMask(rayCastGroup)))
                 {                  
-                    MonoSingletonFactory<ShareMono>.GetSingleton().RemoveUpdateUAction(OnBirdFlyUpdate_Common);
-                    MonoSingletonFactory<ShareMono>.GetSingleton().RemoveUpdateUAction(OnSkillUpdate_Common);
+                    MonoSingletonFactory<ShareMono>.GetSingleton().RemoveUpdateAction(OnBirdFlyUpdate_Common);
+                    MonoSingletonFactory<ShareMono>.GetSingleton().RemoveUpdateAction(OnSkillUpdate_Common);
                     ActiveTrailRenderer(false);//关闭拖尾
                     PlayCollisionAudio();//播放碰撞音效
                     OnBirdFlyUpdate();                 
@@ -210,7 +210,7 @@ namespace Bird_VS_Boar
         protected virtual void OnBirdFlyUpdate()
         {
             m_Anim.SetTrigger("IsHurt");//受伤动画
-            MonoSingletonFactory<ShareMono>.GetSingleton().DelayUAction(3.0f,()=> 
+            MonoSingletonFactory<ShareMono>.GetSingleton().DelayAction(3.0f,()=> 
             {
                 OpenBoom(); //打开死亡特效
                 PlayDestroyAudio();//播放销毁音效
@@ -248,22 +248,22 @@ namespace Bird_VS_Boar
 
         protected virtual void InitAudio()
         {
-            m_AC = MonoSingletonFactory<Audio2DMgr>.GetSingleton().ApplyForAudioControl();
-            if (AudioMixerMgr.GetAudioMixerGroup("Effect", out AudioMixerGroup group))
-            {
-                if (m_AC.SetAudioMixerGroup(group))
-                {
-                    (m_AC as Audio2D).IsAutoRecycle = false;
-                    Debug.Log("小鸟选择音效配置成功");
-                }
-            }
+            //m_AC = MonoSingletonFactory<Audio2DMgr>.GetSingleton().ApplyForAudioControl();
+            //if (AudioMixerMgr.GetAudioMixerGroup("Effect", out AudioMixerGroup group))
+            //{
+            //    if (m_AC.SetAudioMixerGroup(group))
+            //    {
+            //        (m_AC as Audio2D).IsAutoRecycle = false;
+            //        Debug.Log("小鸟选择音效配置成功");
+            //    }
+            //}
         }
         /// <summary>
         /// 播放飞行音效
         /// </summary>
         protected virtual void PlayFlyAudio()
         {
-            GameAudio.PlayBirdAudio(m_AC,m_Config.GetFlyAudioPath());
+            //GameAudio.PlayBirdAudio(m_AC,m_Config.GetFlyAudioPath());
 
         }
         /// <summary>
@@ -271,21 +271,21 @@ namespace Bird_VS_Boar
         /// </summary>
         protected virtual void PlaySelectAudio()
         {
-            GameAudio.PlayBirdAudio(m_AC,m_Config.GetSelectAudioPath());
+            //GameAudio.PlayBirdAudio(m_AC,m_Config.GetSelectAudioPath());
         }
         /// <summary>
         /// 播放销毁音效
         /// </summary>
         protected virtual void PlayDestroyAudio()
         {
-            GameAudio.PlayBirdAudio(m_AC,m_Config.GetDestroyedAudioPath());
+            //GameAudio.PlayBirdAudio(m_AC,m_Config.GetDestroyedAudioPath());
         }
         /// <summary>
         /// 播放碰撞音效
         /// </summary>
         protected virtual void PlayCollisionAudio()
         {
-            GameAudio.PlayBirdAudio(m_AC,m_Config.GetCollisionAudioPath());
+            //GameAudio.PlayBirdAudio(m_AC,m_Config.GetCollisionAudioPath());
         }
         /// <summary>
         /// 播放技能音效
@@ -298,29 +298,29 @@ namespace Bird_VS_Boar
         /// 播放小鸟选择音效
         /// </summary>
         /// <param name="audioPath"></param>
-        protected void PlayBirdAudio(IAudioControl iAC,string audioPath)
-        {
-            if (AudioClipMgr.GetAudioClip(audioPath, out AudioClip audioClip))
-            {
-                if (iAC == null)
-                {
-                    iAC = MonoSingletonFactory<Audio2DMgr>.GetSingleton().ApplyForAudioControl();
-                    if (AudioMixerMgr.GetAudioMixerGroup("Effect", out AudioMixerGroup group))
-                    {
-                        if (iAC.SetAudioMixerGroup(group))
-                        {
-                            (iAC as Audio2D).IsAutoRecycle = false;
-                            Debug.Log("小鸟选择音效配置成功");
-                        }
-                    }
-                }
-                if (iAC.SetAudioClip(audioClip))
-                {
-                    iAC.Play();
-                }
-            }
+        //protected void PlayBirdAudio(IAudioControl iAC,string audioPath)
+        //{
+        //    //if (AudioClipMgr.GetAudioClip(audioPath, out AudioClip audioClip))
+        //    //{
+        //    //    if (iAC == null)
+        //    //    {
+        //    //        iAC = MonoSingletonFactory<Audio2DMgr>.GetSingleton().ApplyForAudioControl();
+        //    //        if (AudioMixerMgr.GetAudioMixerGroup("Effect", out AudioMixerGroup group))
+        //    //        {
+        //    //            if (iAC.SetAudioMixerGroup(group))
+        //    //            {
+        //    //                (iAC as Audio2D).IsAutoRecycle = false;
+        //    //                Debug.Log("小鸟选择音效配置成功");
+        //    //            }
+        //    //        }
+        //    //    }
+        //    //    if (iAC.SetAudioClip(audioClip))
+        //    //    {
+        //    //        iAC.Play();
+        //    //    }
+        //    //}
 
-        }
+        //}
         #endregion
         #region TrailRenderer
         /// <summary>

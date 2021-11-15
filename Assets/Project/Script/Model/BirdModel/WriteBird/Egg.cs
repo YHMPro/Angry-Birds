@@ -31,7 +31,7 @@ namespace Bird_VS_Boar
 
         private void Start()
         {
-            MonoSingletonFactory<ShareMono>.GetSingleton().AddUpdateUAction(EggUpdate);
+            MonoSingletonFactory<ShareMono>.GetSingleton().ApplyUpdateAction(EggUpdate);
         }
         private void OnMouseDown()
         {

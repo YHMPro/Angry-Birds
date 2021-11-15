@@ -45,7 +45,7 @@ namespace Bird_VS_Boar
         {
             m_CheckGo = null;
             m_EdgeCo2D.enabled = false;
-            m_C=MonoSingletonFactory<ShareMono>.GetSingleton().DelayUAction(3.0f, Recycle);
+            m_C=MonoSingletonFactory<ShareMono>.GetSingleton().DelayAction(3.0f, Recycle);
         }
         private void Start()
         {
@@ -74,10 +74,10 @@ namespace Bird_VS_Boar
                     transform.position = m_CheckGo.transform.position;
                     m_CheckGo.GetComponent<Pig>().SetGravityScale(0.01f);
                     m_EdgeCo2D.enabled = true;
-                    MonoSingletonFactory<ShareMono>.GetSingleton().AddUpdateUAction(FlyUpdate);
-                    MonoSingletonFactory<ShareMono>.GetSingleton().DelayUAction(10f, () =>
+                    MonoSingletonFactory<ShareMono>.GetSingleton().ApplyUpdateAction(FlyUpdate);
+                    MonoSingletonFactory<ShareMono>.GetSingleton().DelayAction(10f, () =>
                     {
-                        MonoSingletonFactory<ShareMono>.GetSingleton().RemoveUpdateUAction(FlyUpdate);
+                        MonoSingletonFactory<ShareMono>.GetSingleton().RemoveUpdateAction(FlyUpdate);
                         if(m_CheckGo != null)
                         {
                             m_CheckGo.GetComponent<Pig>().SetGravityScale(1.0f);

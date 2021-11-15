@@ -11,7 +11,7 @@ namespace Bird_VS_Boar
         {
             MonoSingletonFactory<Camera2D>.GetSingleton();
             MonoSingletonFactory<FlyPath>.GetSingleton();
-            MonoSingletonFactory<Audio2DMgr>.GetSingleton();
+            //MonoSingletonFactory<Audio2DMgr>.GetSingleton();
             if (MonoSingletonFactory<Camera2D>.SingletonExist)
             {
                 MonoSingletonFactory<Camera2D>.GetSingleton().SetLimit(3, 5, 4, 5);
