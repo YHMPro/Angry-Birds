@@ -8,7 +8,7 @@ namespace Bird_VS_Boar
     {
         protected override void Awake()
         {
-            m_Config = NotMonoSingletonFactory<BlueBirdConfig>.GetSingleton();
+            
             base.Awake();
         }
 
@@ -25,7 +25,11 @@ namespace Bird_VS_Boar
                 GameObject go;
                 if(!GoReusePool.Take(typeof(LittleBlueBird).Name,out go))
                 {
-                    if (!GoLoad.Take(m_Config.SelfResPath, out go))
+                    if (!BirdConfigInfo.BirdConfigInfoDic.TryGetValue(GetType().Name, out var config))
+                    {
+                        return;
+                    }
+                    if (!GoLoad.Take(config.GetBirdPrefabPath(), out go))
                     {
                         return;
                     }
@@ -41,7 +45,7 @@ namespace Bird_VS_Boar
                 angle += i == 0 ? 10 : i == 1 ? 0 : -10;
                 velocity = new Vector2(Mathf.Cos(angle / 180.0f * Mathf.PI), Mathf.Sin(angle / 180.0f * Mathf.PI));
                 blueBird.SetBirdFlyVelocity(velocity * m_Rig2D.velocity.magnitude);
-                MonoSingletonFactory<ShareMono>.GetSingleton().ApplyUpdateAction(blueBird.OnBirdFlyUpdate_Common);
+                MonoSingletonFactory<ShareMono>.GetSingleton().ApplyUpdateAction(EnumUpdateAction.Standard,blueBird.OnBirdFlyUpdate_Common);
                 blueBird.ActiveTrailRenderer(true);                
             }
             GoReusePool.Put(GetType().Name, gameObject);

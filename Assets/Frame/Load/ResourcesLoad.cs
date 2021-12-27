@@ -1,10 +1,11 @@
 ﻿using System.Collections;
 using UnityEngine;
 using UnityEngine.Events;
+using Farme.Tool;
 namespace Farme
 {
     /// <summary>
-    /// Res加载
+    /// Resources加载
     /// </summary>
     public class ResourcesLoad
     {
@@ -31,8 +32,7 @@ namespace Farme
         /// </summary>
         /// <typeparam name="T"></typeparam>
         /// <param name="resPath">资源路径</param>
-        /// <param name="result">结果</param>
-        /// <returns></returns>
+        /// <returns>结果</returns>
         public static T Load<T>(string resPath) where T : Object
         {
            return Resources.Load<T>(resPath);           
@@ -56,13 +56,17 @@ namespace Farme
         /// <typeparam name="T">资源类型</typeparam>
         /// <param name="resPath">资源路径</param>
         /// <param name="callBack">回调</param>
-        /// <returns></returns>
         private static IEnumerator IELoadAsync<T>(string resPath, UnityAction<T> callBack) where T : Object
         {
             //异步加载资源
             ResourceRequest rr = Resources.LoadAsync<T>(resPath);
             yield return rr;//等待请求完成
-            callBack?.Invoke(rr.asset as T);
+            T assets = rr.asset as T;
+            if(assets==null)
+            {
+                Debuger.LogError("["+resPath+"]" + "路径下的资源加载失败。");
+            }
+            callBack?.Invoke(assets);
         }
         #endregion
     }

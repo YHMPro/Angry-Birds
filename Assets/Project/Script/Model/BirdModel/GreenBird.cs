@@ -8,7 +8,7 @@ namespace Bird_VS_Boar
     {
         protected override void Awake()
         {
-            m_Config = NotMonoSingletonFactory<GreenBirdConfig>.GetSingleton();
+            
             base.Awake();
         }
 

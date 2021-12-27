@@ -2,7 +2,6 @@
 using UnityEngine;
 using UnityEngine.Audio;
 using UnityEngine.Events;
-using System;
 using Farme.Tool;
 namespace Farme.Audio
 {
@@ -17,7 +16,9 @@ namespace Farme.Audio
         private void Awake()
         {
             m_As = GetComponent<AudioSource>();
+            m_AudioEvent = new AudioEvent();
             m_As.panStereo = 0;
+            m_As.spatialBlend = 0;
             m_As.time = 0;
             m_As.clip = null;
             m_As.playOnAwake = false;
@@ -58,9 +59,41 @@ namespace Farme.Audio
         /// 监听音量过度
         /// </summary>
         private Coroutine m_ListenVolumeExcess = null;
+        /// <summary>
+        /// 音效事件
+        /// </summary>
+        private AudioEvent m_AudioEvent = null;
         #endregion
 
         #region 属性 
+        /// <summary>
+        /// 播放进度
+        /// </summary>
+        public float Progress
+        {
+            get
+            {
+                if(m_As.clip==null)
+                {
+                    return 0;
+                }
+                return m_As.time / m_As.clip.length;
+            }
+        }
+        /// <summary>
+        /// 音效事件
+        /// </summary>
+        public AudioEvent Event
+        {
+            set
+            {
+                m_AudioEvent = value;
+            }
+            get
+            {
+                return m_AudioEvent;
+            }
+        }
         /// <summary>
         /// 音效组
         /// </summary>
@@ -149,6 +182,10 @@ namespace Farme.Audio
             set
             {
                 m_AbleRecycle = value;
+                if (value&& m_IsStop)//满足条件则直接回收
+                {
+                    Recycle();
+                }              
             }
             get
             {
@@ -233,6 +270,27 @@ namespace Farme.Audio
                 return -1;
             }
         }
+        /// <summary>
+        /// 空间混合(0:2D  -> 1:3D)
+        /// </summary>
+        public float SpatialBlend
+        {
+            set
+            {
+                if(m_As!=null)
+                {
+                    m_As.spatialBlend = Mathf.Clamp(value, 0, 1);
+                }
+            }
+            get
+            {
+                if (m_As != null)
+                {
+                    return m_As.spatialBlend;
+                }
+                return -1;
+            }
+        }
         #endregion
 
         #region 方法
@@ -244,28 +302,28 @@ namespace Farme.Audio
             if(m_Timer == null&& m_As.clip!=null)
             {
                 m_Timer = MonoSingletonFactory<ShareMono>.GetSingleton().DelayAction(m_As.clip.length - m_As.time, ()=>
-                {
-                    RemoveTimer();
+                {                   
+                    RemoveTimer();                  
                     if (m_As.loop)
                     {
+                        if (m_AudioEvent != null)
+                        {
+                            m_AudioEvent.FinishEvent?.Invoke();
+                        }
                         return;
                     }
                     m_IsPause = false;
                     m_IsPlay = false;
                     m_As.time = 0;   
                     m_IsStop = true;
+                    m_As.Stop();
                     if (m_AbleRecycle)
                     {
-                        if (AudioManager.NotInidleAudioLi.Contains(this))
-                        {
-                            AudioManager.NotInidleAudioLi.Remove(this);
-                            //判断音效闲置栈中是否存该音效
-                            if (!AudioManager.InidleAudios.Contains(this))
-                            {
-                                AudioManager.InidleAudios.Push(this);
-                            }
-                            gameObject.SetActive(false);
-                        }
+                        Recycle();
+                    }
+                    if (m_AudioEvent != null)
+                    {
+                        m_AudioEvent.FinishEvent?.Invoke();
                     }
                 });            
             }
@@ -285,12 +343,16 @@ namespace Farme.Audio
         /// 播放
         /// </summary>
         public void Play()
-        {         
+        {            
             m_As.Play();
             AppendTimer();
             m_IsPause = false;
             m_IsPlay = true;
-            m_IsStop = false;                
+            m_IsStop = false;
+            if (m_AudioEvent != null)
+            {
+                m_AudioEvent.StartEvent?.Invoke();
+            }
         }
         /// <summary>
         /// 播放(先播放，然后音量过度到目标值)
@@ -361,16 +423,7 @@ namespace Farme.Audio
             m_As.time = 0;
             if (m_AbleRecycle)
             {
-                if (AudioManager.NotInidleAudioLi.Contains(this))
-                {
-                    AudioManager.NotInidleAudioLi.Remove(this);
-                    //判断音效闲置栈中是否存该音效
-                    if (!AudioManager.InidleAudios.Contains(this))
-                    {
-                        AudioManager.InidleAudios.Push(this);
-                    }
-                    gameObject.SetActive(false);
-                }
+                Recycle();
             }
         }
         /// <summary>
@@ -405,6 +458,7 @@ namespace Farme.Audio
         {
             int num = (int)(50 * time);
             float interval = Mathf.Abs(m_As.volume - Mathf.Clamp(volume,0,1)) / num;
+            WaitForSeconds waitForSeconds = new WaitForSeconds(0.02f);
             while (true)
             {            
                 if(num < 0)
@@ -415,9 +469,52 @@ namespace Farme.Audio
                 }
                 m_As.volume = Mathf.MoveTowards(m_As.volume, volume, interval);
                 num--;
-                yield return new WaitForSeconds(0.02f);
+                yield return waitForSeconds;
+            }
+        }
+        /// <summary>
+        /// 获取当前播放音频源的频谱数据块 
+        /// </summary>
+        /// <param name="samples">要填充音频样本的数组,它的长度一定是2的幂</param>
+        /// <param name="channel">取样的通道</param>
+        /// <param name="window">采样时使用的fftwwindow类型</param>
+        public void GetSpectrumData(float[] samples, int channel, FFTWindow window)
+        {
+            if (m_As != null)
+            {
+                m_As.GetSpectrumData(samples, channel, window);
+            }
+        }
+        /// <summary>
+        /// 回收
+        /// </summary>
+        private void Recycle()
+        {
+            if (AudioManager.NotInidleAudioLi.Contains(this))
+            {
+                AudioManager.NotInidleAudioLi.Remove(this);
+                //判断音效闲置栈中是否存该音效
+                if (!AudioManager.InidleAudios.Contains(this))
+                {
+                    AudioManager.InidleAudios.Push(this);
+                }
+                gameObject.SetActive(false);
             }
         }
         #endregion
+        /// <summary>
+        /// 音效事件
+        /// </summary>
+        public class AudioEvent
+        {
+            /// <summary>
+            /// 开始播放时的回调事件
+            /// </summary>
+            public UnityAction StartEvent;
+            /// <summary>
+            /// 播放完成的回调事件
+            /// </summary>
+            public UnityAction FinishEvent;                                    
+        }
     }
 }

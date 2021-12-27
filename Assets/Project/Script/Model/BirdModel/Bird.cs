@@ -3,14 +3,15 @@ using System.Collections.Generic;
 using UnityEngine;
 using Farme;
 using UnityEngine.Audio;
+using Farme.Audio;
 namespace Bird_VS_Boar
 { 
     public abstract class Bird : BaseMono
     {
         /// <summary>
-        /// 音效控制
+        /// 音效
         /// </summary>
-        //protected IAudioControl m_AC = null;
+        protected Audio m_Effect = null;
         /// <summary>
         /// 是否能绑定鸟巢
         /// </summary>
@@ -22,11 +23,11 @@ namespace Bird_VS_Boar
         /// <summary>
         /// 是否释放技能
         /// </summary>
-        protected bool m_IsReleaseSkill = false;        
+        protected bool m_IsReleaseSkill = false;            
         /// <summary>
-        /// 配置
+        /// 小鸟配置信息
         /// </summary>
-        protected BirdConfig m_Config = null;
+        protected BirdConfigInfo m_ConfigInfo = null;
         /// <summary>
         /// 碰撞盒子
         /// </summary>
@@ -75,7 +76,7 @@ namespace Bird_VS_Boar
         }            
         protected override void Awake()
         {
-            base.Awake();
+            base.Awake();           
             m_CC2D = gameObject.AddComponent<CircleCollider2D>();
             m_Rig2D = GetComponent<Rigidbody2D>();
             m_Anim = GetComponent<Animator>();
@@ -96,9 +97,7 @@ namespace Bird_VS_Boar
         protected override void Start()
         {
             base.Start();
-            InitTrailRenderer();//初始化拖尾
-            m_Config.InitResourcesPath();//初始化资源路径
-            InitAudio();//初始化音效播放器
+            InitTrailRenderer();//初始化拖尾         
         }
 
         protected override void OnDestroy()
@@ -188,7 +187,7 @@ namespace Bird_VS_Boar
         {            
             if(!gameObject.activeInHierarchy)
             {
-                MonoSingletonFactory<ShareMono>.GetSingleton().RemoveUpdateAction(OnBirdFlyUpdate_Common);
+                MonoSingletonFactory<ShareMono>.GetSingleton().RemoveUpdateAction(EnumUpdateAction.Standard,OnBirdFlyUpdate_Common);
             }
             //小鸟面朝飞行方向
             transform.eulerAngles = new Vector3(0, 0, -Vector2.SignedAngle(m_Rig2D.velocity.normalized, Vector2.right));
@@ -196,8 +195,8 @@ namespace Bird_VS_Boar
             {
                 if (Physics2D.OverlapCircle(transform.position, m_CC2D.radius, LayerMask.GetMask(rayCastGroup)))
                 {                  
-                    MonoSingletonFactory<ShareMono>.GetSingleton().RemoveUpdateAction(OnBirdFlyUpdate_Common);
-                    MonoSingletonFactory<ShareMono>.GetSingleton().RemoveUpdateAction(OnSkillUpdate_Common);
+                    MonoSingletonFactory<ShareMono>.GetSingleton().RemoveUpdateAction(EnumUpdateAction.Standard,OnBirdFlyUpdate_Common);
+                    MonoSingletonFactory<ShareMono>.GetSingleton().RemoveUpdateAction(EnumUpdateAction.Standard,OnSkillUpdate_Common);
                     ActiveTrailRenderer(false);//关闭拖尾
                     PlayCollisionAudio();//播放碰撞音效
                     OnBirdFlyUpdate();                 
@@ -244,83 +243,77 @@ namespace Bird_VS_Boar
             m_Rig2D.velocity = velocity;
         }      
         #endregion
-        #region Audio
-
-        protected virtual void InitAudio()
-        {
-            //m_AC = MonoSingletonFactory<Audio2DMgr>.GetSingleton().ApplyForAudioControl();
-            //if (AudioMixerMgr.GetAudioMixerGroup("Effect", out AudioMixerGroup group))
-            //{
-            //    if (m_AC.SetAudioMixerGroup(group))
-            //    {
-            //        (m_AC as Audio2D).IsAutoRecycle = false;
-            //        Debug.Log("小鸟选择音效配置成功");
-            //    }
-            //}
-        }
+        #region Audio   默认->选中->飞行->碰撞->销毁     
         /// <summary>
         /// 播放飞行音效
         /// </summary>
         protected virtual void PlayFlyAudio()
         {
-            //GameAudio.PlayBirdAudio(m_AC,m_Config.GetFlyAudioPath());
-
+            if(!BirdConfigInfo.BirdConfigInfoDic.TryGetValue(GetType().Name, out var config))
+            {
+                return;
+            }
+            PlayAudio(config.GetFlyAudioPaths());
         }
         /// <summary>
         /// 播放选中音效
         /// </summary>
         protected virtual void PlaySelectAudio()
         {
-            //GameAudio.PlayBirdAudio(m_AC,m_Config.GetSelectAudioPath());
+            if (!BirdConfigInfo.BirdConfigInfoDic.TryGetValue(GetType().Name, out var config))
+            {
+                return;
+            }
+            PlayAudio(config.GetSelectAudioPaths());
         }
         /// <summary>
         /// 播放销毁音效
         /// </summary>
         protected virtual void PlayDestroyAudio()
         {
-            //GameAudio.PlayBirdAudio(m_AC,m_Config.GetDestroyedAudioPath());
+            if (!BirdConfigInfo.BirdConfigInfoDic.TryGetValue(GetType().Name, out var config))
+            {
+                return;
+            }
+            PlayAudio(config.GetDiedAudioPath());
         }
         /// <summary>
         /// 播放碰撞音效
         /// </summary>
         protected virtual void PlayCollisionAudio()
         {
-            //GameAudio.PlayBirdAudio(m_AC,m_Config.GetCollisionAudioPath());
+            if (!BirdConfigInfo.BirdConfigInfoDic.TryGetValue(GetType().Name, out var config))
+            {
+                return;
+            }
+            PlayAudio(config.GetCollisionAudioPaths());
         }
         /// <summary>
         /// 播放技能音效
         /// </summary>
         protected virtual void PlaySkillAudio()
         {
-           
+            
         }
-        /// <summary>
-        /// 播放小鸟选择音效
-        /// </summary>
-        /// <param name="audioPath"></param>
-        //protected void PlayBirdAudio(IAudioControl iAC,string audioPath)
-        //{
-        //    //if (AudioClipMgr.GetAudioClip(audioPath, out AudioClip audioClip))
-        //    //{
-        //    //    if (iAC == null)
-        //    //    {
-        //    //        iAC = MonoSingletonFactory<Audio2DMgr>.GetSingleton().ApplyForAudioControl();
-        //    //        if (AudioMixerMgr.GetAudioMixerGroup("Effect", out AudioMixerGroup group))
-        //    //        {
-        //    //            if (iAC.SetAudioMixerGroup(group))
-        //    //            {
-        //    //                (iAC as Audio2D).IsAutoRecycle = false;
-        //    //                Debug.Log("小鸟选择音效配置成功");
-        //    //            }
-        //    //        }
-        //    //    }
-        //    //    if (iAC.SetAudioClip(audioClip))
-        //    //    {
-        //    //        iAC.Play();
-        //    //    }
-        //    //}
-
-        //}
+        protected void PlayAudio(string audioPath)
+        {
+            ApplyAudio();
+            if(AudioClipManager.GetAudioClip(audioPath,out AudioClip clip))
+            {
+                m_Effect.Clip = clip;
+                m_Effect.Play();
+            }
+        }
+        private void ApplyAudio()
+        {
+            if(m_Effect==null)
+            {
+                m_Effect = AudioManager.ApplyForAudio();
+                m_Effect.SpatialBlend = 0;//设置为2D
+                m_Effect.AbleRecycle = false;//不可自动回收
+                m_Effect.Group = AudioMixerManager.GetAudioMixerGroup("Effect");
+            }
+        }     
         #endregion
         #region TrailRenderer
         /// <summary>
@@ -352,7 +345,11 @@ namespace Bird_VS_Boar
             GameObject go;
             if(!GoReusePool.Take(typeof(Boom).Name,out go))
             {
-                if (!GoLoad.Take(m_Config.BoomPath, out go))
+                if (!BirdConfigInfo.BirdConfigInfoDic.TryGetValue(GetType().Name, out var config))
+                {
+                    return;
+                }
+                if (!GoLoad.Take(config.GetBoomPrefabPath(), out go))
                 {
                     return;
                 }

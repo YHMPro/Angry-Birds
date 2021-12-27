@@ -9,7 +9,7 @@ namespace Bird_VS_Boar
         private Transform m_AimTran;
         protected override void Awake()
         {
-            m_Config = NotMonoSingletonFactory<VanBirdConfig>.GetSingleton();
+           
             base.Awake();
             m_AimTran = transform.Find("Aim");
         }
@@ -21,7 +21,7 @@ namespace Bird_VS_Boar
         protected override void OnMouseUp()
         {
             base.OnMouseUp();
-            MonoSingletonFactory<ShareMono>.GetSingleton().ApplyUpdateAction(OnSkillUpdate_Common);//持续监听技能释放指令
+            MonoSingletonFactory<ShareMono>.GetSingleton().ApplyUpdateAction(EnumUpdateAction.Standard,OnSkillUpdate_Common);//持续监听技能释放指令
         }
 
         protected override void OnBirdFlyUpdate()
@@ -35,7 +35,7 @@ namespace Bird_VS_Boar
             m_AimTran.gameObject.SetActive(true);
             m_Rig2D.isKinematic = true;
             m_Rig2D.velocity = Vector2.zero;
-            MonoSingletonFactory<ShareMono>.GetSingleton().ApplyUpdateAction(AimControlUpdate);
+            MonoSingletonFactory<ShareMono>.GetSingleton().ApplyUpdateAction(EnumUpdateAction.Standard,AimControlUpdate);
         }
         /// <summary>
         /// 目标控制更新
@@ -51,7 +51,7 @@ namespace Bird_VS_Boar
                     PlaySkillAudio();
                     Vector3 dir = (movePos - transform.position).normalized;                   
                     m_Rig2D.velocity = dir * 15.0f;
-                    MonoSingletonFactory<ShareMono>.GetSingleton().RemoveUpdateAction(AimControlUpdate);
+                    MonoSingletonFactory<ShareMono>.GetSingleton().RemoveUpdateAction(EnumUpdateAction.Standard,AimControlUpdate);
                     m_AimTran.gameObject.SetActive(false);
                 }
             }

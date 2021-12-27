@@ -8,6 +8,24 @@ namespace Bird_VS_Boar
 {
     public class GameAudio 
     {
+        #region 播放一次音效
+        public static void PlayOnceAudio()
+        {
+
+        }
+        #endregion
+        #region 循环播放音效
+        public static void LoopPlayAudio()
+        {
+
+        }
+        #endregion
+        #region 过度播放音效
+        public static void ExcessPlayAudio()
+        {
+
+        }
+        #endregion
         //private static IAudioControl m_SlingShot;
         //private static IAudioControl m_Button;
         //private static IAudioControl m_BackGround;

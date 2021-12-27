@@ -10,6 +10,20 @@ namespace Bird_VS_Boar
     {
         protected BirdConfig() { }
         /// <summary>
+        /// 货物路径
+        /// </summary>
+        protected string m_GoodsPath = null;
+        /// <summary>
+        /// 货物路径
+        /// </summary>
+        public string GoodsPath
+        {
+            get
+            {
+                return m_GoodsPath;
+            }
+        }
+        /// <summary>
         /// 自身默认精灵路径
         /// </summary>
         protected string m_SelfDefaultSpritePath = null;
@@ -71,7 +85,7 @@ namespace Bird_VS_Boar
             if(base.InitABPath())
             {
                 m_IsInit = true;
-
+                m_GoodsPath=
                 m_Common = "BirdCommon".ToLower();
                 m_DestroyAudioPaths = new string[] { "BDe1" };
                 return true;

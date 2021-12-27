@@ -77,7 +77,6 @@ namespace Bird_VS_Boar
             if (base.InitResourcesPath())
             {
                 m_IsInit = true;
-
                 m_EggPath = m_Tag + "/Egg";
                 m_SelfResPath = m_Tag + "/WriteBird";
                 m_FlyAudioPaths = new string[] {

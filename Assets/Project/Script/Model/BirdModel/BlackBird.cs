@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using Farme;
+using Farme.Extend;
 namespace Bird_VS_Boar
 {
     public class BlackBird : SkillBird
@@ -21,7 +22,7 @@ namespace Bird_VS_Boar
         }
         protected override void Awake()
         {
-            m_Config = NotMonoSingletonFactory<BlackBirdConfig>.GetSingleton();
+           
             base.Awake();
         }
 

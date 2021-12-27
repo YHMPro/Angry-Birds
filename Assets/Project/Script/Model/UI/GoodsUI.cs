@@ -62,14 +62,14 @@ namespace Bird_VS_Boar
         /// 货物点击事件监听
         /// </summary>
         private void OnGoodsClick()
-        {
-            BaseConfig config = ProjectTool.GetConfig(ProjectTool.GoodsTypeToConfigType(GoodsType));
-            config.InitResourcesPath();
-            Debug.Log(config.SelfResPath);
-            GameObject goods;
-            if (!GoReusePool.Take(GoodsType.ToString(), out goods))
+        {        
+            if (!GoReusePool.Take(GoodsType.ToString(), out GameObject goods))
             {
-                if (!GoLoad.Take(config.SelfResPath, out goods))
+                if (!BirdConfigInfo.BirdConfigInfoDic.TryGetValue(GoodsType.ToString(), out var config))
+                {
+                    return;
+                }
+                if (!GoLoad.Take(config.GetBirdPrefabPath(), out goods))
                 {
                     return;
                 }

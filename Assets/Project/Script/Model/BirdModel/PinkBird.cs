@@ -17,7 +17,7 @@ namespace Bird_VS_Boar
         private float m_IntervalDistance = 1.25f;
         protected override void Awake()
         {
-            m_Config = NotMonoSingletonFactory<PinkBirdConfig>.GetSingleton();
+            
             base.Awake();
         }
 
@@ -37,7 +37,11 @@ namespace Bird_VS_Boar
                 GameObject go;
                 if(!GoReusePool.Take(typeof(Blister).Name,out go))
                 {
-                    if (!GoLoad.Take((m_Config as PinkBirdConfig).BlisterPath, out go))
+                    if (!BirdConfigInfo.BirdConfigInfoDic.TryGetValue(GetType().Name, out var config))
+                    {
+                        return;
+                    }
+                    if (!GoLoad.Take(config.GetBlisterPrefabPath(), out go))
                     {
                         return;
                     }

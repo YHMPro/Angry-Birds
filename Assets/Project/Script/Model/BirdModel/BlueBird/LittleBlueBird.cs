@@ -9,7 +9,10 @@ namespace Bird_VS_Boar
         protected override void Awake()
         {
             Destroy(GetComponent<BlueBird>());
-            m_Config = NotMonoSingletonFactory<BlueBirdConfig>.GetSingleton();
+            if (!BirdConfigInfo.BirdConfigInfoDic.ContainsKey(GetType().Name))
+            {
+                BirdConfigInfo.BirdConfigInfoDic.Add(GetType().Name, new BlueBirdConfigInfo());
+            }
             base.Awake();
         }
         protected override void Start()

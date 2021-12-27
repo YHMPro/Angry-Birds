@@ -74,10 +74,10 @@ namespace Bird_VS_Boar
                     transform.position = m_CheckGo.transform.position;
                     m_CheckGo.GetComponent<Pig>().SetGravityScale(0.01f);
                     m_EdgeCo2D.enabled = true;
-                    MonoSingletonFactory<ShareMono>.GetSingleton().ApplyUpdateAction(FlyUpdate);
+                    MonoSingletonFactory<ShareMono>.GetSingleton().ApplyUpdateAction(EnumUpdateAction.Standard,FlyUpdate);
                     MonoSingletonFactory<ShareMono>.GetSingleton().DelayAction(10f, () =>
                     {
-                        MonoSingletonFactory<ShareMono>.GetSingleton().RemoveUpdateAction(FlyUpdate);
+                        MonoSingletonFactory<ShareMono>.GetSingleton().RemoveUpdateAction(EnumUpdateAction.Standard,FlyUpdate);
                         if(m_CheckGo != null)
                         {
                             m_CheckGo.GetComponent<Pig>().SetGravityScale(1.0f);

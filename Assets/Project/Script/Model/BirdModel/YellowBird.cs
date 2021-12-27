@@ -7,8 +7,7 @@ namespace Bird_VS_Boar
     public class YellowBird : SkillBird
     {
         protected override void Awake()
-        {
-            m_Config = NotMonoSingletonFactory<YellowBirdConfig>.GetSingleton();           
+        {         
             base.Awake();
         }
 

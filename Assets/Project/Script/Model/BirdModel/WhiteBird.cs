@@ -2,13 +2,14 @@
 using System.Collections.Generic;
 using UnityEngine;
 using Farme;
+using Farme.Extend;
 namespace Bird_VS_Boar
 {
     public class WhiteBird : SkillBird
     {
         protected override void Awake()
         {
-            m_Config = NotMonoSingletonFactory<WhiteBirdConfig>.GetSingleton();
+           
             base.Awake();
         }
 
@@ -18,7 +19,7 @@ namespace Bird_VS_Boar
             base.OnSkillUpdate();
             m_Rig2D.isKinematic = true;
             m_Rig2D.velocity = Vector2.zero;
-            MonoSingletonFactory<ShareMono>.GetSingleton().ApplyUpdateAction(ProductEggUpdate);
+            MonoSingletonFactory<ShareMono>.GetSingleton().ApplyUpdateAction(EnumUpdateAction.Standard,ProductEggUpdate);
         }     
         private float m_Interval = 10;
         private float m_Time = 0;
@@ -26,7 +27,7 @@ namespace Bird_VS_Boar
         {
             if (Time.time >= m_Time)
             {
-                MonoSingletonFactory<ShareMono>.GetSingleton().RemoveUpdateAction(ProductEggUpdate);
+                MonoSingletonFactory<ShareMono>.GetSingleton().RemoveUpdateAction(EnumUpdateAction.Standard,ProductEggUpdate);
                 m_Anim.SetTrigger("IsSkill");
                 MonoSingletonFactory<ShareMono>.GetSingleton().DelayAction(m_Anim.AnimatorClipTimeLength("WhiteBirdSkill"), ProducetEgg);                           
             }
@@ -36,7 +37,11 @@ namespace Bird_VS_Boar
             GameObject go;
             if (!GoReusePool.Take(typeof(Egg).Name, out go))
             {
-                if (!GoLoad.Take((m_Config as WhiteBirdConfig).EggPath, out go))
+                if (!BirdConfigInfo.BirdConfigInfoDic.TryGetValue(GetType().Name, out var config))
+                {
+                    return;
+                }
+                if (!GoLoad.Take(config.GetEggPrefabPath(), out go))
                 {
                     return;
                 }
@@ -44,7 +49,7 @@ namespace Bird_VS_Boar
             m_Anim.SetTrigger("IsDefault");
             PlaySkillAudio();
             go.transform.position = transform.position;
-            MonoSingletonFactory<ShareMono>.GetSingleton().ApplyUpdateAction(ProductEggUpdate);
+            MonoSingletonFactory<ShareMono>.GetSingleton().ApplyUpdateAction(EnumUpdateAction.Standard,ProductEggUpdate);
             m_Time = Time.time + m_Interval;
         }       
     }

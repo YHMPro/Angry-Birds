@@ -45,8 +45,8 @@ namespace Bird_VS_Boar
         {
             base.Awake();
             RegisterComponentsTypes<LineRenderer>();
-            m_Config = NotMonoSingletonFactory<SlingShotConfig>.GetSingleton();
-            m_Config.InitResourcesPath();
+            //m_Config = NotMonoSingletonFactory<SlingShotConfig>.GetSingleton();
+            //m_Config.InitResourcesPath();
             m_SJ2D = GetComponent<SpringJoint2D>();
         }
         protected override void Start()
@@ -105,7 +105,7 @@ namespace Bird_VS_Boar
                 return;
             GameLogic.NowComeBird.transform.position = GetOriginGlobalPos(GameLogic.NowComeBird.transform.position.z);
             m_SJ2D.connectedBody = GameLogic.NowComeBird.GetComponent<Rigidbody2D>();//设置刚体绑定链接
-            MonoSingletonFactory<ShareMono>.GetSingleton().ApplyUpdateAction(GameLogic.NowComeBird.BirdControlUpdate);//添加小鸟控制更新
+            MonoSingletonFactory<ShareMono>.GetSingleton().ApplyUpdateAction(EnumUpdateAction.Standard,GameLogic.NowComeBird.BirdControlUpdate);//添加小鸟控制更新
         }
 
         public void BreakBird()
@@ -117,8 +117,8 @@ namespace Bird_VS_Boar
             {
                 MonoSingletonFactory<Camera2D>.GetSingleton().BindBird();
             }
-            MonoSingletonFactory<ShareMono>.GetSingleton().RemoveUpdateAction(GameLogic.NowComeBird.BirdControlUpdate);//移除小鸟控制更新
-            MonoSingletonFactory<ShareMono>.GetSingleton().ApplyUpdateAction(GameLogic.NowComeBird.OnBirdFlyUpdate_Common);//添加小鸟飞行更新
+            MonoSingletonFactory<ShareMono>.GetSingleton().RemoveUpdateAction(EnumUpdateAction.Standard,GameLogic.NowComeBird.BirdControlUpdate);//移除小鸟控制更新
+            MonoSingletonFactory<ShareMono>.GetSingleton().ApplyUpdateAction(EnumUpdateAction.Standard,GameLogic.NowComeBird.OnBirdFlyUpdate_Common);//添加小鸟飞行更新
             GameLogic.NowComeBird.SetBirdFlyVelocity(ApplyingVelocity);//设置小鸟基于弹弓获得的初始速度
             GameLogic.NowComeBird.IsFreeze_ZRotation = false;//解除小鸟Z轴选中冻结
             
