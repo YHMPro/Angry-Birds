@@ -498,7 +498,7 @@ namespace Farme.Audio
                 {
                     AudioManager.InidleAudios.Push(this);
                 }
-                gameObject.SetActive(false);
+                gameObject.SetActive(false);             
             }
         }
         #endregion

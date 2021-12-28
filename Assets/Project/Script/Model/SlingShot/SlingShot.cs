@@ -9,7 +9,7 @@ namespace Bird_VS_Boar
     /// </summary>
     public class SlingShot : BaseMono
     {
-        private SlingShotConfig m_Config = null;
+        private AudioSource m_As;
         private SpringJoint2D m_SJ2D;
         private float m_ApplyingMaxSpeed = 15.0f;
         public float StretchDis
@@ -45,8 +45,7 @@ namespace Bird_VS_Boar
         {
             base.Awake();
             RegisterComponentsTypes<LineRenderer>();
-            //m_Config = NotMonoSingletonFactory<SlingShotConfig>.GetSingleton();
-            //m_Config.InitResourcesPath();
+            m_As=GetComponent<AudioSource>();          
             m_SJ2D = GetComponent<SpringJoint2D>();
         }
         protected override void Start()
@@ -132,11 +131,11 @@ namespace Bird_VS_Boar
         }
         public void PlaySlingShotAudio()
         {
-            //GameAudio.PlaySlingShotAudio(m_Config.SlingShotAudioPath);
+            m_As.Play();
         }
         public void PauseSlingShotAudio()
         {
-            //GameAudio.PauseSlingShotAudio();
+            m_As.Stop();
         }
         public Vector3 GetOriginGlobalPos(float z)
         {

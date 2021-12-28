@@ -2,12 +2,12 @@
 using System.Collections.Generic;
 using UnityEngine;
 using Farme;
+using Farme.Tool;
 namespace Bird_VS_Boar
 {
     public class FlyPath : MonoBehaviour
     {
         private Coroutine m_C;
-        private FlyPathConfig m_Config = null;
         private int m_PathPointCount = 3;
         private Transform[] m_PointTrans;
         private bool m_Active = false;
@@ -17,29 +17,24 @@ namespace Bird_VS_Boar
             {
                 if(m_PointTrans==null)
                 {
-                    m_PointTrans = new Transform[m_PathPointCount];
+                    if (!NotMonoSingletonFactory<OtherConfigInfo>.SingletonExist)
+                    {
+                        Debuger.Log("OtherConfigInfo未实例化");
+                        return null;
+                    }              
+                    m_PointTrans = new Transform[m_PathPointCount];                 
                     for (int i = 0; i < m_PathPointCount; i++)
-                    {                       
-                        if (GoLoad.Take(m_Config.PointPath, out GameObject go, transform))
+                    {
+                        if (GoLoad.Take(NotMonoSingletonFactory<OtherConfigInfo>.GetSingleton().GetPointPrefabPath(), out GameObject go, transform))
                         {
                             m_PointTrans[i] = go.transform;
-                            go.SetActive(false);                          
+                            go.SetActive(false);
                         }
                     }
                 }
                 return m_PointTrans;
             }
-        }
-        private void Awake()
-        {
-            m_Config = NotMonoSingletonFactory<FlyPathConfig>.GetSingleton();
-            m_Config.InitResourcesPath();
-        }
-        private  void Start()
-        {       
-            
-        }
-      
+        } 
         /// <summary>
         /// 飞行路径活动状态
         /// </summary>

@@ -37,11 +37,11 @@ namespace Bird_VS_Boar
                 GameObject go;
                 if(!GoReusePool.Take(typeof(Blister).Name,out go))
                 {
-                    if (!BirdConfigInfo.BirdConfigInfoDic.TryGetValue(GetType().Name, out var config))
+                    if(!NotMonoSingletonFactory<OtherConfigInfo>.SingletonExist)
                     {
                         return;
-                    }
-                    if (!GoLoad.Take(config.GetBlisterPrefabPath(), out go))
+                    }                  
+                    if (!GoLoad.Take(NotMonoSingletonFactory<OtherConfigInfo>.GetSingleton().GetBlisterPrefabPath(), out go))
                     {
                         return;
                     }

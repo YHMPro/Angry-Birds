@@ -83,17 +83,10 @@
     <Compile Include="Assets\Frame\UI\WindowRoot.cs" />
     <Compile Include="Assets\Project\Script\Entry.cs" />
     <Compile Include="Assets\Project\Script\GameAudio.cs" />
-    <Compile Include="Assets\Project\Script\GameConfigInfo\AbleCollision.cs" />
-    <Compile Include="Assets\Project\Script\GameConfigInfo\AbleDestroyed.cs" />
-    <Compile Include="Assets\Project\Script\GameConfigInfo\BaseConfig.cs" />
-    <Compile Include="Assets\Project\Script\GameConfigInfo\BirdConfig\BirdConfig.cs" />
-    <Compile Include="Assets\Project\Script\GameConfigInfo\BirdConfig\SkillBirdConfig.cs" />
     <Compile Include="Assets\Project\Script\GameConfigInfo\BirdConfigInfo.cs" />
-    <Compile Include="Assets\Project\Script\GameConfigInfo\BirdConfigInfoMgr.cs" />
-    <Compile Include="Assets\Project\Script\GameConfigInfo\FlyPathConfig.cs" />
-    <Compile Include="Assets\Project\Script\GameConfigInfo\PigConfig\PigConfig.cs" />
-    <Compile Include="Assets\Project\Script\GameConfigInfo\PigConfig\SkillPigConfig.cs" />
-    <Compile Include="Assets\Project\Script\GameConfigInfo\SlingShotConfig.cs" />
+    <Compile Include="Assets\Project\Script\GameConfigInfo\ConfigInfoMgr.cs" />
+    <Compile Include="Assets\Project\Script\GameConfigInfo\OtherConfigInfo.cs" />
+    <Compile Include="Assets\Project\Script\GameConfigInfo\PigConfigInfo.cs" />
     <Compile Include="Assets\Project\Script\GameLogic.cs" />
     <Compile Include="Assets\Project\Script\Model\BirdModel\Bird.cs" />
     <Compile Include="Assets\Project\Script\Model\BirdModel\BlackBird.cs" />
@@ -114,9 +107,18 @@
     <Compile Include="Assets\Project\Script\Model\Camera\CameraUI.cs" />
     <Compile Include="Assets\Project\Script\Model\FlyPath\FlyPath.cs" />
     <Compile Include="Assets\Project\Script\Model\PigModel\Pig.cs" />
-    <Compile Include="Assets\Project\Script\Model\PigModel\Pig1.cs" />
+    <Compile Include="Assets\Project\Script\Model\PigModel\YoungPig.cs" />
+    <Compile Include="Assets\Project\Script\Model\Score.cs" />
     <Compile Include="Assets\Project\Script\Model\SlingShot\SlingShot.cs" />
-    <Compile Include="Assets\Project\Script\Model\UI\GoodsUI.cs" />
+    <Compile Include="Assets\Project\Script\Model\UI\Bird\BlackBirdGoods.cs" />
+    <Compile Include="Assets\Project\Script\Model\UI\Bird\BlueBirdGoods.cs" />
+    <Compile Include="Assets\Project\Script\Model\UI\Bird\Goods.cs" />
+    <Compile Include="Assets\Project\Script\Model\UI\Bird\GreenBirdGoods.cs" />
+    <Compile Include="Assets\Project\Script\Model\UI\Bird\PinkBirdGoods.cs" />
+    <Compile Include="Assets\Project\Script\Model\UI\Bird\RedBirdGoods.cs" />
+    <Compile Include="Assets\Project\Script\Model\UI\Bird\VanBirdGoods.cs" />
+    <Compile Include="Assets\Project\Script\Model\UI\Bird\WhiteBirdGoods.cs" />
+    <Compile Include="Assets\Project\Script\Model\UI\Bird\YellowBirdGoods.cs" />
     <Compile Include="Assets\Project\Script\ProjectTool.cs" />
     <Compile Include="Assets\Project\Test1.cs" />
   </ItemGroup>
@@ -310,14 +312,14 @@
     <Reference Include="UnityEditor">
       <HintPath>C:\Program Files\Unity\2019.4.33f1\Editor\Data\Managed\UnityEditor.dll</HintPath>
     </Reference>
-    <Reference Include="Debuger">
-      <HintPath>Assets\Frame\Plugins\Log\Debuger.dll</HintPath>
+    <Reference Include="Newtonsoft.Json">
+      <HintPath>Assets\Frame\Plugins\Newtonsoft.Json.dll</HintPath>
     </Reference>
     <Reference Include="NAudio">
       <HintPath>Assets\Frame\Plugins\Audio\NAudio.dll</HintPath>
     </Reference>
-    <Reference Include="Newtonsoft.Json">
-      <HintPath>Assets\Frame\Plugins\Newtonsoft.Json.dll</HintPath>
+    <Reference Include="Debuger">
+      <HintPath>Assets\Frame\Plugins\Log\Debuger.dll</HintPath>
     </Reference>
     <Reference Include="netstandard">
       <HintPath>C:\Program Files\Unity\2019.4.33f1\Editor\Data\NetStandard\ref\2.0.0\netstandard.dll</HintPath>

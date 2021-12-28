@@ -2,6 +2,9 @@
 using System.Collections.Generic;
 using UnityEngine;
 using Farme;
+using Farme.Audio;
+using Farme.Tool;
+
 namespace Bird_VS_Boar
 {
     /// <summary>
@@ -18,9 +21,21 @@ namespace Bird_VS_Boar
     }
     public abstract class Pig : BaseMono
     {
-        protected PigConfig m_Config = null;
+        /// <summary>
+        /// 音效
+        /// </summary>
+        protected Audio m_Effect = null;
+        /// <summary>
+        /// 刚体
+        /// </summary>
         protected Rigidbody2D m_Rig2D = null;
+        /// <summary>
+        /// 动画控制器
+        /// </summary>
         protected Animator m_Anim = null;
+        /// <summary>
+        /// 受伤等级
+        /// </summary>
         protected EnumPigHurtGrade m_HurtGrade = EnumPigHurtGrade.None;
         protected override void Awake()
         {
@@ -32,10 +47,10 @@ namespace Bird_VS_Boar
         protected override void Start()
         {
             base.Start();
-            m_Config.InitResourcesPath();//初始化资源路径
         }
         protected override void OnDestroy()
-        {          
+        {
+            RecyclyAudio();
             base.OnDestroy();          
         }
 
@@ -49,14 +64,15 @@ namespace Bird_VS_Boar
                 relativeSpeed <= 15 ? EnumPigHurtGrade.Hurt2 : EnumPigHurtGrade.Destroy;
             if(m_HurtGrade!= EnumPigHurtGrade.Destroy)
             {
-                PlayCollisionAudio();
+                PlayHurtAudio();
                 SetHurtGradeAnim();         
             }
             else
             {
-                OpenBoom();
-                PlayDiedAudio();
-                Destroy(gameObject);
+                OpenScore();//打开分数
+                OpenBoom();//打开Boom特效
+                PlayDiedAudio();//播放死亡音效
+                Destroy(gameObject);//回收猪 待
             }
         }
 
@@ -73,18 +89,58 @@ namespace Bird_VS_Boar
         #region Audio
         protected virtual void PlayDiedAudio()
         {
-            //GameAudio.PlayEffectAudio(m_Config.GetDestroyedAudioPath());
+            if (!PigConfigInfo.PigConfigInfoDic.TryGetValue(GetType().Name, out var config))
+            {
+                return;
+            }
+            PlayAudio(config.GetDiedAudioPath());
         }
-        protected virtual void PlayCollisionAudio()
+        protected virtual void PlayHurtAudio()
         {
-            //GameAudio.PlayEffectAudio(m_Config.GetCollisionAudioPath());
+            if (!PigConfigInfo.PigConfigInfoDic.TryGetValue(GetType().Name, out var config))
+            {
+                return;
+            }
+            PlayAudio(config.GetHurtAudioPath());
         }
         protected virtual void PlaySkillAudio()
         {
-
+            
+        }
+        protected void PlayAudio(string audioPath)
+        {
+            if (audioPath == null)
+            {
+                Debuger.LogWarning(GetType().Name + ": 存在无效的音效路径，请查看对应配置表");
+                return;
+            }
+            ApplyAudio();
+            if (AudioClipManager.GetAudioClip(audioPath, out AudioClip clip))
+            {
+                m_Effect.Clip = clip;
+                m_Effect.Play();
+            }
+        }
+        private void ApplyAudio()
+        {
+            if (m_Effect == null)
+            {
+                m_Effect = AudioManager.ApplyForAudio();
+                m_Effect.SpatialBlend = 0;//设置为2D
+                m_Effect.AbleRecycle = false;//不可自动回收
+                m_Effect.Group = AudioMixerManager.GetAudioMixerGroup("Effect");
+            }
+        }
+        private void RecyclyAudio()
+        {
+            if (m_Effect != null)
+            {
+                m_Effect.AbleRecycle = true;
+                m_Effect = null;
+            }
         }
         #endregion
-        
+
         #region Rig
         /// <summary>
         /// 设置重力
@@ -99,16 +155,38 @@ namespace Bird_VS_Boar
         #region Boom
         public virtual void OpenBoom()
         {
-            GameObject go;
-            if (!GoReusePool.Take(typeof(Boom).Name, out go))
+            if (!GoReusePool.Take(typeof(Boom).Name, out GameObject go))
             {
-                if (!GoLoad.Take(m_Config.BoomPath, out go))
-                {                  
+                if(!NotMonoSingletonFactory<OtherConfigInfo>.SingletonExist)
+                {
+                    return;
+                }
+                if (!GoLoad.Take(NotMonoSingletonFactory<OtherConfigInfo>.GetSingleton().GetBoomPrefabPath(), out go))
+                {
                     return;
                 }
             }
             go.transform.position = transform.position;
-            go.GetComponent<Boom>().OpenBoom("PigBoom");
+            go.GetComponent<Boom>().OpenBoom(ENUM_BoomType.PigBoom);
+        }
+        #endregion
+
+        #region Score
+        public virtual void OpenScore()
+        {
+            if (!GoReusePool.Take(typeof(Score).Name, out GameObject go))
+            {
+                if (!NotMonoSingletonFactory<OtherConfigInfo>.SingletonExist)
+                {
+                    return;
+                }
+                if (!GoLoad.Take(NotMonoSingletonFactory<OtherConfigInfo>.GetSingleton().GetScorePrefabPath(), out go))
+                {
+                    return;
+                }
+            }
+            go.transform.position = transform.position;
+            go.GetComponent<Score>().OpenScore(ENUM_ScoreType.Green_10000);
         }
         #endregion
     }

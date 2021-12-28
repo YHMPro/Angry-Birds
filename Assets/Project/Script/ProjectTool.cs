@@ -21,59 +21,7 @@ namespace Bird_VS_Boar
     }
     public class ProjectTool
     {
-        public static BaseConfig GetConfig(EnumConfigType configType)
-        {
-            BaseConfig config = null;
-            switch (configType)
-            {
-                case EnumConfigType.BlackBirdConfig:
-                    {
-                        config = NotMonoSingletonFactory<BlackBirdConfig>.GetSingleton();
-                        break;
-                    }
-                case EnumConfigType.BlueBirdConfig:
-                    {
-                        config = NotMonoSingletonFactory<BlueBirdConfig>.GetSingleton();
-                        break;
-                    }
-                case EnumConfigType.GreenBirdConfig:
-                    {
-                        config = NotMonoSingletonFactory<GreenBirdConfig>.GetSingleton();
-                        break;
-                    }
-                case EnumConfigType.NoneConfig:
-                    {
-                        config = null;
-                        break;
-                    }
-                case EnumConfigType.PinkBirdConfig:
-                    {
-                        config = NotMonoSingletonFactory<PinkBirdConfig>.GetSingleton();
-                        break;
-                    }
-                case EnumConfigType.RedBirdConfig:
-                    {
-                        config = NotMonoSingletonFactory<RedBirdConfig>.GetSingleton();
-                        break;
-                    }
-                case EnumConfigType.VanBirdConfig:
-                    {
-                        config = NotMonoSingletonFactory<VanBirdConfig>.GetSingleton();
-                        break;
-                    }
-                case EnumConfigType.WhiteBirdConfig:
-                    {
-                        config = NotMonoSingletonFactory<WhiteBirdConfig>.GetSingleton();
-                        break;
-                    }
-                case EnumConfigType.YellowBirdConfig:
-                    {
-                        config = NotMonoSingletonFactory<YellowBirdConfig>.GetSingleton();
-                        break;
-                    }
-            }
-            return config;         
-        }
+        
 
         public static EnumConfigType GoodsTypeToConfigType(EnumGoodsType goodsType)
         {

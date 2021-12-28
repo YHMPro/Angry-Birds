@@ -8,45 +8,16 @@ namespace Bird_VS_Boar
     /// 小鸟配置信息
     /// </summary>
     public abstract class BirdConfigInfo
-    {
-        protected BirdConfigInfo()
-        {
-            if (m_IsInit)
-            {
-                return;
-            }
-            m_IsInit = true;
-            InitConfigInfo();
-        }
+    {     
         /// <summary>
         /// 小鸟配置信息容器
         /// </summary>
-        public static Dictionary<string, BirdConfigInfo> BirdConfigInfoDic = new Dictionary<string, BirdConfigInfo>();
-        /// <summary>
-        /// 是否初始化
-        /// </summary>
-        protected bool m_IsInit = false;
+        public static Dictionary<string, BirdConfigInfo> BirdConfigInfoDic = new Dictionary<string, BirdConfigInfo>();     
         /// <summary>
         /// 共同的
         /// </summary>
         protected string m_CommonPath;
-        #region 预制路径
-        /// <summary>
-        /// 小鸟气球预制路径
-        /// </summary>
-        protected string m_BlisterPrefabPath;
-        /// <summary>
-        /// Boom预制路径
-        /// </summary>
-        protected string m_BoomPrefabPath;
-        /// <summary>
-        /// 小鸟蛋预制
-        /// </summary>
-        protected string m_BirdEggPrefabPath;
-        /// <summary>
-        /// 小鸟货物UI预制路径
-        /// </summary>
-        protected string m_BirdGoodsUIPrefabPath;
+        #region 预制路径      
         /// <summary>
         /// 小鸟预制路径
         /// </summary>
@@ -77,31 +48,13 @@ namespace Bird_VS_Boar
         
         public virtual void InitConfigInfo()
         {           
-            m_BoomPrefabPath = @"Common\Boom";
-            m_BirdDiedAudioPath = @"Bird\BirdCommon\BDe1";
-            m_CommonPath=@"Bird\"+GetType().Name+@"\";
+            m_BirdDiedAudioPath = "Bird/BirdCommon/De1";
+            m_CommonPath="Bird/"+GetType().Name+"/";
             m_BirdPrefabPath =  "Bird";
-            m_BirdGoodsUIPrefabPath = "Goods";
-            m_IsInit = true;
         }
         
         
-        public string GetBlisterPrefabPath()
-        {
-            return m_CommonPath+m_BlisterPrefabPath;
-        }
-        public string GetBoomPrefabPath()
-        {
-            return m_BoomPrefabPath;
-        }
-        public string GetGoodsUIPrefabPath()
-        {
-            return m_CommonPath + m_BirdGoodsUIPrefabPath;
-        }
-        public string GetEggPrefabPath()
-        {
-            return m_CommonPath + m_BirdEggPrefabPath;
-        }
+        
         public string GetBirdPrefabPath()
         {
             return m_CommonPath + m_BirdPrefabPath;
@@ -180,8 +133,8 @@ namespace Bird_VS_Boar
         public override void InitConfigInfo()
         {
             base.InitConfigInfo();
-            m_BirdSelectAudioPaths = new string[] { "Select1" };
-            m_BirdFlyAudioPaths = new string[] { "Fly1" };
+            m_BirdSelectAudioPaths = CreateGroup("Select", 1);
+            m_BirdFlyAudioPaths = CreateGroup("Fly", 1);
         }
     }
 
@@ -190,10 +143,10 @@ namespace Bird_VS_Boar
         public override void InitConfigInfo()
         {
             base.InitConfigInfo();
-            m_BirdSelectAudioPaths = new string[] { "Select1" };
-            m_BirdFlyAudioPaths = new string[] { "Fly1" };
-            m_BirdCollisionAudioPaths = new string[] { "Co1", "Co2", "Co3", "Co4" };
-            m_BirdSkillAudioPaths = new string[] { "Skill1" };
+            m_BirdSelectAudioPaths = CreateGroup("Select", 1);
+            m_BirdFlyAudioPaths = CreateGroup("Fly", 1);
+            m_BirdSkillAudioPaths = CreateGroup("Skill", 1);
+            m_BirdCollisionAudioPaths = CreateGroup("Co", 4);        
         }
     }
 
@@ -204,8 +157,6 @@ namespace Bird_VS_Boar
             base.InitConfigInfo();
             m_BirdSelectAudioPaths = CreateGroup("Select", 1);
             m_BirdFlyAudioPaths = CreateGroup("Fly", 1);
-            m_BirdCollisionAudioPaths = CreateGroup("Co", 4);
-            m_BirdSkillAudioPaths = CreateGroup("Skill", 1);
         }
     }
 
@@ -225,7 +176,6 @@ namespace Bird_VS_Boar
         public override void InitConfigInfo()
         {
             base.InitConfigInfo();
-            m_BlisterPrefabPath = "Blister";
             m_BirdSelectAudioPaths = CreateGroup("Select", 3);
             m_BirdFlyAudioPaths = CreateGroup("Fly", 3);
             m_BirdCollisionAudioPaths = CreateGroup("Co", 5);
@@ -250,7 +200,6 @@ namespace Bird_VS_Boar
         public override void InitConfigInfo()
         {
             base.InitConfigInfo();
-            m_BirdEggPrefabPath = "Egg";
             m_BirdSelectAudioPaths = CreateGroup("Select", 1);
             m_BirdFlyAudioPaths = CreateGroup("Fly", 1);
             m_BirdCollisionAudioPaths = CreateGroup("Co", 5);

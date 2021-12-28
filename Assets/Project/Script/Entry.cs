@@ -9,6 +9,7 @@ namespace Bird_VS_Boar
         public Bird b;
         private void Awake()
         {
+            ConfigInfoMgr.ConfigInfoInit();
             MonoSingletonFactory<Camera2D>.GetSingleton();
             MonoSingletonFactory<FlyPath>.GetSingleton();
             //MonoSingletonFactory<Audio2DMgr>.GetSingleton();
@@ -16,7 +17,7 @@ namespace Bird_VS_Boar
             {
                 MonoSingletonFactory<Camera2D>.GetSingleton().SetLimit(3, 5, 4, 5);
             }
-            BirdConfigInfoMgr.BirdConfigInfoInit();
+         
             //Object[] atlas = Resources.LoadAll("BUTTONS_SHEET_1");
             //foreach(var sprite in atlas)
             //{

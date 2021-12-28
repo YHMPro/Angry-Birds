@@ -2,8 +2,8 @@
 using System.Collections.Generic;
 using UnityEngine;
 using Farme;
-using UnityEngine.Audio;
 using Farme.Audio;
+using Farme.Tool;
 namespace Bird_VS_Boar
 { 
     public abstract class Bird : BaseMono
@@ -99,9 +99,14 @@ namespace Bird_VS_Boar
             base.Start();
             InitTrailRenderer();//初始化拖尾         
         }
-
+        protected override void OnDisable()
+        {
+            base.OnDisable();
+            RecyclyAudio();//回收音效
+        }
         protected override void OnDestroy()
         {
+
             base.OnDestroy();
         }
         protected virtual void OnMouseEnter()
@@ -297,6 +302,11 @@ namespace Bird_VS_Boar
         }
         protected void PlayAudio(string audioPath)
         {
+            if (audioPath == null)
+            {
+                Debuger.LogWarning(GetType().Name + ": 存在无效的音效路径，请查看对应配置表");
+                return;
+            }
             ApplyAudio();
             if(AudioClipManager.GetAudioClip(audioPath,out AudioClip clip))
             {
@@ -314,6 +324,14 @@ namespace Bird_VS_Boar
                 m_Effect.Group = AudioMixerManager.GetAudioMixerGroup("Effect");
             }
         }     
+        private void RecyclyAudio()
+        {
+            if(m_Effect!=null)
+            {
+                m_Effect.AbleRecycle = true;
+                m_Effect = null;
+            }
+        }
         #endregion
         #region TrailRenderer
         /// <summary>
@@ -344,18 +362,18 @@ namespace Bird_VS_Boar
         {
             GameObject go;
             if(!GoReusePool.Take(typeof(Boom).Name,out go))
-            {
-                if (!BirdConfigInfo.BirdConfigInfoDic.TryGetValue(GetType().Name, out var config))
+            {           
+                if(!NotMonoSingletonFactory<OtherConfigInfo>.SingletonExist)
                 {
                     return;
                 }
-                if (!GoLoad.Take(config.GetBoomPrefabPath(), out go))
+                if (!GoLoad.Take(NotMonoSingletonFactory<OtherConfigInfo>.GetSingleton().GetBoomPrefabPath(), out go))
                 {
                     return;
                 }
             }
             go.transform.position = transform.position;
-            go.GetComponent<Boom>().OpenBoom("BirdBoom");
+            go.GetComponent<Boom>().OpenBoom(ENUM_BoomType.BirdBoom);
         }
         #endregion     
     }

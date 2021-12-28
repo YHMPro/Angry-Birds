@@ -1,7 +1,121 @@
 fileFormatVersion: 2
 guid: 252a52bf7762c844aa857efb5896c270
 TextureImporter:
-  internalIDToNameTable: []
+  internalIDToNameTable:
+  - first:
+      213: 1706160035383803352
+    second: INGAME_SCORES_SHEET_1_0
+  - first:
+      213: 1152071336147290170
+    second: INGAME_SCORES_SHEET_1_1
+  - first:
+      213: 783267693444913988
+    second: INGAME_SCORES_SHEET_1_2
+  - first:
+      213: -7811881185615043796
+    second: INGAME_SCORES_SHEET_1_3
+  - first:
+      213: -1911891606570178626
+    second: INGAME_SCORES_SHEET_1_4
+  - first:
+      213: -1133204097842581975
+    second: INGAME_SCORES_SHEET_1_5
+  - first:
+      213: -3713414413408281061
+    second: INGAME_SCORES_SHEET_1_6
+  - first:
+      213: -352259236762778501
+    second: INGAME_SCORES_SHEET_1_7
+  - first:
+      213: -2405317068572627926
+    second: INGAME_SCORES_SHEET_1_8
+  - first:
+      213: 8492310026897127091
+    second: INGAME_SCORES_SHEET_1_9
+  - first:
+      213: 4443525687665480484
+    second: INGAME_SCORES_SHEET_1_10
+  - first:
+      213: -1266521476905425769
+    second: INGAME_SCORES_SHEET_1_11
+  - first:
+      213: -7542700609742526326
+    second: INGAME_SCORES_SHEET_1_12
+  - first:
+      213: 7273437317440392174
+    second: INGAME_SCORES_SHEET_1_13
+  - first:
+      213: 3058001622213283745
+    second: INGAME_SCORES_SHEET_1_14
+  - first:
+      213: -3482949393072276046
+    second: INGAME_SCORES_SHEET_1_15
+  - first:
+      213: 1205030615745784725
+    second: INGAME_SCORES_SHEET_1_16
+  - first:
+      213: 2319811946697279277
+    second: INGAME_SCORES_SHEET_1_17
+  - first:
+      213: 3600374339948519639
+    second: INGAME_SCORES_SHEET_1_18
+  - first:
+      213: 7201189359386766492
+    second: INGAME_SCORES_SHEET_1_19
+  - first:
+      213: 5799947786529519897
+    second: INGAME_SCORES_SHEET_1_20
+  - first:
+      213: 8129422005251481259
+    second: INGAME_SCORES_SHEET_1_21
+  - first:
+      213: 6457727019964813920
+    second: INGAME_SCORES_SHEET_1_22
+  - first:
+      213: -9218776332500336421
+    second: INGAME_SCORES_SHEET_1_23
+  - first:
+      213: 4558684932315838846
+    second: INGAME_SCORES_SHEET_1_24
+  - first:
+      213: -8946663881793240956
+    second: INGAME_SCORES_SHEET_1_25
+  - first:
+      213: 9137609075438515271
+    second: INGAME_SCORES_SHEET_1_26
+  - first:
+      213: -3612657540422199109
+    second: INGAME_SCORES_SHEET_1_27
+  - first:
+      213: 2642567518117359337
+    second: INGAME_SCORES_SHEET_1_28
+  - first:
+      213: -1083961829424214529
+    second: INGAME_SCORES_SHEET_1_29
+  - first:
+      213: 6603305881029344982
+    second: INGAME_SCORES_SHEET_1_30
+  - first:
+      213: -3211461576401052621
+    second: INGAME_SCORES_SHEET_1_31
+  - first:
+      213: -2116610065355786682
+    second: INGAME_SCORES_SHEET_1_32
+  - first:
+      213: -5076300954922445220
+    second: INGAME_SCORES_SHEET_1_33
+  - first:
+      213: -7254227246456927993
+    second: INGAME_SCORES_SHEET_1_34
+  - first:
+      213: -5754956010631835246
+    second: INGAME_SCORES_SHEET_1_35
+  - first:
+      213: -7373917181042383374
+    second: INGAME_SCORES_SHEET_1_36
+  - first:
+      213: -5948671098472209793
+    second: INGAME_SCORES_SHEET_1_37
   externalObjects: {}
   serializedVersion: 11
   mipmaps:
@@ -31,16 +145,16 @@ TextureImporter:
   maxTextureSize: 2048
   textureSettings:
     serializedVersion: 2
-    filterMode: -1
-    aniso: -1
-    mipBias: -100
+    filterMode: 1
+    aniso: 1
+    mipBias: 0
     wrapU: 1
     wrapV: 1
     wrapW: 1
   nPOTScale: 0
   lightmap: 0
   compressionQuality: 50
-  spriteMode: 1
+  spriteMode: 2
   spriteExtrude: 1
   spriteMeshType: 1
   alignment: 0
@@ -71,9 +185,708 @@ TextureImporter:
     overridden: 0
     androidETC2FallbackOverride: 0
     forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: Windows Store Apps
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: Android
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: WebGL
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
   spriteSheet:
     serializedVersion: 2
-    sprites: []
+    sprites:
+    - serializedVersion: 2
+      name: INGAME_SCORES_SHEET_1_0
+      rect:
+        serializedVersion: 2
+        x: 1
+        y: 332
+        width: 155
+        height: 55
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 8ddf407338f7da710800000000000000
+      internalID: 1706160035383803352
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: INGAME_SCORES_SHEET_1_3
+      rect:
+        serializedVersion: 2
+        x: 156
+        y: 337
+        width: 155
+        height: 55
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: c23abd7637f969390800000000000000
+      internalID: -7811881185615043796
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: INGAME_SCORES_SHEET_1_5
+      rect:
+        serializedVersion: 2
+        x: 313
+        y: 338
+        width: 153
+        height: 55
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 92e631280ec0640f0800000000000000
+      internalID: -1133204097842581975
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: INGAME_SCORES_SHEET_1_6
+      rect:
+        serializedVersion: 2
+        x: 1
+        y: 274
+        width: 152
+        height: 56
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: b1edbf8f34d477cc0800000000000000
+      internalID: -3713414413408281061
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: INGAME_SCORES_SHEET_1_7
+      rect:
+        serializedVersion: 2
+        x: 158
+        y: 282
+        width: 134
+        height: 53
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: b7487eb27168c1bf0800000000000000
+      internalID: -352259236762778501
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: INGAME_SCORES_SHEET_1_8
+      rect:
+        serializedVersion: 2
+        x: 294
+        y: 282
+        width: 134
+        height: 53
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: a2c6b8bbed89e9ed0800000000000000
+      internalID: -2405317068572627926
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: INGAME_SCORES_SHEET_1_9
+      rect:
+        serializedVersion: 2
+        x: 430
+        y: 308
+        width: 59
+        height: 27
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 3b6f0bba9febad570800000000000000
+      internalID: 8492310026897127091
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: INGAME_SCORES_SHEET_1_11
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 217
+        width: 154
+        height: 55
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 79426a45d696c6ee0800000000000000
+      internalID: -1266521476905425769
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: INGAME_SCORES_SHEET_1_12
+      rect:
+        serializedVersion: 2
+        x: 158
+        y: 241
+        width: 89
+        height: 39
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: a88ac2522c1f25790800000000000000
+      internalID: -7542700609742526326
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: INGAME_SCORES_SHEET_1_13
+      rect:
+        serializedVersion: 2
+        x: 249
+        y: 241
+        width: 89
+        height: 39
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: eebca1234b070f460800000000000000
+      internalID: 7273437317440392174
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: INGAME_SCORES_SHEET_1_14
+      rect:
+        serializedVersion: 2
+        x: 340
+        y: 241
+        width: 89
+        height: 39
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 1af479ef544307a20800000000000000
+      internalID: 3058001622213283745
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: INGAME_SCORES_SHEET_1_16
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 160
+        width: 154
+        height: 56
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 59b6ff2e5f029b010800000000000000
+      internalID: 1205030615745784725
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: INGAME_SCORES_SHEET_1_17
+      rect:
+        serializedVersion: 2
+        x: 158
+        y: 200
+        width: 89
+        height: 39
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: d274994bca0a13020800000000000000
+      internalID: 2319811946697279277
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: INGAME_SCORES_SHEET_1_18
+      rect:
+        serializedVersion: 2
+        x: 249
+        y: 200
+        width: 89
+        height: 39
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 7d02017f26917f130800000000000000
+      internalID: 3600374339948519639
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: INGAME_SCORES_SHEET_1_19
+      rect:
+        serializedVersion: 2
+        x: 340
+        y: 200
+        width: 89
+        height: 39
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: c9c229e9193cfe360800000000000000
+      internalID: 7201189359386766492
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: INGAME_SCORES_SHEET_1_20
+      rect:
+        serializedVersion: 2
+        x: 158
+        y: 159
+        width: 89
+        height: 39
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 919b7eb48cd8d7050800000000000000
+      internalID: 5799947786529519897
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: INGAME_SCORES_SHEET_1_21
+      rect:
+        serializedVersion: 2
+        x: 249
+        y: 159
+        width: 88
+        height: 39
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: bae12440e3281d070800000000000000
+      internalID: 8129422005251481259
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: INGAME_SCORES_SHEET_1_22
+      rect:
+        serializedVersion: 2
+        x: 339
+        y: 160
+        width: 94
+        height: 38
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 062d17992847e9950800000000000000
+      internalID: 6457727019964813920
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: INGAME_SCORES_SHEET_1_24
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 103
+        width: 154
+        height: 55
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: e797c910bc3b34f30800000000000000
+      internalID: 4558684932315838846
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: INGAME_SCORES_SHEET_1_25
+      rect:
+        serializedVersion: 2
+        x: 158
+        y: 118
+        width: 89
+        height: 39
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 48085e8d99017d380800000000000000
+      internalID: -8946663881793240956
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: INGAME_SCORES_SHEET_1_26
+      rect:
+        serializedVersion: 2
+        x: 249
+        y: 118
+        width: 88
+        height: 39
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 744f5ed7a0f4fce70800000000000000
+      internalID: 9137609075438515271
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: INGAME_SCORES_SHEET_1_27
+      rect:
+        serializedVersion: 2
+        x: 339
+        y: 120
+        width: 94
+        height: 38
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: bb89fff8b134dddc0800000000000000
+      internalID: -3612657540422199109
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: INGAME_SCORES_SHEET_1_29
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 46
+        width: 154
+        height: 56
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: ffd461f857ef4f0f0800000000000000
+      internalID: -1083961829424214529
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: INGAME_SCORES_SHEET_1_30
+      rect:
+        serializedVersion: 2
+        x: 158
+        y: 77
+        width: 89
+        height: 39
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 6de700686b7a3ab50800000000000000
+      internalID: 6603305881029344982
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: INGAME_SCORES_SHEET_1_31
+      rect:
+        serializedVersion: 2
+        x: 249
+        y: 77
+        width: 88
+        height: 39
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 33c9cc816b89e63d0800000000000000
+      internalID: -3211461576401052621
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: INGAME_SCORES_SHEET_1_32
+      rect:
+        serializedVersion: 2
+        x: 339
+        y: 80
+        width: 94
+        height: 38
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 646b37e1c5a40a2e0800000000000000
+      internalID: -2116610065355786682
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: INGAME_SCORES_SHEET_1_33
+      rect:
+        serializedVersion: 2
+        x: 1
+        y: 1
+        width: 108
+        height: 43
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: c561fd84d2b5d89b0800000000000000
+      internalID: -5076300954922445220
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: INGAME_SCORES_SHEET_1_34
+      rect:
+        serializedVersion: 2
+        x: 158
+        y: 36
+        width: 89
+        height: 39
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 70989fef0cec35b90800000000000000
+      internalID: -7254227246456927993
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: INGAME_SCORES_SHEET_1_35
+      rect:
+        serializedVersion: 2
+        x: 249
+        y: 38
+        width: 81
+        height: 37
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 2915a48dff94220b0800000000000000
+      internalID: -5754956010631835246
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: INGAME_SCORES_SHEET_1_36
+      rect:
+        serializedVersion: 2
+        x: 339
+        y: 41
+        width: 81
+        height: 37
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 2f5a1dc74659aa990800000000000000
+      internalID: -7373917181042383374
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: INGAME_SCORES_SHEET_1_37
+      rect:
+        serializedVersion: 2
+        x: 339
+        y: 2
+        width: 81
+        height: 37
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: f726ee14723127da0800000000000000
+      internalID: -5948671098472209793
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
     outline: []
     physicsShape: []
     bones: []
