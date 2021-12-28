@@ -6,8 +6,9 @@ using Farme;
 
 namespace Bird_VS_Boar
 {
-    public enum ENUM_ScoreType
+    public enum EnumScoreType
     {
+        None,
         Red_10000,
         Pink_10000,
         Green_10000,
@@ -48,7 +49,7 @@ namespace Bird_VS_Boar
                 m_NowMaxOrderInLayer = 0;
             }
         }
-        public void OpenScore(ENUM_ScoreType scoreType)
+        public void OpenScore(EnumScoreType scoreType)
         {
             m_Anim.SetTrigger(scoreType.ToString());
         }

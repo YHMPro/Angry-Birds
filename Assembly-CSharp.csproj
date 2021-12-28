@@ -83,11 +83,14 @@
     <Compile Include="Assets\Frame\UI\WindowRoot.cs" />
     <Compile Include="Assets\Project\Script\Entry.cs" />
     <Compile Include="Assets\Project\Script\GameAudio.cs" />
+    <Compile Include="Assets\Project\Script\GameConfigInfo\BarrierConfigInfo.cs" />
     <Compile Include="Assets\Project\Script\GameConfigInfo\BirdConfigInfo.cs" />
     <Compile Include="Assets\Project\Script\GameConfigInfo\ConfigInfoMgr.cs" />
     <Compile Include="Assets\Project\Script\GameConfigInfo\OtherConfigInfo.cs" />
     <Compile Include="Assets\Project\Script\GameConfigInfo\PigConfigInfo.cs" />
     <Compile Include="Assets\Project\Script\GameLogic.cs" />
+    <Compile Include="Assets\Project\Script\Model\BarrierModel\Barrier.cs" />
+    <Compile Include="Assets\Project\Script\Model\BarrierModel\Ice.cs" />
     <Compile Include="Assets\Project\Script\Model\BirdModel\Bird.cs" />
     <Compile Include="Assets\Project\Script\Model\BirdModel\BlackBird.cs" />
     <Compile Include="Assets\Project\Script\Model\BirdModel\BlueBird.cs" />
@@ -119,6 +122,7 @@
     <Compile Include="Assets\Project\Script\Model\UI\Bird\VanBirdGoods.cs" />
     <Compile Include="Assets\Project\Script\Model\UI\Bird\WhiteBirdGoods.cs" />
     <Compile Include="Assets\Project\Script\Model\UI\Bird\YellowBirdGoods.cs" />
+    <Compile Include="Assets\Project\Script\ProjectInterface.cs" />
     <Compile Include="Assets\Project\Script\ProjectTool.cs" />
     <Compile Include="Assets\Project\Test1.cs" />
   </ItemGroup>

@@ -55,8 +55,17 @@ namespace Bird_VS_Boar
         {
             while (DestroyGoLi.Count > 0)
             {
-                GameObject go = DestroyGoLi[DestroyGoLi.Count - 1];
-                go.GetComponent<Pig>().OpenBoom();
+                GameObject go = DestroyGoLi[DestroyGoLi.Count - 1];   
+                IBoom boom = go.GetComponent<IBoom>();
+                if(boom!=null)
+                {
+                    boom.OpenBoom();
+                }
+                IScore score = go.GetComponent<IScore>();
+                if(score!=null)
+                {
+                    score.OpenScore();
+                }
                 DestroyGoLi.RemoveAt(DestroyGoLi.Count - 1);
                 Destroy(go);
             }

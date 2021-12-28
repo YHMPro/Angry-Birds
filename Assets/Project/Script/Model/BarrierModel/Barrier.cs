@@ -7,111 +7,110 @@ using Farme.Tool;
 
 namespace Bird_VS_Boar
 {
-    /// <summary>
-    /// 猪的受伤等级
-    /// </summary>
-    public enum EnumPigHurtGrade
+    public enum EnumBarrierBrokenGrade
     {
         None,
-        Hurt1,
-        Hurt2,
-        Hurt3,
-        Hurt4,
+        Broken1,
+        Broken2,
+        Broken3,
+        Broken4,
         Destroy
     }
-    public abstract class Pig : BaseMono, IBoom, IScore
+    public class Barrier : BaseMono, IScore
     {
+        /// <summary>
+        /// 精灵
+        /// </summary>
+        protected SpriteRenderer m_Sr = null;
         /// <summary>
         /// 音效
         /// </summary>
         protected Audio m_Effect = null;
+        [SerializeField]
+        /// <summary>
+        /// 精灵数组
+        /// </summary>
+        private Sprite[] m_Sps = null;
         /// <summary>
         /// 刚体
         /// </summary>
         protected Rigidbody2D m_Rig2D = null;
         /// <summary>
-        /// 动画控制器
-        /// </summary>
-        protected Animator m_Anim = null;
-        /// <summary>
         /// 受伤等级
         /// </summary>
-        protected EnumPigHurtGrade m_HurtGrade = EnumPigHurtGrade.None;
+        protected EnumBarrierBrokenGrade m_HurtGrade = EnumBarrierBrokenGrade.None;
         [SerializeField]
         /// <summary>
         /// 分数类型
         /// </summary>
-        protected EnumScoreType m_ScoreType=EnumScoreType.None;
+        protected EnumScoreType m_ScoreType = EnumScoreType.None;
         protected override void Awake()
         {
             base.Awake();
             m_Rig2D = GetComponent<Rigidbody2D>();
-            m_Anim = GetComponent<Animator>();
+            m_Sr=GetComponent<SpriteRenderer>();
         }
 
-        protected override void Start()
+        protected override void OnEnable()
         {
-            base.Start();
+            base.OnEnable();
+            m_Sr.sprite = m_Sps[0];
         }
+
         protected override void OnDestroy()
         {
-            RecyclyAudio();
-            base.OnDestroy();          
+            RecyclyAudio();//回收音效
+            base.OnDestroy();
         }
-
-
         private void OnCollisionEnter2D(Collision2D collision)
         {
             float relativeSpeed = collision.relativeVelocity.magnitude;
-            if (relativeSpeed <5)
+            if (relativeSpeed < 5)
                 return;
-            m_HurtGrade = relativeSpeed <= 10 ? EnumPigHurtGrade.Hurt1 :
-                relativeSpeed <= 15 ? EnumPigHurtGrade.Hurt2 : EnumPigHurtGrade.Destroy;
-            if(m_HurtGrade!= EnumPigHurtGrade.Destroy)
+            m_HurtGrade = relativeSpeed <= 10 ? EnumBarrierBrokenGrade.Broken1 :
+                relativeSpeed <= 15 ? EnumBarrierBrokenGrade.Broken2 : EnumBarrierBrokenGrade.Destroy;
+            if (m_HurtGrade != EnumBarrierBrokenGrade.Destroy)
             {
-                PlayHurtAudio();
-                SetHurtGradeAnim();         
+                PlayBrokenAudio();
+                SetBrokenGradeSprite();
             }
             else
             {
                 OpenScore();//打开分数
-                OpenBoom();//打开Boom特效
-                PlayDiedAudio();//播放死亡音效
+                //OpenBoom();//打开Boom特效
+                PlayDestroyAudio();//播放死亡音效
                 Destroy(gameObject);//回收猪 待
             }
         }
 
         #region Animator
         /// <summary>
-        /// 设置受伤等级动画
+        /// 设置破碎等级精灵
         /// </summary>
-        protected virtual void SetHurtGradeAnim()
+        protected virtual void SetBrokenGradeSprite()
         {
-            m_Anim.SetTrigger(m_HurtGrade.ToString());
-        }
+            m_Sr.sprite = m_Sps[Mathf.Clamp((int)m_HurtGrade,1, m_Sps.Length-1)];
+         }
         #endregion
 
         #region Audio
-        protected virtual void PlayDiedAudio()
+        protected virtual void PlayDestroyAudio()
         {
-            if (!PigConfigInfo.PigConfigInfoDic.TryGetValue(GetType().Name, out var config))
+            if (!BarrierConfigInfo.BarrierConfigInfoDic.TryGetValue(GetType().Name, out var config))
             {
                 return;
             }
-            PlayAudio(config.GetDiedAudioPath());
+            PlayAudio(config.GetBarrierDestroyAudioPath());
         }
-        protected virtual void PlayHurtAudio()
+        protected virtual void PlayBrokenAudio()
         {
-            if (!PigConfigInfo.PigConfigInfoDic.TryGetValue(GetType().Name, out var config))
+            if (!BarrierConfigInfo.BarrierConfigInfoDic.TryGetValue(GetType().Name, out var config))
             {
                 return;
             }
-            PlayAudio(config.GetHurtAudioPath());
+            PlayAudio(config.GetBarrierBrokenAudioPath(Mathf.Clamp((int)m_HurtGrade, 1, m_Sps.Length - 1)));
         }
-        protected virtual void PlaySkillAudio()
-        {
-            
-        }
+     
         protected void PlayAudio(string audioPath)
         {
             if (audioPath == null)
@@ -160,9 +159,10 @@ namespace Bird_VS_Boar
         #region Boom
         public virtual void OpenBoom()
         {
+            return;//暂时不需要
             if (!GoReusePool.Take(typeof(Boom).Name, out GameObject go))
             {
-                if(!NotMonoSingletonFactory<OtherConfigInfo>.SingletonExist)
+                if (!NotMonoSingletonFactory<OtherConfigInfo>.SingletonExist)
                 {
                     return;
                 }

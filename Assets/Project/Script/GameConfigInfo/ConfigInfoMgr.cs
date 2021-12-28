@@ -9,9 +9,13 @@ namespace Bird_VS_Boar
         public static void ConfigInfoInit()
         {
             NotMonoSingletonFactory<OtherConfigInfo>.GetSingleton().InitConfigInfo();//创建单例并实例化配置信息
-
             #region 猪
             PigConfigInfo.PigConfigInfoDic.Add("YoungPig", new YoungPigConfigInfo());
+            #endregion
+
+            #region 障碍物
+            BarrierConfigInfo.BarrierConfigInfoDic.Add("Ice", new IceConfigInfo());
+
             #endregion
             ////红色小鸟
             //BirdConfigInfo.BirdConfigInfoDic.Add("RedBird", new RedBirdConfigInfo());

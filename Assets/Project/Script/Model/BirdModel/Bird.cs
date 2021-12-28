@@ -6,7 +6,7 @@ using Farme.Audio;
 using Farme.Tool;
 namespace Bird_VS_Boar
 { 
-    public abstract class Bird : BaseMono
+    public abstract class Bird : BaseMono,IBoom
     {
         /// <summary>
         /// 音效
