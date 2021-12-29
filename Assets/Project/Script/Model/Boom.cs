@@ -4,21 +4,37 @@ using UnityEngine;
 using Farme;
 namespace Bird_VS_Boar
 {
-    public enum ENUM_BoomType
+    public enum EnumBoomType
     {
+        None,
         PigBoom,
         BirdBoom
     }
     public class Boom : MonoBehaviour
     {
-        private Animator m_Anim;
         private void Awake()
         {
-            m_Anim = GetComponent<Animator>();
+
         }
-        public void OpenBoom(ENUM_BoomType boomType)
+        public static void OpenBoom(EnumBoomType boomType,Vector3 pos)
         {
-            m_Anim.SetTrigger(boomType.ToString());
+            if(boomType == EnumBoomType.None)
+            {
+                return;
+            }
+            if (!GoReusePool.Take(typeof(Boom).Name, out GameObject go))
+            {
+                if (!NotMonoSingletonFactory<OtherConfigInfo>.SingletonExist)
+                {
+                    return;
+                }
+                if (!GoLoad.Take(NotMonoSingletonFactory<OtherConfigInfo>.GetSingleton().GetBoomPrefabPath(), out go))
+                {
+                    return;
+                }
+            }
+            go.transform.position = pos;
+            go.GetComponent<Animator>().SetTrigger(boomType.ToString());
         }
         [SerializeField]
         private void CloseBoom()

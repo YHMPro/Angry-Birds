@@ -49,9 +49,25 @@ namespace Bird_VS_Boar
                 m_NowMaxOrderInLayer = 0;
             }
         }
-        public void OpenScore(EnumScoreType scoreType)
+        public static void OpenScore(EnumScoreType scoreType,Vector3 pos)
         {
-            m_Anim.SetTrigger(scoreType.ToString());
+            if(scoreType == EnumScoreType.None)
+            {
+                return;
+            }
+            if (!GoReusePool.Take(typeof(Score).Name, out GameObject go))
+            {
+                if (!NotMonoSingletonFactory<OtherConfigInfo>.SingletonExist)
+                {
+                    return;
+                }
+                if (!GoLoad.Take(NotMonoSingletonFactory<OtherConfigInfo>.GetSingleton().GetScorePrefabPath(), out go))
+                {
+                    return;
+                }
+            }
+            go.transform.position = pos;
+            go.GetComponent<Animator>().SetTrigger(scoreType.ToString());
         }
         /// <summary>
         /// 这是回调事件(关闭分数)

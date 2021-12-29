@@ -57,9 +57,7 @@ namespace Bird_VS_Boar
                 if (!BirdConfigInfo.BirdConfigInfoDic.TryGetValue(m_GoodsType.ToString(), out var config))
                 {
                     BirdConfigInfoSet(out config);
-                    Debug.Log(config);
-                }
-               
+                }               
                 if (!GoLoad.Take(config.GetBirdPrefabPath(), out goods))
                 {
                     return;

@@ -52,16 +52,14 @@ namespace Bird_VS_Boar
             m_CommonPath="Bird/"+GetType().Name+"/";
             m_BirdPrefabPath =  "Bird";
         }
-        
-        
-        
+                 
         public string GetBirdPrefabPath()
         {
             return m_CommonPath + m_BirdPrefabPath;
         }
         public string GetDiedAudioPath()
         {
-            return m_CommonPath + m_BirdDiedAudioPath;
+            return m_BirdDiedAudioPath;
         }
 
         public string GetSelectAudioPaths()

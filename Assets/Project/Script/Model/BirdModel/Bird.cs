@@ -360,20 +360,7 @@ namespace Bird_VS_Boar
         #region Boom
         public virtual void OpenBoom()
         {
-            GameObject go;
-            if(!GoReusePool.Take(typeof(Boom).Name,out go))
-            {           
-                if(!NotMonoSingletonFactory<OtherConfigInfo>.SingletonExist)
-                {
-                    return;
-                }
-                if (!GoLoad.Take(NotMonoSingletonFactory<OtherConfigInfo>.GetSingleton().GetBoomPrefabPath(), out go))
-                {
-                    return;
-                }
-            }
-            go.transform.position = transform.position;
-            go.GetComponent<Boom>().OpenBoom(ENUM_BoomType.BirdBoom);
+            Boom.OpenBoom(EnumBoomType.BirdBoom,transform.position);
         }
         #endregion     
     }

@@ -77,7 +77,7 @@ namespace Bird_VS_Boar
             else
             {
                 OpenScore();//打开分数
-                //OpenBoom();//打开Boom特效
+                OpenBoom();//打开Boom特效
                 PlayDestroyAudio();//播放死亡音效
                 Destroy(gameObject);//回收猪 待
             }
@@ -159,39 +159,14 @@ namespace Bird_VS_Boar
         #region Boom
         public virtual void OpenBoom()
         {
-            return;//暂时不需要
-            if (!GoReusePool.Take(typeof(Boom).Name, out GameObject go))
-            {
-                if (!NotMonoSingletonFactory<OtherConfigInfo>.SingletonExist)
-                {
-                    return;
-                }
-                if (!GoLoad.Take(NotMonoSingletonFactory<OtherConfigInfo>.GetSingleton().GetBoomPrefabPath(), out go))
-                {
-                    return;
-                }
-            }
-            go.transform.position = transform.position;
-            go.GetComponent<Boom>().OpenBoom(ENUM_BoomType.PigBoom);
+            Boom.OpenBoom(EnumBoomType.None,transform.position);                  
         }
         #endregion
 
         #region Score
         public virtual void OpenScore()
-        {
-            if (!GoReusePool.Take(typeof(Score).Name, out GameObject go))
-            {
-                if (!NotMonoSingletonFactory<OtherConfigInfo>.SingletonExist)
-                {
-                    return;
-                }
-                if (!GoLoad.Take(NotMonoSingletonFactory<OtherConfigInfo>.GetSingleton().GetScorePrefabPath(), out go))
-                {
-                    return;
-                }
-            }
-            go.transform.position = transform.position;
-            go.GetComponent<Score>().OpenScore(m_ScoreType);
+        {          
+            Score.OpenScore(m_ScoreType,transform.position);
         }
         #endregion
     }

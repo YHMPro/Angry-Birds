@@ -159,39 +159,15 @@ namespace Bird_VS_Boar
 
         #region Boom
         public virtual void OpenBoom()
-        {
-            if (!GoReusePool.Take(typeof(Boom).Name, out GameObject go))
-            {
-                if(!NotMonoSingletonFactory<OtherConfigInfo>.SingletonExist)
-                {
-                    return;
-                }
-                if (!GoLoad.Take(NotMonoSingletonFactory<OtherConfigInfo>.GetSingleton().GetBoomPrefabPath(), out go))
-                {
-                    return;
-                }
-            }
-            go.transform.position = transform.position;
-            go.GetComponent<Boom>().OpenBoom(ENUM_BoomType.PigBoom);
+        {      
+            Boom.OpenBoom(EnumBoomType.PigBoom,transform.position);
         }
         #endregion
 
         #region Score
         public virtual void OpenScore()
-        {
-            if (!GoReusePool.Take(typeof(Score).Name, out GameObject go))
-            {
-                if (!NotMonoSingletonFactory<OtherConfigInfo>.SingletonExist)
-                {
-                    return;
-                }
-                if (!GoLoad.Take(NotMonoSingletonFactory<OtherConfigInfo>.GetSingleton().GetScorePrefabPath(), out go))
-                {
-                    return;
-                }
-            }
-            go.transform.position = transform.position;
-            go.GetComponent<Score>().OpenScore(m_ScoreType);
+        {          
+            Score.OpenScore(m_ScoreType,transform.position);
         }
         #endregion
     }

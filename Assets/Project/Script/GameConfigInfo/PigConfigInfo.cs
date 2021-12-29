@@ -38,7 +38,7 @@ namespace Bird_VS_Boar
         }
         public string GetDiedAudioPath()
         {
-            return m_CommonPath + m_PigDiedAudioPath;
+            return m_PigDiedAudioPath;
         }
         public string GetHurtAudioPath()
         {
@@ -82,6 +82,44 @@ namespace Bird_VS_Boar
         public YoungPigConfigInfo()
         {
             if(!m_IsInit)
+            {
+                InitConfigInfo();
+                m_IsInit = true;
+            }
+        }
+        protected override void InitConfigInfo()
+        {
+            base.InitConfigInfo();
+            m_PigHurtAudioPath = CreateGroup("Hurt", 2);
+        }
+    }
+
+    public class OldPigConfigInfo :PigConfigInfo
+    {
+        private static bool m_IsInit = false;
+
+        public OldPigConfigInfo()
+        {
+            if (!m_IsInit)
+            {
+                InitConfigInfo();
+                m_IsInit = true;
+            }
+        }
+        protected override void InitConfigInfo()
+        {
+            base.InitConfigInfo();
+            m_PigHurtAudioPath = CreateGroup("Hurt", 2);
+        }
+    }
+
+    public class RockPigConfigInfo :PigConfigInfo
+    {
+        private static bool m_IsInit = false;
+
+        public RockPigConfigInfo()
+        {
+            if (!m_IsInit)
             {
                 InitConfigInfo();
                 m_IsInit = true;

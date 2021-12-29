@@ -77,7 +77,47 @@ namespace Bird_VS_Boar
         public override void InitConfigInfo()
         {
             base.InitConfigInfo();
-            m_BarrierBrokenAudioPaths = CreateGroup("Broken", 3);
+            m_BarrierBrokenAudioPaths = CreateGroup("Broken", 2);
+        }
+    }
+
+    public class WoodConfigInfo : BarrierConfigInfo
+    {
+        private static bool m_IsInit = false;
+
+        public WoodConfigInfo()
+        {
+            if (!m_IsInit)
+            {
+                InitConfigInfo();
+                m_IsInit = true;
+            }
+        }
+
+        public override void InitConfigInfo()
+        {
+            base.InitConfigInfo();
+            m_BarrierBrokenAudioPaths = CreateGroup("Broken", 2);
+        }
+    }
+
+    public class RockConfigInfo:BarrierConfigInfo
+    {
+        private static bool m_IsInit = false;
+
+        public RockConfigInfo()
+        {
+            if (!m_IsInit)
+            {
+                InitConfigInfo();
+                m_IsInit = true;
+            }
+        }
+
+        public override void InitConfigInfo()
+        {
+            base.InitConfigInfo();
+            m_BarrierBrokenAudioPaths = CreateGroup("Broken", 2);
         }
     }
 }

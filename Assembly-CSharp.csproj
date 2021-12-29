@@ -91,6 +91,8 @@
     <Compile Include="Assets\Project\Script\GameLogic.cs" />
     <Compile Include="Assets\Project\Script\Model\BarrierModel\Barrier.cs" />
     <Compile Include="Assets\Project\Script\Model\BarrierModel\Ice.cs" />
+    <Compile Include="Assets\Project\Script\Model\BarrierModel\Rock.cs" />
+    <Compile Include="Assets\Project\Script\Model\BarrierModel\Wood.cs" />
     <Compile Include="Assets\Project\Script\Model\BirdModel\Bird.cs" />
     <Compile Include="Assets\Project\Script\Model\BirdModel\BlackBird.cs" />
     <Compile Include="Assets\Project\Script\Model\BirdModel\BlueBird.cs" />
@@ -109,7 +111,9 @@
     <Compile Include="Assets\Project\Script\Model\Camera\Camera2D.cs" />
     <Compile Include="Assets\Project\Script\Model\Camera\CameraUI.cs" />
     <Compile Include="Assets\Project\Script\Model\FlyPath\FlyPath.cs" />
+    <Compile Include="Assets\Project\Script\Model\PigModel\OldPig.cs" />
     <Compile Include="Assets\Project\Script\Model\PigModel\Pig.cs" />
+    <Compile Include="Assets\Project\Script\Model\PigModel\RockPig.cs" />
     <Compile Include="Assets\Project\Script\Model\PigModel\YoungPig.cs" />
     <Compile Include="Assets\Project\Script\Model\Score.cs" />
     <Compile Include="Assets\Project\Script\Model\SlingShot\SlingShot.cs" />

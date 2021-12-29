@@ -1,6 +1,31 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!1101 &-2420130371042585258
+--- !u!1101 &-4142855164929167581
+AnimatorStateTransition:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: 
+  m_Conditions:
+  - m_ConditionMode: 1
+    m_ConditionEvent: None
+    m_EventTreshold: 0
+  m_DstStateMachine: {fileID: 0}
+  m_DstState: {fileID: 1102034915057515136}
+  m_Solo: 0
+  m_Mute: 0
+  m_IsExit: 0
+  serializedVersion: 3
+  m_TransitionDuration: 0.25
+  m_TransitionOffset: 0
+  m_ExitTime: 0.75
+  m_HasExitTime: 0
+  m_HasFixedDuration: 1
+  m_InterruptionSource: 0
+  m_OrderedInterruption: 1
+  m_CanTransitionToSelf: 1
+--- !u!1101 &-3553113016783602126
 AnimatorStateTransition:
   m_ObjectHideFlags: 1
   m_CorrespondingSourceObject: {fileID: 0}
@@ -12,7 +37,7 @@ AnimatorStateTransition:
     m_ConditionEvent: Hurt1
     m_EventTreshold: 0
   m_DstStateMachine: {fileID: 0}
-  m_DstState: {fileID: 1102383904232134108}
+  m_DstState: {fileID: 1102376151272933760}
   m_Solo: 0
   m_Mute: 0
   m_IsExit: 0
@@ -31,15 +56,9 @@ AnimatorController:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: Pig1
+  m_Name: RockPig
   serializedVersion: 5
   m_AnimatorParameters:
-  - m_Name: None
-    m_Type: 9
-    m_DefaultFloat: 0
-    m_DefaultInt: 0
-    m_DefaultBool: 0
-    m_Controller: {fileID: 0}
   - m_Name: Hurt1
     m_Type: 9
     m_DefaultFloat: 0
@@ -52,10 +71,16 @@ AnimatorController:
     m_DefaultInt: 0
     m_DefaultBool: 0
     m_Controller: {fileID: 0}
+  - m_Name: None
+    m_Type: 9
+    m_DefaultFloat: 0
+    m_DefaultInt: 0
+    m_DefaultBool: 0
+    m_Controller: {fileID: 0}
   m_AnimatorLayers:
   - serializedVersion: 5
     m_Name: Base Layer
-    m_StateMachine: {fileID: 1107531032055404458}
+    m_StateMachine: {fileID: 1107143340695162190}
     m_Mask: {fileID: 0}
     m_Motions: []
     m_Behaviours: []
@@ -65,14 +90,14 @@ AnimatorController:
     m_IKPass: 0
     m_SyncedLayerAffectsTiming: 0
     m_Controller: {fileID: 9100000}
---- !u!1102 &1102383904232134108
+--- !u!1102 &1102034915057515136
 AnimatorState:
-  serializedVersion: 5
+  serializedVersion: 6
   m_ObjectHideFlags: 1
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: Pig1Hurt1
+  m_Name: Default
   m_Speed: 1
   m_CycleOffset: 0
   m_Transitions: []
@@ -85,20 +110,20 @@ AnimatorState:
   m_MirrorParameterActive: 0
   m_CycleOffsetParameterActive: 0
   m_TimeParameterActive: 0
-  m_Motion: {fileID: 7400000, guid: 76eb523fd947ea247b4242a8e61fed58, type: 2}
+  m_Motion: {fileID: 7400000, guid: 7a4c089afd2627f4e8cd1b1956443842, type: 2}
   m_Tag: 
   m_SpeedParameter: 
   m_MirrorParameter: 
   m_CycleOffsetParameter: 
   m_TimeParameter: 
---- !u!1102 &1102899058283447174
+--- !u!1102 &1102376151272933760
 AnimatorState:
-  serializedVersion: 5
+  serializedVersion: 6
   m_ObjectHideFlags: 1
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: Pig1Hurt2
+  m_Name: Hurt1
   m_Speed: 1
   m_CycleOffset: 0
   m_Transitions: []
@@ -111,20 +136,20 @@ AnimatorState:
   m_MirrorParameterActive: 0
   m_CycleOffsetParameterActive: 0
   m_TimeParameterActive: 0
-  m_Motion: {fileID: 7400000, guid: eb965195386ba1d48abdb372bd3ff088, type: 2}
+  m_Motion: {fileID: 7400000, guid: f8353e3c9ed467c46a71389a58c730ba, type: 2}
   m_Tag: 
   m_SpeedParameter: 
   m_MirrorParameter: 
   m_CycleOffsetParameter: 
   m_TimeParameter: 
---- !u!1102 &1102917816686224696
+--- !u!1102 &1102562024543566126
 AnimatorState:
-  serializedVersion: 5
+  serializedVersion: 6
   m_ObjectHideFlags: 1
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: Pig1Default
+  m_Name: Hurt2
   m_Speed: 1
   m_CycleOffset: 0
   m_Transitions: []
@@ -137,15 +162,15 @@ AnimatorState:
   m_MirrorParameterActive: 0
   m_CycleOffsetParameterActive: 0
   m_TimeParameterActive: 0
-  m_Motion: {fileID: 7400000, guid: 45ffab8289aa8e044a0b6bc1ac9532bc, type: 2}
+  m_Motion: {fileID: 7400000, guid: 16d4257fed3e26c46bdc0645b2c70909, type: 2}
   m_Tag: 
   m_SpeedParameter: 
   m_MirrorParameter: 
   m_CycleOffsetParameter: 
   m_TimeParameter: 
---- !u!1107 &1107531032055404458
+--- !u!1107 &1107143340695162190
 AnimatorStateMachine:
-  serializedVersion: 5
+  serializedVersion: 6
   m_ObjectHideFlags: 1
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -153,53 +178,28 @@ AnimatorStateMachine:
   m_Name: Base Layer
   m_ChildStates:
   - serializedVersion: 1
-    m_State: {fileID: 1102917816686224696}
-    m_Position: {x: 400, y: -70, z: 0}
+    m_State: {fileID: 1102034915057515136}
+    m_Position: {x: 228, y: 216, z: 0}
   - serializedVersion: 1
-    m_State: {fileID: 1102383904232134108}
-    m_Position: {x: 160, y: -70, z: 0}
+    m_State: {fileID: 1102376151272933760}
+    m_Position: {x: -20, y: 140, z: 0}
   - serializedVersion: 1
-    m_State: {fileID: 1102899058283447174}
-    m_Position: {x: 640, y: -70, z: 0}
+    m_State: {fileID: 1102562024543566126}
+    m_Position: {x: 480, y: 150, z: 0}
   m_ChildStateMachines: []
   m_AnyStateTransitions:
-  - {fileID: -2420130371042585258}
-  - {fileID: 6461885068849033885}
-  - {fileID: 7920703113345011597}
+  - {fileID: -3553113016783602126}
+  - {fileID: -4142855164929167581}
+  - {fileID: 7672289564765609661}
   m_EntryTransitions: []
   m_StateMachineTransitions: {}
   m_StateMachineBehaviours: []
-  m_AnyStatePosition: {x: 420, y: -240, z: 0}
-  m_EntryPosition: {x: 420, y: 30, z: 0}
+  m_AnyStatePosition: {x: 250, y: 50, z: 0}
+  m_EntryPosition: {x: 250, y: 330, z: 0}
   m_ExitPosition: {x: 800, y: 120, z: 0}
   m_ParentStateMachinePosition: {x: 800, y: 20, z: 0}
-  m_DefaultState: {fileID: 1102917816686224696}
---- !u!1101 &6461885068849033885
-AnimatorStateTransition:
-  m_ObjectHideFlags: 1
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_Name: 
-  m_Conditions:
-  - m_ConditionMode: 1
-    m_ConditionEvent: None
-    m_EventTreshold: 0
-  m_DstStateMachine: {fileID: 0}
-  m_DstState: {fileID: 1102917816686224696}
-  m_Solo: 0
-  m_Mute: 0
-  m_IsExit: 0
-  serializedVersion: 3
-  m_TransitionDuration: 0.25
-  m_TransitionOffset: 0
-  m_ExitTime: 0.75
-  m_HasExitTime: 0
-  m_HasFixedDuration: 1
-  m_InterruptionSource: 0
-  m_OrderedInterruption: 1
-  m_CanTransitionToSelf: 1
---- !u!1101 &7920703113345011597
+  m_DefaultState: {fileID: 1102034915057515136}
+--- !u!1101 &7672289564765609661
 AnimatorStateTransition:
   m_ObjectHideFlags: 1
   m_CorrespondingSourceObject: {fileID: 0}
@@ -211,7 +211,7 @@ AnimatorStateTransition:
     m_ConditionEvent: Hurt2
     m_EventTreshold: 0
   m_DstStateMachine: {fileID: 0}
-  m_DstState: {fileID: 1102899058283447174}
+  m_DstState: {fileID: 1102562024543566126}
   m_Solo: 0
   m_Mute: 0
   m_IsExit: 0
