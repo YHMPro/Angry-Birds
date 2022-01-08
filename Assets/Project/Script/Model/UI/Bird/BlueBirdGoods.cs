@@ -8,13 +8,14 @@ namespace Bird_VS_Boar
         protected override void Awake()
         {
             base.Awake();
-            m_GoodsType = EnumGoodsType.BlueBird;
+            m_BirdType = EnumBirdType.BlueBird;
         }
         protected override void BirdConfigInfoSet(out BirdConfigInfo config)
         {
             config = new BlueBirdConfigInfo();
             config.InitConfigInfo();
-            BirdConfigInfo.BirdConfigInfoDic.Add("BlueBird", config);
+            BirdConfigInfo.BirdConfigInfoDic.Add(EnumBirdType.BlueBird, config);
+            BirdConfigInfo.BirdConfigInfoDic.Add(EnumBirdType.LittleBlueBird, config);
         }
     }
 }

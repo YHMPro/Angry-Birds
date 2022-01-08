@@ -9,7 +9,7 @@ namespace Bird_VS_Boar
         private Transform m_AimTran;
         protected override void Awake()
         {
-           
+            m_BirdType = EnumBirdType.VanBird;
             base.Awake();
             m_AimTran = transform.Find("Aim");
         }
@@ -21,12 +21,12 @@ namespace Bird_VS_Boar
         protected override void OnMouseUp()
         {
             base.OnMouseUp();
-            MonoSingletonFactory<ShareMono>.GetSingleton().ApplyUpdateAction(EnumUpdateAction.Standard,OnSkillUpdate_Common);//持续监听技能释放指令
+            //MonoSingletonFactory<ShareMono>.GetSingleton().ApplyUpdateAction(EnumUpdateAction.Standard,OnSkillUpdate_Common);//持续监听技能释放指令
         }
 
-        protected override void OnBirdFlyUpdate()
+        protected override void OnBirdFlyBreak()
         {
-            base.OnBirdFlyUpdate();
+            base.OnBirdFlyBreak();
             m_Rig2D.isKinematic = false;
         }
 

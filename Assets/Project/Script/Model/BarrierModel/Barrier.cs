@@ -7,6 +7,9 @@ using Farme.Tool;
 
 namespace Bird_VS_Boar
 {
+    /// <summary>
+    /// 障碍物破裂等级
+    /// </summary>
     public enum EnumBarrierBrokenGrade
     {
         None,
@@ -16,8 +19,27 @@ namespace Bird_VS_Boar
         Broken4,
         Destroy
     }
+    /// <summary>
+    /// 障碍物类型
+    /// </summary>
+    public enum EnumBarrierType
+    { 
+        None,
+        Ice,
+        Rock,
+        Wood
+    }
+
     public class Barrier : BaseMono, IScore
     {
+        /// <summary>
+        /// 承受的能量总和(达到一定量后会出现破裂)
+        /// </summary>
+        protected float m_BearEnergySum = 0;
+        /// <summary>
+        /// 障碍物类型
+        /// </summary>
+        protected EnumBarrierType m_BarrierType= EnumBarrierType.None;
         /// <summary>
         /// 精灵
         /// </summary>
@@ -51,6 +73,15 @@ namespace Bird_VS_Boar
             m_Sr=GetComponent<SpriteRenderer>();
         }
 
+        protected override void Start()
+        {
+            base.Start();
+            if (BarrierConfigInfo.BarrierConfigInfoDic.TryGetValue(m_BarrierType, out var config))
+            {
+                //设置自身渲染层级
+                m_Sr.sortingOrder = config.OrderInLayer;
+            }
+        }
         protected override void OnEnable()
         {
             base.OnEnable();
@@ -65,10 +96,11 @@ namespace Bird_VS_Boar
         private void OnCollisionEnter2D(Collision2D collision)
         {
             float relativeSpeed = collision.relativeVelocity.magnitude;
-            if (relativeSpeed < 5)
+            if (relativeSpeed <=6)
                 return;
-            m_HurtGrade = relativeSpeed <= 10 ? EnumBarrierBrokenGrade.Broken1 :
-                relativeSpeed <= 15 ? EnumBarrierBrokenGrade.Broken2 : EnumBarrierBrokenGrade.Destroy;
+            m_BearEnergySum += relativeSpeed;
+            m_HurtGrade = m_BearEnergySum <=12 ? EnumBarrierBrokenGrade.Broken1 :
+                m_BearEnergySum <= 18 ? EnumBarrierBrokenGrade.Broken2 : EnumBarrierBrokenGrade.Destroy;
             if (m_HurtGrade != EnumBarrierBrokenGrade.Destroy)
             {
                 PlayBrokenAudio();
@@ -90,13 +122,13 @@ namespace Bird_VS_Boar
         protected virtual void SetBrokenGradeSprite()
         {
             m_Sr.sprite = m_Sps[Mathf.Clamp((int)m_HurtGrade,1, m_Sps.Length-1)];
-         }
+        }
         #endregion
 
         #region Audio
         protected virtual void PlayDestroyAudio()
         {
-            if (!BarrierConfigInfo.BarrierConfigInfoDic.TryGetValue(GetType().Name, out var config))
+            if (!BarrierConfigInfo.BarrierConfigInfoDic.TryGetValue(m_BarrierType, out var config))
             {
                 return;
             }
@@ -104,7 +136,7 @@ namespace Bird_VS_Boar
         }
         protected virtual void PlayBrokenAudio()
         {
-            if (!BarrierConfigInfo.BarrierConfigInfoDic.TryGetValue(GetType().Name, out var config))
+            if (!BarrierConfigInfo.BarrierConfigInfoDic.TryGetValue(m_BarrierType, out var config))
             {
                 return;
             }

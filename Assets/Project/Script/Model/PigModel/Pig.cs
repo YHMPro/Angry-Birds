@@ -8,6 +8,16 @@ using Farme.Tool;
 namespace Bird_VS_Boar
 {
     /// <summary>
+    /// 猪的类型
+    /// </summary>
+    public enum EnumPigType
+    {
+        None,
+        OldPig,
+        RockPig,
+        YoungPig
+    }
+    /// <summary>
     /// 猪的受伤等级
     /// </summary>
     public enum EnumPigHurtGrade
@@ -21,6 +31,14 @@ namespace Bird_VS_Boar
     }
     public abstract class Pig : BaseMono, IBoom, IScore
     {
+        /// <summary>
+        /// 精灵渲染器
+        /// </summary>
+        protected SpriteRenderer m_Sr = null;
+        /// <summary>
+        /// 猪的类型
+        /// </summary>
+        protected EnumPigType m_PigType=EnumPigType.None;
         /// <summary>
         /// 音效
         /// </summary>
@@ -45,6 +63,7 @@ namespace Bird_VS_Boar
         protected override void Awake()
         {
             base.Awake();
+            m_Sr=GetComponent<SpriteRenderer>();
             m_Rig2D = GetComponent<Rigidbody2D>();
             m_Anim = GetComponent<Animator>();
         }
@@ -52,6 +71,11 @@ namespace Bird_VS_Boar
         protected override void Start()
         {
             base.Start();
+            if (PigConfigInfo.PigConfigInfoDic.TryGetValue(m_PigType, out var config))
+            {
+                //设置自身渲染层级
+                m_Sr.sortingOrder = config.OrderInLayer;
+            }
         }
         protected override void OnDestroy()
         {
@@ -94,7 +118,7 @@ namespace Bird_VS_Boar
         #region Audio
         protected virtual void PlayDiedAudio()
         {
-            if (!PigConfigInfo.PigConfigInfoDic.TryGetValue(GetType().Name, out var config))
+            if (!PigConfigInfo.PigConfigInfoDic.TryGetValue(m_PigType, out var config))
             {
                 return;
             }
@@ -102,7 +126,7 @@ namespace Bird_VS_Boar
         }
         protected virtual void PlayHurtAudio()
         {
-            if (!PigConfigInfo.PigConfigInfoDic.TryGetValue(GetType().Name, out var config))
+            if (!PigConfigInfo.PigConfigInfoDic.TryGetValue(m_PigType, out var config))
             {
                 return;
             }

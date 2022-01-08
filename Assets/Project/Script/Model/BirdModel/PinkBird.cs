@@ -17,11 +17,11 @@ namespace Bird_VS_Boar
         private float m_IntervalDistance = 1.25f;
         protected override void Awake()
         {
-            
+            m_BirdType = EnumBirdType.PinkBird;
             base.Awake();
         }
 
-        protected override void OnBirdFlyUpdate()
+        protected override void OnBirdFlyBreak()
         {
             ProductBlister();
             PlaySkillAudio();

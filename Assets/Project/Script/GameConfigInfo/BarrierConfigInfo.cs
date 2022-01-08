@@ -5,7 +5,18 @@ namespace Bird_VS_Boar
 {
     public class BarrierConfigInfo
     {
-        public static Dictionary<string, BarrierConfigInfo> BarrierConfigInfoDic=new Dictionary<string, BarrierConfigInfo>();
+        public static Dictionary<EnumBarrierType, BarrierConfigInfo> BarrierConfigInfoDic=new Dictionary<EnumBarrierType, BarrierConfigInfo>();
+        /// <summary>
+        /// 排序层级
+        /// </summary>
+        protected int m_OrderInLayer = 0;
+        /// <summary>
+        /// 排序层级
+        /// </summary>
+        public int OrderInLayer
+        {
+            get { return m_OrderInLayer; }
+        }
         /// <summary>
         /// 共同
         /// </summary>
@@ -27,6 +38,7 @@ namespace Bird_VS_Boar
             m_CommonPath = "Barrier/" + GetType().Name + "/";
             m_BarrierPrefabPath = "Barrier";
             m_BarrierDestroyAudioPath = "De1";
+            m_OrderInLayer = 11;
         }
         public string GetBarrierDestroyAudioPath()
         {

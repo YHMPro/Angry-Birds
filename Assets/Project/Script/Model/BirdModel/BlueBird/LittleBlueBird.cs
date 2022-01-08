@@ -8,11 +8,8 @@ namespace Bird_VS_Boar
     {
         protected override void Awake()
         {
-            Destroy(GetComponent<BlueBird>());
-            if (!BirdConfigInfo.BirdConfigInfoDic.ContainsKey(GetType().Name))
-            {
-                BirdConfigInfo.BirdConfigInfoDic.Add(GetType().Name, new BlueBirdConfigInfo());
-            }
+            m_BirdType = EnumBirdType.LittleBlueBird;
+            Destroy(GetComponent<BlueBird>());         
             base.Awake();
         }
         protected override void Start()
@@ -25,12 +22,12 @@ namespace Bird_VS_Boar
             
         }
 
-        protected override void OnBirdFlyUpdate()
+        protected override void OnBirdFlyBreak()
         {
-            base.OnBirdFlyUpdate();
+            base.OnBirdFlyBreak();
             m_Rig2D.freezeRotation = false;
         }
-
+         
         protected override void InitTrailRenderer()
         {
             m_TRenderer.startWidth = 0.075f;

@@ -5,10 +5,22 @@ namespace Bird_VS_Boar
 {
     public class PigConfigInfo
     {    
+        
         /// <summary>
         /// 小鸟配置信息容器
         /// </summary>
-        public static Dictionary<string, PigConfigInfo> PigConfigInfoDic = new Dictionary<string, PigConfigInfo>();       
+        public static Dictionary<EnumPigType, PigConfigInfo> PigConfigInfoDic = new Dictionary<EnumPigType, PigConfigInfo>();
+        /// <summary>
+        /// 排序层级
+        /// </summary>
+        protected int m_OrderInLayer = 0;
+        /// <summary>
+        /// 排序层级
+        /// </summary>
+        public int OrderInLayer
+        {
+            get { return m_OrderInLayer; }
+        }
         /// <summary>
         /// 共同的
         /// </summary>
@@ -28,6 +40,7 @@ namespace Bird_VS_Boar
 
         protected virtual void InitConfigInfo()
         {
+            m_OrderInLayer = 0;//暂时所有猪都为0
             m_PigDiedAudioPath = "Pig/PigCommon/De1";
             m_CommonPath = "Pig/" + GetType().Name + "/";
             m_PigPrefabPath = "Pig";

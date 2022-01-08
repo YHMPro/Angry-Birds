@@ -14,11 +14,11 @@ namespace Farme.Audio
         /// 音效剪辑容器   key:路径或xx包{xx资源}为拿取依据  value:音效剪辑
         /// </summary>
         private static Dictionary<string, AudioClip> m_AudioClipDic = null;
-        private static Dictionary<string,AudioClip> AudioClipDic
+        private static Dictionary<string, AudioClip> AudioClipDic
         {
             get
             {
-                if(m_AudioClipDic==null)
+                if (m_AudioClipDic == null)
                 {
                     m_AudioClipDic = new Dictionary<string, AudioClip>();
                 }
@@ -34,7 +34,7 @@ namespace Farme.Audio
         /// </summary>
         /// <param name="audioClipPath">音效剪辑路径</param>
         /// <param name="callback">回调</param>
-        public static void GetAudioClip(string audioClipPath,UnityAction<AudioClip> callback)
+        public static void GetAudioClip(string audioClipPath, UnityAction<AudioClip> callback)
         {
             if (AudioClipDic.TryGetValue(audioClipPath, out AudioClip result))
             {
@@ -46,7 +46,7 @@ namespace Farme.Audio
                 {
                     AudioClipDic.Add(audioClipPath, clip);
                     callback?.Invoke(result);
-                });                                                              
+                });
             }
         }
         /// <summary>
@@ -56,8 +56,8 @@ namespace Farme.Audio
         /// <param name="audioClipPath">音效剪辑路径</param>
         /// <param name="result">结果</param>
         /// <returns>是否获取成功</returns>
-        public static bool GetAudioClip(string audioClipPath,out AudioClip result)
-        {            
+        public static bool GetAudioClip(string audioClipPath, out AudioClip result)
+        {
             if (AudioClipDic.TryGetValue(audioClipPath, out result))
             {
                 return true;
@@ -68,9 +68,9 @@ namespace Farme.Audio
                 {
                     AudioClipDic.Add(audioClipPath, result);
                     return true;
-                }             
+                }
             }
-            return false;      
+            return false;
         }
         /// <summary>
         /// 获取音效剪辑
@@ -101,19 +101,19 @@ namespace Farme.Audio
         /// <param name="abName">包名</param>
         /// <param name="resName">资源名</param>
         /// <param name="callback">回调</param>
-        public static void GetAudioClip(string abName,string resName,UnityAction<AudioClip> callback)
+        public static void GetAudioClip(string abName, string resName, UnityAction<AudioClip> callback)
         {
-            if (AudioClipDic.TryGetValue(abName+ "{" + resName + "}", out AudioClip result))
+            if (AudioClipDic.TryGetValue(abName + "{" + resName + "}", out AudioClip result))
             {
                 callback?.Invoke(result);
             }
             else
             {
-                AssetBundleLoad.LoadAssetAsync<AudioClip>(abName, resName,(clip) =>
-                 {
-                     AudioClipDic.Add(abName + "{" + resName + "}", clip);
-                     callback?.Invoke(result);
-                 });                                             
+                AssetBundleLoad.LoadAssetAsync<AudioClip>(abName, resName, (clip) =>
+                {
+                    AudioClipDic.Add(abName + "{" + resName + "}", clip);
+                    callback?.Invoke(result);
+                });
             }
         }
         /// <summary>
@@ -124,7 +124,7 @@ namespace Farme.Audio
         /// <param name="resName">资源名</param>
         /// <param name="result">结果</param>
         /// <returns></returns>
-        public static bool GetAudioClip(string abName, string resName,out AudioClip result)
+        public static bool GetAudioClip(string abName, string resName, out AudioClip result)
         {
             if (AudioClipDic.TryGetValue(abName + "{" + resName + "}", out result))
             {
@@ -147,7 +147,7 @@ namespace Farme.Audio
         /// <param name="abName">包名</param>
         /// <param name="resName">资源名</param>
         /// <returns></returns>
-        public static AudioClip GetAudioClip(string abName,string resName)
+        public static AudioClip GetAudioClip(string abName, string resName)
         {
             if (AudioClipDic.TryGetValue(abName + "{" + resName + "}", out AudioClip result))
             {
@@ -155,7 +155,7 @@ namespace Farme.Audio
             }
             else
             {
-                if(AssetBundleLoad.LoadAsset(abName,resName,out result))
+                if (AssetBundleLoad.LoadAsset(abName, resName, out result))
                 {
                     AudioClipDic.Add(abName + "{" + resName + "}", result);
                     return result;

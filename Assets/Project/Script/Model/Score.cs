@@ -32,8 +32,19 @@ namespace Bird_VS_Boar
         {
             m_Sr=GetComponent<SpriteRenderer>();
             m_Anim=GetComponent<Animator>();
-        }
 
+            if (m_NowMaxOrderInLayer == 0)
+            {
+                if (NotMonoSingletonFactory<OtherConfigInfo>.SingletonExist)
+                {
+                    m_NowMaxOrderInLayer = NotMonoSingletonFactory<OtherConfigInfo>.GetSingleton().ScoreOrderInLayer;
+                }
+            }
+        }
+        protected void Start()
+        {
+            
+        }
         private void OnEnable()
         {
             Debuger.Log("层级累加");
@@ -46,7 +57,10 @@ namespace Bird_VS_Boar
             --m_ScoreNum;
             if(m_ScoreNum == 0)
             {
-                m_NowMaxOrderInLayer = 0;
+                if (NotMonoSingletonFactory<OtherConfigInfo>.SingletonExist)
+                {
+                    m_NowMaxOrderInLayer = NotMonoSingletonFactory<OtherConfigInfo>.GetSingleton().ScoreOrderInLayer;
+                }
             }
         }
         public static void OpenScore(EnumScoreType scoreType,Vector3 pos)

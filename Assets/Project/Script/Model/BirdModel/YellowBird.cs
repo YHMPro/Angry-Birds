@@ -7,7 +7,8 @@ namespace Bird_VS_Boar
     public class YellowBird : SkillBird
     {
         protected override void Awake()
-        {         
+        {
+            m_BirdType = EnumBirdType.YellowBird;
             base.Awake();
         }
 

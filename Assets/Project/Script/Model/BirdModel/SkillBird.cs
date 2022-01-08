@@ -33,10 +33,15 @@ namespace Bird_VS_Boar
         {         
             m_Anim.SetTrigger("IsSkill");
         }
-        
+
+        protected override void OnBirdFlyBreak()
+        {         
+            base.OnBirdFlyBreak();
+            MonoSingletonFactory<ShareMono>.GetSingleton().RemoveUpdateAction(EnumUpdateAction.Standard, OnSkillUpdate_Common);
+        }
         protected override void PlaySkillAudio()
         {
-            if (!BirdConfigInfo.BirdConfigInfoDic.TryGetValue(GetType().Name, out var config))
+            if (!BirdConfigInfo.BirdConfigInfoDic.TryGetValue(m_BirdType, out var config))
             {
                 return;
             }

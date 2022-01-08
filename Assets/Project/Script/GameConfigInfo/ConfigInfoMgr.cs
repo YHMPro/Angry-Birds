@@ -10,15 +10,15 @@ namespace Bird_VS_Boar
         {
             NotMonoSingletonFactory<OtherConfigInfo>.GetSingleton().InitConfigInfo();//创建单例并实例化配置信息
             #region 猪
-            PigConfigInfo.PigConfigInfoDic.Add("YoungPig", new YoungPigConfigInfo());
-            PigConfigInfo.PigConfigInfoDic.Add("OldPig", new OldPigConfigInfo());
-            PigConfigInfo.PigConfigInfoDic.Add("RockPig", new RockPigConfigInfo());
+            PigConfigInfo.PigConfigInfoDic.Add(EnumPigType.YoungPig, new YoungPigConfigInfo());
+            PigConfigInfo.PigConfigInfoDic.Add(EnumPigType.OldPig, new OldPigConfigInfo());
+            PigConfigInfo.PigConfigInfoDic.Add(EnumPigType.RockPig, new RockPigConfigInfo());
             #endregion
 
             #region 障碍物
-            BarrierConfigInfo.BarrierConfigInfoDic.Add("Ice", new IceConfigInfo());
-            BarrierConfigInfo.BarrierConfigInfoDic.Add("Wood", new WoodConfigInfo());
-            BarrierConfigInfo.BarrierConfigInfoDic.Add("Rock", new RockConfigInfo());
+            BarrierConfigInfo.BarrierConfigInfoDic.Add(EnumBarrierType.Ice, new IceConfigInfo());
+            BarrierConfigInfo.BarrierConfigInfoDic.Add(EnumBarrierType.Wood, new WoodConfigInfo());
+            BarrierConfigInfo.BarrierConfigInfoDic.Add(EnumBarrierType.Rock, new RockConfigInfo());
             #endregion
             ////红色小鸟
             //BirdConfigInfo.BirdConfigInfoDic.Add("RedBird", new RedBirdConfigInfo());

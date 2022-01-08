@@ -27,9 +27,9 @@ namespace Bird_VS_Boar
     {
         [SerializeField]
         /// <summary>
-        /// 货物类型
+        /// 小鸟类型
         /// </summary>
-        protected EnumGoodsType m_GoodsType = EnumGoodsType.None;
+        protected EnumBirdType m_BirdType=EnumBirdType.None;
         protected Button m_GoodsBtn;
         protected override void Awake()
         {
@@ -52,9 +52,9 @@ namespace Bird_VS_Boar
         /// </summary>
         private void OnGoodsClick()
         {        
-            if (!GoReusePool.Take(m_GoodsType.ToString(), out GameObject goods))
+            if (!GoReusePool.Take(m_BirdType.ToString(), out GameObject goods))
             {
-                if (!BirdConfigInfo.BirdConfigInfoDic.TryGetValue(m_GoodsType.ToString(), out var config))
+                if (!BirdConfigInfo.BirdConfigInfoDic.TryGetValue(m_BirdType, out var config))
                 {
                     BirdConfigInfoSet(out config);
                 }               

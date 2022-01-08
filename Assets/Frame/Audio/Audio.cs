@@ -18,7 +18,6 @@ namespace Farme.Audio
             m_As = GetComponent<AudioSource>();
             m_AudioEvent = new AudioEvent();
             m_As.panStereo = 0;
-            m_As.spatialBlend = 0;
             m_As.time = 0;
             m_As.clip = null;
             m_As.playOnAwake = false;
@@ -27,14 +26,14 @@ namespace Farme.Audio
             m_Timer = null;
             m_ListenVolumeExcess = null;
             AudioManager.NotInidleAudioLi.Add(this);
-        }       
+        }
         #endregion
 
         #region 字段         
         /// <summary>
         /// 音效源
         /// </summary>
-        private AudioSource m_As = null;         
+        private AudioSource m_As = null;
         /// <summary>
         /// 是否播放
         /// </summary>
@@ -46,7 +45,7 @@ namespace Farme.Audio
         /// <summary>
         /// 是否暂停
         /// </summary>
-        private bool m_IsPause = true;       
+        private bool m_IsPause = true;
         /// <summary>
         /// 是否能够回收(如果为False,则将永远不能回收到音效管理器当中)
         /// </summary>
@@ -67,13 +66,34 @@ namespace Farme.Audio
 
         #region 属性 
         /// <summary>
+        /// 空间混合(0:2D  -> 1:3D)
+        /// </summary>
+        public float SpatialBlend
+        {
+            set
+            {
+                if (m_As != null)
+                {
+                    m_As.spatialBlend = Mathf.Clamp(value, 0, 1);
+                }
+            }
+            get
+            {
+                if (m_As != null)
+                {
+                    return m_As.spatialBlend;
+                }
+                return -1;
+            }
+        }
+        /// <summary>
         /// 播放进度
         /// </summary>
         public float Progress
         {
             get
             {
-                if(m_As.clip==null)
+                if (m_As.clip == null)
                 {
                     return 0;
                 }
@@ -123,7 +143,7 @@ namespace Farme.Audio
                 {
                     m_As.clip = value;
                     Pause();
-                }             
+                }
             }
             get
             {
@@ -166,7 +186,7 @@ namespace Farme.Audio
         public bool Loop
         {
             set
-            {               
+            {
                 m_As.loop = value;
             }
             get
@@ -182,16 +202,16 @@ namespace Farme.Audio
             set
             {
                 m_AbleRecycle = value;
-                if (value&& m_IsStop)//满足条件则直接回收
+                if (value && m_IsStop)//满足条件则直接回收
                 {
                     Recycle();
-                }              
+                }
             }
             get
             {
                 return m_AbleRecycle;
             }
-        }         
+        }
         /// <summary>
         /// 左声道->右声道的渐变  -1(左)->0(立体)->1(右)
         /// </summary>
@@ -270,27 +290,6 @@ namespace Farme.Audio
                 return -1;
             }
         }
-        /// <summary>
-        /// 空间混合(0:2D  -> 1:3D)
-        /// </summary>
-        public float SpatialBlend
-        {
-            set
-            {
-                if(m_As!=null)
-                {
-                    m_As.spatialBlend = Mathf.Clamp(value, 0, 1);
-                }
-            }
-            get
-            {
-                if (m_As != null)
-                {
-                    return m_As.spatialBlend;
-                }
-                return -1;
-            }
-        }
         #endregion
 
         #region 方法
@@ -299,11 +298,11 @@ namespace Farme.Audio
         /// </summary>
         private void AppendTimer()
         {
-            if(m_Timer == null&& m_As.clip!=null)
+            if (m_Timer == null && m_As.clip != null)
             {
-                m_Timer = MonoSingletonFactory<ShareMono>.GetSingleton().DelayAction(m_As.clip.length - m_As.time, ()=>
-                {                   
-                    RemoveTimer();                  
+                m_Timer = MonoSingletonFactory<ShareMono>.GetSingleton().DelayAction(m_As.clip.length - m_As.time, () =>
+                {
+                    RemoveTimer();
                     if (m_As.loop)
                     {
                         if (m_AudioEvent != null)
@@ -314,7 +313,7 @@ namespace Farme.Audio
                     }
                     m_IsPause = false;
                     m_IsPlay = false;
-                    m_As.time = 0;   
+                    m_As.time = 0;
                     m_IsStop = true;
                     m_As.Stop();
                     if (m_AbleRecycle)
@@ -325,7 +324,7 @@ namespace Farme.Audio
                     {
                         m_AudioEvent.FinishEvent?.Invoke();
                     }
-                });            
+                });
             }
         }
         /// <summary>
@@ -343,7 +342,7 @@ namespace Farme.Audio
         /// 播放
         /// </summary>
         public void Play()
-        {            
+        {
             m_As.Play();
             AppendTimer();
             m_IsPause = false;
@@ -360,13 +359,13 @@ namespace Farme.Audio
         /// <param name="startVolume">过度起始时音量</param>
         /// <param name="endVolume">过度结束时音量</param>
         /// <param name="time">过度消耗的时间</param>
-        public void Play(float startVolume,float endVolume,float time)
+        public void Play(float startVolume, float endVolume, float time)
         {
             if (m_ListenVolumeExcess != null)
             {
                 MonoSingletonFactory<ShareMono>.GetSingleton().StopCoroutine(m_ListenVolumeExcess);
             }
-            m_As.volume = Mathf.Clamp(startVolume,0,1);
+            m_As.volume = Mathf.Clamp(startVolume, 0, 1);
             Play();
             VolumeExcess(endVolume, time);
         }
@@ -378,9 +377,9 @@ namespace Farme.Audio
             m_As.time = 0;
             RemoveTimer();
             m_As.Play();
-             m_IsPause = false;
+            m_IsPause = false;
             m_IsPlay = true;
-            m_IsStop = false;       
+            m_IsStop = false;
             AppendTimer();
         }
         /// <summary>
@@ -405,7 +404,7 @@ namespace Farme.Audio
             {
                 MonoSingletonFactory<ShareMono>.GetSingleton().StopCoroutine(m_ListenVolumeExcess);
             }
-            VolumeExcess(endVolume, time,()=> 
+            VolumeExcess(endVolume, time, () =>
             {
                 Pause();
             });
@@ -450,18 +449,18 @@ namespace Farme.Audio
         /// <param name="volume">目标音量</param>
         /// <param name="time">耗时</param>
         /// <param name="finishCallback">完成回调</param>
-        private void VolumeExcess(float volume,float time,UnityAction finishCallback=null)
+        private void VolumeExcess(float volume, float time, UnityAction finishCallback = null)
         {
-            m_ListenVolumeExcess = MonoSingletonFactory<ShareMono>.GetSingleton().StartCoroutine(IEVolumeExcess(volume,Mathf.Clamp(time,0,m_As.clip.length-m_As.time), finishCallback));        
+            m_ListenVolumeExcess = MonoSingletonFactory<ShareMono>.GetSingleton().StartCoroutine(IEVolumeExcess(volume, Mathf.Clamp(time, 0, m_As.clip.length - m_As.time), finishCallback));
         }
-        private IEnumerator IEVolumeExcess(float volume,float time, UnityAction finishCallback=null)//1秒   50次循环
+        private IEnumerator IEVolumeExcess(float volume, float time, UnityAction finishCallback = null)//1秒   50次循环
         {
             int num = (int)(50 * time);
-            float interval = Mathf.Abs(m_As.volume - Mathf.Clamp(volume,0,1)) / num;
+            float interval = Mathf.Abs(m_As.volume - Mathf.Clamp(volume, 0, 1)) / num;
             WaitForSeconds waitForSeconds = new WaitForSeconds(0.02f);
             while (true)
-            {            
-                if(num < 0)
+            {
+                if (num < 0)
                 {
                     m_ListenVolumeExcess = null;
                     finishCallback?.Invoke();
@@ -498,7 +497,7 @@ namespace Farme.Audio
                 {
                     AudioManager.InidleAudios.Push(this);
                 }
-                gameObject.SetActive(false);             
+                gameObject.SetActive(false);
             }
         }
         #endregion
@@ -514,7 +513,7 @@ namespace Farme.Audio
             /// <summary>
             /// 播放完成的回调事件
             /// </summary>
-            public UnityAction FinishEvent;                                    
+            public UnityAction FinishEvent;
         }
     }
 }

@@ -6,8 +6,32 @@ using Farme.Audio;
 using Farme.Tool;
 namespace Bird_VS_Boar
 { 
+    /// <summary>
+    /// 小鸟类型
+    /// </summary>
+    public enum EnumBirdType
+    {
+        None,
+        RedBird,
+        BlackBird,
+        BlueBird,
+        PinkBird,
+        VanBird,
+        WhiteBird,
+        YellowBird,
+        GreenBird,
+        LittleBlueBird
+    }
     public abstract class Bird : BaseMono,IBoom
     {
+        /// <summary>
+        /// 小鸟类型
+        /// </summary>
+        protected EnumBirdType m_BirdType=EnumBirdType.None;
+        /// <summary>
+        /// 小鸟精灵渲染器
+        /// </summary>
+        protected SpriteRenderer m_Sr = null;
         /// <summary>
         /// 音效
         /// </summary>
@@ -76,7 +100,8 @@ namespace Bird_VS_Boar
         }            
         protected override void Awake()
         {
-            base.Awake();           
+            base.Awake();
+            m_Sr=GetComponent<SpriteRenderer>();
             m_CC2D = gameObject.AddComponent<CircleCollider2D>();
             m_Rig2D = GetComponent<Rigidbody2D>();
             m_Anim = GetComponent<Animator>();
@@ -97,7 +122,12 @@ namespace Bird_VS_Boar
         protected override void Start()
         {
             base.Start();
-            InitTrailRenderer();//初始化拖尾         
+            InitTrailRenderer();//初始化拖尾
+            if (BirdConfigInfo.BirdConfigInfoDic.TryGetValue(m_BirdType, out var config))
+            {
+                //设置自身渲染层级
+                m_Sr.sortingOrder = config.OrderInLayer;
+            }
         }
         protected override void OnDisable()
         {
@@ -199,21 +229,21 @@ namespace Bird_VS_Boar
             if (m_Rig2D.velocity.magnitude > 0.5f)
             {
                 if (Physics2D.OverlapCircle(transform.position, m_CC2D.radius, LayerMask.GetMask(rayCastGroup)))
-                {                  
+                {
+                    Debuger.Log("技能失效");
                     MonoSingletonFactory<ShareMono>.GetSingleton().RemoveUpdateAction(EnumUpdateAction.Standard,OnBirdFlyUpdate_Common);
-                    MonoSingletonFactory<ShareMono>.GetSingleton().RemoveUpdateAction(EnumUpdateAction.Standard,OnSkillUpdate_Common);
                     ActiveTrailRenderer(false);//关闭拖尾
                     PlayCollisionAudio();//播放碰撞音效
-                    OnBirdFlyUpdate();                 
+                    OnBirdFlyBreak();                 
                 }
             }         
         }
         /// <summary>
-        /// 监听小鸟飞行更新
+        /// 监听小鸟飞行中断
         /// </summary>
-        protected virtual void OnBirdFlyUpdate()
+        protected virtual void OnBirdFlyBreak()
         {
-            m_Anim.SetTrigger("IsHurt");//受伤动画
+            m_Anim.SetTrigger("IsHurt");//受伤动画         
             MonoSingletonFactory<ShareMono>.GetSingleton().DelayAction(3.0f,()=> 
             {
                 OpenBoom(); //打开死亡特效
@@ -254,7 +284,7 @@ namespace Bird_VS_Boar
         /// </summary>
         protected virtual void PlayFlyAudio()
         {
-            if(!BirdConfigInfo.BirdConfigInfoDic.TryGetValue(GetType().Name, out var config))
+            if(!BirdConfigInfo.BirdConfigInfoDic.TryGetValue(m_BirdType, out var config))
             {
                 return;
             }
@@ -265,7 +295,7 @@ namespace Bird_VS_Boar
         /// </summary>
         protected virtual void PlaySelectAudio()
         {
-            if (!BirdConfigInfo.BirdConfigInfoDic.TryGetValue(GetType().Name, out var config))
+            if (!BirdConfigInfo.BirdConfigInfoDic.TryGetValue(m_BirdType, out var config))
             {
                 return;
             }
@@ -276,7 +306,7 @@ namespace Bird_VS_Boar
         /// </summary>
         protected virtual void PlayDestroyAudio()
         {
-            if (!BirdConfigInfo.BirdConfigInfoDic.TryGetValue(GetType().Name, out var config))
+            if (!BirdConfigInfo.BirdConfigInfoDic.TryGetValue(m_BirdType, out var config))
             {
                 return;
             }
@@ -287,7 +317,7 @@ namespace Bird_VS_Boar
         /// </summary>
         protected virtual void PlayCollisionAudio()
         {
-            if (!BirdConfigInfo.BirdConfigInfoDic.TryGetValue(GetType().Name, out var config))
+            if (!BirdConfigInfo.BirdConfigInfoDic.TryGetValue(m_BirdType, out var config))
             {
                 return;
             }

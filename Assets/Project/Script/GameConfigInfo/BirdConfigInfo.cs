@@ -12,7 +12,18 @@ namespace Bird_VS_Boar
         /// <summary>
         /// 小鸟配置信息容器
         /// </summary>
-        public static Dictionary<string, BirdConfigInfo> BirdConfigInfoDic = new Dictionary<string, BirdConfigInfo>();     
+        public static Dictionary<EnumBirdType, BirdConfigInfo> BirdConfigInfoDic = new Dictionary<EnumBirdType, BirdConfigInfo>();
+        /// <summary>
+        /// 排序层级
+        /// </summary>
+        protected int m_OrderInLayer = 0;
+        /// <summary>
+        /// 排序层级
+        /// </summary>
+        public int OrderInLayer
+        {
+            get { return m_OrderInLayer; }
+        }
         /// <summary>
         /// 共同的
         /// </summary>
@@ -47,7 +58,8 @@ namespace Bird_VS_Boar
         #endregion
         
         public virtual void InitConfigInfo()
-        {           
+        {
+            m_OrderInLayer = 2;//暂时所有小鸟都为2
             m_BirdDiedAudioPath = "Bird/BirdCommon/De1";
             m_CommonPath="Bird/"+GetType().Name+"/";
             m_BirdPrefabPath =  "Bird";

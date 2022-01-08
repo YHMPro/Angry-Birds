@@ -6,6 +6,69 @@ namespace Bird_VS_Boar
     public class OtherConfigInfo
     {
         private string m_CommonPath;
+        #region 渲染层级
+        /// <summary>
+        /// 气球层级
+        /// </summary>
+        protected int m_BlisterOrderInLayer = 0;
+        /// <summary>
+        /// 气球层级
+        /// </summary>
+        public int BlisterOrderInLayer
+        {
+            get
+            {
+                return m_BlisterOrderInLayer;
+            }
+        }
+        /// <summary>
+        /// Boom层级(最低)
+        /// </summary>
+        protected int m_BoomOrderInLayer = 0;
+        /// <summary>
+        /// Boom层级(最低)
+        /// </summary>
+        public int BoomOrderInLayer
+        {
+            get { return m_BoomOrderInLayer; }
+        }
+        /// <summary>
+        /// 蛋层级
+        /// </summary>
+        protected int m_EggOrderInLayer = 0;
+        /// <summary>
+        /// 蛋层级
+        /// </summary>
+        public int EggOrderInLayer
+        {
+            get { return m_EggOrderInLayer; }
+        }
+        /// <summary>
+        /// 点层级
+        /// </summary>
+        protected int m_PointOrderInLayer = 0;
+        /// <summary>
+        /// 点层级
+        /// </summary>
+        public int PointOrderInLayer
+        {
+            get { return m_PointOrderInLayer; }
+        }
+        /// <summary>
+        /// 分数层级(最低)
+        /// </summary>
+        protected int m_ScoreOrderInLayer = 0;
+        /// <summary>
+        /// 分数层级(最低)
+        /// </summary>
+        public int ScoreOrderInLayer
+        {
+            get
+            {
+                return m_ScoreOrderInLayer;
+            }
+        }
+        #endregion
         /// <summary>
         /// 小鸟气球预制路径
         /// </summary>
@@ -35,7 +98,11 @@ namespace Bird_VS_Boar
             m_EggPrefabPath = "Egg";
             m_PointPrefabPath = "Point";
 
-            Debug.Log(GetPointPrefabPath());
+            //层级顺序  分数>Boom>蛋>点
+            m_PointOrderInLayer = -1;
+            m_EggOrderInLayer = 1;
+            m_BoomOrderInLayer = 20;
+            m_ScoreOrderInLayer = 40;
         }
         public string GetBlisterPrefabPath()
         {

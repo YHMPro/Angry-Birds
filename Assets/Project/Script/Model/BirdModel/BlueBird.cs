@@ -8,7 +8,7 @@ namespace Bird_VS_Boar
     {
         protected override void Awake()
         {
-            
+            m_BirdType = EnumBirdType.BlueBird;
             base.Awake();
         }
 
@@ -23,9 +23,9 @@ namespace Bird_VS_Boar
             for (int i = 0; i < 3; i++)
             {
                 GameObject go;
-                if(!GoReusePool.Take(typeof(LittleBlueBird).Name,out go))
+                if(!GoReusePool.Take(EnumBirdType.LittleBlueBird.ToString(),out go))
                 {
-                    if (!BirdConfigInfo.BirdConfigInfoDic.TryGetValue(GetType().Name, out var config))
+                    if (!BirdConfigInfo.BirdConfigInfoDic.TryGetValue(m_BirdType, out var config))
                     {
                         return;
                     }
