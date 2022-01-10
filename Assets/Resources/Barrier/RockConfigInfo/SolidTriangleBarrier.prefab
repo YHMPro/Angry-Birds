@@ -10,11 +10,11 @@ GameObject:
   m_Component:
   - component: {fileID: 963530898842400844}
   - component: {fileID: 963530898842400847}
-  - component: {fileID: 963530898842400846}
-  - component: {fileID: 963530898842400845}
   - component: {fileID: 963530898842400850}
+  - component: {fileID: 3920557431531902269}
+  - component: {fileID: 4628085383873404731}
   m_Layer: 10
-  m_Name: Barrier
+  m_Name: SolidTriangleBarrier
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -28,7 +28,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 963530898842400841}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 3.83, y: 4.2, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -73,7 +73,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: -9007828528930374707, guid: daf5dba55bbba2a41a35e4e7996ff15d,
+  m_Sprite: {fileID: 7417758264350775748, guid: daf5dba55bbba2a41a35e4e7996ff15d,
     type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
@@ -85,50 +85,6 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!114 &963530898842400846
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 963530898842400841}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a2cd2216fd074574593ac8f9cf0ce8c3, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_Sps:
-  - {fileID: -9007828528930374707, guid: daf5dba55bbba2a41a35e4e7996ff15d, type: 3}
-  - {fileID: 8308842574411936437, guid: daf5dba55bbba2a41a35e4e7996ff15d, type: 3}
-  - {fileID: -4882067512465292, guid: daf5dba55bbba2a41a35e4e7996ff15d, type: 3}
-  - {fileID: 2903229360426479513, guid: daf5dba55bbba2a41a35e4e7996ff15d, type: 3}
-  m_ScoreType: 4
---- !u!61 &963530898842400845
-BoxCollider2D:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 963530898842400841}
-  m_Enabled: 1
-  m_Density: 1
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_UsedByEffector: 0
-  m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 0}
-  m_SpriteTilingProperty:
-    border: {x: 0, y: 0, z: 0, w: 0}
-    pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 2.06, y: 0.24}
-    newSize: {x: 2.06, y: 0.24}
-    adaptiveTilingThreshold: 0.5
-    drawMode: 0
-    adaptiveTiling: 0
-  m_AutoTiling: 0
-  serializedVersion: 2
-  m_Size: {x: 2.06, y: 0.24}
-  m_EdgeRadius: 0
 --- !u!50 &963530898842400850
 Rigidbody2D:
   serializedVersion: 4
@@ -150,3 +106,58 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 0
+--- !u!60 &3920557431531902269
+PolygonCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 963530898842400841}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: 0}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0.5, y: 0.5}
+    oldSize: {x: 0.84, y: 0.84}
+    newSize: {x: 2.06, y: 0.24}
+    adaptiveTilingThreshold: 0.5
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
+  m_Points:
+    m_Paths:
+    - - {x: -0.39, y: 0.41}
+      - {x: -0.42, y: 0.39}
+      - {x: -0.42, y: -0.42}
+      - {x: 0.42, y: -0.42}
+      - {x: 0.42, y: -0.29999998}
+      - {x: -0.35999998, y: 0.41}
+    - - {x: -0.37, y: 0.35}
+      - {x: -0.26, y: 0.17999999}
+      - {x: 0.07, y: -0.11}
+      - {x: 0.32999998, y: -0.35}
+      - {x: -0.35999998, y: -0.35}
+--- !u!114 &4628085383873404731
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 963530898842400841}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1e67d66be133ab74b8484653d90360b2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_BarrierShapeType: 3
+  m_Sps:
+  - {fileID: 7417758264350775748, guid: daf5dba55bbba2a41a35e4e7996ff15d, type: 3}
+  - {fileID: -386905781291752279, guid: daf5dba55bbba2a41a35e4e7996ff15d, type: 3}
+  - {fileID: -1771279502064114491, guid: daf5dba55bbba2a41a35e4e7996ff15d, type: 3}
+  - {fileID: 1178546324984878379, guid: daf5dba55bbba2a41a35e4e7996ff15d, type: 3}
+  m_ScoreType: 6

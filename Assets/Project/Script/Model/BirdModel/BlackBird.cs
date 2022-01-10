@@ -69,6 +69,11 @@ namespace Bird_VS_Boar
                     score.OpenScore();
                 }
                 DestroyGoLi.RemoveAt(DestroyGoLi.Count - 1);
+                IDiedAudio diedAudio = go.GetComponent<IDiedAudio>();
+                if (diedAudio != null)
+                {
+                    diedAudio.DiedAudio();
+                }
                 Destroy(go);
             }
         }

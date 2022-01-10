@@ -44,9 +44,10 @@ namespace Bird_VS_Boar
         {
             return m_CommonPath + m_BarrierDestroyAudioPath;
         }
-        public string GetBarrierPrefabPath()
+        public string GetBarrierPrefabPath(EnumBarrierShapeType barrierShape)
         {
-            return m_CommonPath + m_BarrierPrefabPath;
+
+            return m_CommonPath + barrierShape + m_BarrierPrefabPath;
         }
         public string GetBarrierBrokenAudioPath(int index)
         {

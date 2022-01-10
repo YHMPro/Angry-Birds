@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 4211297822138352565}
   - component: {fileID: 4211297822138352572}
   m_Layer: 10
-  m_Name: Barrier
+  m_Name: Long_RectangleBarrier
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -28,7 +28,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4211297822138352571}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 4.15, y: 3.18, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -143,9 +143,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1e67d66be133ab74b8484653d90360b2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  m_BarrierShapeType: 1
   m_Sps:
   - {fileID: 950621237182927173, guid: daf5dba55bbba2a41a35e4e7996ff15d, type: 3}
   - {fileID: -9001167312566706426, guid: daf5dba55bbba2a41a35e4e7996ff15d, type: 3}
   - {fileID: 2345626222076878244, guid: daf5dba55bbba2a41a35e4e7996ff15d, type: 3}
   - {fileID: -1035973353286329923, guid: daf5dba55bbba2a41a35e4e7996ff15d, type: 3}
-  m_ScoreType: 2
+  m_ScoreType: 6

@@ -29,9 +29,51 @@ namespace Bird_VS_Boar
         Rock,
         Wood
     }
-
-    public class Barrier : BaseMono, IScore
+    /// <summary>
+    /// 障碍物形状类型
+    /// </summary>
+    public enum EnumBarrierShapeType
     {
+        /// <summary>
+        /// 无
+        /// </summary>
+        None,
+        /// <summary>
+        /// 长长方形
+        /// </summary>
+        Long_Rectangle,
+        /// <summary>
+        /// 短长方形
+        /// </summary>
+        Short_Rectangle,
+        /// <summary>
+        /// 实心三角形
+        /// </summary>
+        SolidTriangle,
+        /// <summary>
+        /// 空心三角形
+        /// </summary>
+        HollowTriangle,
+        /// <summary>
+        /// 实心正方形
+        /// </summary>
+        SolidSquare,
+        /// <summary>
+        /// 空心正方形
+        /// </summary>
+        HollowSquare,
+        /// <summary>
+        /// 圆形
+        /// </summary>
+        Circle,
+
+    }
+    public class Barrier : BaseMono, IScore,IDiedAudio
+    {
+        /// <summary>
+        /// 障碍物形状
+        /// </summary>
+        public EnumBarrierShapeType m_BarrierShapeType;
         /// <summary>
         /// 承受的能量总和(达到一定量后会出现破裂)
         /// </summary>
@@ -96,8 +138,15 @@ namespace Bird_VS_Boar
         private void OnCollisionEnter2D(Collision2D collision)
         {
             float relativeSpeed = collision.relativeVelocity.magnitude;
-            if (relativeSpeed <=6)
+            if (relativeSpeed <= 6)
+            {
+                if(relativeSpeed>2)
+                {
+                    //播放破裂声音
+                    PlayBrokenAudio();
+                }
                 return;
+            }
             m_BearEnergySum += relativeSpeed;
             m_HurtGrade = m_BearEnergySum <=12 ? EnumBarrierBrokenGrade.Broken1 :
                 m_BearEnergySum <= 18 ? EnumBarrierBrokenGrade.Broken2 : EnumBarrierBrokenGrade.Destroy;
@@ -110,7 +159,7 @@ namespace Bird_VS_Boar
             {
                 OpenScore();//打开分数
                 OpenBoom();//打开Boom特效
-                PlayDestroyAudio();//播放死亡音效
+                PlayDiedAudio();//播放死亡音效
                 Destroy(gameObject);//回收猪 待
             }
         }
@@ -126,7 +175,7 @@ namespace Bird_VS_Boar
         #endregion
 
         #region Audio
-        protected virtual void PlayDestroyAudio()
+        protected virtual void PlayDiedAudio()
         {
             if (!BarrierConfigInfo.BarrierConfigInfoDic.TryGetValue(m_BarrierType, out var config))
             {
@@ -199,6 +248,12 @@ namespace Bird_VS_Boar
         public virtual void OpenScore()
         {          
             Score.OpenScore(m_ScoreType,transform.position);
+        }
+        #endregion
+        #region DestroyAudio
+        public virtual void DiedAudio()
+        {
+            PlayDiedAudio();
         }
         #endregion
     }

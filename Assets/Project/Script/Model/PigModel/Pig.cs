@@ -29,12 +29,16 @@ namespace Bird_VS_Boar
         Hurt4,
         Destroy
     }
-    public abstract class Pig : BaseMono, IBoom, IScore
+    public abstract class Pig : BaseMono, IBoom, IScore,IDiedAudio
     {
         /// <summary>
         /// 精灵渲染器
         /// </summary>
         protected SpriteRenderer m_Sr = null;
+        /// <summary>
+        /// 承受的能量总和(达到一定量后会出现受伤)
+        /// </summary>
+        protected float m_BearEnergySum = 0;
         /// <summary>
         /// 猪的类型
         /// </summary>
@@ -87,10 +91,18 @@ namespace Bird_VS_Boar
         private void OnCollisionEnter2D(Collision2D collision)
         {
             float relativeSpeed = collision.relativeVelocity.magnitude;
-            if (relativeSpeed <5)
+            if (relativeSpeed < 5)
+            {
+                if (relativeSpeed > 2)
+                {
+                    //播放受伤声音
+                    PlayHurtAudio();
+                }
                 return;
-            m_HurtGrade = relativeSpeed <= 10 ? EnumPigHurtGrade.Hurt1 :
-                relativeSpeed <= 15 ? EnumPigHurtGrade.Hurt2 : EnumPigHurtGrade.Destroy;
+            }
+            m_BearEnergySum += relativeSpeed;
+            m_HurtGrade = m_BearEnergySum <= 10 ? EnumPigHurtGrade.Hurt1 :
+                m_BearEnergySum <= 15 ? EnumPigHurtGrade.Hurt2 : EnumPigHurtGrade.Destroy;
             if(m_HurtGrade!= EnumPigHurtGrade.Destroy)
             {
                 PlayHurtAudio();
@@ -192,6 +204,12 @@ namespace Bird_VS_Boar
         public virtual void OpenScore()
         {          
             Score.OpenScore(m_ScoreType,transform.position);
+        }
+        #endregion
+        #region DestroyAudio
+        public virtual void DiedAudio()
+        {
+            PlayDiedAudio();
         }
         #endregion
     }

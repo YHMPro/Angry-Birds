@@ -22,7 +22,7 @@ namespace Bird_VS_Boar
         GreenBird,
         LittleBlueBird
     }
-    public abstract class Bird : BaseMono,IBoom
+    public abstract class Bird : BaseMono,IBoom, IDiedAudio
     {
         /// <summary>
         /// 小鸟类型
@@ -247,7 +247,7 @@ namespace Bird_VS_Boar
             MonoSingletonFactory<ShareMono>.GetSingleton().DelayAction(3.0f,()=> 
             {
                 OpenBoom(); //打开死亡特效
-                PlayDestroyAudio();//播放销毁音效
+                PlayDiedAudio();//播放销毁音效
                 GoReusePool.Put(GetType().Name, gameObject);//回收小鸟               
             });
         }
@@ -302,9 +302,9 @@ namespace Bird_VS_Boar
             PlayAudio(config.GetSelectAudioPaths());
         }
         /// <summary>
-        /// 播放销毁音效
+        /// 播放死亡音效
         /// </summary>
-        protected virtual void PlayDestroyAudio()
+        protected virtual void PlayDiedAudio()
         {
             if (!BirdConfigInfo.BirdConfigInfoDic.TryGetValue(m_BirdType, out var config))
             {
@@ -392,6 +392,12 @@ namespace Bird_VS_Boar
         {
             Boom.OpenBoom(EnumBoomType.BirdBoom,transform.position);
         }
-        #endregion     
+        #endregion
+        #region DiedAudio
+        public virtual void DiedAudio()
+        {
+            PlayDiedAudio();
+        }
+        #endregion
     }
 }
