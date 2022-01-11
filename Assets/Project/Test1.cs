@@ -8,8 +8,6 @@ public class Test1 : BaseMono
     {
         base.Awake();
         
-
-
         foreach(var rectTran in GetComponentsInChildren<RectTransform>())
         {
             rectTran.offsetMax = Vector2.zero;

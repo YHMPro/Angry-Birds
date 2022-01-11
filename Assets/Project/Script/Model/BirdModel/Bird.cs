@@ -37,6 +37,10 @@ namespace Bird_VS_Boar
         /// </summary>
         protected Audio m_Effect = null;
         /// <summary>
+        /// 是否碰撞
+        /// </summary>
+        protected bool m_IsCollision = false;
+        /// <summary>
         /// 是否能绑定鸟巢
         /// </summary>
         protected bool m_IsAbleBindBirdNets = false;
@@ -117,6 +121,7 @@ namespace Bird_VS_Boar
             m_IsReleaseSkill = false;
             m_IsCheck = false;
             IsFreeze_ZRotation = true;
+            m_IsCollision = false;
             transform.eulerAngles = Vector3.forward * 25;
         }      
         protected override void Start()
@@ -215,28 +220,30 @@ namespace Bird_VS_Boar
                 slingShot.RendererLine(drawLineEnd.position);
             }
         }
+        
         /// <summary>
         /// 监听小鸟飞行更新
         /// </summary>
         public void OnBirdFlyUpdate_Common()//用于处理鸟的飞行后的首次碰撞  
-        {            
-            if(!gameObject.activeInHierarchy)
-            {
-                MonoSingletonFactory<ShareMono>.GetSingleton().RemoveUpdateAction(EnumUpdateAction.Standard,OnBirdFlyUpdate_Common);
-            }
+        {
+            //if(!gameObject.activeInHierarchy)
+            //{
+            //    MonoSingletonFactory<ShareMono>.GetSingleton().RemoveUpdateAction(EnumUpdateAction.Standard,OnBirdFlyUpdate_Common);
+            //}
             //小鸟面朝飞行方向
             transform.eulerAngles = new Vector3(0, 0, -Vector2.SignedAngle(m_Rig2D.velocity.normalized, Vector2.right));
-            if (m_Rig2D.velocity.magnitude > 0.5f)
-            {
-                if (Physics2D.OverlapCircle(transform.position, m_CC2D.radius, LayerMask.GetMask(rayCastGroup)))
-                {
-                    Debuger.Log("技能失效");
-                    MonoSingletonFactory<ShareMono>.GetSingleton().RemoveUpdateAction(EnumUpdateAction.Standard,OnBirdFlyUpdate_Common);
-                    ActiveTrailRenderer(false);//关闭拖尾
-                    PlayCollisionAudio();//播放碰撞音效
-                    OnBirdFlyBreak();                 
-                }
-            }         
+            //if (m_Rig2D.velocity.magnitude > 0.5f)
+            //{
+
+            //    if (Physics2D.OverlapCircle(transform.position, m_CC2D.radius + 0.01f, LayerMask.GetMask(rayCastGroup)))
+            //    {
+            //        Debuger.Log("技能失效");
+            //        MonoSingletonFactory<ShareMono>.GetSingleton().RemoveUpdateAction(EnumUpdateAction.Standard, OnBirdFlyUpdate_Common);
+            //        ActiveTrailRenderer(false);//关闭拖尾
+            //        PlayCollisionAudio();//播放碰撞音效
+            //        OnBirdFlyBreak();
+            //    }
+            //}
         }
         /// <summary>
         /// 监听小鸟飞行中断
@@ -247,9 +254,33 @@ namespace Bird_VS_Boar
             MonoSingletonFactory<ShareMono>.GetSingleton().DelayAction(3.0f,()=> 
             {
                 OpenBoom(); //打开死亡特效
-                PlayDiedAudio();//播放销毁音效
-                GoReusePool.Put(GetType().Name, gameObject);//回收小鸟               
+                PlayDiedAudio();//播放销毁音效               
+                GoReusePool.Put(GetType().Name,this.gameObject);//回收小鸟               
             });
+        }
+        #endregion
+
+        #region Collision
+        /// <summary>
+        /// 监听碰撞(替代OnBirdFlyUpdate_Common)
+        /// </summary>
+        /// <param name="collision"></param>
+        protected virtual void OnCollisionEnter2D(Collision2D collision)
+        {
+            //if (m_Rig2D.velocity.magnitude > 0.5f)
+            //{
+            //    PlayCollisionAudio();//播放碰撞音效
+            //}
+            if (m_IsCollision)
+            {
+                return;
+            }
+            MonoSingletonFactory<ShareMono>.GetSingleton().RemoveUpdateAction(EnumUpdateAction.Standard,this.OnBirdFlyUpdate_Common);
+            m_IsCollision = true;
+            Debuger.Log("技能失效");
+            ActiveTrailRenderer(false);//关闭拖尾
+            PlayCollisionAudio();//播放碰撞音效
+            OnBirdFlyBreak();//触发小鸟飞行中断
         }
         #endregion
         #region SKill
