@@ -47,7 +47,7 @@ namespace Bird_VS_Boar
         }
         private void OnEnable()
         {
-            Debuger.Log("层级累加");
+            Debuger.Log("层级累加(Score)");
             m_Sr.sortingOrder = m_NowMaxOrderInLayer;//设置自身层级
             ++m_NowMaxOrderInLayer;
             ++m_ScoreNum;
@@ -59,6 +59,7 @@ namespace Bird_VS_Boar
             {
                 if (NotMonoSingletonFactory<OtherConfigInfo>.SingletonExist)
                 {
+                    Debuger.Log("层级重置(Score)");
                     m_NowMaxOrderInLayer = NotMonoSingletonFactory<OtherConfigInfo>.GetSingleton().ScoreOrderInLayer;
                 }
             }

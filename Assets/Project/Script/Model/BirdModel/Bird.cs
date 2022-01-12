@@ -141,7 +141,6 @@ namespace Bird_VS_Boar
         }
         protected override void OnDestroy()
         {
-
             base.OnDestroy();
         }
         protected virtual void OnMouseEnter()

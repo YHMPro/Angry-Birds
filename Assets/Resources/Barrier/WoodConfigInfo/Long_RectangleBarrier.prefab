@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 2945301811891812514}
   - component: {fileID: 2945301811891812525}
   m_Layer: 10
-  m_Name: Barrier
+  m_Name: Long_RectangleBarrier
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -144,6 +144,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 31c87d49ad8c35642ab7ce6ecb58dcfe, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  m_BarrierShapeType: 1
   m_Sps:
   - {fileID: 5492362412157934603, guid: daf5dba55bbba2a41a35e4e7996ff15d, type: 3}
   - {fileID: 1684520594774072506, guid: daf5dba55bbba2a41a35e4e7996ff15d, type: 3}

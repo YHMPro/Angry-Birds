@@ -7,6 +7,10 @@ namespace Bird_VS_Boar
     public class VanBird : SkillBird
     {
         private Transform m_AimTran;
+        /// <summary>
+        /// 重力缩放值
+        /// </summary>
+        private float m_GravityScale = 0;
         protected override void Awake()
         {
             m_BirdType = EnumBirdType.VanBird;
@@ -17,23 +21,18 @@ namespace Bird_VS_Boar
         {
             base.Start();
             m_AimTran.gameObject.SetActive(false);
-        }
-        protected override void OnMouseUp()
-        {
-            base.OnMouseUp();
-            //MonoSingletonFactory<ShareMono>.GetSingleton().ApplyUpdateAction(EnumUpdateAction.Standard,OnSkillUpdate_Common);//持续监听技能释放指令
-        }
-
+            m_GravityScale = m_Rig2D.gravityScale;
+        }      
         protected override void OnBirdFlyBreak()
         {
             base.OnBirdFlyBreak();
-            m_Rig2D.isKinematic = false;
+            m_Rig2D.gravityScale = m_GravityScale;
         }
 
         protected override void OnSkillUpdate()
         {           
             m_AimTran.gameObject.SetActive(true);
-            m_Rig2D.isKinematic = true;
+            m_Rig2D.gravityScale = 0;
             m_Rig2D.velocity = Vector2.zero;
             MonoSingletonFactory<ShareMono>.GetSingleton().ApplyUpdateAction(EnumUpdateAction.Standard,AimControlUpdate);
         }
@@ -47,7 +46,7 @@ namespace Bird_VS_Boar
                 Vector3 movePos = MonoSingletonFactory<Camera2D>.GetSingleton().ScreenToWorldPoint(Input.mousePosition, transform.position.z);
                 m_AimTran.position = movePos;
                 if (Input.GetMouseButtonDown(0))
-                {
+                {                  
                     PlaySkillAudio();
                     Vector3 dir = (movePos - transform.position).normalized;                   
                     m_Rig2D.velocity = dir * 15.0f;

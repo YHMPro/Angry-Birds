@@ -12,7 +12,6 @@ public class Test1 : BaseMono
         {
             rectTran.offsetMax = Vector2.zero;
             rectTran.offsetMin = Vector2.zero;
-
         }
 
     }
