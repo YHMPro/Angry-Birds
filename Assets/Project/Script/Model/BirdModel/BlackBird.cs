@@ -74,7 +74,11 @@ namespace Bird_VS_Boar
                 {
                     diedAudio.DiedAudio();
                 }
-                Destroy(go);
+                IDied died=go.GetComponent<IDied>();
+                if(died!=null)
+                {
+                    died.Died();
+                }
             }
         }
 

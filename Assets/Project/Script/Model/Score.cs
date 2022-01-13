@@ -96,10 +96,11 @@ namespace Bird_VS_Boar
         /// <summary>
         /// 这是回调事件(记录分数)
         /// </summary>
-        /// <param name="score"></param>
+        /// <param name="score">分数</param>
         private void RecordScore(int score)
         {
             Debuger.Log("记录分数");
+            GameManager.RecordScore(score);
         }      
     }
 }

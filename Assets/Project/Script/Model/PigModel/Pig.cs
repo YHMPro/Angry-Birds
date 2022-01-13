@@ -29,7 +29,7 @@ namespace Bird_VS_Boar
         Hurt4,
         Destroy
     }
-    public abstract class Pig : BaseMono, IBoom, IScore,IDiedAudio
+    public abstract class Pig : BaseMono, IBoom, IScore,IDiedAudio,IDied
     {
         /// <summary>
         /// 精灵渲染器
@@ -79,15 +79,15 @@ namespace Bird_VS_Boar
             {
                 //设置自身渲染层级
                 m_Sr.sortingOrder = config.OrderInLayer;
-            }
+            }          
+            GameManager.AddPig(this);//添加到游戏管理器中
         }
         protected override void OnDestroy()
-        {
-            RecyclyAudio();
+        {           
+            RecyclyAudio();         
             base.OnDestroy();          
         }
-
-
+        #region Collision
         private void OnCollisionEnter2D(Collision2D collision)
         {
             float relativeSpeed = collision.relativeVelocity.magnitude;
@@ -112,10 +112,11 @@ namespace Bird_VS_Boar
             {
                 OpenScore();//打开分数
                 OpenBoom();//打开Boom特效
-                PlayDiedAudio();//播放死亡音效
-                Destroy(gameObject);//回收猪 待
+                PlayDiedAudio();//播放死亡音效                
+                Died();//死亡
             }
         }
+        #endregion
 
         #region Animator
         /// <summary>
@@ -206,10 +207,19 @@ namespace Bird_VS_Boar
             Score.OpenScore(m_ScoreType,transform.position);
         }
         #endregion
+
         #region DestroyAudio
         public virtual void DiedAudio()
         {
             PlayDiedAudio();
+        }
+        #endregion
+
+        #region PigDied
+        public virtual void Died()
+        {
+            GameManager.RemovePig(this);//从游戏管理器中移除
+            Destroy(gameObject);
         }
         #endregion
     }

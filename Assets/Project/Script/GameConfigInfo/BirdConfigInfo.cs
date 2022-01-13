@@ -14,6 +14,17 @@ namespace Bird_VS_Boar
         /// </summary>
         public static Dictionary<EnumBirdType, BirdConfigInfo> BirdConfigInfoDic = new Dictionary<EnumBirdType, BirdConfigInfo>();
         /// <summary>
+        /// 所需硬币
+        /// </summary>
+        protected int m_Coin = 0;
+        /// <summary>
+        /// 所需硬币
+        /// </summary>
+        public int Coin
+        {
+            get { return m_Coin; }
+        }
+        /// <summary>
         /// 排序层级
         /// </summary>
         protected int m_OrderInLayer = 0;
@@ -55,10 +66,10 @@ namespace Bird_VS_Boar
         /// 小鸟技能音效路径数组
         /// </summary>
         protected string[] m_BirdSkillAudioPaths;
-        #endregion
-        
+        #endregion        
         public virtual void InitConfigInfo()
         {
+            m_Coin = 1;//暂时所有小鸟都为1
             m_OrderInLayer = 2;//暂时所有小鸟都为2
             m_BirdDiedAudioPath = "Bird/BirdCommon/De1";
             m_CommonPath="Bird/"+GetType().Name+"/";

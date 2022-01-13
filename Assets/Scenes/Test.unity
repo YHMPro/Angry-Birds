@@ -5476,6 +5476,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bfbe780b6536cfb4d9866fb4331604b8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  m_MoveDistance: 10
+  m_Ease: 1
   m_BindTarget: {fileID: 6269801720835126947}
 --- !u!1001 &1158304069
 PrefabInstance:

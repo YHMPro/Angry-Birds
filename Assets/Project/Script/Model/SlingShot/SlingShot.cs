@@ -119,8 +119,7 @@ namespace Bird_VS_Boar
             MonoSingletonFactory<ShareMono>.GetSingleton().RemoveUpdateAction(EnumUpdateAction.Standard,GameLogic.NowComeBird.BirdControlUpdate);//移除小鸟控制更新
             MonoSingletonFactory<ShareMono>.GetSingleton().ApplyUpdateAction(EnumUpdateAction.Standard,GameLogic.NowComeBird.OnBirdFlyUpdate_Common);//添加小鸟飞行更新
             GameLogic.NowComeBird.SetBirdFlyVelocity(ApplyingVelocity);//设置小鸟基于弹弓获得的初始速度
-            GameLogic.NowComeBird.IsFreeze_ZRotation = false;//解除小鸟Z轴选中冻结
-            
+            GameLogic.NowComeBird.IsFreeze_ZRotation = false;//解除小鸟Z轴选中冻结       
             //计算预瞄准点位置
             if (MonoSingletonFactory<FlyPath>.SingletonExist)
             {

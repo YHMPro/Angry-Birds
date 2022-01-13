@@ -51,7 +51,11 @@ namespace Bird_VS_Boar
         /// 货物点击事件监听
         /// </summary>
         private void OnGoodsClick()
-        {        
+        {    
+            if(!GameLogic.IsBuy)
+            {
+                return;
+            }            
             if (!GoReusePool.Take(m_BirdType.ToString(), out GameObject goods))
             {
                 if (!BirdConfigInfo.BirdConfigInfoDic.TryGetValue(m_BirdType, out var config))
@@ -63,6 +67,7 @@ namespace Bird_VS_Boar
                     return;
                 }
             }
+            GameLogic.CoinUpdate(m_BirdType);//更新硬币
             GameLogic.NowComeBird = goods.GetComponent<Bird>();
             MonoSingletonFactory<SlingShot>.GetSingleton().BindBird();          
         }

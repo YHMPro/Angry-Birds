@@ -68,7 +68,7 @@ namespace Bird_VS_Boar
         Circle,
 
     }
-    public class Barrier : BaseMono, IScore,IDiedAudio
+    public class Barrier : BaseMono, IScore,IDiedAudio,IDied
     {
         /// <summary>
         /// 障碍物形状
@@ -160,7 +160,7 @@ namespace Bird_VS_Boar
                 OpenScore();//打开分数
                 OpenBoom();//打开Boom特效
                 PlayDiedAudio();//播放死亡音效
-                Destroy(gameObject);//回收猪 待
+                Died();//死亡
             }
         }
 
@@ -250,10 +250,18 @@ namespace Bird_VS_Boar
             Score.OpenScore(m_ScoreType,transform.position);
         }
         #endregion
+
         #region DestroyAudio
         public virtual void DiedAudio()
         {
             PlayDiedAudio();
+        }
+        #endregion
+
+        #region Died
+        public virtual void Died()
+        {
+            Destroy(this.gameObject);
         }
         #endregion
     }

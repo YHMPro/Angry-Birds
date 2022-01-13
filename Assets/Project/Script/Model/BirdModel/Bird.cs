@@ -132,12 +132,13 @@ namespace Bird_VS_Boar
             {
                 //设置自身渲染层级
                 m_Sr.sortingOrder = config.OrderInLayer;
-            }
+            }           
         }
         protected override void OnDisable()
         {
             base.OnDisable();
             RecyclyAudio();//回收音效
+            GameManager.RemoveBird(this);//将小鸟从游戏管理器中移除
         }
         protected override void OnDestroy()
         {
@@ -179,7 +180,7 @@ namespace Bird_VS_Boar
             PlayFlyAudio();//播放飞行音效
             m_Anim.SetTrigger("IsFly");//飞行动画
             ActiveTrailRenderer(true);//开启拖尾
-            GameLogic.NowComeBird = null;//断开引用
+            GameLogic.NowComeBird = null;//断开引用关联
         }
 
         protected virtual void OnMouseExit()
@@ -225,31 +226,19 @@ namespace Bird_VS_Boar
         /// </summary>
         public void OnBirdFlyUpdate_Common()//用于处理鸟的飞行后的首次碰撞  
         {
-            //if(!gameObject.activeInHierarchy)
-            //{
-            //    MonoSingletonFactory<ShareMono>.GetSingleton().RemoveUpdateAction(EnumUpdateAction.Standard,OnBirdFlyUpdate_Common);
-            //}
+            if (!gameObject.activeInHierarchy)
+            {
+                MonoSingletonFactory<ShareMono>.GetSingleton().RemoveUpdateAction(EnumUpdateAction.Standard, this.OnBirdFlyUpdate_Common);
+            }
             //小鸟面朝飞行方向
-            transform.eulerAngles = new Vector3(0, 0, -Vector2.SignedAngle(m_Rig2D.velocity.normalized, Vector2.right));
-            //if (m_Rig2D.velocity.magnitude > 0.5f)
-            //{
-
-            //    if (Physics2D.OverlapCircle(transform.position, m_CC2D.radius + 0.01f, LayerMask.GetMask(rayCastGroup)))
-            //    {
-            //        Debuger.Log("技能失效");
-            //        MonoSingletonFactory<ShareMono>.GetSingleton().RemoveUpdateAction(EnumUpdateAction.Standard, OnBirdFlyUpdate_Common);
-            //        ActiveTrailRenderer(false);//关闭拖尾
-            //        PlayCollisionAudio();//播放碰撞音效
-            //        OnBirdFlyBreak();
-            //    }
-            //}
+            transform.eulerAngles = new Vector3(0, 0, -Vector2.SignedAngle(m_Rig2D.velocity.normalized, Vector2.right));        
         }
         /// <summary>
         /// 监听小鸟飞行中断
         /// </summary>
         protected virtual void OnBirdFlyBreak()
         {
-            m_Anim.SetTrigger("IsHurt");//受伤动画         
+            m_Anim.SetTrigger("IsHurt");//受伤动画            
             MonoSingletonFactory<ShareMono>.GetSingleton().DelayAction(3.0f,()=> 
             {
                 OpenBoom(); //打开死亡特效
@@ -258,7 +247,6 @@ namespace Bird_VS_Boar
             });
         }
         #endregion
-
         #region Collision
         /// <summary>
         /// 监听碰撞(替代OnBirdFlyUpdate_Common)
@@ -308,7 +296,7 @@ namespace Bird_VS_Boar
             m_Rig2D.velocity = velocity;
         }      
         #endregion
-        #region Audio   默认->选中->飞行->碰撞->销毁     
+        #region Audio  
         /// <summary>
         /// 播放飞行音效
         /// </summary>
@@ -360,6 +348,10 @@ namespace Bird_VS_Boar
         {
             
         }
+        /// <summary>
+        /// 播放音效
+        /// </summary>
+        /// <param name="audioPath">音效路径</param>
         protected void PlayAudio(string audioPath)
         {
             if (audioPath == null)
@@ -374,6 +366,9 @@ namespace Bird_VS_Boar
                 m_Effect.Play();
             }
         }
+        /// <summary>
+        /// 申请音效
+        /// </summary>
         private void ApplyAudio()
         {
             if(m_Effect==null)
@@ -384,6 +379,9 @@ namespace Bird_VS_Boar
                 m_Effect.Group = AudioMixerManager.GetAudioMixerGroup("Effect");
             }
         }     
+        /// <summary>
+        /// 回收音效
+        /// </summary>
         private void RecyclyAudio()
         {
             if(m_Effect!=null)

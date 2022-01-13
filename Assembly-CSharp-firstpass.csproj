@@ -9,10 +9,10 @@
     <ProductVersion>10.0.20506</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
     <RootNamespace></RootNamespace>
-    <ProjectGuid>{33C8B8AC-AA61-1D75-74AF-0F1D6BFF1F95}</ProjectGuid>
+    <ProjectGuid>{926F127A-91BA-9F80-EEC0-72EDDADEE154}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <AssemblyName>Assembly-CSharp</AssemblyName>
+    <AssemblyName>Assembly-CSharp-firstpass</AssemblyName>
     <TargetFrameworkVersion>v4.7.1</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <BaseDirectory>.</BaseDirectory>
@@ -48,95 +48,23 @@
     <ProjectTypeGuids>{E097FAD1-6243-4DAD-9C02-E9B9EFC3FFC1};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
     <UnityProjectGenerator>Package</UnityProjectGenerator>
     <UnityProjectGeneratorVersion>2.0.11</UnityProjectGeneratorVersion>
-    <UnityProjectType>Game:1</UnityProjectType>
+    <UnityProjectType>GamePlugins:3</UnityProjectType>
     <UnityBuildTarget>StandaloneWindows64:19</UnityBuildTarget>
     <UnityVersion>2019.4.33f1</UnityVersion>
   </PropertyGroup>
   <ItemGroup>
-    <Compile Include="Assets\Frame\Audio\Audio.cs" />
-    <Compile Include="Assets\Frame\Audio\AudioClipManager.cs" />
-    <Compile Include="Assets\Frame\Audio\AudioManager.cs" />
-    <Compile Include="Assets\Frame\Audio\AudioMixerManager.cs" />
-    <Compile Include="Assets\Frame\Common\BaseMono.cs" />
-    <Compile Include="Assets\Frame\Common\InterfaceManager.cs" />
-    <Compile Include="Assets\Frame\Common\MesgManager.cs" />
-    <Compile Include="Assets\Frame\Common\ShareMono.cs" />
-    <Compile Include="Assets\Frame\Extend.cs" />
-    <Compile Include="Assets\Frame\Factory\AbstractSingletonFactory.cs" />
-    <Compile Include="Assets\Frame\Factory\MonoFactory.cs" />
-    <Compile Include="Assets\Frame\Factory\MonoSingletonFactory.cs" />
-    <Compile Include="Assets\Frame\Factory\NotMonoFactory.cs" />
-    <Compile Include="Assets\Frame\Factory\NotMonoSingletonFactory.cs" />
-    <Compile Include="Assets\Frame\Interface.cs" />
-    <Compile Include="Assets\Frame\Load\AssetBundleLoad.cs" />
-    <Compile Include="Assets\Frame\Load\GoLoad.cs" />
-    <Compile Include="Assets\Frame\Load\GoReusePool.cs" />
-    <Compile Include="Assets\Frame\Load\ResourcesLoad.cs" />
-    <Compile Include="Assets\Frame\Load\SceneLoad.cs" />
-    <Compile Include="Assets\Frame\Net\WebDownloadTool.cs" />
-    <Compile Include="Assets\Frame\Plugins\Audio\MP3Tool.cs" />
-    <Compile Include="Assets\Frame\Tool\AStar\AStar.cs" />
-    <Compile Include="Assets\Frame\Tool\AStar\AStarConfig.cs" />
-    <Compile Include="Assets\Frame\Tool\AStar\AStarGrid.cs" />
-    <Compile Include="Assets\Frame\UI\BasePanel.cs" />
-    <Compile Include="Assets\Frame\UI\StandardWindow.cs" />
-    <Compile Include="Assets\Frame\UI\WindowRoot.cs" />
-    <Compile Include="Assets\Project\Script\Entry.cs" />
-    <Compile Include="Assets\Project\Script\GameAudio.cs" />
-    <Compile Include="Assets\Project\Script\GameConfigInfo\BarrierConfigInfo.cs" />
-    <Compile Include="Assets\Project\Script\GameConfigInfo\BirdConfigInfo.cs" />
-    <Compile Include="Assets\Project\Script\GameConfigInfo\ConfigInfoMgr.cs" />
-    <Compile Include="Assets\Project\Script\GameConfigInfo\OtherConfigInfo.cs" />
-    <Compile Include="Assets\Project\Script\GameConfigInfo\PigConfigInfo.cs" />
-    <Compile Include="Assets\Project\Script\GameLogic.cs" />
-    <Compile Include="Assets\Project\Script\GameManager.cs" />
-    <Compile Include="Assets\Project\Script\Model\BarrierModel\Barrier.cs" />
-    <Compile Include="Assets\Project\Script\Model\BarrierModel\Ice.cs" />
-    <Compile Include="Assets\Project\Script\Model\BarrierModel\Rock.cs" />
-    <Compile Include="Assets\Project\Script\Model\BarrierModel\Wood.cs" />
-    <Compile Include="Assets\Project\Script\Model\BirdModel\Bird.cs" />
-    <Compile Include="Assets\Project\Script\Model\BirdModel\BlackBird.cs" />
-    <Compile Include="Assets\Project\Script\Model\BirdModel\BlueBird.cs" />
-    <Compile Include="Assets\Project\Script\Model\BirdModel\BlueBird\LittleBlueBird.cs" />
-    <Compile Include="Assets\Project\Script\Model\BirdModel\GreenBird.cs" />
-    <Compile Include="Assets\Project\Script\Model\BirdModel\PinkBird.cs" />
-    <Compile Include="Assets\Project\Script\Model\BirdModel\PinkBird\Blister.cs" />
-    <Compile Include="Assets\Project\Script\Model\BirdModel\RedBird.cs" />
-    <Compile Include="Assets\Project\Script\Model\BirdModel\SkillBird.cs" />
-    <Compile Include="Assets\Project\Script\Model\BirdModel\VanBird.cs" />
-    <Compile Include="Assets\Project\Script\Model\BirdModel\WhiteBird.cs" />
-    <Compile Include="Assets\Project\Script\Model\BirdModel\WriteBird\Egg.cs" />
-    <Compile Include="Assets\Project\Script\Model\BirdModel\YellowBird.cs" />
-    <Compile Include="Assets\Project\Script\Model\BirdNest.cs" />
-    <Compile Include="Assets\Project\Script\Model\Boom.cs" />
-    <Compile Include="Assets\Project\Script\Model\Camera\Camera2D.cs" />
-    <Compile Include="Assets\Project\Script\Model\Camera\CameraUI.cs" />
-    <Compile Include="Assets\Project\Script\Model\EquipModel\Wing.cs" />
-    <Compile Include="Assets\Project\Script\Model\FlyPath\FlyPath.cs" />
-    <Compile Include="Assets\Project\Script\Model\PigModel\OldPig.cs" />
-    <Compile Include="Assets\Project\Script\Model\PigModel\Pig.cs" />
-    <Compile Include="Assets\Project\Script\Model\PigModel\RockPig.cs" />
-    <Compile Include="Assets\Project\Script\Model\PigModel\YoungPig.cs" />
-    <Compile Include="Assets\Project\Script\Model\Score.cs" />
-    <Compile Include="Assets\Project\Script\Model\SlingShot\SlingShot.cs" />
-    <Compile Include="Assets\Project\Script\Model\UI\Bird\BlackBirdGoods.cs" />
-    <Compile Include="Assets\Project\Script\Model\UI\Bird\BlueBirdGoods.cs" />
-    <Compile Include="Assets\Project\Script\Model\UI\Bird\Goods.cs" />
-    <Compile Include="Assets\Project\Script\Model\UI\Bird\GreenBirdGoods.cs" />
-    <Compile Include="Assets\Project\Script\Model\UI\Bird\PinkBirdGoods.cs" />
-    <Compile Include="Assets\Project\Script\Model\UI\Bird\RedBirdGoods.cs" />
-    <Compile Include="Assets\Project\Script\Model\UI\Bird\VanBirdGoods.cs" />
-    <Compile Include="Assets\Project\Script\Model\UI\Bird\WhiteBirdGoods.cs" />
-    <Compile Include="Assets\Project\Script\Model\UI\Bird\YellowBirdGoods.cs" />
-    <Compile Include="Assets\Project\Script\ProjectInterface.cs" />
-    <Compile Include="Assets\Project\Script\ProjectTool.cs" />
-    <Compile Include="Assets\Project\Test1.cs" />
+    <Compile Include="Assets\Plugins\Demigiant\DOTween\Modules\DOTweenModuleAudio.cs" />
+    <Compile Include="Assets\Plugins\Demigiant\DOTween\Modules\DOTweenModulePhysics.cs" />
+    <Compile Include="Assets\Plugins\Demigiant\DOTween\Modules\DOTweenModulePhysics2D.cs" />
+    <Compile Include="Assets\Plugins\Demigiant\DOTween\Modules\DOTweenModuleSprite.cs" />
+    <Compile Include="Assets\Plugins\Demigiant\DOTween\Modules\DOTweenModuleUI.cs" />
+    <Compile Include="Assets\Plugins\Demigiant\DOTween\Modules\DOTweenModuleUnityVersion.cs" />
+    <Compile Include="Assets\Plugins\Demigiant\DOTween\Modules\DOTweenModuleUtils.cs" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Assets\Frame\Plugins\Audio\NAudio.dll" />
-    <None Include="Assets\Frame\Plugins\Newtonsoft.Json.dll" />
-    <None Include="Assets\Frame\Plugins\Log\Debuger.dll" />
-    <None Include="Assets\Frame\Plugins\Log\Debuger.xml" />
+    <None Include="Assets\Plugins\Demigiant\DOTween\DOTween.XML" />
+    <None Include="Assets\Plugins\Demigiant\DOTween\DOTween.dll" />
+    <None Include="Assets\Plugins\Demigiant\DOTween\readme.txt" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="UnityEngine">
@@ -765,10 +693,6 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="Assembly-CSharp-firstpass.csproj">
-      <Project>{926F127A-91BA-9F80-EEC0-72EDDADEE154}</Project>
-      <Name>Assembly-CSharp-firstpass</Name>
-    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Target Name="GenerateTargetFrameworkMonikerAttribute" />

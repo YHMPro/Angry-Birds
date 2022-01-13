@@ -2,6 +2,16 @@
 namespace Bird_VS_Boar
 {
     /// <summary>
+    /// 死亡接口
+    /// </summary>
+    public interface IDied
+    {
+        /// <summary>
+        /// 死亡
+        /// </summary>
+        void Died();
+    }
+    /// <summary>
     /// 死亡音效接口(用于障碍物、猪、小鸟等)
     /// </summary>
     public interface IDiedAudio

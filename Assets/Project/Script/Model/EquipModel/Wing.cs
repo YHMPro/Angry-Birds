@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using Farme;
+using DG.Tweening;
 namespace Bird_VS_Boar
 {
     /// <summary>
@@ -9,8 +10,27 @@ namespace Bird_VS_Boar
     /// </summary>
     public class Wing : BaseMono
     {
+        /// <summary>
+        /// 移动距离
+        /// </summary>
+        [SerializeField]
+        private float m_MoveDistance = 10;
+        /// <summary>
+        /// 缓动类型
+        /// </summary>
+        [SerializeField]
+        private Ease m_Ease;
+        /// <summary>
+        /// 左翅膀
+        /// </summary>
         private Transform LeftWingTran;
+        /// <summary>
+        /// 右翅膀
+        /// </summary>
         private Transform RightWingTran;
+        /// <summary>
+        /// 动画状态机
+        /// </summary>
         private Animator m_Anim = null;
         [SerializeField]
         /// <summary>
@@ -28,13 +48,8 @@ namespace Bird_VS_Boar
         protected override void Start()
         {
             base.Start();
-           
-        }
-
-        private void Update()
-        {
-            SportUpdate();
-        }
+            transform.DOMoveY(m_MoveDistance, 5).SetLoops(-1, LoopType.Yoyo).SetEase(m_Ease);
+        }      
         /// <summary>
         /// 运动更新
         /// </summary>
@@ -46,17 +61,9 @@ namespace Bird_VS_Boar
             }
             else
             {
-                WingTrack();
                 m_BindTarget.position = (LeftWingTran.position + RightWingTran.position) / 2f;
             }
-        }
-        /// <summary>
-        /// 翅膀轨迹
-        /// </summary>
-        private void WingTrack()
-        {
-
-        }
+        }      
         /// <summary>
         /// 设置绑定目标
         /// </summary>
@@ -73,7 +80,26 @@ namespace Bird_VS_Boar
                 MonoSingletonFactory<ShareMono>.GetSingleton().ApplyUpdateAction(EnumUpdateAction.Standard, this.SportUpdate);
             }
         }
-
-
+        [SerializeField]
+        /// <summary>
+        /// 设置翅膀轨迹更新
+        /// </summary>
+        /// <param name="isUpdate">是否更新(0:停止  1:开始)</param>
+        private void SetWingTrackUpdate(int isUpdate)
+        {
+            switch(isUpdate)
+            {
+                case 0:
+                    {
+                        transform.DOPause();
+                        break;
+                    }
+                case 1:
+                    {
+                        transform.DOPlay();                    
+                        break;
+                    }
+            } 
+        }
     }
 }
