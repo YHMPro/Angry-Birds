@@ -10,6 +10,8 @@ namespace Bird_VS_Boar
         private void Awake()
         {
             ConfigInfoMgr.ConfigInfoInit();
+            GameLogic.Init();
+            GameManager.Init();
             MonoSingletonFactory<Camera2D>.GetSingleton();
             MonoSingletonFactory<FlyPath>.GetSingleton();
             //MonoSingletonFactory<Audio2DMgr>.GetSingleton();

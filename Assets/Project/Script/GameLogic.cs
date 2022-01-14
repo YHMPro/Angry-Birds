@@ -10,11 +10,19 @@ namespace Bird_VS_Boar
     /// </summary>
     public class GameLogic 
     {
+        
         /// <summary>
         /// 游戏是否结束
         /// </summary>
         private static bool m_IsGameOver = false;
-        
+        /// <summary>
+        /// 当前分数
+        /// </summary>
+        private static int m_NowScore = 0;
+        /// <summary>
+        /// 历史分数
+        /// </summary>
+        private static int m_HistoryScore = 0;
         /// <summary>
         /// 当前登场的小鸟
         /// </summary>
@@ -66,12 +74,36 @@ namespace Bird_VS_Boar
         /// </summary>
         public static void Init()
         {
-            
+            MesgManager.MesgListen<int>(ProjectEvents.ScoreUpdateEvent, ScoreUpdate);
+            MesgManager.MesgListen<EnumBirdType>(ProjectEvents.CoinUpdateEvent, CoinUpdate);
+            MesgManager.MesgListen(ProjectEvents.LogicUpdateEvent, LogicUpdate);
         }
+        /// <summary>
+        /// 清除数据
+        /// </summary>
+        public static void Clear()
+        {
+            m_NowScore = 0;
+            MesgManager.MesgBreakListen<int>(ProjectEvents.ScoreUpdateEvent, ScoreUpdate);
+            MesgManager.MesgBreakListen<EnumBirdType>(ProjectEvents.CoinUpdateEvent, CoinUpdate);
+            MesgManager.MesgBreakListen(ProjectEvents.LogicUpdateEvent, LogicUpdate);
+        }
+        #region ScoreUpdate
+        /// <summary>
+        /// 记录分数
+        /// </summary>
+        /// <param name="score">分数</param>
+        private static void ScoreUpdate(int score)
+        {
+            m_NowScore += score;
+            Debuger.Log("总分变化:" + m_NowScore);
+        }
+        #endregion
+        #region LogicUpdate
         /// <summary>
         /// 逻辑判定
         /// </summary>
-        public static void Logic()
+        private static void LogicUpdate()
         {
             if(m_IsGameOver)
             {
@@ -90,10 +122,12 @@ namespace Bird_VS_Boar
                 GameManager.GameOver(false);
             }        
         }
+        #endregion
+        #region CoinUpdate
         /// <summary>
         /// 硬币更新
         /// </summary>
-        public static void CoinUpdate(EnumBirdType birdType)
+        private static void CoinUpdate(EnumBirdType birdType)
         {
             if (BirdConfigInfo.BirdConfigInfoDic.TryGetValue(birdType, out var config))
             {
@@ -105,6 +139,6 @@ namespace Bird_VS_Boar
                 Debuger.LogWarning("鸟配置信息读取失败。");
             }
         }
-
+        #endregion
     }
 }

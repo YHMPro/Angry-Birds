@@ -37,15 +37,7 @@ namespace Bird_VS_Boar
         /// <summary>
         /// 鸟列表
         /// </summary>
-        private static List<Bird>m_Birds=new List<Bird>();
-        /// <summary>
-        /// 当前分数
-        /// </summary>
-        private static int m_NowScore = 0;
-        /// <summary>
-        /// 历史分数
-        /// </summary>
-        private static int m_HistoryScore = 0;
+        private static List<Bird>m_Birds=new List<Bird>();       
         /// <summary>
         /// 初始化
         /// </summary>
@@ -60,19 +52,8 @@ namespace Bird_VS_Boar
         {
             m_Pigs = new List<Pig>();  
             m_Birds = new List<Bird>();
-            m_NowScore = 0;
         }
-        #region Score
-        /// <summary>
-        /// 记录分数
-        /// </summary>
-        /// <param name="score">分数</param>
-        public static void RecordScore(int score)
-        {
-            m_NowScore += score;
-            Debuger.Log("总分变化:" + m_NowScore);
-        }
-        #endregion
+        
 
         #region GameTarget
         /// <summary>
@@ -97,7 +78,7 @@ namespace Bird_VS_Boar
             {
                 m_Pigs.Remove(pig);
                 Debuger.Log("当前场景内猪的数量:" + NowScenePigNum);
-                GameLogic.Logic();//调用逻辑管理器
+                MesgManager.MesgTirgger(ProjectEvents.LogicUpdateEvent);
             }
         }
         /// <summary>
@@ -122,7 +103,7 @@ namespace Bird_VS_Boar
             {
                 m_Birds.Remove(bird);
                 Debuger.Log("当前场景内鸟的数量:" + NowSceneBirdNum);
-                GameLogic.Logic();//调用逻辑管理器
+                MesgManager.MesgTirgger(ProjectEvents.LogicUpdateEvent);
             }
         }
         #endregion
@@ -158,5 +139,14 @@ namespace Bird_VS_Boar
         }
         #endregion
 
+        #region GameRestart
+        /// <summary>
+        /// 重新开始
+        /// </summary>
+        public static void GameRestart()
+        {
+            Debuger.Log("游戏重新开始");
+        }
+        #endregion
     }
 }

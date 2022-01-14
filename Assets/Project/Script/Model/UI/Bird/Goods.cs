@@ -67,7 +67,7 @@ namespace Bird_VS_Boar
                     return;
                 }
             }
-            GameLogic.CoinUpdate(m_BirdType);//更新硬币
+            MesgManager.MesgTirgger(ProjectEvents.CoinUpdateEvent, m_BirdType);//更新硬币
             GameLogic.NowComeBird = goods.GetComponent<Bird>();
             MonoSingletonFactory<SlingShot>.GetSingleton().BindBird();          
         }

@@ -100,7 +100,7 @@ namespace Bird_VS_Boar
         private void RecordScore(int score)
         {
             Debuger.Log("记录分数");
-            GameManager.RecordScore(score);
+            MesgManager.MesgTirgger(ProjectEvents.ScoreUpdateEvent, score);
         }      
     }
 }
