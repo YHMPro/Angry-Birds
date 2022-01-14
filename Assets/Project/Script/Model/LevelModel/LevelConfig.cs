@@ -1,64 +1,26 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using System.Collections.Generic;
 using System;
 namespace Bird_VS_Boar.LevelConfig
 { 
+    /// <summary>
+    /// 关卡配置
+    /// </summary>
     [Serializable]
     public class LevelConfig 
     {
-        private static Dictionary<string, LevelConfig> m_LevelConfigDic = new Dictionary<string, LevelConfig>();
-        public static void AddLevelConfig(LevelConfig levelConfig)
-        {
-
-        }
-        public static void RemoveLevelConfig(LevelConfig levelConfig)
-        {
-
-        }
-        public static LevelConfig GetLevelConfig(string key)
-        {
-            return null;
-        }
-        private List<PigConfig> m_PigConfigs=new List<PigConfig> ();
-        private List<BarrierConfig> m_BarrierConfigs=new List<BarrierConfig> ();
-
-        public void AddPigConfig(PigConfig pigConfig)
-        {
-            if(m_PigConfigs.Contains(pigConfig))
-            {
-                return;
-            }
-            m_PigConfigs.Add(pigConfig);
-        }
-        public void RemovePigConfig(PigConfig pigConfig)
-        {
-            if (m_PigConfigs.Contains(pigConfig))
-            {
-                m_PigConfigs.Remove(pigConfig);
-            }
-        }
-
-        public void AddBarrierConfig(BarrierConfig barrierConfig)
-        {
-            if (m_BarrierConfigs.Contains(barrierConfig))
-            {
-                return;
-            }
-            m_BarrierConfigs.Add(barrierConfig);
-        }
-        public void RemoveBarrierConfig(BarrierConfig barrierConfig)
-        {
-            if (m_BarrierConfigs.Contains(barrierConfig))
-            {
-                m_BarrierConfigs.Remove(barrierConfig);
-            }
-        }       
+        public List<PigConfig> PigConfigs=new List<PigConfig>();
+        public List<BarrierConfig> BarrierConfigs=new List<BarrierConfig>();
     }
-
+    /// <summary>
+    /// 猪配置
+    /// </summary>
     [Serializable]
     public class PigConfig
     {
+        /// <summary>
+        /// 分数类型
+        /// </summary>
+        public EnumScoreType ScoreType;
         /// <summary>
         /// 类型
         /// </summary>
@@ -76,9 +38,16 @@ namespace Bird_VS_Boar.LevelConfig
         /// </summary>
         public CustomVector3 Scale;
     }
+    /// <summary>
+    /// 障碍物配置
+    /// </summary>
     [Serializable]
     public class BarrierConfig
     {
+        /// <summary>
+        /// 分数类型
+        /// </summary>
+        public EnumScoreType ScoreType;
         /// <summary>
         /// 类型
         /// </summary>

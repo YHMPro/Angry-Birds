@@ -4,6 +4,8 @@ using UnityEngine;
 using Farme;
 using Farme.Audio;
 using Farme.Tool;
+using Bird_VS_Boar.LevelConfig;
+using System;
 
 namespace Bird_VS_Boar
 {
@@ -68,8 +70,10 @@ namespace Bird_VS_Boar
         Circle,
 
     }
-    public class Barrier : BaseMono, IScore,IDiedAudio,IDied
+    [Serializable]
+    public abstract class Barrier : BaseMono, IScore,IDiedAudio,IDied
     {
+        [SerializeField]
         /// <summary>
         /// 障碍物形状
         /// </summary>
@@ -78,6 +82,7 @@ namespace Bird_VS_Boar
         /// 承受的能量总和(达到一定量后会出现破裂)
         /// </summary>
         protected float m_BearEnergySum = 0;
+        [SerializeField]
         /// <summary>
         /// 障碍物类型
         /// </summary>
@@ -262,6 +267,23 @@ namespace Bird_VS_Boar
         public virtual void Died()
         {
             Destroy(this.gameObject);
+        }
+        #endregion
+
+        #region BarrierConfig
+        /// <summary>
+        /// 获取障碍物的配置
+        /// </summary>
+        public BarrierConfig GetBarrierConfig()
+        {
+            BarrierConfig barrierConfig = new BarrierConfig();
+            barrierConfig.Euler.SetValue(transform.eulerAngles);
+            barrierConfig.Scale.SetValue(transform.lossyScale);
+            barrierConfig.Position.SetValue(transform.position);
+            barrierConfig.BarrierType = m_BarrierType;
+            barrierConfig.BarrierShapeType = m_BarrierShapeType;
+            barrierConfig.ScoreType=m_ScoreType;
+            return barrierConfig;
         }
         #endregion
     }

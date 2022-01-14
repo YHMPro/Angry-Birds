@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using Farme;
 using Farme.Tool;
+using Bird_VS_Boar.LevelConfig;
 namespace Bird_VS_Boar
 {
     /// <summary>
@@ -43,7 +44,14 @@ namespace Bird_VS_Boar
         /// </summary>
         public static void Init()
         {
-            
+            LevelConfigManager.ReadConfigTableData();//读取配置表数据
+            LevelConfig.LevelConfig levelConfig =  LevelConfigManager.GetLevelConfig("第一关");//读取关卡配置数据
+
+            foreach(var info in levelConfig.PigConfigs)
+            {
+                //info.PigType
+            }
+
         }
         /// <summary>
         /// 清除

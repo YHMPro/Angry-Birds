@@ -4,7 +4,8 @@ using UnityEngine;
 using Farme;
 using Farme.Audio;
 using Farme.Tool;
-
+using Bird_VS_Boar.LevelConfig;
+using System;
 namespace Bird_VS_Boar
 {
     /// <summary>
@@ -29,6 +30,7 @@ namespace Bird_VS_Boar
         Hurt4,
         Destroy
     }
+    [Serializable]
     public abstract class Pig : BaseMono, IBoom, IScore,IDiedAudio,IDied
     {
         /// <summary>
@@ -39,6 +41,7 @@ namespace Bird_VS_Boar
         /// 承受的能量总和(达到一定量后会出现受伤)
         /// </summary>
         protected float m_BearEnergySum = 0;
+        [SerializeField]
         /// <summary>
         /// 猪的类型
         /// </summary>
@@ -220,6 +223,22 @@ namespace Bird_VS_Boar
         {
             GameManager.RemovePig(this);//从游戏管理器中移除
             Destroy(gameObject);
+        }
+        #endregion
+
+        #region PigConfig
+        /// <summary>
+        /// 获取猪的配置
+        /// </summary>
+        public PigConfig GetPigConfig()
+        {
+            PigConfig pigConfig = new PigConfig();
+            pigConfig.Euler.SetValue(transform.eulerAngles);
+            pigConfig.Scale.SetValue(transform.lossyScale);
+            pigConfig.Position.SetValue(transform.position);
+            pigConfig.PigType = m_PigType;
+            pigConfig.ScoreType = m_ScoreType;
+            return pigConfig;
         }
         #endregion
     }

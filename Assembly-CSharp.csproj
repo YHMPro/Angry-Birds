@@ -115,6 +115,7 @@
     <Compile Include="Assets\Project\Script\Model\EquipModel\Wing.cs" />
     <Compile Include="Assets\Project\Script\Model\FlyPath\FlyPath.cs" />
     <Compile Include="Assets\Project\Script\Model\LevelModel\LevelConfig.cs" />
+    <Compile Include="Assets\Project\Script\Model\LevelModel\LevelConfigBuilder.cs" />
     <Compile Include="Assets\Project\Script\Model\LevelModel\LevelConfigManager.cs" />
     <Compile Include="Assets\Project\Script\Model\PigModel\OldPig.cs" />
     <Compile Include="Assets\Project\Script\Model\PigModel\Pig.cs" />

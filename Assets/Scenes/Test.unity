@@ -2159,6 +2159,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 411b556636b1b9640966ad9999c4a77b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  m_PigType: 1
   m_ScoreType: 3
 --- !u!58 &384354491
 CircleCollider2D:
@@ -4691,6 +4692,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: aca9f8bf09895a942acefe0c945098e4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  m_PigType: 2
   m_ScoreType: 5
 --- !u!58 &888148458
 CircleCollider2D:
@@ -7738,6 +7740,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   b: {fileID: 0}
+  NowSceneKey: "\u7B2C\u4E8C\u5173"
 --- !u!4 &1751226592
 Transform:
   m_ObjectHideFlags: 0
@@ -9523,6 +9526,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f16d61784c0152345888f83ed72a3237, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  m_PigType: 3
   m_ScoreType: 3
 --- !u!50 &6269801720835126944
 Rigidbody2D:

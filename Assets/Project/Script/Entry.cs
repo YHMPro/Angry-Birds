@@ -2,11 +2,13 @@
 using System.Collections.Generic;
 using UnityEngine;
 using Farme;
+using Bird_VS_Boar.LevelConfig;
 namespace Bird_VS_Boar
 {
     public class Entry : MonoBehaviour
     {
         public Bird b;
+        public string NowSceneKey;
         private void Awake()
         {
             ConfigInfoMgr.ConfigInfoInit();
@@ -55,6 +57,12 @@ namespace Bird_VS_Boar
             //    MonoSingletonFactory<Audio2DMgr>.GetSingleton();
             //    MonoSingletonFactory<SlingShot>.GetSingleton().BindBird();
             //}
+        }
+
+
+        private void OnValidate()
+        {
+            LevelConfigBuilder.NowSceneKey = NowSceneKey;
         }
     }
 }

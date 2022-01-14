@@ -98,6 +98,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_BarrierShapeType: 3
+  m_BarrierType: 1
   m_Sps:
   - {fileID: -1240156101857960961, guid: daf5dba55bbba2a41a35e4e7996ff15d, type: 3}
   - {fileID: -1387360395636804066, guid: daf5dba55bbba2a41a35e4e7996ff15d, type: 3}
