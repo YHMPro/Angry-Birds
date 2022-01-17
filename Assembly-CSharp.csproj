@@ -132,6 +132,7 @@
     <Compile Include="Assets\Project\Script\Model\UI\Bird\VanBirdGoods.cs" />
     <Compile Include="Assets\Project\Script\Model\UI\Bird\WhiteBirdGoods.cs" />
     <Compile Include="Assets\Project\Script\Model\UI\Bird\YellowBirdGoods.cs" />
+    <Compile Include="Assets\Project\Script\Model\UI\Panel\GameOverPanel.cs" />
     <Compile Include="Assets\Project\Script\ProjectEvents.cs" />
     <Compile Include="Assets\Project\Script\ProjectInterface.cs" />
     <Compile Include="Assets\Project\Script\ProjectTool.cs" />

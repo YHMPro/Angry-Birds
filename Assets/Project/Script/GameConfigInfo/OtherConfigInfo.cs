@@ -69,6 +69,13 @@ namespace Bird_VS_Boar
             }
         }
         #endregion
+        #region Audio
+        /// <summary>
+        /// 星星音效路径数组
+        /// </summary>
+        protected string[] m_StarAudioPaths;
+        #endregion
+        #region Prefab
         /// <summary>
         /// 小鸟气球预制路径
         /// </summary>
@@ -89,6 +96,7 @@ namespace Bird_VS_Boar
         /// 分数预制路径
         /// </summary>
         protected string m_ScorePrefabPath;
+        #endregion
         public void InitConfigInfo()
         {
             m_CommonPath = GetType().Name + "/";
@@ -97,13 +105,19 @@ namespace Bird_VS_Boar
             m_BoomPrefabPath = "Boom";
             m_EggPrefabPath = "Egg";
             m_PointPrefabPath = "Point";
-
+            m_StarAudioPaths = new string[] { "Star1", "Star2", "Star3" };
             //层级顺序  分数>Boom>蛋>点
             m_PointOrderInLayer = -1;
             m_EggOrderInLayer = 1;
             m_BoomOrderInLayer = 20;
             m_ScoreOrderInLayer = 40;
         }
+
+        public string GetStarAudioPath(int index)
+        {
+            return m_CommonPath + m_StarAudioPaths[Mathf.Clamp(index, 0, m_StarAudioPaths.Length - 1)];
+        }
+
         public string GetBlisterPrefabPath()
         {
             return m_CommonPath + m_BlisterPrefabPath;
