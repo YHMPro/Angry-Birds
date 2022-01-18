@@ -71,6 +71,10 @@ namespace Bird_VS_Boar
         #endregion
         #region Audio
         /// <summary>
+        /// 按钮音效路径
+        /// </summary>
+        protected string m_ButtonAudioPath;
+        /// <summary>
         /// 星星音效路径数组
         /// </summary>
         protected string[] m_StarAudioPaths;
@@ -100,6 +104,7 @@ namespace Bird_VS_Boar
         public void InitConfigInfo()
         {
             m_CommonPath = GetType().Name + "/";
+            m_ButtonAudioPath = "Button";
             m_BlisterPrefabPath = "Blister";
             m_ScorePrefabPath = "Score";
             m_BoomPrefabPath = "Boom";
@@ -111,6 +116,11 @@ namespace Bird_VS_Boar
             m_EggOrderInLayer = 1;
             m_BoomOrderInLayer = 20;
             m_ScoreOrderInLayer = 40;
+        }
+
+        public string GetButtonAudioPath()
+        {
+            return m_CommonPath + m_ButtonAudioPath;
         }
 
         public string GetStarAudioPath(int index)

@@ -31,16 +31,33 @@ namespace Farme.UI
     /// </summary>
     public abstract class BasePanel : BaseMono
     {
-
         protected override void Awake()
         {
             base.Awake();
         }
-        #region 字段     
+        #region 字段    
+        [SerializeField]
         /// <summary>
         /// 依赖的窗口
         /// </summary>
-        public StandardWindow relyWindow = null;
+        private StandardWindow m_RelyWindow = null;
+        /// <summary>
+        /// 依赖的窗口
+        /// </summary>
+        public StandardWindow RelyWindow
+        {
+            get
+            {
+                return m_RelyWindow;
+            }
+            set
+            {
+                if (value != m_RelyWindow && value!=null)
+                {
+                    m_RelyWindow = value;
+                }
+            }
+        }
         #endregion
         #region 属性
         /// <summary>
@@ -78,9 +95,9 @@ namespace Farme.UI
                     }
                 case EnumPanelState.Destroy:
                     {                 
-                        if(relyWindow!=null)
+                        if(m_RelyWindow != null)
                         {
-                            relyWindow.RemovePanel(gameObject.name);
+                            m_RelyWindow.RemovePanel(gameObject.name);
                         }
                         callback?.Invoke();
                         Destroy(gameObject);

@@ -20,9 +20,26 @@ namespace Bird_VS_Boar
         /// </summary>
         private static int m_NowScore = 0;
         /// <summary>
-        /// 历史分数
+        /// 当前分数
+        /// </summary>
+        public static int NowScore
+        {
+            get
+            {
+                return m_NowScore;
+            }
+        }
+        /// <summary>
+        /// 历史最佳分数
         /// </summary>
         private static int m_HistoryScore = 0;
+        /// <summary>
+        /// 历史最佳分数
+        /// </summary>
+        public static int HistoryScore
+        {
+            get { return m_HistoryScore; }
+        }
         /// <summary>
         /// 当前登场的小鸟
         /// </summary>

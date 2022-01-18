@@ -4,6 +4,7 @@ using UnityEngine;
 using Farme;
 using Farme.Tool;
 using Bird_VS_Boar.LevelConfig;
+using Farme.UI;
 namespace Bird_VS_Boar
 {
     /// <summary>
@@ -123,7 +124,25 @@ namespace Bird_VS_Boar
         /// <param name="isWin">是否胜利</param>
         public static void GameOver(bool isWin)
         {
-            
+            StandardWindow window = MonoSingletonFactory<WindowRoot>.GetSingleton().GetWindow("GameSceneWindow");
+            if(window==null|| !window.GetPanel<GameOverPanel>("GameOverPanel", out var panel))
+            {
+                Debuger.LogError("窗口GameSceneWindow不存在或面板GameOverPanel不存在!!!");
+                return;
+            }
+            panel.SetState(EnumPanelState.Show, () =>
+            {
+                if(isWin)
+                {
+                    panel.Win();
+                }
+                else
+                {
+                    panel.Lose();
+                }              
+            });
+            GameStop();//游戏暂停
+            Debuger.Log("游戏结束");
         }
         #endregion
 
@@ -147,13 +166,43 @@ namespace Bird_VS_Boar
         }
         #endregion
 
-        #region GameRestart
+        #region ReplayLevel
         /// <summary>
-        /// 重新开始
+        /// 重玩本关
         /// </summary>
-        public static void GameRestart()
+        public static void ReplayLevel()
         {
-            Debuger.Log("游戏重新开始");
+            Debuger.Log("重玩本关");
+        }
+        #endregion
+
+        #region LastLevel
+        /// <summary>
+        /// 上一关
+        /// </summary>
+        public static void LastLevel()
+        {
+            Debuger.Log("上一关");
+        }
+        #endregion
+
+        #region NextLevel
+        /// <summary>
+        /// 下一关
+        /// </summary>
+        public static void NextLevel()
+        {
+            Debuger.Log("下一关");
+        }
+        #endregion
+
+        #region ReturnLevel
+        /// <summary>
+        /// 返回关卡
+        /// </summary>
+        public static void ReturnLevel()
+        {
+            Debuger.Log("返回关卡");
         }
         #endregion
     }
