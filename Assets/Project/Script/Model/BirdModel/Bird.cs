@@ -4,6 +4,7 @@ using UnityEngine;
 using Farme;
 using Farme.Audio;
 using Farme.Tool;
+using Farme.UI;
 namespace Bird_VS_Boar
 { 
     /// <summary>
@@ -151,6 +152,15 @@ namespace Bird_VS_Boar
 
         protected virtual void OnMouseDown()
         {
+            if(!MonoSingletonFactory<WindowRoot>.SingletonExist)
+            {
+                return;
+            }
+            WindowRoot windowRoot = MonoSingletonFactory<WindowRoot>.GetSingleton();
+            if(windowRoot.ES.currentSelectedGameObject==null)//当操作对象是UI时则屏蔽此次事件响应
+            {
+                return;
+            }
             if (!GameLogic.BirdIsNowComeBirdLogic(this))
                 return;
             m_IsCheck = true;
@@ -166,7 +176,11 @@ namespace Bird_VS_Boar
         }
 
         protected virtual void OnMouseUp()
-        {
+        {          
+            if(!m_IsCheck)
+            {
+                return;
+            }
             if (!GameLogic.BirdIsNowComeBirdLogic(this))
                 return;
             m_IsCheck = false;

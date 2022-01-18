@@ -122,7 +122,7 @@ namespace Bird_VS_Boar
             m_WinGo.gameObject.SetActive(true);
             m_NowScoreText.text = GameLogic.NowScore.ToString();
             m_HistoryScoreText.text = GameLogic.HistoryScore.ToString();
-            StarsFill();
+            MonoSingletonFactory<ShareMono>.GetSingleton().DelayAction(0.5f,false,StarsFill);
         }
         #endregion
 

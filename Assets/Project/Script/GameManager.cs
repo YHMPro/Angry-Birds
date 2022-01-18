@@ -13,6 +13,20 @@ namespace Bird_VS_Boar
     public class GameManager 
     {       
         /// <summary>
+        /// 当前相机跟随的小鸟
+        /// </summary>
+        public static Bird NowCameraFollowTarget
+        {
+            get
+            {
+                if(m_Birds.Count == 0)
+                {
+                    return null;
+                }
+                return m_Birds[m_Birds.Count - 1];
+            }
+        }
+        /// <summary>
         /// 当前场景中猪的数量
         /// </summary>
         public static int NowScenePigNum
@@ -163,6 +177,7 @@ namespace Bird_VS_Boar
         public static void GameStop()
         {
             Debuger.Log("游戏暂停");
+            //Time.timeScale = 0;
         }
         #endregion
 

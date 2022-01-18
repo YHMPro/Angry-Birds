@@ -18,18 +18,25 @@ namespace Bird_VS_Boar
         // Start is called before the first frame update
         void Start()
         {
-
+            MonoSingletonFactory<ShareMono>.GetSingleton().ApplyUpdateAction(EnumUpdateAction.Fixed, Follow);//暂时放在这里
         }
         public void BindBird()
         {        
-            MonoSingletonFactory<ShareMono>.GetSingleton().ApplyUpdateAction(EnumUpdateAction.Fixed,Follow);
+            //MonoSingletonFactory<ShareMono>.GetSingleton().ApplyUpdateAction(EnumUpdateAction.Fixed,Follow);//待优化
         }
 
         public void Follow()
         {
-            if (GameLogic.NowComeBird == null)
-                return;
-            Vector3 aimPos = GameLogic.NowComeBird.transform.position;
+            Vector3 aimPos;
+            if (GameManager.NowCameraFollowTarget == null)
+            {
+                aimPos = MonoSingletonFactory<SlingShot>.GetSingleton().transform.position;
+            }
+            else
+            {
+                aimPos = GameManager.NowCameraFollowTarget.transform.position;
+            }
+           
             aimPos = Limit(aimPos);
             transform.position = Vector3.Lerp(transform.position, Limit(aimPos), 0.5f*Time.fixedDeltaTime);
         }

@@ -47,7 +47,7 @@ namespace Bird_VS_Boar
 
         protected override void Start()
         {
-            base.Start();
+            base.Start();           
             transform.DOMoveY(m_MoveDistance, 5).SetLoops(-1, LoopType.Yoyo).SetEase(m_Ease);
         }      
         /// <summary>

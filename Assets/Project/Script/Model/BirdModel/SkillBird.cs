@@ -3,16 +3,19 @@ using System.Collections.Generic;
 using UnityEngine;
 using Angry_Birds;
 using Farme;
+using Farme.UI;
 
 namespace Bird_VS_Boar
 {
     public abstract class SkillBird : Bird
     {
-
-
         protected override void OnMouseUp()
         {
-            base.OnMouseUp();
+            if (!m_IsCheck)
+            {
+                return;
+            }
+            base.OnMouseUp();         
             MonoSingletonFactory<ShareMono>.GetSingleton().ApplyUpdateAction(EnumUpdateAction.Standard,this.OnSkillUpdate_Common);//持续监听技能释放指令
         }
 
