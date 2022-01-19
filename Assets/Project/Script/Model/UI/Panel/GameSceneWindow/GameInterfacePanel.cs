@@ -86,12 +86,14 @@ namespace Bird_VS_Boar
         #region 指针事件监听
         private void OnButtonListImgEnter(BaseEventData bEData)//进入
         {
+            GameManager.GameControl(EnumGameControlType.Stop);
             Debuger.Log("测试:进入");
-            m_ButtonListImg.transform.DOLocalMoveX(960f, 0.5f).SetEase(m_Ease);
+            m_ButtonListImg.transform.DOLocalMoveX(960f, 0.5f).SetEase(m_Ease).SetUpdate(true);
+            
         }
         private void OnButtonListImgExit(BaseEventData bEData)//离开
-        {           
-            if(RelyWindow!=null)
+        {        
+            if (RelyWindow!=null)
             {
                 if(RelyWindow.Raycast(out List<RaycastResult> resultLi))
                 {
@@ -104,7 +106,8 @@ namespace Bird_VS_Boar
                     }
                 }               
             }
-            m_ButtonListImg.transform.DOLocalMoveX(1160f, 0.5f).SetEase(m_Ease);
+            GameManager.GameControl(EnumGameControlType.Continue);
+            m_ButtonListImg.transform.DOLocalMoveX(1160f, 0.5f).SetEase(m_Ease).SetUpdate(true);
             Debuger.Log("测试:离开");
         }
         #endregion

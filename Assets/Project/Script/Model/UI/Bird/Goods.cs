@@ -30,23 +30,19 @@ namespace Bird_VS_Boar
         /// 小鸟类型
         /// </summary>
         protected EnumBirdType m_BirdType=EnumBirdType.None;
-        protected Button m_GoodsBtn;
+        protected UIBtn m_GoodsBtn;
         protected override void Awake()
         {
             base.Awake();
-            m_GoodsBtn = GetComponent<Button>();
+            m_GoodsBtn = GetComponent<UIBtn>();
         }
 
         protected override void Start()
         {
-            base.Start();     
-            m_GoodsBtn.onClick.AddListener(OnGoodsClick);
+            base.Start();
+            m_GoodsBtn.OnPointerClickEvent.AddListener(OnGoodsClick);
         }
-
-        protected override void OnDestroy()
-        {          
-            base.OnDestroy();
-        }
+     
         /// <summary>
         /// 货物点击事件监听
         /// </summary>

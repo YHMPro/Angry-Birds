@@ -18,6 +18,12 @@ namespace Bird_VS_Boar
             base.OnEnable();
             GameManager.AddDiedTarget(this);
         }
+
+        protected override void OnDisable()
+        {
+            RecyclyAudio();//回收音效
+            GameManager.RemoveDiedTarget(this);
+        }
         protected override void Start()
         {
             transform.localScale = Vector3.one;

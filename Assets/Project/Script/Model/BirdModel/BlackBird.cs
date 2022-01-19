@@ -32,7 +32,6 @@ namespace Bird_VS_Boar
             //m_IsAbleBindBirdNets = true;
         }
      
-
         protected override void OnBirdFlyBreak()
         {
             MonoSingletonFactory<ShareMono>.GetSingleton().RemoveUpdateAction(EnumUpdateAction.Standard, OnSkillUpdate_Common);
@@ -66,7 +65,8 @@ namespace Bird_VS_Boar
                 if(score!=null)
                 {
                     score.OpenScore();
-                }               
+                }
+                DestroyGoLi.RemoveAt(DestroyGoLi.Count - 1);
                 IDiedAudio diedAudio = go.GetComponent<IDiedAudio>();
                 if (diedAudio != null)
                 {
@@ -76,8 +76,7 @@ namespace Bird_VS_Boar
                 if(died!=null)
                 {
                     died.Died();
-                }
-                DestroyGoLi.RemoveAt(DestroyGoLi.Count - 1);
+                }        
             }
         }
 

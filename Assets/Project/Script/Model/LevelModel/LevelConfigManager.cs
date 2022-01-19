@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.IO;
 using UnityEngine;
 using Farme.Tool;
+using System.Text.RegularExpressions;
 namespace Bird_VS_Boar.LevelConfig
 {
     /// <summary>
@@ -13,6 +14,21 @@ namespace Bird_VS_Boar.LevelConfig
     {
         private static Dictionary<string, LevelConfig> m_LevelConfigDic = new Dictionary<string, LevelConfig>();
         private static string m_FilePath = Application.streamingAssetsPath + "/" + "LevelConfig.json";
+        /// <summary>
+        /// 获取关卡类型中的关卡数量
+        /// </summary>
+        /// <param name="LevelType">关卡类型</param>
+        /// <returns></returns>
+        public static int GetLevelNum(EnumGameLevelType LevelType)
+        {
+            int levelNum = 0;
+            Regex regex = new Regex(@LevelType.ToString());
+            foreach(var levelKey in m_LevelConfigDic.Keys)
+            {
+                levelNum += regex.IsMatch(levelKey) ? 1 : 0;            
+            }
+            return levelNum;
+        }
         public static void AddLevelConfig(string key, LevelConfig levelConfig)
         {                     
             if (!m_LevelConfigDic.ContainsKey(key))

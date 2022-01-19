@@ -15,7 +15,7 @@ namespace Bird_VS_Boar
         PigBoom,
         BirdBoom
     }
-    public class Boom : MonoBehaviour
+    public class Boom : MonoBehaviour,IDied
     {
         /// <summary>
         /// 当前最大的层级
@@ -29,8 +29,13 @@ namespace Bird_VS_Boar
         /// 精灵渲染器
         /// </summary>
         private SpriteRenderer m_Sr = null;
+        /// <summary>
+        /// 动画机
+        /// </summary>
+        private Animator m_Anim = null;
         private void Awake()
         {
+            m_Anim=GetComponent<Animator>();
             m_Sr = GetComponent<SpriteRenderer>();
             if (m_NowMaxOrderInLayer == 0)
             {
@@ -43,6 +48,7 @@ namespace Bird_VS_Boar
 
         private void OnEnable()
         {
+            GameManager.AddDiedTarget(this);
             Debuger.Log("层级累加(Boom)");
             m_Sr.sortingOrder = m_NowMaxOrderInLayer;//设置自身层级
             ++m_NowMaxOrderInLayer;
@@ -51,6 +57,7 @@ namespace Bird_VS_Boar
 
         private void OnDisable()
         {
+            GameManager.RemoveDiedTarget(this);
             --m_BoomNum;
             if (m_BoomNum == 0)
             {
@@ -62,6 +69,9 @@ namespace Bird_VS_Boar
             }
         }
 
+        private void OnDestroy()
+        {
+        }
         public static void OpenBoom(EnumBoomType boomType,Vector3 pos)
         {
             if(boomType == EnumBoomType.None)
@@ -85,7 +95,17 @@ namespace Bird_VS_Boar
         [SerializeField]
         private void CloseBoom()
         {
-            GoReusePool.Put(GetType().Name, gameObject);                          
+            if (gameObject.activeInHierarchy)
+            {
+                GoReusePool.Put(GetType().Name, gameObject);
+            }
         }
+        #region Died
+        public void Died()
+        {
+            CloseBoom();
+        }
+        #endregion
+        
     }
 }

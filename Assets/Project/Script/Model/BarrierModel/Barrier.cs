@@ -73,6 +73,10 @@ namespace Bird_VS_Boar
     [Serializable]
     public abstract class Barrier : BaseMono, IScore,IDiedAudio,IDied
     {
+        /// <summary>
+        /// 碰撞器
+        /// </summary>
+        protected Collider2D m_Co = null;
         [SerializeField]
         /// <summary>
         /// 障碍物形状
@@ -118,6 +122,7 @@ namespace Bird_VS_Boar
             base.Awake();
             m_Rig2D = GetComponent<Rigidbody2D>();
             m_Sr=GetComponent<SpriteRenderer>();
+            m_Co=GetComponent<Collider2D>();
         }
 
         protected override void Start()
@@ -132,6 +137,7 @@ namespace Bird_VS_Boar
         protected override void OnEnable()
         {
             base.OnEnable();
+            m_Co.enabled = false;
             m_Rig2D.isKinematic = true;
             GameManager.AddDiedTarget(this);
             m_BearEnergySum = 0;
@@ -142,6 +148,7 @@ namespace Bird_VS_Boar
         {
             base.LateOnEnable();
             m_Rig2D.isKinematic = false;
+            m_Co.enabled = true;
         }
 
         protected override void OnDisable()
@@ -151,7 +158,11 @@ namespace Bird_VS_Boar
             RecyclyAudio();//回收音效
         }
 
-       
+        protected override void OnDestroy()
+        {
+            base.OnDestroy();
+        }
+
         private void OnCollisionEnter2D(Collision2D collision)
         {
             float relativeSpeed = collision.relativeVelocity.magnitude;
@@ -207,8 +218,7 @@ namespace Bird_VS_Boar
                 return;
             }
             PlayAudio(config.GetBarrierBrokenAudioPath(Mathf.Clamp((int)m_HurtGrade, 1, m_Sps.Length - 1)));
-        }
-     
+        }   
         protected void PlayAudio(string audioPath)
         {
             if (audioPath == null)
@@ -297,5 +307,7 @@ namespace Bird_VS_Boar
             return barrierConfig;
         }
         #endregion
+
+       
     }
 }

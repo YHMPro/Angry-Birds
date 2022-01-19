@@ -34,6 +34,10 @@ namespace Bird_VS_Boar
     public abstract class Pig : BaseMono, IBoom, IScore,IDiedAudio,IDied
     {
         /// <summary>
+        /// 碰撞器
+        /// </summary>
+        protected Collider2D m_Co = null;
+        /// <summary>
         /// 精灵渲染器
         /// </summary>
         protected SpriteRenderer m_Sr = null;
@@ -70,9 +74,10 @@ namespace Bird_VS_Boar
         protected override void Awake()
         {
             base.Awake();
-            m_Sr=GetComponent<SpriteRenderer>();
+            m_Sr =GetComponent<SpriteRenderer>();
             m_Rig2D = GetComponent<Rigidbody2D>();
             m_Anim = GetComponent<Animator>();
+            m_Co = GetComponent<Collider2D>();
         }
 
         protected override void Start()
@@ -88,6 +93,7 @@ namespace Bird_VS_Boar
         protected override void OnEnable()
         {
             base.OnEnable();
+            m_Co.enabled = false;
             m_Rig2D.isKinematic = true;           
             GameManager.AddPig(this);//添加到游戏管理器中
             GameManager.AddDiedTarget(this);
@@ -99,6 +105,7 @@ namespace Bird_VS_Boar
         {
             base.LateOnEnable();
             m_Rig2D.isKinematic = false;
+            m_Co.enabled = true;
         }
 
         protected override void OnDisable()
@@ -107,7 +114,12 @@ namespace Bird_VS_Boar
             GameManager.RemovePig(this);//从游戏管理器中移除
             GameManager.RemoveDiedTarget(this);
             RecyclyAudio();
-        }      
+        }
+
+        protected override void OnDestroy()
+        {
+            base.OnDestroy();
+        }
         #region Collision
         private void OnCollisionEnter2D(Collision2D collision)
         {
@@ -257,5 +269,7 @@ namespace Bird_VS_Boar
             return pigConfig;
         }
         #endregion
+
+        
     }
 }

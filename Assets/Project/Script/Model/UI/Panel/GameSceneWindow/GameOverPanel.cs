@@ -94,10 +94,7 @@ namespace Bird_VS_Boar
 
         public void Update()
         {
-            if (Input.GetKeyDown(KeyCode.W))
-            {
-                Win();
-            }         
+            
         }
 
         protected override void OnDisable()
@@ -122,7 +119,7 @@ namespace Bird_VS_Boar
             m_WinGo.gameObject.SetActive(true);
             m_NowScoreText.text = GameLogic.NowScore.ToString();
             m_HistoryScoreText.text = GameLogic.HistoryScore.ToString();
-            MonoSingletonFactory<ShareMono>.GetSingleton().DelayAction(0.5f,false,StarsFill);
+            MonoSingletonFactory<ShareMono>.GetSingleton().DelayRealtimeAction(0.5f,false,StarsFill);
         }
         #endregion
 
@@ -151,8 +148,8 @@ namespace Bird_VS_Boar
                 }
             }
             else
-            {
-                StartCoroutine(IEStarsFill());
+            {              
+                StartCoroutine(IEStarsFill());           
             }
         }
         /// <summary>
@@ -160,13 +157,14 @@ namespace Bird_VS_Boar
         /// </summary>
         private IEnumerator IEStarsFill()
         {
+           
             if (!NotMonoSingletonFactory<OtherConfigInfo>.SingletonExist)
             {
                 yield break;
             }
             OtherConfigInfo otherConfigInfo = NotMonoSingletonFactory<OtherConfigInfo>.GetSingleton();
-            WaitForSeconds waitFor = new WaitForSeconds(m_StarShowTimeInterval);
-            for(int index=1;index<=3;index++)
+            WaitForSecondsRealtime waitFor = new WaitForSecondsRealtime(m_StarShowTimeInterval);//使其不受Timescale影响
+            for (int index=1;index<=3;index++)
             {
                 GetComponent<Image>("Star" + index).sprite = m_Stars_Fill[index - 1];//填充星星               
                 PlayAudio(otherConfigInfo.GetStarAudioPath(index - 1));//播放声音
@@ -228,9 +226,11 @@ namespace Bird_VS_Boar
         /// </summary>
         private void OnReplayLevel()
         {
+            
             SetState(EnumPanelState.Hide, () =>
             {            
                 GameManager.ReplayLevel();
+                GameManager.GameControl(EnumGameControlType.Continue);
             });
         }
         /// <summary>
@@ -241,6 +241,7 @@ namespace Bird_VS_Boar
             SetState(EnumPanelState.Hide, () =>
             {              
                 GameManager.LastLevel();
+                GameManager.GameControl(EnumGameControlType.Continue);
             });
         }
         /// <summary>
@@ -251,6 +252,7 @@ namespace Bird_VS_Boar
             SetState(EnumPanelState.Hide, () =>
             {               
                 GameManager.NextLevel();
+                GameManager.GameControl(EnumGameControlType.Continue);
             });
            
         }
@@ -262,6 +264,7 @@ namespace Bird_VS_Boar
             SetState(EnumPanelState.Destroy, () =>
             {               
                 GameManager.ReturnLevel();
+                GameManager.GameControl(EnumGameControlType.Continue);
             });     
         }
         #endregion

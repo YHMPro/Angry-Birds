@@ -5,17 +5,95 @@ using Farme;
 using Farme.Tool;
 using Bird_VS_Boar.LevelConfig;
 using Farme.UI;
+using UnityEngine.Events;
 namespace Bird_VS_Boar
 {
+    /// <summary>
+    /// 游戏关卡类型
+    /// </summary>
+    public enum EnumGameLevelType
+    {
+        /// <summary>
+        /// 无
+        /// </summary>
+        None,
+        /// <summary>
+        /// 春季
+        /// </summary>
+        Spring,
+        /// <summary>
+        /// 夏季
+        /// </summary>
+        Summer,
+        /// <summary>
+        /// 秋季
+        /// </summary>
+        Autumn,
+        /// <summary>
+        /// 冬季
+        /// </summary>
+        Winter
+
+    }
+    /// <summary>
+    /// 游戏控制
+    /// </summary>
+    public enum EnumGameControlType
+    {
+        /// <summary>
+        /// 继续
+        /// </summary>
+        Continue,
+        /// <summary>
+        /// 停止
+        /// </summary>
+        Stop     
+    }
     /// <summary>
     /// 游戏管理器
     /// </summary>
     public class GameManager 
     {
         /// <summary>
-        /// 是否重玩关卡
+        /// 当前关卡类型
         /// </summary>
-        private static bool m_IsReplayLevel = false;
+        private static EnumGameLevelType m_NowLevelType=EnumGameLevelType.None;
+        /// <summary>
+        /// 当前关卡类型
+        /// </summary>
+        public static EnumGameLevelType NowLevelType
+        {
+            get
+            {
+                return m_NowLevelType;
+            }
+            set
+            {
+                m_NowLevelType = value;
+            }
+        }
+        /// <summary>
+        /// 当前关卡索引
+        /// </summary>
+        private static int m_NowLevelIndex = -1;
+        /// <summary>
+        /// 当前关卡索引
+        /// </summary>
+        public static int NowLevelIndex
+        {
+            get
+            {
+                return m_NowLevelIndex;
+            }
+            set
+            {
+                m_NowLevelIndex= value;
+            }
+        }
+        /// <summary>
+        /// 是否屏蔽游戏结束事件
+        /// </summary>
+        private static bool m_IsShieldGameOverEvent = false;      
         /// <summary>
         /// 当前相机跟随的小鸟
         /// </summary>
@@ -67,7 +145,7 @@ namespace Bird_VS_Boar
         /// </summary>
         public static void Init()
         {
-            GameStart("第一关");
+            GameStart();
         }
         /// <summary>
         /// 清除
@@ -102,7 +180,10 @@ namespace Bird_VS_Boar
             {
                 m_Pigs.Remove(pig);
                 Debuger.Log("当前场景内猪的数量:" + NowScenePigNum);
-                MesgManager.MesgTirgger(ProjectEvents.LogicUpdateEvent);
+                MonoSingletonFactory<ShareMono>.GetSingleton().DelayRealtimeAction(3f, () =>
+                {
+                    MesgManager.MesgTirgger(ProjectEvents.LogicUpdateEvent);
+                });
             }
         }
         /// <summary>
@@ -127,11 +208,15 @@ namespace Bird_VS_Boar
             {
                 m_Birds.Remove(bird);
                 Debuger.Log("当前场景内鸟的数量:" + NowSceneBirdNum);
-                MesgManager.MesgTirgger(ProjectEvents.LogicUpdateEvent);
+                MonoSingletonFactory<ShareMono>.GetSingleton().DelayRealtimeAction(3f, () =>
+                {
+                    MesgManager.MesgTirgger(ProjectEvents.LogicUpdateEvent);
+                });
+                
             }
         }
         /// <summary>
-        /// 添加障碍物
+        /// 添加可销毁对象
         /// </summary>
         /// <param name="died"></param>
         public static void AddDiedTarget(IDied died)
@@ -143,7 +228,7 @@ namespace Bird_VS_Boar
             m_DiedTargets.Add(died);
         }
         /// <summary>
-        /// 移除障碍物
+        /// 移除可销毁对象
         /// </summary>
         /// <param name="died"></param>
         public static void RemoveDiedTarget(IDied died)
@@ -163,7 +248,7 @@ namespace Bird_VS_Boar
         /// <param name="isWin">是否胜利</param>
         public static void GameOver(bool isWin)
         {
-            if(m_IsReplayLevel)
+            if(m_IsShieldGameOverEvent)
             {
                 return;
             }
@@ -176,7 +261,7 @@ namespace Bird_VS_Boar
             panel.SetState(EnumPanelState.Show, () =>
             {
                 if(isWin)
-                {
+                {                  
                     panel.Win();
                 }
                 else
@@ -184,8 +269,8 @@ namespace Bird_VS_Boar
                     panel.Lose();
                 }              
             });
-            GameStop();//游戏暂停
             Debuger.Log("游戏结束");
+            GameControl(EnumGameControlType.Stop);//游戏暂停         
         }
         #endregion
 
@@ -193,15 +278,21 @@ namespace Bird_VS_Boar
         /// <summary>
         /// 游戏开始
         /// </summary>
-        /// <param name="key">关卡key</param>
-        public static void GameStart(string key)
+        public static void GameStart()
         {
-            m_IsReplayLevel = false;
-            Debuger.Log("游戏开始");
+
+
+            m_IsShieldGameOverEvent = false;
+            Debuger.Log("【游戏开始】\n【关卡类型】:"+m_NowLevelType.ToString()+"【关卡索引】:"+m_NowLevelIndex);
             GameLogic.Init();
-            #region 依照数据表来加载场景内容   这里是测试代码
+            #region 依照数据表来加载场景内容  
             LevelConfigManager.ReadConfigTableData();//读取配置表数据
-            LevelConfig.LevelConfig levelConfig = LevelConfigManager.GetLevelConfig(key);//读取关卡配置数据     
+            LevelConfig.LevelConfig levelConfig = LevelConfigManager.GetLevelConfig(m_NowLevelType.ToString()+"_"+m_NowLevelIndex);//读取关卡配置数据     
+            if(levelConfig==null)
+            {
+                Debuger.Log("不存在此场景的配置");
+                return;
+            }
             foreach (var config in levelConfig.BarrierConfigs)
             {
                 //获取障碍物预制路径
@@ -239,12 +330,25 @@ namespace Bird_VS_Boar
 
         #region GameStop
         /// <summary>
-        /// 游戏暂停
+        /// 游戏控制
         /// </summary>
-        public static void GameStop()
-        {
-            Debuger.Log("游戏暂停");
-            //Time.timeScale = 0;
+        public static void GameControl(EnumGameControlType controlType)
+        {       
+            switch (controlType)
+            {
+                case EnumGameControlType.Continue:
+                    {
+                        Debuger.Log("游戏继续");
+                        Time.timeScale = 1;                       
+                        break;
+                    }
+                case EnumGameControlType.Stop:
+                    {
+                        Debuger.Log("游戏暂停");
+                        Time.timeScale = 0;                        
+                        break;
+                    }
+            }                    
         }
         #endregion
 
@@ -254,16 +358,13 @@ namespace Bird_VS_Boar
         /// </summary>
         public static void ReplayLevel()
         {
-            m_IsReplayLevel = true;
-            Debuger.Log("重玩本关");
-            GameLogic.Clear();
-            //回收场景内的所有物体(猪、障碍物、小鸟)        
-            for (int index = m_DiedTargets.Count-1; index>=0; index--)
+            RecycleSceneAllGameTagret(() => 
             {
-                m_DiedTargets[index].Died();
-            }
-            //重新加载本关
-            GameStart("第一关");
+                Debuger.Log("重玩本关");
+                //重新加载本关
+                GameStart();
+            });
+            
         }
         #endregion
 
@@ -273,7 +374,13 @@ namespace Bird_VS_Boar
         /// </summary>
         public static void LastLevel()
         {
-            Debuger.Log("上一关");
+            RecycleSceneAllGameTagret(() => 
+            {
+                --m_NowLevelIndex;
+                GameStart();
+                Debuger.Log("上一关");
+            });
+            
         }
         #endregion
 
@@ -283,7 +390,13 @@ namespace Bird_VS_Boar
         /// </summary>
         public static void NextLevel()
         {
-            Debuger.Log("下一关");
+            RecycleSceneAllGameTagret(() => 
+            {
+                ++m_NowLevelIndex;
+                GameStart();
+                Debuger.Log("下一关");
+            });
+            
         }
         #endregion
 
@@ -293,17 +406,25 @@ namespace Bird_VS_Boar
         /// </summary>
         public static void ReturnLevel()
         {
+            RecycleSceneAllGameTagret();
             Debuger.Log("返回关卡");
         }
         #endregion
 
         #region RecycleGameTarget
         /// <summary>
-        /// 回收场景内所有游戏对象(猪、鸟、障碍物)
+        /// 回收场景内所有游戏对象(猪、鸟、障碍物、Boom、Score)
         /// </summary>
-        private static void RecycleSceneAllGameTagret()
+        private static void RecycleSceneAllGameTagret(UnityAction callback=null)
         {
-
+            m_IsShieldGameOverEvent = true;
+            GameLogic.Clear();
+            //回收场景内的所有物体(猪、障碍物、小鸟)        
+            for (int index = m_DiedTargets.Count - 1; index >= 0; index--)
+            {
+                m_DiedTargets[index].Died();
+            }
+            callback?.Invoke();
         }
         #endregion
     }

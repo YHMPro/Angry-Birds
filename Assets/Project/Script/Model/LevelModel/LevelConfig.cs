@@ -8,7 +8,21 @@ namespace Bird_VS_Boar.LevelConfig
     [Serializable]
     public class LevelConfig 
     {
+        /// <summary>
+        /// 关卡索引
+        /// </summary>
+        public int LevelIndex =-1;
+        /// <summary>
+        /// 关卡类型
+        /// </summary>
+        public EnumGameLevelType LevelType = EnumGameLevelType.None;
+        /// <summary>
+        /// 猪配置列表
+        /// </summary>
         public List<PigConfig> PigConfigs=new List<PigConfig>();
+        /// <summary>
+        /// 障碍物配置列表
+        /// </summary>
         public List<BarrierConfig> BarrierConfigs=new List<BarrierConfig>();
     }
     /// <summary>

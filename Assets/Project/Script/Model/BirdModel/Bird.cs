@@ -106,7 +106,7 @@ namespace Bird_VS_Boar
         protected override void Awake()
         {
             base.Awake();
-            m_Sr=GetComponent<SpriteRenderer>();
+            m_Sr =GetComponent<SpriteRenderer>();
             m_CC2D = gameObject.AddComponent<CircleCollider2D>();
             m_Rig2D = GetComponent<Rigidbody2D>();
             m_Anim = GetComponent<Animator>();
@@ -152,13 +152,13 @@ namespace Bird_VS_Boar
         }
 
         protected virtual void OnMouseDown()
-        {
+        {          
             if(!MonoSingletonFactory<WindowRoot>.SingletonExist)
             {
                 return;
             }
             WindowRoot windowRoot = MonoSingletonFactory<WindowRoot>.GetSingleton();
-            if(windowRoot.ES.currentSelectedGameObject==null)//当操作对象是UI时则屏蔽此次事件响应
+            if(windowRoot.ES.currentSelectedGameObject!=null)//当操作对象是UI时则屏蔽此次事件响应
             {
                 return;
             }
@@ -256,9 +256,12 @@ namespace Bird_VS_Boar
             m_Anim.SetTrigger("IsHurt");//受伤动画            
             MonoSingletonFactory<ShareMono>.GetSingleton().DelayAction(3.0f,()=> 
             {
-                OpenBoom(); //打开死亡特效
-                PlayDiedAudio();//播放销毁音效               
-                Died();//小鸟死亡
+                if (gameObject.activeInHierarchy)
+                {
+                    OpenBoom(); //打开死亡特效
+                    PlayDiedAudio();//播放销毁音效               
+                    Died();//小鸟死亡
+                }
             });
         }
         #endregion
@@ -384,7 +387,7 @@ namespace Bird_VS_Boar
         /// <summary>
         /// 申请音效
         /// </summary>
-        private void ApplyAudio()
+        protected void ApplyAudio()
         {
             if(m_Effect==null)
             {
@@ -397,7 +400,7 @@ namespace Bird_VS_Boar
         /// <summary>
         /// 回收音效
         /// </summary>
-        private void RecyclyAudio()
+        protected void RecyclyAudio()
         {
             if(m_Effect!=null)
             {
@@ -450,5 +453,7 @@ namespace Bird_VS_Boar
             GoReusePool.Put(m_BirdType.ToString(), this.gameObject);//回收小鸟               
         }
         #endregion
+
+        
     }
 }

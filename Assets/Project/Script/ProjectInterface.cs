@@ -1,6 +1,20 @@
-﻿
+﻿using Farme;
 namespace Bird_VS_Boar
 {
+    /// <summary>
+    /// 时间
+    /// </summary>
+    public interface ITime :IInterfaceBase
+    {
+        /// <summary>
+        /// 时间继续
+        /// </summary>
+        void TimeStop();
+        /// <summary>
+        /// 时间启动
+        /// </summary>
+        void TimeContinue();
+    }
     /// <summary>
     /// 死亡接口
     /// </summary>

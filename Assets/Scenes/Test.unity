@@ -2731,7 +2731,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!114 &384354490
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -9487,7 +9487,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   b: {fileID: 0}
-  NowSceneKey: "\u7B2C\u4E00\u5173"
+  LevelIndex: 3
+  LevelType: 1
 --- !u!4 &1751226592
 Transform:
   m_ObjectHideFlags: 0

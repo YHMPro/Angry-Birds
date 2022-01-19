@@ -5,14 +5,23 @@ using Farme;
 using Bird_VS_Boar.LevelConfig;
 using Farme.UI;
 using UnityEngine.UI;
+using System.Text.RegularExpressions;
 namespace Bird_VS_Boar
 {
     public class Entry : MonoBehaviour
     {
         public Bird b;
-        public string NowSceneKey;
+        [Header("关卡索引")]
+        public int LevelIndex = -1;
+        [Header("关卡类型")]
+        public EnumGameLevelType LevelType=EnumGameLevelType.None;
+        
         private void Awake()
         {
+            //Regex regex = new Regex(@"qew");
+            //Debug.Log(regex.IsMatch("qwe_rt"));
+
+            return;
             ConfigInfoMgr.ConfigInfoInit();
             GameLogic.Init();
             GameManager.Init();
@@ -84,7 +93,10 @@ namespace Bird_VS_Boar
 
         private void OnValidate()
         {
-            LevelConfigBuilder.NowSceneKey = NowSceneKey;
+            GameManager.NowLevelIndex = LevelIndex;
+            GameManager.NowLevelType = LevelType;
+            LevelConfigBuilder.LevelIndex = LevelIndex;
+            LevelConfigBuilder.LevelType = LevelType;
         }
     }
 }

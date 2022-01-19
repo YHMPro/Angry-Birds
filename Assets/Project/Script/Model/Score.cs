@@ -16,7 +16,7 @@ namespace Bird_VS_Boar
         Yellow_10000,
         Brown_10000
     }
-    public class Score : MonoBehaviour
+    public class Score : MonoBehaviour,IDied
     {
         /// <summary>
         /// 当前最大的层级
@@ -26,13 +26,18 @@ namespace Bird_VS_Boar
         /// 场上分数的实例数量
         /// </summary>
         private static int m_ScoreNum = 0;
+        /// <summary>
+        /// 精灵渲染器
+        /// </summary>
         private SpriteRenderer m_Sr;
+        /// <summary>
+        /// 动画状态机
+        /// </summary>
         private Animator m_Anim;
         private void Awake()
         {
-            m_Sr=GetComponent<SpriteRenderer>();
+            m_Sr =GetComponent<SpriteRenderer>();
             m_Anim=GetComponent<Animator>();
-
             if (m_NowMaxOrderInLayer == 0)
             {
                 if (NotMonoSingletonFactory<OtherConfigInfo>.SingletonExist)
@@ -48,12 +53,14 @@ namespace Bird_VS_Boar
         private void OnEnable()
         {
             Debuger.Log("层级累加(Score)");
+            GameManager.AddDiedTarget(this);
             m_Sr.sortingOrder = m_NowMaxOrderInLayer;//设置自身层级
             ++m_NowMaxOrderInLayer;
             ++m_ScoreNum;
         }
         private void OnDisable()
         {
+            GameManager.RemoveDiedTarget(this);
             --m_ScoreNum;
             if(m_ScoreNum == 0)
             {
@@ -63,6 +70,10 @@ namespace Bird_VS_Boar
                     m_NowMaxOrderInLayer = NotMonoSingletonFactory<OtherConfigInfo>.GetSingleton().ScoreOrderInLayer;
                 }
             }
+        }
+
+        private void OnDestroy()
+        {
         }
         public static void OpenScore(EnumScoreType scoreType,Vector3 pos)
         {
@@ -89,8 +100,10 @@ namespace Bird_VS_Boar
         /// </summary>
         private void CloseScore()
         {
-            Debuger.Log("关闭分数");
-            GoReusePool.Put(GetType().Name, gameObject);
+            if (gameObject.activeInHierarchy)
+            {
+                GoReusePool.Put(GetType().Name, gameObject);
+            }
         }
         [SerializeField]
         /// <summary>
@@ -101,6 +114,15 @@ namespace Bird_VS_Boar
         {
             Debuger.Log("记录分数");
             MesgManager.MesgTirgger(ProjectEvents.ScoreUpdateEvent, score);
-        }      
+        }
+        #region Died
+        public void Died()
+        {
+            CloseScore();
+        }
+        #endregion
+
+       
+
     }
 }

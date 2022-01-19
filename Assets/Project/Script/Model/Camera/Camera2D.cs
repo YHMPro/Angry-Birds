@@ -30,7 +30,8 @@ namespace Bird_VS_Boar
             Vector3 aimPos;
             if (GameManager.NowCameraFollowTarget == null)
             {
-                aimPos = MonoSingletonFactory<SlingShot>.GetSingleton().transform.position;
+                return;
+                //aimPos = MonoSingletonFactory<SlingShot>.GetSingleton().transform.position;
             }
             else
             {
