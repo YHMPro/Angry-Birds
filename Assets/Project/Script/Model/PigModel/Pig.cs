@@ -82,14 +82,32 @@ namespace Bird_VS_Boar
             {
                 //设置自身渲染层级
                 m_Sr.sortingOrder = config.OrderInLayer;
-            }          
+            }                  
+        }
+
+        protected override void OnEnable()
+        {
+            base.OnEnable();
+            m_Rig2D.isKinematic = true;           
             GameManager.AddPig(this);//添加到游戏管理器中
+            GameManager.AddDiedTarget(this);
+            m_HurtGrade = EnumPigHurtGrade.None;
+            SetHurtGradeAnim();
         }
-        protected override void OnDestroy()
-        {           
-            RecyclyAudio();         
-            base.OnDestroy();          
+
+        protected override void LateOnEnable()
+        {
+            base.LateOnEnable();
+            m_Rig2D.isKinematic = false;
         }
+
+        protected override void OnDisable()
+        {
+            base.OnDisable();
+            GameManager.RemovePig(this);//从游戏管理器中移除
+            GameManager.RemoveDiedTarget(this);
+            RecyclyAudio();
+        }      
         #region Collision
         private void OnCollisionEnter2D(Collision2D collision)
         {
@@ -220,9 +238,8 @@ namespace Bird_VS_Boar
 
         #region PigDied
         public virtual void Died()
-        {
-            GameManager.RemovePig(this);//从游戏管理器中移除
-            Destroy(gameObject);
+        {           
+            GoReusePool.Put(m_PigType.ToString(), this.gameObject);//回收该猪
         }
         #endregion
 
@@ -237,7 +254,6 @@ namespace Bird_VS_Boar
             pigConfig.Scale.SetValue(transform.lossyScale);
             pigConfig.Position.SetValue(transform.position);
             pigConfig.PigType = m_PigType;
-            pigConfig.ScoreType = m_ScoreType;
             return pigConfig;
         }
         #endregion

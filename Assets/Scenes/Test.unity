@@ -1833,7 +1833,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &288003661
 Transform:
   m_ObjectHideFlags: 0
@@ -4654,7 +4654,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &689156106
 Transform:
   m_ObjectHideFlags: 0
@@ -9487,7 +9487,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   b: {fileID: 0}
-  NowSceneKey: "\u7B2C\u4E8C\u5173"
+  NowSceneKey: "\u7B2C\u4E00\u5173"
 --- !u!4 &1751226592
 Transform:
   m_ObjectHideFlags: 0

@@ -16,11 +16,7 @@ namespace Bird_VS_Boar.LevelConfig
     /// </summary>
     [Serializable]
     public class PigConfig
-    {
-        /// <summary>
-        /// 分数类型
-        /// </summary>
-        public EnumScoreType ScoreType;
+    {     
         /// <summary>
         /// 类型
         /// </summary>
@@ -43,11 +39,7 @@ namespace Bird_VS_Boar.LevelConfig
     /// </summary>
     [Serializable]
     public class BarrierConfig
-    {
-        /// <summary>
-        /// 分数类型
-        /// </summary>
-        public EnumScoreType ScoreType;
+    {       
         /// <summary>
         /// 类型
         /// </summary>
@@ -68,7 +60,5 @@ namespace Bird_VS_Boar.LevelConfig
         /// 缩放
         /// </summary>
         public CustomVector3 Scale;
-    }
-
-
+    }    
 }

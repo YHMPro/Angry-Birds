@@ -44,11 +44,10 @@ namespace Bird_VS_Boar
         }
 
         protected override void OnSkillUpdate()
-        {
-          
+        {       
             PlaySkillAudio();//播放技能音效
             DestroyCheckGo();
-            GoReusePool.Put(GetType().Name, gameObject);//回收小鸟
+            Died();//小鸟死亡
         }          
         /// <summary>
         /// 销毁检测到的Go
@@ -67,8 +66,7 @@ namespace Bird_VS_Boar
                 if(score!=null)
                 {
                     score.OpenScore();
-                }
-                DestroyGoLi.RemoveAt(DestroyGoLi.Count - 1);
+                }               
                 IDiedAudio diedAudio = go.GetComponent<IDiedAudio>();
                 if (diedAudio != null)
                 {
@@ -79,6 +77,7 @@ namespace Bird_VS_Boar
                 {
                     died.Died();
                 }
+                DestroyGoLi.RemoveAt(DestroyGoLi.Count - 1);
             }
         }
 

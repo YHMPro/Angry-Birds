@@ -12,8 +12,6 @@ namespace Bird_VS_Boar
             m_BirdType = EnumBirdType.WhiteBird;
             base.Awake();
         }
-
-
         protected override void OnSkillUpdate()
         {
             base.OnSkillUpdate();

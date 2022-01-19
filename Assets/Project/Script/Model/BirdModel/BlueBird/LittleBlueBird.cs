@@ -12,11 +12,18 @@ namespace Bird_VS_Boar
             Destroy(GetComponent<BlueBird>());         
             base.Awake();
         }
+
+        protected override void OnEnable()
+        {
+            base.OnEnable();
+            GameManager.AddDiedTarget(this);
+        }
         protected override void Start()
         {
-            base.Start();
             transform.localScale = Vector3.one;
+            base.Start();        
         }
+
         protected override void OnMouseDown()
         {
             
@@ -24,8 +31,8 @@ namespace Bird_VS_Boar
 
         protected override void OnBirdFlyBreak()
         {
-            base.OnBirdFlyBreak();
             m_Rig2D.freezeRotation = false;
+            base.OnBirdFlyBreak();           
         }
          
         protected override void InitTrailRenderer()

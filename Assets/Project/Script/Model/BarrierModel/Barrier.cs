@@ -77,7 +77,7 @@ namespace Bird_VS_Boar
         /// <summary>
         /// 障碍物形状
         /// </summary>
-        public EnumBarrierShapeType m_BarrierShapeType;
+        protected EnumBarrierShapeType m_BarrierShapeType;
         /// <summary>
         /// 承受的能量总和(达到一定量后会出现破裂)
         /// </summary>
@@ -132,14 +132,26 @@ namespace Bird_VS_Boar
         protected override void OnEnable()
         {
             base.OnEnable();
+            m_Rig2D.isKinematic = true;
+            GameManager.AddDiedTarget(this);
+            m_BearEnergySum = 0;
             m_Sr.sprite = m_Sps[0];
+            m_HurtGrade = EnumBarrierBrokenGrade.None;
+        }
+        protected override void LateOnEnable()
+        {
+            base.LateOnEnable();
+            m_Rig2D.isKinematic = false;
         }
 
-        protected override void OnDestroy()
+        protected override void OnDisable()
         {
+            base.OnDisable();
+            GameManager.RemoveDiedTarget(this);
             RecyclyAudio();//回收音效
-            base.OnDestroy();
         }
+
+       
         private void OnCollisionEnter2D(Collision2D collision)
         {
             float relativeSpeed = collision.relativeVelocity.magnitude;
@@ -169,7 +181,7 @@ namespace Bird_VS_Boar
             }
         }
 
-        #region Animator
+        #region Sprite
         /// <summary>
         /// 设置破碎等级精灵
         /// </summary>
@@ -266,7 +278,7 @@ namespace Bird_VS_Boar
         #region Died
         public virtual void Died()
         {
-            Destroy(this.gameObject);
+            GoReusePool.Put(m_BarrierType.ToString()+m_BarrierShapeType.ToString(), this.gameObject);//回收该障碍物
         }
         #endregion
 
@@ -282,7 +294,6 @@ namespace Bird_VS_Boar
             barrierConfig.Position.SetValue(transform.position);
             barrierConfig.BarrierType = m_BarrierType;
             barrierConfig.BarrierShapeType = m_BarrierShapeType;
-            barrierConfig.ScoreType=m_ScoreType;
             return barrierConfig;
         }
         #endregion

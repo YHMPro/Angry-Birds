@@ -11,7 +11,11 @@ namespace Bird_VS_Boar
     /// 游戏管理器
     /// </summary>
     public class GameManager 
-    {       
+    {
+        /// <summary>
+        /// 是否重玩关卡
+        /// </summary>
+        private static bool m_IsReplayLevel = false;
         /// <summary>
         /// 当前相机跟随的小鸟
         /// </summary>
@@ -53,20 +57,17 @@ namespace Bird_VS_Boar
         /// <summary>
         /// 鸟列表
         /// </summary>
-        private static List<Bird>m_Birds=new List<Bird>();       
+        private static List<Bird>m_Birds=new List<Bird>();  
+        /// <summary>
+        /// 可销毁对象列表
+        /// </summary>
+        private static List<IDied> m_DiedTargets=new List<IDied>();
         /// <summary>
         /// 初始化
         /// </summary>
         public static void Init()
         {
-            LevelConfigManager.ReadConfigTableData();//读取配置表数据
-            LevelConfig.LevelConfig levelConfig =  LevelConfigManager.GetLevelConfig("第一关");//读取关卡配置数据
-
-            foreach(var info in levelConfig.PigConfigs)
-            {
-                //info.PigType
-            }
-
+            GameStart("第一关");
         }
         /// <summary>
         /// 清除
@@ -129,6 +130,30 @@ namespace Bird_VS_Boar
                 MesgManager.MesgTirgger(ProjectEvents.LogicUpdateEvent);
             }
         }
+        /// <summary>
+        /// 添加障碍物
+        /// </summary>
+        /// <param name="died"></param>
+        public static void AddDiedTarget(IDied died)
+        {
+            if (m_DiedTargets.Contains(died))
+            {
+                return;
+            }
+            m_DiedTargets.Add(died);
+        }
+        /// <summary>
+        /// 移除障碍物
+        /// </summary>
+        /// <param name="died"></param>
+        public static void RemoveDiedTarget(IDied died)
+        {
+            if (m_DiedTargets.Contains(died))
+            {
+                m_DiedTargets.Remove(died);
+                Debuger.Log("当前场景可销毁对象的数量:" + NowSceneBirdNum);
+            }
+        }
         #endregion
    
         #region GameOver
@@ -138,6 +163,10 @@ namespace Bird_VS_Boar
         /// <param name="isWin">是否胜利</param>
         public static void GameOver(bool isWin)
         {
+            if(m_IsReplayLevel)
+            {
+                return;
+            }
             StandardWindow window = MonoSingletonFactory<WindowRoot>.GetSingleton().GetWindow("GameSceneWindow");
             if(window==null|| !window.GetPanel<GameOverPanel>("GameOverPanel", out var panel))
             {
@@ -164,9 +193,47 @@ namespace Bird_VS_Boar
         /// <summary>
         /// 游戏开始
         /// </summary>
-        public static void GameStart()
+        /// <param name="key">关卡key</param>
+        public static void GameStart(string key)
         {
+            m_IsReplayLevel = false;
             Debuger.Log("游戏开始");
+            GameLogic.Init();
+            #region 依照数据表来加载场景内容   这里是测试代码
+            LevelConfigManager.ReadConfigTableData();//读取配置表数据
+            LevelConfig.LevelConfig levelConfig = LevelConfigManager.GetLevelConfig(key);//读取关卡配置数据     
+            foreach (var config in levelConfig.BarrierConfigs)
+            {
+                //获取障碍物预制路径
+                if (BarrierConfigInfo.BarrierConfigInfoDic.TryGetValue(config.BarrierType, out var info))
+                {
+                    if (!GoReusePool.Take(config.BarrierType.ToString() + config.BarrierShapeType.ToString(), out GameObject go))
+                    {
+                        if (!GoLoad.Take(info.GetBarrierPrefabPath(config.BarrierShapeType), out go))
+                        {
+                            Debuger.LogError("障碍物配置信息错误");
+                            return;
+                        }
+                    }
+                    go.transform.position = config.Position.ToVector3();
+                    go.transform.eulerAngles = config.Euler.ToVector3();
+                    go.transform.localScale = config.Scale.ToVector3();
+                }
+            }
+            foreach (var config in levelConfig.PigConfigs)
+            {
+                //获取障碍物预制路径
+                if (PigConfigInfo.PigConfigInfoDic.TryGetValue(config.PigType, out var info))
+                {
+                    if (GoLoad.Take(info.GetPigPrefabPath(), out GameObject go))
+                    {
+                        go.transform.position = config.Position.ToVector3();
+                        go.transform.eulerAngles = config.Euler.ToVector3();
+                        go.transform.localScale = config.Scale.ToVector3();
+                    }
+                }
+            }
+            #endregion
         }
         #endregion
 
@@ -187,7 +254,16 @@ namespace Bird_VS_Boar
         /// </summary>
         public static void ReplayLevel()
         {
+            m_IsReplayLevel = true;
             Debuger.Log("重玩本关");
+            GameLogic.Clear();
+            //回收场景内的所有物体(猪、障碍物、小鸟)        
+            for (int index = m_DiedTargets.Count-1; index>=0; index--)
+            {
+                m_DiedTargets[index].Died();
+            }
+            //重新加载本关
+            GameStart("第一关");
         }
         #endregion
 
@@ -218,6 +294,16 @@ namespace Bird_VS_Boar
         public static void ReturnLevel()
         {
             Debuger.Log("返回关卡");
+        }
+        #endregion
+
+        #region RecycleGameTarget
+        /// <summary>
+        /// 回收场景内所有游戏对象(猪、鸟、障碍物)
+        /// </summary>
+        private static void RecycleSceneAllGameTagret()
+        {
+
         }
         #endregion
     }

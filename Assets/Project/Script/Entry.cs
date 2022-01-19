@@ -18,7 +18,6 @@ namespace Bird_VS_Boar
             GameManager.Init();
             MonoSingletonFactory<Camera2D>.GetSingleton();
             MonoSingletonFactory<FlyPath>.GetSingleton();
-            //MonoSingletonFactory<Audio2DMgr>.GetSingleton();
             if (MonoSingletonFactory<Camera2D>.SingletonExist)
             {
                 MonoSingletonFactory<Camera2D>.GetSingleton().SetLimit(3, 5, 4, 5);
@@ -29,8 +28,7 @@ namespace Bird_VS_Boar
             {
                 window.CanvasScaler.referenceResolution = new Vector2(1920, 1080);//设置画布尺寸
                 window.CanvasScaler.uiScaleMode = CanvasScaler.ScaleMode.ScaleWithScreenSize;//设置适配的方式
-
-                window.CreatePanel<GoodsPanel>("UI/GameSceneWindow/GoodsPanel", "GoodsPanel", EnumPanelLayer.MIDDLE, (panel) =>
+                window.CreatePanel<GoodsPanel>("UI/GameSceneWindow/GoodsPanel", "GoodsPanel", EnumPanelLayer.MIDDLE, (panel) =>//加载面板
                 {
 
                 });
@@ -53,7 +51,6 @@ namespace Bird_VS_Boar
 
         public void Start()
         {
-            Debug.Log(MonoSingletonFactory<SlingShot>.SingletonExist);
         }
         // Start is called before the first frame update
         void OnEnable()

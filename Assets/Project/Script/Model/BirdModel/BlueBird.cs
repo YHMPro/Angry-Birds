@@ -48,7 +48,7 @@ namespace Bird_VS_Boar
                 MonoSingletonFactory<ShareMono>.GetSingleton().ApplyUpdateAction(EnumUpdateAction.Standard,blueBird.OnBirdFlyUpdate_Common);
                 blueBird.ActiveTrailRenderer(true);                
             }
-            GoReusePool.Put(GetType().Name, gameObject);
+            Died();//小鸟死亡
         }     
     }
 }

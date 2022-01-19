@@ -61,6 +61,7 @@ namespace Bird_VS_Boar
                     return;
                 }
                 GameManager.AddBird(value);
+                GameManager.AddDiedTarget(value);
             }
         }
         /// <summary>
@@ -91,6 +92,7 @@ namespace Bird_VS_Boar
         /// </summary>
         public static void Init()
         {
+            m_IsGameOver = false;
             MesgManager.MesgListen<int>(ProjectEvents.ScoreUpdateEvent, ScoreUpdate);
             MesgManager.MesgListen<EnumBirdType>(ProjectEvents.CoinUpdateEvent, CoinUpdate);
             MesgManager.MesgListen(ProjectEvents.LogicUpdateEvent, LogicUpdate);
