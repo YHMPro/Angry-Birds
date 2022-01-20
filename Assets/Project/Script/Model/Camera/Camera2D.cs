@@ -31,10 +31,15 @@ namespace Bird_VS_Boar
             transform.position = levelConfig.Camera2DPosition.ToVector3();
         }
         // Start is called before the first frame update
-        void Start()
+        private void Start()
         {
             MonoSingletonFactory<ShareMono>.GetSingleton().ApplyUpdateAction(EnumUpdateAction.Fixed, Follow);//暂时放在这里
             SetLimit(6, 10, 4.5f, 7.5f);
+        }
+
+        private void OnDestroy()
+        {
+            MonoSingletonFactory<ShareMono>.GetSingleton().RemoveUpdateAction(EnumUpdateAction.Fixed, Follow);//暂时放在这里
         }
         public void BindBird()
         {        

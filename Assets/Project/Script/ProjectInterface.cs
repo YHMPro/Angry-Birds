@@ -23,7 +23,7 @@ namespace Bird_VS_Boar
         /// <summary>
         /// 死亡
         /// </summary>
-        void Died();
+        void Died(bool isDestroy=false);
     }
     /// <summary>
     /// 死亡音效接口(用于障碍物、猪、小鸟等)

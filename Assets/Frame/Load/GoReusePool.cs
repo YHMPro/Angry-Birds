@@ -29,16 +29,20 @@ namespace Farme
         /// <param name="reuseGroup">复用组</param>
         /// <param name="result">结果</param>
         /// <returns></returns>
-        public static bool Take(string reuseGroup, out GameObject result)
+        public static bool Take(string reuseGroup, out GameObject result,Transform parent=null)
         {
             result = null;
-            if (ReuseGoDic.TryGetValue(reuseGroup, out List<GameObject> goLi))
+            if (ReuseGoDic.TryGetValue(reuseGroup, out List<GameObject> goLi)&& goLi.Count>0)
             {
                 foreach (var go in goLi)
                 {
                     if (go != null)
                     {
                         result = go;
+                        if (parent != null)
+                        {
+                            result.transform.SetParent(parent);
+                        }                 
                         result.SetActive(true);
                         goLi.Remove(result);
                         return true;
@@ -56,11 +60,15 @@ namespace Farme
         /// </summary>
         /// <param name="reuseGroup">复用组</param>
         /// <param name="target">对象</param>
-        public static void Put(string reuseGroup, GameObject target)
+        public static void Put(string reuseGroup, GameObject target,Transform parent=null)
         {
             if (target == null)
             {
                 return;
+            }
+            if (parent != null)
+            {
+                target.transform.SetParent(parent);
             }
             target.SetActive(false);
             if (ReuseGoDic.TryGetValue(reuseGroup, out List<GameObject> goLi))

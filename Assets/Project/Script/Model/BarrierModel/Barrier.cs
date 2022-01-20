@@ -286,9 +286,16 @@ namespace Bird_VS_Boar
         #endregion
 
         #region Died
-        public virtual void Died()
+        public virtual void Died(bool isDestroy=false)
         {
-            GoReusePool.Put(m_BarrierType.ToString()+m_BarrierShapeType.ToString(), this.gameObject);//回收该障碍物
+            if (isDestroy)
+            {
+                Destroy(gameObject);
+            }
+            else
+            {
+                GoReusePool.Put(m_BarrierType.ToString() + m_BarrierShapeType.ToString(), this.gameObject);//回收该障碍物
+            }
         }
         #endregion
 

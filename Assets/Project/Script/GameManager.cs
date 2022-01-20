@@ -451,8 +451,44 @@ namespace Bird_VS_Boar
         /// </summary>
         public static void ReturnLevel()
         {
-            RecycleSceneAllGameTagret();
-            Debuger.Log("返回关卡");
+            //销毁弹弓
+            MonoSingletonFactory<SlingShot>.ClearSingleton();
+            //销毁飞行路径
+            MonoSingletonFactory<FlyPath>.ClearSingleton();
+            //销毁2D相机
+            MonoSingletonFactory<Camera2D>.ClearSingleton();
+            RecycleSceneAllGameTagret(() => 
+            {
+                //关闭游戏场景窗口
+                if (!MonoSingletonFactory<WindowRoot>.SingletonExist)
+                {
+                    Debuger.LogError("窗口根节点丢失");
+                    return;
+                }
+                StandardWindow gameSceneWindow = MonoSingletonFactory<WindowRoot>.GetSingleton().GetWindow("GameSceneWindow");
+                if (gameSceneWindow == null)
+                {
+                    Debuger.LogError("登入窗口实例不存在");
+                    return;
+                }
+                gameSceneWindow.SetState(EnumWindowState.Destroy, () =>//销毁游戏场景窗口
+                {
+                    Debuger.Log("返回关卡");
+                    SceneLoad(EnumSceneType.LoginScene, () =>
+                    {
+                        MonoSingletonFactory<WindowRoot>.GetSingleton().CreateWindow("GameLoginWindow", RenderMode.ScreenSpaceOverlay, (gameLoginWindow) =>//加载游戏登入窗口
+                        {
+                            gameLoginWindow.CanvasScaler.referenceResolution = new Vector2(1920, 1080);//设置画布尺寸
+                            gameLoginWindow.CanvasScaler.uiScaleMode = CanvasScaler.ScaleMode.ScaleWithScreenSize;//设置适配的方式
+                            gameLoginWindow.CreatePanel<GameLevelPanel>("UI/GameLoginWindow/GameLevelPanel", "GameLevelPanel", EnumPanelLayer.MIDDLE, (panel) =>//加载面板
+                            {
+
+                            });                           
+                        });
+                    });
+                });                
+            },true);
+            
         }
         #endregion
 
@@ -460,14 +496,14 @@ namespace Bird_VS_Boar
         /// <summary>
         /// 回收场景内所有游戏对象(猪、鸟、障碍物、Boom、Score)
         /// </summary>
-        private static void RecycleSceneAllGameTagret(UnityAction callback=null)
+        private static void RecycleSceneAllGameTagret(UnityAction callback = null, bool isDestroy = false)
         {
             m_IsShieldGameOverEvent = true;
             GameLogic.Clear();
             //回收场景内的所有物体(猪、障碍物、小鸟)        
             for (int index = m_DiedTargets.Count - 1; index >= 0; index--)
-            {
-                m_DiedTargets[index].Died();
+            {            
+                m_DiedTargets[index].Died(isDestroy);
             }
             callback?.Invoke();
         }

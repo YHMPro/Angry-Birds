@@ -15,9 +15,13 @@ namespace Bird_VS_Boar
     public class Level : BaseMono
     {
         /// <summary>
+        /// 父级
+        /// </summary>
+        private static Transform m_Parent;
+        /// <summary>
         /// 关卡索引
         /// </summary>
-        private static int LevelIndex = 0;
+        private int m_LevelIndex = 0;
         /// <summary>
         /// 关卡评星
         /// </summary>
@@ -52,34 +56,43 @@ namespace Bird_VS_Boar
         protected override void Start()
         {
             base.Start();
-            m_Btn.OnPointerClickEvent.AddListener(OnClick);
+            m_Btn.OnPointerClickEvent.AddListener(OnClick);         
         }
 
         protected override void OnEnable()
         {
             base.OnEnable();
             StarsFill(true);
-             ++LevelIndex;
+            
+        }
+
+        protected override void LateOnEnable()
+        {
+            base.LateOnEnable();
             RefreshUI();
         }
 
-     
         protected override void OnDisable()
-        {
+        {         
             base.OnDisable();
-            --LevelIndex;
+          
         }
         #region RefreshUI
         private void RefreshUI()
-        {          
+        {
+            m_LevelIndex = 1;
+            for (int index=0;index< transform.GetSiblingIndex();index++)
+            {
+                m_LevelIndex += transform.parent.GetChild(index).gameObject.activeInHierarchy ? 1 : 0;
+            }
             //获取关卡配置信息
-            LevelConfig.LevelConfig levelConfig = LevelConfigManager.GetLevelConfig(GameManager.NowLevelType + "_" + LevelIndex);
+            LevelConfig.LevelConfig levelConfig = LevelConfigManager.GetLevelConfig(GameManager.NowLevelType + "_" + m_LevelIndex);
             if(levelConfig == null)
             {
                 Debuger.LogError("不存在此场景的配置");
                 return;
             }
-            m_TextIndex.text = LevelIndex.ToString();
+            m_TextIndex.text = m_LevelIndex.ToString();
             m_LevelRating = Mathf.Clamp(levelConfig.LevelRating,0,3);
             StarsFill();
         }
@@ -128,7 +141,7 @@ namespace Bird_VS_Boar
             {
                 GameManager.SceneLoad(EnumSceneType.GameScene, () =>
                 {
-                    GameManager.NowLevelIndex = int.Parse(m_TextIndex.text);
+                    GameManager.NowLevelIndex = m_LevelIndex;
                     GameManager.Init();
                     GameManager.GameStart();
                 });          

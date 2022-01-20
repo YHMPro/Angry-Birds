@@ -14,6 +14,10 @@ namespace Bird_VS_Boar
     public class GameLevelPanel : BasePanel
     {
         /// <summary>
+        /// 用于缓存关卡的矩形框
+        /// </summary>
+        private RectTransform m_LevelRectCache;
+        /// <summary>
         /// 关卡矩形框
         /// </summary>
         private RectTransform m_LevelRect;
@@ -38,11 +42,13 @@ namespace Bird_VS_Boar
             base.Awake();
             RegisterComponentsTypes<Image>(true);
             RegisterComponentsTypes<UIBtn>(true);
+            RegisterComponentsTypes<RectTransform>(true);
             m_Bg=GetComponent<Image>("Bg");
             m_ReturnBtn = GetComponent<UIBtn>("ReturnBtn");
             m_NextSeasonBtn = GetComponent<UIBtn>("NextSeason");
             m_LastSeasonBtn = GetComponent<UIBtn>("LastSeason");
-            m_LevelRect = GetComponent<Image>("LevelRect").rectTransform;
+            m_LevelRect = GetComponent<RectTransform>("LevelRect");
+            m_LevelRectCache = GetComponent<RectTransform>("LevelRectCache");
         }
 
         protected override void Start()
@@ -89,7 +95,7 @@ namespace Bird_VS_Boar
             int season = (int)GameManager.NowLevelType - 1;
             if (season == 0)
             {
-                season = 1;
+                season = 4;
             }
             GameManager.NowLevelType = (EnumGameLevelType)season;
             RefreshPanel();
@@ -108,15 +114,18 @@ namespace Bird_VS_Boar
                 return;
             }
             OtherConfigInfo otherConfigInfo = NotMonoSingletonFactory<OtherConfigInfo>.GetSingleton();
-            GameManager.NowLevelType = EnumGameLevelType.Spring;            
             if (!SeasonConfigInfo.SeasonConfigInfoDic.TryGetValue(GameManager.NowLevelType,out SeasonConfigInfo seasonConfigInfo))
             {
                 Debuger.LogError("没有找到季节配置信息");
                 return;
             }
-            LevelConfigManager.ReadConfigTableData();
             //更新背景音乐
-            GameAudio.PlayBackGroundAudio(seasonConfigInfo.GetSeasonAudioPath());       
+            GameAudio.PlayBackGroundAudio(seasonConfigInfo.GetSeasonAudioPath());   
+            //回收关卡
+            for(int index=0;index<m_LevelRect.childCount;index++)
+            {
+                GoReusePool.Put("Level", m_LevelRect.GetChild(index).gameObject);
+            }
             //更新界面UI   1.获取该季节所包含的关卡数量
             int levelNum = LevelConfigManager.GetLevelNum(GameManager.NowLevelType);
             while(levelNum > 0)

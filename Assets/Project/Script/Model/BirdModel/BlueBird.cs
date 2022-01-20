@@ -18,7 +18,7 @@ namespace Bird_VS_Boar
             ProductLittleBlueBird();
         }
 
-        protected  void ProductLittleBlueBird()
+        protected void ProductLittleBlueBird()
         {
             for (int i = 0; i < 3; i++)
             {

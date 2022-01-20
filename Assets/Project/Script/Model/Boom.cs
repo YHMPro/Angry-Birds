@@ -101,9 +101,16 @@ namespace Bird_VS_Boar
             }
         }
         #region Died
-        public void Died()
+        public void Died(bool isDestroy=false)
         {
-            CloseBoom();
+            if (isDestroy)
+            {
+                Destroy(gameObject);
+            }
+            else
+            {
+                CloseBoom();
+            }
         }
         #endregion
         

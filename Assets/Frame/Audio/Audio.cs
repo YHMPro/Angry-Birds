@@ -31,6 +31,10 @@ namespace Farme.Audio
         private void OnDestroy()
         {
             RemoveTimer();
+            if (AudioManager.NotInidleAudioLi.Contains(this))
+            {
+                AudioManager.NotInidleAudioLi.Remove(this);
+            }
         }
         #endregion
 

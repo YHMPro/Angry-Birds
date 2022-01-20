@@ -116,9 +116,16 @@ namespace Bird_VS_Boar
             MesgManager.MesgTirgger(ProjectEvents.ScoreUpdateEvent, score);
         }
         #region Died
-        public void Died()
+        public void Died(bool isDestroy)
         {
-            CloseScore();
+            if (isDestroy)
+            {
+                Destroy(gameObject);
+            }
+            else
+            {
+                CloseScore();
+            }
         }
         #endregion
 

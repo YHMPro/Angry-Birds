@@ -249,9 +249,16 @@ namespace Bird_VS_Boar
         #endregion
 
         #region PigDied
-        public virtual void Died()
-        {           
-            GoReusePool.Put(m_PigType.ToString(), this.gameObject);//回收该猪
+        public virtual void Died(bool isDestroy=false)
+        {
+            if (isDestroy)
+            {
+                Destroy(gameObject);
+            }
+            else
+            {
+                GoReusePool.Put(m_PigType.ToString(), this.gameObject);//回收该猪
+            }
         }
         #endregion
 

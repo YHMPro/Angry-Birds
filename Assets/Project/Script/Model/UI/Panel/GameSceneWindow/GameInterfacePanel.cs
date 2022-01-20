@@ -67,6 +67,7 @@ namespace Bird_VS_Boar
 
         private void OnReturnLevel()
         {
+            GameManager.GameControl(EnumGameControlType.Continue);
             GameManager.ReturnLevel();
         }
 

@@ -22,7 +22,8 @@ namespace Bird_VS_Boar
             //Debug.Log(regex.IsMatch("qwe_rt"));
             MonoSingletonFactory<ShareMono>.GetSingleton(null, false);
             LevelConfigManager.ReadConfigTableData();//读取配置表数据
-            ConfigInfoMgr.ConfigInfoInit();         
+            ConfigInfoMgr.ConfigInfoInit(); 
+            GameManager.NowLevelType= LevelType;
             //GameManager.Init();
             if(GoLoad.Take("FarmeLockFile/WindowRoot",out GameObject windowRoot))
             {
@@ -57,6 +58,7 @@ namespace Bird_VS_Boar
 
         public void Start()
         {
+            
         }
         // Start is called before the first frame update
         void OnEnable()
@@ -64,6 +66,10 @@ namespace Bird_VS_Boar
            
         }
 
+        private void OnDisable()
+        {
+            Debug.Log("失火");
+        }
         // Update is called once per frame
         void Update()
         {
