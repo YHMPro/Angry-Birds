@@ -89,6 +89,7 @@
     <Compile Include="Assets\Project\Script\GameConfigInfo\ConfigInfoMgr.cs" />
     <Compile Include="Assets\Project\Script\GameConfigInfo\OtherConfigInfo.cs" />
     <Compile Include="Assets\Project\Script\GameConfigInfo\PigConfigInfo.cs" />
+    <Compile Include="Assets\Project\Script\GameConfigInfo\SeasonConfigInfo.cs" />
     <Compile Include="Assets\Project\Script\GameLogic.cs" />
     <Compile Include="Assets\Project\Script\GameManager.cs" />
     <Compile Include="Assets\Project\Script\Model\BarrierModel\Barrier.cs" />
@@ -132,6 +133,8 @@
     <Compile Include="Assets\Project\Script\Model\UI\Bird\VanBirdGoods.cs" />
     <Compile Include="Assets\Project\Script\Model\UI\Bird\WhiteBirdGoods.cs" />
     <Compile Include="Assets\Project\Script\Model\UI\Bird\YellowBirdGoods.cs" />
+    <Compile Include="Assets\Project\Script\Model\UI\Level.cs" />
+    <Compile Include="Assets\Project\Script\Model\UI\Panel\GameLoginWindow\GameLevelPanel.cs" />
     <Compile Include="Assets\Project\Script\Model\UI\Panel\GameSceneWindow\GameInterfacePanel.cs" />
     <Compile Include="Assets\Project\Script\Model\UI\Panel\GameSceneWindow\GameOverPanel.cs" />
     <Compile Include="Assets\Project\Script\Model\UI\Panel\GameSceneWindow\GoodsPanel.cs" />

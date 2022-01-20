@@ -2,6 +2,10 @@
 using System.Collections.Generic;
 using UnityEngine;
 using Farme;
+using Farme.Audio;
+using Farme.Tool;
+using Bird_VS_Boar.LevelConfig;
+
 namespace Bird_VS_Boar
 {
     /// <summary>
@@ -50,7 +54,13 @@ namespace Bird_VS_Boar
         }
         protected override void Start()
         {
-            base.Start();          
+            base.Start();
+            if (NotMonoSingletonFactory<OtherConfigInfo>.SingletonExist)
+            {
+                m_As.clip = AudioClipManager.GetAudioClip(NotMonoSingletonFactory<OtherConfigInfo>.GetSingleton().GetSlingShotAudioPath());
+            }
+            m_As.outputAudioMixerGroup = AudioMixerManager.GetAudioMixerGroup("Effect");
+
             if (GetComponent("LeftRendererLine", out LineRenderer leftLR))
             {
                 leftLR.positionCount = 0;
@@ -62,8 +72,21 @@ namespace Bird_VS_Boar
                 rightLR.positionCount = 0;
                 rightLR.startWidth = 0.2f;
                 rightLR.endWidth = 0.1f;
+            }                    
+        }
+
+        protected override void OnEnable()
+        {
+            base.OnEnable();
+            //读取关卡配置信息来设置位置
+            Debuger.Log("读取关卡配置信息来设置位置");
+            LevelConfig.LevelConfig levelConfig = LevelConfigManager.GetLevelConfig(GameManager.NowLevelType + "_" + GameManager.NowLevelIndex);
+            if (levelConfig == null)
+            {
+                Debuger.LogError("不存在此场景的配置");
+                return;
             }
-            
+            transform.position = levelConfig.SlingShotPosition.ToVector3();
         }
 
         public void RendererLine(Vector3 drawLineEndPoint)

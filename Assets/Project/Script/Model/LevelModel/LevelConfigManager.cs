@@ -22,7 +22,7 @@ namespace Bird_VS_Boar.LevelConfig
         public static int GetLevelNum(EnumGameLevelType LevelType)
         {
             int levelNum = 0;
-            Regex regex = new Regex(@LevelType.ToString());
+            Regex regex = new Regex(@LevelType.ToString());          
             foreach(var levelKey in m_LevelConfigDic.Keys)
             {
                 levelNum += regex.IsMatch(levelKey) ? 1 : 0;            

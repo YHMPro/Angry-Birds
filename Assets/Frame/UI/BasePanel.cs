@@ -35,6 +35,15 @@ namespace Farme.UI
         {
             base.Awake();
         }
+
+        protected override void OnDestroy()
+        {
+            base.OnDestroy();
+            if (m_RelyWindow != null)
+            {
+                m_RelyWindow.RemovePanel(gameObject.name);
+            }
+        }
         #region 字段    
         [SerializeField]
         /// <summary>

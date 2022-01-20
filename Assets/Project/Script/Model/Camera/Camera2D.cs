@@ -2,6 +2,9 @@
 using System.Collections.Generic;
 using UnityEngine;
 using Farme;
+using Farme.Tool;
+using Bird_VS_Boar.LevelConfig;
+
 namespace Bird_VS_Boar
 {
     public class Camera2D : MonoBehaviour
@@ -15,10 +18,23 @@ namespace Bird_VS_Boar
         {
             m_Camera2D = GetComponent<Camera>();
         }
+        private void OnEnable()
+        {
+            //读取关卡配置信息来设置位置
+            Debuger.Log("读取关卡配置信息来设置位置");
+            LevelConfig.LevelConfig levelConfig = LevelConfigManager.GetLevelConfig(GameManager.NowLevelType + "_" + GameManager.NowLevelIndex);
+            if (levelConfig == null)
+            {
+                Debuger.LogError("不存在此场景的配置");
+                return;
+            }
+            transform.position = levelConfig.Camera2DPosition.ToVector3();
+        }
         // Start is called before the first frame update
         void Start()
         {
             MonoSingletonFactory<ShareMono>.GetSingleton().ApplyUpdateAction(EnumUpdateAction.Fixed, Follow);//暂时放在这里
+            SetLimit(6, 10, 4.5f, 7.5f);
         }
         public void BindBird()
         {        

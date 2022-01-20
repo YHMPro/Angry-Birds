@@ -44,22 +44,16 @@ namespace Bird_VS_Boar
         /// <summary>
         /// 播放背景音效
         /// </summary>
-        public static void PlayBackGroundAudio()
-        {
-            return;//待
+        public static void PlayBackGroundAudio(string audioPath)
+        {          
             if (m_BackGround == null)
             {
                 m_BackGround = AudioManager.ApplyForAudio();
                 m_BackGround.SpatialBlend = 0;//设置为2D
                 m_BackGround.AbleRecycle = false;//不可自动回收
                 m_BackGround.Group = AudioMixerManager.GetAudioMixerGroup("BackGround");
-            }
-            if (!NotMonoSingletonFactory<OtherConfigInfo>.SingletonExist)
-            {
-                return;
-            }
-            OtherConfigInfo otherConfigInfo = NotMonoSingletonFactory<OtherConfigInfo>.GetSingleton();
-            if (AudioClipManager.GetAudioClip(otherConfigInfo.GetButtonAudioPath(), out AudioClip clip))
+            }            
+            if (AudioClipManager.GetAudioClip(audioPath, out AudioClip clip))
             {
                 m_BackGround.Clip = clip;
                 m_BackGround.Play();

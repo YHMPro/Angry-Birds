@@ -20,36 +20,33 @@ namespace Bird_VS_Boar
         {
             //Regex regex = new Regex(@"qew");
             //Debug.Log(regex.IsMatch("qwe_rt"));
-
-            return;
-            ConfigInfoMgr.ConfigInfoInit();
-            GameLogic.Init();
-            GameManager.Init();
-            MonoSingletonFactory<Camera2D>.GetSingleton();
-            MonoSingletonFactory<FlyPath>.GetSingleton();
-            if (MonoSingletonFactory<Camera2D>.SingletonExist)
+            MonoSingletonFactory<ShareMono>.GetSingleton(null, false);
+            LevelConfigManager.ReadConfigTableData();//读取配置表数据
+            ConfigInfoMgr.ConfigInfoInit();         
+            //GameManager.Init();
+            if(GoLoad.Take("FarmeLockFile/WindowRoot",out GameObject windowRoot))
             {
-                MonoSingletonFactory<Camera2D>.GetSingleton().SetLimit(3, 5, 4, 5);
+                MonoSingletonFactory<WindowRoot>.GetSingleton(windowRoot, false).CreateWindow("GameLoginWindow", RenderMode.ScreenSpaceOverlay, (window) =>
+                {
+                    window.CanvasScaler.referenceResolution = new Vector2(1920, 1080);//设置画布尺寸
+                    window.CanvasScaler.uiScaleMode = CanvasScaler.ScaleMode.ScaleWithScreenSize;//设置适配的方式
+                    window.CreatePanel<GameLevelPanel>("UI/GameLoginWindow/GameLevelPanel", "GameLevelPanel", EnumPanelLayer.MIDDLE, (panel) =>//加载面板
+                    {
+
+                    });
+                    //window.CreatePanel<GameInterfacePanel>("UI/GameSceneWindow/GameInterfacePanel", "GameInterfacePanel", EnumPanelLayer.MIDDLE, (panel) =>
+                    //{
+
+                    //});
+                    //window.CreatePanel<GameOverPanel>("UI/GameSceneWindow/GameOverPanel", "GameOverPanel", EnumPanelLayer.TOP, (panel) =>
+                    //{
+                    //    panel.SetState(EnumPanelState.Hide);
+                    //});
+                });
             }
-
-            //创建GameSceneWindow
-            MonoSingletonFactory<WindowRoot>.GetSingleton(GoLoad.Take("FarmeLockFile/WindowRoot")).CreateWindow("GameSceneWindow", RenderMode.ScreenSpaceOverlay, (window) =>
-            {
-                window.CanvasScaler.referenceResolution = new Vector2(1920, 1080);//设置画布尺寸
-                window.CanvasScaler.uiScaleMode = CanvasScaler.ScaleMode.ScaleWithScreenSize;//设置适配的方式
-                window.CreatePanel<GoodsPanel>("UI/GameSceneWindow/GoodsPanel", "GoodsPanel", EnumPanelLayer.MIDDLE, (panel) =>//加载面板
-                {
-
-                });
-                window.CreatePanel<GameInterfacePanel>("UI/GameSceneWindow/GameInterfacePanel", "GameInterfacePanel", EnumPanelLayer.MIDDLE, (panel) =>
-                {
-
-                });
-                window.CreatePanel<GameOverPanel>("UI/GameSceneWindow/GameOverPanel", "GameOverPanel", EnumPanelLayer.TOP, (panel) =>
-                {
-                    panel.SetState(EnumPanelState.Hide);
-                });
-            });
+            
+            return;
+            
             //Object[] atlas = Resources.LoadAll("BUTTONS_SHEET_1");
             //foreach(var sprite in atlas)
             //{

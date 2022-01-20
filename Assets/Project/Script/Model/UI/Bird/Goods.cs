@@ -65,7 +65,10 @@ namespace Bird_VS_Boar
             }
             MesgManager.MesgTirgger(ProjectEvents.CoinUpdateEvent, m_BirdType);//更新硬币
             GameLogic.NowComeBird = goods.GetComponent<Bird>();
-            MonoSingletonFactory<SlingShot>.GetSingleton().BindBird();          
+            if (MonoSingletonFactory<SlingShot>.SingletonExist)
+            {
+                MonoSingletonFactory<SlingShot>.GetSingleton().BindBird();
+            }
         }
         /// <summary>
         /// 小鸟配置信息设置

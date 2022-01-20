@@ -258,7 +258,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 6454292650528825685}
-  - component: {fileID: 6454292650528825642}
+  - component: {fileID: 3360006825590892349}
   m_Layer: 5
   m_Name: GameInterfacePanel
   m_TagString: Untagged
@@ -286,7 +286,7 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
---- !u!114 &6454292650528825642
+--- !u!114 &3360006825590892349
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}

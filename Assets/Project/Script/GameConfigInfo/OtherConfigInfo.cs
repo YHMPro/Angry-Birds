@@ -71,6 +71,10 @@ namespace Bird_VS_Boar
         #endregion
         #region Audio
         /// <summary>
+        /// 弹弓音效路径
+        /// </summary>
+        protected string m_SlingShotAudioPath;
+        /// <summary>
         /// 按钮音效路径
         /// </summary>
         protected string m_ButtonAudioPath;
@@ -80,6 +84,22 @@ namespace Bird_VS_Boar
         protected string[] m_StarAudioPaths;
         #endregion
         #region Prefab
+        /// <summary>
+        /// 2D相机预制路径
+        /// </summary>
+        protected string m_Camera2DPrefabPath;
+        /// <summary>
+        /// 飞行路径预制路径
+        /// </summary>
+        protected string m_FlyPathPrefabPath;
+        /// <summary>
+        /// 弹弓预制路径
+        /// </summary>
+        protected string m_SlingShotPrefabPath;
+        /// <summary>
+        /// 关卡预制路径
+        /// </summary>
+        protected string m_LevelPrefabPath;
         /// <summary>
         /// 小鸟气球预制路径
         /// </summary>
@@ -104,6 +124,11 @@ namespace Bird_VS_Boar
         public void InitConfigInfo()
         {
             m_CommonPath = GetType().Name + "/";
+            m_Camera2DPrefabPath = "Camera2D";
+            m_FlyPathPrefabPath = "FlyPath";
+            m_SlingShotPrefabPath = "SlingShot";
+            m_SlingShotAudioPath = "SlingShotAudio";
+            m_LevelPrefabPath = "Level";
             m_ButtonAudioPath = "Button";
             m_BlisterPrefabPath = "Blister";
             m_ScorePrefabPath = "Score";
@@ -117,17 +142,34 @@ namespace Bird_VS_Boar
             m_BoomOrderInLayer = 20;
             m_ScoreOrderInLayer = 40;
         }
-
+        public string GetCamera2DPrefabPath()
+        {
+            return m_CommonPath+ m_Camera2DPrefabPath;
+        }
+        public string GetFlyPathPrefabPath()
+        {
+            return m_CommonPath+ m_FlyPathPrefabPath;
+        }
+        public string GetSlingShotPrefabPath()
+        {
+            return m_CommonPath+ m_SlingShotPrefabPath;
+        }
+        public string GetSlingShotAudioPath()
+        {
+            return m_CommonPath + m_SlingShotAudioPath;
+        }
+        public string GetLevelPrefabPath()
+        {
+            return m_CommonPath + m_LevelPrefabPath;
+        }
         public string GetButtonAudioPath()
         {
             return m_CommonPath + m_ButtonAudioPath;
         }
-
         public string GetStarAudioPath(int index)
         {
             return m_CommonPath + m_StarAudioPaths[Mathf.Clamp(index, 0, m_StarAudioPaths.Length - 1)];
         }
-
         public string GetBlisterPrefabPath()
         {
             return m_CommonPath + m_BlisterPrefabPath;
@@ -140,7 +182,6 @@ namespace Bird_VS_Boar
         {
             return m_CommonPath + m_EggPrefabPath;
         }
-
         public string GetScorePrefabPath()
         {
             return m_CommonPath + m_ScorePrefabPath;

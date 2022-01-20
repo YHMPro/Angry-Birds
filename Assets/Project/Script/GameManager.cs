@@ -6,8 +6,25 @@ using Farme.Tool;
 using Bird_VS_Boar.LevelConfig;
 using Farme.UI;
 using UnityEngine.Events;
+using UnityEngine.SceneManagement;
+using UnityEngine.UI;
+
 namespace Bird_VS_Boar
 {
+    /// <summary>
+    /// 场景类型
+    /// </summary>
+    public enum EnumSceneType
+    {
+        /// <summary>
+        /// 登入场景
+        /// </summary>
+        LoginScene,
+        /// <summary>
+        /// 游戏场景
+        /// </summary>
+        GameScene
+    }
     /// <summary>
     /// 游戏关卡类型
     /// </summary>
@@ -52,12 +69,12 @@ namespace Bird_VS_Boar
     /// <summary>
     /// 游戏管理器
     /// </summary>
-    public class GameManager 
-    {
+    public class GameManager
+    {     
         /// <summary>
         /// 当前关卡类型
         /// </summary>
-        private static EnumGameLevelType m_NowLevelType=EnumGameLevelType.None;
+        private static EnumGameLevelType m_NowLevelType = EnumGameLevelType.None;
         /// <summary>
         /// 当前关卡类型
         /// </summary>
@@ -87,13 +104,13 @@ namespace Bird_VS_Boar
             }
             set
             {
-                m_NowLevelIndex= value;
+                m_NowLevelIndex = value;
             }
         }
         /// <summary>
         /// 是否屏蔽游戏结束事件
         /// </summary>
-        private static bool m_IsShieldGameOverEvent = false;      
+        private static bool m_IsShieldGameOverEvent = false;
         /// <summary>
         /// 当前相机跟随的小鸟
         /// </summary>
@@ -101,7 +118,7 @@ namespace Bird_VS_Boar
         {
             get
             {
-                if(m_Birds.Count == 0)
+                if (m_Birds.Count == 0)
                 {
                     return null;
                 }
@@ -131,22 +148,48 @@ namespace Bird_VS_Boar
         /// <summary>
         /// 猪列表
         /// </summary>
-        private static List<Pig> m_Pigs=new List<Pig>();
+        private static List<Pig> m_Pigs = new List<Pig>();
         /// <summary>
         /// 鸟列表
         /// </summary>
-        private static List<Bird>m_Birds=new List<Bird>();  
+        private static List<Bird> m_Birds = new List<Bird>();
         /// <summary>
         /// 可销毁对象列表
         /// </summary>
-        private static List<IDied> m_DiedTargets=new List<IDied>();
+        private static List<IDied> m_DiedTargets = new List<IDied>();
+
+
         /// <summary>
         /// 初始化
         /// </summary>
         public static void Init()
-        {
-            GameStart();
-        }
+        { 
+            if (NotMonoSingletonFactory<OtherConfigInfo>.SingletonExist)
+            {
+                OtherConfigInfo otherConfigInfo = NotMonoSingletonFactory<OtherConfigInfo>.GetSingleton();
+                MonoSingletonFactory<SlingShot>.GetSingleton(GoLoad.Take(otherConfigInfo.GetSlingShotPrefabPath()));
+                MonoSingletonFactory<FlyPath>.GetSingleton(GoLoad.Take(otherConfigInfo.GetFlyPathPrefabPath()));
+                MonoSingletonFactory<Camera2D>.GetSingleton(GoLoad.Take(otherConfigInfo.GetCamera2DPrefabPath()));
+            }
+            //创建GameSceneWindow
+            MonoSingletonFactory<WindowRoot>.GetSingleton().CreateWindow("GameSceneWindow", RenderMode.ScreenSpaceOverlay, (window) =>
+            {
+                window.CanvasScaler.referenceResolution = new Vector2(1920, 1080);//设置画布尺寸
+                window.CanvasScaler.uiScaleMode = CanvasScaler.ScaleMode.ScaleWithScreenSize;//设置适配的方式
+                window.CreatePanel<GoodsPanel>("UI/GameSceneWindow/GoodsPanel", "GoodsPanel", EnumPanelLayer.MIDDLE, (panel) =>//加载面板
+                {
+
+                });
+                window.CreatePanel<GameInterfacePanel>("UI/GameSceneWindow/GameInterfacePanel", "GameInterfacePanel", EnumPanelLayer.MIDDLE, (panel) =>
+                {
+
+                });
+                window.CreatePanel<GameOverPanel>("UI/GameSceneWindow/GameOverPanel", "GameOverPanel", EnumPanelLayer.TOP, (panel) =>
+                {
+                    panel.SetState(EnumPanelState.Hide);
+                });
+            });
+        } 
         /// <summary>
         /// 清除
         /// </summary>
@@ -279,20 +322,22 @@ namespace Bird_VS_Boar
         /// 游戏开始
         /// </summary>
         public static void GameStart()
-        {
-
-
-            m_IsShieldGameOverEvent = false;
-            Debuger.Log("【游戏开始】\n【关卡类型】:"+m_NowLevelType.ToString()+"【关卡索引】:"+m_NowLevelIndex);
-            GameLogic.Init();
-            #region 依照数据表来加载场景内容  
-            LevelConfigManager.ReadConfigTableData();//读取配置表数据
+        {       
+            Debuger.Log("【游戏开始】\n【关卡类型】:"+m_NowLevelType.ToString()+"【关卡索引】:"+m_NowLevelIndex);           
+            #region 依照数据表来加载场景内容              
             LevelConfig.LevelConfig levelConfig = LevelConfigManager.GetLevelConfig(m_NowLevelType.ToString()+"_"+m_NowLevelIndex);//读取关卡配置数据     
             if(levelConfig==null)
             {
-                Debuger.Log("不存在此场景的配置");
+                Debuger.LogError("不存在此场景的配置");
                 return;
             }
+            m_IsShieldGameOverEvent = false;
+            GameLogic.NowComeBird = null;
+            if (MonoSingletonFactory<SlingShot>.SingletonExist)
+            {
+                MonoSingletonFactory<SlingShot>.GetSingleton().ClearLine();
+            }     
+            GameLogic.Init();//初始化逻辑管理器
             foreach (var config in levelConfig.BarrierConfigs)
             {
                 //获取障碍物预制路径
@@ -425,6 +470,30 @@ namespace Bird_VS_Boar
                 m_DiedTargets[index].Died();
             }
             callback?.Invoke();
+        }
+        #endregion
+
+        #region SceneLoad
+        /// <summary>
+        /// 场景加载
+        /// </summary>
+        /// <param name="sceneType"></param>
+        public static void SceneLoad(EnumSceneType sceneType,UnityAction callback)
+        {
+            Farme.SceneLoad.LoadSceneAsync(sceneType.ToString(), LoadSceneMode.Single, () =>
+            {
+
+            }, (result) => 
+            {
+                if(result)
+                {
+                    Debuger.Log("场景加载成功");
+                    callback?.Invoke();
+                }
+            }, (pro) => 
+            {
+                Debuger.Log("场景加载进度:" + pro);
+            });
         }
         #endregion
     }

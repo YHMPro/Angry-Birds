@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEditor;
+using Farme.Tool;
 namespace Bird_VS_Boar.LevelConfig
 {
     public class LevelConfigBuilder //: EditorWindow
@@ -21,10 +22,29 @@ namespace Bird_VS_Boar.LevelConfig
         }
         [MenuItem("场景配置数据构建工具/构建场景配置数据")]
         public static void BuilderSceneConfigData()
-        {         
+        {
             LevelConfig config = new LevelConfig();
             config.LevelType = LevelType;
-            config.LevelIndex = LevelIndex;
+            //查找场景内的弹弓
+            SlingShot slingShot = Object.FindObjectOfType<SlingShot>();
+            if (slingShot != null)
+            {
+                config.SlingShotPosition.SetValue(slingShot.transform.position);
+            }
+            else
+            {
+                Debuger.Log("场景内缺少弹弓");
+            }
+            //查找场景内的相机
+            Camera2D camer2D = Object.FindObjectOfType<Camera2D>();
+            if (camer2D != null)
+            {
+                config.Camera2DPosition.SetValue(camer2D.transform.position);
+            }
+            else
+            {
+                Debuger.Log("场景内缺少Camera2D相机");
+            }
             //查找场景内所有的猪
             Pig[] pigs = Object.FindObjectsOfType<Pig>();
             foreach (Pig pig in pigs)
@@ -37,7 +57,7 @@ namespace Bird_VS_Boar.LevelConfig
             {
                 config.BarrierConfigs.Add(barrier.GetBarrierConfig());
             }
-            LevelConfigManager.AddLevelConfig(config.LevelType.ToString()+"_"+config.LevelIndex, config);         
+            LevelConfigManager.AddLevelConfig(LevelType.ToString()+"_"+LevelIndex, config);         
         }
         [MenuItem("场景配置数据构建工具/清除场景配置数据")]
         public static void ClearSceneConfigData()
