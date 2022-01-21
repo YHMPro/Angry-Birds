@@ -177,6 +177,7 @@ namespace Farme.UI
         {
             if (m_PanelDic.ContainsKey(panelName))
             {
+                Debuger.LogWarning("面板:" + panelName + "反复创建,已屏蔽这次创建。");              
                 return;
             }
             if (GoLoad.Take(path, out GameObject panel, GetPanelLayer(layer)))

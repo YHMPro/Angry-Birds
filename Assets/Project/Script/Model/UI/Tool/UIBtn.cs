@@ -64,14 +64,14 @@ namespace Bird_VS_Boar
         private void ScaleUpdate()
         {
             //计算指针的位置与自身的距离
-            m_ToPointerDistance = Mathf.Clamp((transform.position - Input.mousePosition).magnitude, 0, m_Img.rectTransform.rect.height / 2f - 3f);
+            m_ToPointerDistance = Mathf.Clamp((transform.position - Input.mousePosition).magnitude, 0, m_Img.rectTransform.rect.width / 2f - 3f);
             //调控放缩量
-            transform.localScale = Vector3.one - (1f - m_ToPointerDistance / (m_Img.rectTransform.rect.height / 2f - 3f)) * Vector3.one * m_ScaleValue;
+            transform.localScale = Vector3.one - (1f - m_ToPointerDistance / (m_Img.rectTransform.rect.width / 2f - 3f)) * Vector3.one * m_ScaleValue;
         }
 
         private void OnDestroy()
         {
-            MonoSingletonFactory<ShareMono>.GetSingleton().RemoveUpdateAction(EnumUpdateAction.Standard, ScaleUpdate);
+            MonoSingletonFactory<ShareMono>.GetSingleton().RemoveUpdateAction(EnumUpdateAction.Standard, this.ScaleUpdate);
 
             m_OnPointerEnterEvent.RemoveAllListeners();
             m_OnPointerExitEvent.RemoveAllListeners();
@@ -84,12 +84,12 @@ namespace Bird_VS_Boar
         }
         private void OnPointerEnter(BaseEventData bEData)
         {
-            MonoSingletonFactory<ShareMono>.GetSingleton().ApplyUpdateAction(EnumUpdateAction.Standard, ScaleUpdate);
+            MonoSingletonFactory<ShareMono>.GetSingleton().ApplyUpdateAction(EnumUpdateAction.Standard, this.ScaleUpdate);
             m_OnPointerEnterEvent?.Invoke();
         }
         private void OnPointerExit(BaseEventData bEData)
         {
-            MonoSingletonFactory<ShareMono>.GetSingleton().RemoveUpdateAction(EnumUpdateAction.Standard, ScaleUpdate);
+            MonoSingletonFactory<ShareMono>.GetSingleton().RemoveUpdateAction(EnumUpdateAction.Standard, this.ScaleUpdate);
             m_Img.color = m_DefaultColor;
             m_Icon.color = m_DefaultColor;
             m_OnPointerExitEvent?.Invoke();

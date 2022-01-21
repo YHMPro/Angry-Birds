@@ -23,7 +23,7 @@ namespace Bird_VS_Boar
             MonoSingletonFactory<ShareMono>.GetSingleton(null, false);
             LevelConfigManager.ReadConfigTableData();//读取配置表数据
             ConfigInfoMgr.ConfigInfoInit(); 
-            GameManager.NowLevelType= LevelType;
+            //GameManager.NowLevelType= LevelType;          
             //GameManager.Init();
             if(GoLoad.Take("FarmeLockFile/WindowRoot",out GameObject windowRoot))
             {
@@ -31,7 +31,7 @@ namespace Bird_VS_Boar
                 {
                     window.CanvasScaler.referenceResolution = new Vector2(1920, 1080);//设置画布尺寸
                     window.CanvasScaler.uiScaleMode = CanvasScaler.ScaleMode.ScaleWithScreenSize;//设置适配的方式
-                    window.CreatePanel<GameLevelPanel>("UI/GameLoginWindow/GameLevelPanel", "GameLevelPanel", EnumPanelLayer.MIDDLE, (panel) =>//加载面板
+                    window.CreatePanel<GameLevelTypePanel>("UI/GameLoginWindow/GameLevelTypePanel", "GameLevelTypePanel", EnumPanelLayer.BOTTOM, (panel) =>//加载面板
                     {
 
                     });
@@ -68,7 +68,6 @@ namespace Bird_VS_Boar
 
         private void OnDisable()
         {
-            Debug.Log("失火");
         }
         // Update is called once per frame
         void Update()
@@ -96,10 +95,10 @@ namespace Bird_VS_Boar
 
         private void OnValidate()
         {
-            GameManager.NowLevelIndex = LevelIndex;
-            GameManager.NowLevelType = LevelType;
-            LevelConfigBuilder.LevelIndex = LevelIndex;
-            LevelConfigBuilder.LevelType = LevelType;
+            //GameManager.NowLevelIndex = LevelIndex;
+            //GameManager.NowLevelType = LevelType;
+            //LevelConfigBuilder.LevelIndex = LevelIndex;
+            //LevelConfigBuilder.LevelType = LevelType;
         }
     }
 }

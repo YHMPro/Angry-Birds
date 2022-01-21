@@ -25,7 +25,7 @@ namespace Bird_VS_Boar
         {
             if (m_Button == null)
             {
-                m_Button = AudioManager.ApplyForAudio();
+                m_Button = AudioManager.ApplyForAudio(false);
                 m_Button.SpatialBlend = 0;//设置为2D
                 m_Button.AbleRecycle = false;//不可自动回收
                 m_Button.Group = AudioMixerManager.GetAudioMixerGroup("Button");
@@ -48,7 +48,7 @@ namespace Bird_VS_Boar
         {          
             if (m_BackGround == null)
             {
-                m_BackGround = AudioManager.ApplyForAudio();
+                m_BackGround = AudioManager.ApplyForAudio(false);
                 m_BackGround.Loop = true;//循环
                 m_BackGround.SpatialBlend = 0;//设置为2D
                 m_BackGround.AbleRecycle = false;//不可自动回收

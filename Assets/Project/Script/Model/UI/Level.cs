@@ -89,7 +89,7 @@ namespace Bird_VS_Boar
             LevelConfig.LevelConfig levelConfig = LevelConfigManager.GetLevelConfig(GameManager.NowLevelType + "_" + m_LevelIndex);
             if(levelConfig == null)
             {
-                Debuger.LogError("不存在此场景的配置");
+                Debuger.LogError("不存在此场景的配置:\n关卡类型:"+ GameManager.NowLevelType+"\n关卡索引:"+ m_LevelIndex);
                 return;
             }
             m_TextIndex.text = m_LevelIndex.ToString();

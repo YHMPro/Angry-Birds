@@ -280,6 +280,7 @@ namespace Farme
         /// </summary>
         public void ClearUpdate()
         {
+           
             m_Callback = null;
         }
         /// <summary>

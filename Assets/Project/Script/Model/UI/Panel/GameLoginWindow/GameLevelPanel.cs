@@ -40,9 +40,9 @@ namespace Bird_VS_Boar
         protected override void Awake()
         {
             base.Awake();
-            RegisterComponentsTypes<Image>(true);
-            RegisterComponentsTypes<UIBtn>(true);
-            RegisterComponentsTypes<RectTransform>(true);
+            RegisterComponentsTypes<Image>();
+            RegisterComponentsTypes<UIBtn>();
+            RegisterComponentsTypes<RectTransform>();
             m_Bg=GetComponent<Image>("Bg");
             m_ReturnBtn = GetComponent<UIBtn>("ReturnBtn");
             m_NextSeasonBtn = GetComponent<UIBtn>("NextSeason");
@@ -59,11 +59,11 @@ namespace Bird_VS_Boar
             m_LastSeasonBtn.OnPointerClickEvent.AddListener(OnLastSeason);
         }
 
-        protected override void LateOnEnable()
+        protected override void OnEnable()
         {
-            base.LateOnEnable();
+            base.OnEnable();
             RefreshPanel();
-        }
+        }     
         #region UIBtn
         /// <summary>
         /// 监听返回
@@ -72,7 +72,33 @@ namespace Bird_VS_Boar
         {
             GameManager.NowLevelIndex = -1;
             GameManager.NowLevelType = EnumGameLevelType.None;
+            if (!MonoSingletonFactory<WindowRoot>.SingletonExist)
+            {
+                return;
+            }
+            StandardWindow gameLoginWindow = MonoSingletonFactory<WindowRoot>.GetSingleton().GetWindow("GameLoginWindow");
+            if (gameLoginWindow == null)
+            {
+                return;
+            }          
+            if (gameLoginWindow.GetPanel("GameLevelPanel", out GameLevelPanel gameLevelPanel))
+            {
+                gameLevelPanel.SetState(EnumPanelState.Hide, () =>//隐藏游戏关卡类型面板
+                {
+                    if (gameLoginWindow.GetPanel("GameLevelTypePanel", out GameLevelTypePanel gameLevelTypePanel))
+                    {
+                        gameLevelTypePanel.SetState(EnumPanelState.Show);
+                    }
+                    else
+                    {
+                        gameLoginWindow.CreatePanel<GameLevelTypePanel>("UI/GameLoginWindow/GameLevelTypePanel", "GameLevelTypePanel", EnumPanelLayer.BOTTOM, (panel) =>
+                        {
+                            Debuger.Log(panel);
+                        });
+                    }
 
+                });
+            }
         }
         /// <summary>
         /// 监听下一个季节
@@ -108,21 +134,24 @@ namespace Bird_VS_Boar
         /// </summary>
         private void RefreshPanel()
         {
-            if(!NotMonoSingletonFactory<OtherConfigInfo>.SingletonExist)
+            
+
+            if (!NotMonoSingletonFactory<OtherConfigInfo>.SingletonExist)
             {
                 Debuger.LogError("配置信息未实例化");
                 return;
             }
-            OtherConfigInfo otherConfigInfo = NotMonoSingletonFactory<OtherConfigInfo>.GetSingleton();
+            OtherConfigInfo otherConfigInfo = NotMonoSingletonFactory<OtherConfigInfo>.GetSingleton();        
             if (!SeasonConfigInfo.SeasonConfigInfoDic.TryGetValue(GameManager.NowLevelType,out SeasonConfigInfo seasonConfigInfo))
             {
                 Debuger.LogError("没有找到季节配置信息");
                 return;
             }
+            Debuger.Log("播放关卡面板的背景音乐");
             //更新背景音乐
-            GameAudio.PlayBackGroundAudio(seasonConfigInfo.GetSeasonAudioPath());   
+            GameAudio.PlayBackGroundAudio(seasonConfigInfo.GetSeasonAudioPath());
             //回收关卡
-            for(int index=0;index<m_LevelRect.childCount;index++)
+            for (int index=0;index<m_LevelRect.childCount;index++)
             {
                 GoReusePool.Put("Level", m_LevelRect.GetChild(index).gameObject);
             }

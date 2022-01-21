@@ -26,8 +26,8 @@ namespace Bird_VS_Boar
         protected override void Awake()
         {
             base.Awake();
-            RegisterComponentsTypes<Image>(true);
-            RegisterComponentsTypes<UIBtn>(true);
+            RegisterComponentsTypes<Image>();
+            RegisterComponentsTypes<UIBtn>();
             m_SetBtn=GetComponent<UIBtn>("SetBtn");
             m_LastLevelBtn = GetComponent<UIBtn>("LastLevelBtn");
             m_ReturnLevelBtn = GetComponent<UIBtn>("ReturnLevelBtn");

@@ -20,6 +20,15 @@ namespace Bird_VS_Boar
         /// 季节音效路径
         /// </summary>
         private string m_SeasonAudioPath;
+        /// <summary>
+        /// 关卡类型背景精灵路径
+        /// </summary>
+        private string m_LevelTypeBGSpritePath;
+
+        public string GetLevelTypeBGSpritePath()
+        {
+            return m_LevelTypeBGSpritePath;
+        }
 
         public string GetSeasonAudioPath()
         {
@@ -29,6 +38,7 @@ namespace Bird_VS_Boar
         {
             m_CommonPath = "Season/"+GetType().Name + "/";
             m_SeasonAudioPath = m_CommonPath + "BGM";
+            m_LevelTypeBGSpritePath = m_CommonPath + "LevelTyoeBG";
         }
     }
     /// <summary>

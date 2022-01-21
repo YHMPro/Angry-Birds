@@ -68,9 +68,9 @@ namespace Bird_VS_Boar
         protected override void Awake()
         {
             base.Awake();
-            RegisterComponentsTypes<Text>(true);
-            RegisterComponentsTypes<Image>(true);
-            RegisterComponentsTypes<UIBtn>(true);
+            RegisterComponentsTypes<Text>();
+            RegisterComponentsTypes<Image>();
+            RegisterComponentsTypes<UIBtn>();
             m_WinGo = transform.Find("GameWinRect").gameObject;
             m_LoseGo= transform.Find("GameLoseRect").gameObject;
             m_NowScoreText = GetComponent<Text>("NowScoreText");

@@ -85,6 +85,10 @@ namespace Bird_VS_Boar
         #endregion
         #region Prefab
         /// <summary>
+        /// 关卡类型预制路径
+        /// </summary>
+        protected string m_LevelTypePrefabPath;
+        /// <summary>
         /// 2D相机预制路径
         /// </summary>
         protected string m_Camera2DPrefabPath;
@@ -124,6 +128,7 @@ namespace Bird_VS_Boar
         public void InitConfigInfo()
         {
             m_CommonPath = GetType().Name + "/";
+            m_LevelTypePrefabPath = "LevelType";
             m_Camera2DPrefabPath = "Camera2D";
             m_FlyPathPrefabPath = "FlyPath";
             m_SlingShotPrefabPath = "SlingShot";
@@ -142,6 +147,12 @@ namespace Bird_VS_Boar
             m_BoomOrderInLayer = 20;
             m_ScoreOrderInLayer = 40;
         }
+
+        public string GetLevelTypePrefabPath()
+        {
+            return m_CommonPath + m_LevelTypePrefabPath;
+        }
+
         public string GetCamera2DPrefabPath()
         {
             return m_CommonPath+ m_Camera2DPrefabPath;

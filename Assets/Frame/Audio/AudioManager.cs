@@ -118,8 +118,9 @@ namespace Farme.Audio
         /// <summary>
         /// 申请音效
         /// </summary>
+        /// <param name="isDontDestroyOnLoad">加载新场景时是否销毁目标对象</param>
         /// <returns></returns>
-        public static Audio ApplyForAudio()
+        public static Audio ApplyForAudio(bool isDontDestroyOnLoad=true)
         {
             ClearNULL_USING();//清除一次空引用
             Audio audio;
@@ -135,7 +136,11 @@ namespace Farme.Audio
             else
             {
                 audio = MonoFactory<Audio>.GetInstance(new GameObject("Audio"));
-            }                   
+            }           
+            if(!isDontDestroyOnLoad)
+            {
+                Object.DontDestroyOnLoad(audio.gameObject);
+            }
             return audio;
         }
         /// <summary>

@@ -69,7 +69,7 @@ namespace Farme.UI
         {
             if(m_WindowModelDic.ContainsKey(windowName))
             {
-                Debuger.LogWarning("窗口:"+ windowName+"反复创建。");
+                Debuger.LogWarning("窗口:"+ windowName+ "反复创建。已屏蔽这次创建");
                 return;
             }
             if (GoLoad.Take(m_WindowModelPath,out GameObject go))

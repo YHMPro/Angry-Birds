@@ -8,7 +8,7 @@ using Farme.UI;
 using UnityEngine.Events;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
-
+using System;
 namespace Bird_VS_Boar
 {
     /// <summary>
@@ -518,7 +518,12 @@ namespace Bird_VS_Boar
         {
             Farme.SceneLoad.LoadSceneAsync(sceneType.ToString(), LoadSceneMode.Single, () =>
             {
-
+                #region 清除Update行为
+                MonoSingletonFactory<ShareMono>.GetSingleton().ClearUpdate();
+                MonoSingletonFactory<ShareMono>.GetSingleton().ClearFixedUpdate();
+                MonoSingletonFactory<ShareMono>.GetSingleton().ClearLateUpdate();
+                #endregion
+                GC.Collect();
             }, (result) => 
             {
                 if(result)
@@ -530,6 +535,16 @@ namespace Bird_VS_Boar
             {
                 Debuger.Log("场景加载进度:" + pro);
             });
+        }
+        #endregion
+
+        #region Quit
+        /// <summary>
+        /// 程序退出
+        /// </summary>
+        public static void ProgramExit()
+        {
+            Application.Quit();
         }
         #endregion
     }
