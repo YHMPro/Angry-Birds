@@ -1,7 +1,40 @@
 fileFormatVersion: 2
 guid: 2b39fca38bdd4624b94322dd50fab20b
 TextureImporter:
-  internalIDToNameTable: []
+  internalIDToNameTable:
+  - first:
+      213: 6505058959573717917
+    second: THEME_EASTER_PARALLAX_1_1_0
+  - first:
+      213: -8168867979787725297
+    second: THEME_EASTER_PARALLAX_1_1_1
+  - first:
+      213: -5523883391726434555
+    second: THEME_EASTER_PARALLAX_1_1_2
+  - first:
+      213: -1520885558758026762
+    second: THEME_EASTER_PARALLAX_1_1_3
+  - first:
+      213: -8412212140701565797
+    second: THEME_EASTER_PARALLAX_1_1_4
+  - first:
+      213: 7804688457469883621
+    second: THEME_EASTER_PARALLAX_1_1_5
+  - first:
+      213: -828204703621724306
+    second: THEME_EASTER_PARALLAX_1_1_6
+  - first:
+      213: -997885191763960560
+    second: THEME_EASTER_PARALLAX_1_1_7
+  - first:
+      213: -5383770066758576245
+    second: THEME_EASTER_PARALLAX_1_1_8
+  - first:
+      213: 789183518086877929
+    second: THEME_EASTER_PARALLAX_1_1_9
+  - first:
+      213: -6871973824960412669
+    second: THEME_EASTER_PARALLAX_1_1_10
   externalObjects: {}
   serializedVersion: 11
   mipmaps:
@@ -31,16 +64,16 @@ TextureImporter:
   maxTextureSize: 2048
   textureSettings:
     serializedVersion: 2
-    filterMode: -1
-    aniso: -1
-    mipBias: -100
+    filterMode: 1
+    aniso: 1
+    mipBias: 0
     wrapU: 1
     wrapV: 1
     wrapW: 1
   nPOTScale: 0
   lightmap: 0
   compressionQuality: 50
-  spriteMode: 1
+  spriteMode: 2
   spriteExtrude: 1
   spriteMeshType: 1
   alignment: 0
@@ -71,9 +104,288 @@ TextureImporter:
     overridden: 0
     androidETC2FallbackOverride: 0
     forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: Windows Store Apps
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: Android
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: WebGL
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
   spriteSheet:
     serializedVersion: 2
-    sprites: []
+    sprites:
+    - serializedVersion: 2
+      name: THEME_EASTER_PARALLAX_1_1_0
+      rect:
+        serializedVersion: 2
+        x: 1
+        y: 408
+        width: 1022
+        height: 250
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: d931d5098ac964a50800000000000000
+      internalID: 6505058959573717917
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: THEME_EASTER_PARALLAX_1_1_1
+      rect:
+        serializedVersion: 2
+        x: 1
+        y: 112
+        width: 1022
+        height: 292
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: f0690b75ad952ae80800000000000000
+      internalID: -8168867979787725297
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: THEME_EASTER_PARALLAX_1_1_2
+      rect:
+        serializedVersion: 2
+        x: 8
+        y: 39
+        width: 374
+        height: 71
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 507477f62593753b0800000000000000
+      internalID: -5523883391726434555
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: THEME_EASTER_PARALLAX_1_1_3
+      rect:
+        serializedVersion: 2
+        x: 384
+        y: 51
+        width: 283
+        height: 59
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 6f1d43e64aab4eae0800000000000000
+      internalID: -1520885558758026762
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: THEME_EASTER_PARALLAX_1_1_4
+      rect:
+        serializedVersion: 2
+        x: 676
+        y: 43
+        width: 120
+        height: 63
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: b9c314ab0a1d14b80800000000000000
+      internalID: -8412212140701565797
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: THEME_EASTER_PARALLAX_1_1_5
+      rect:
+        serializedVersion: 2
+        x: 803
+        y: 30
+        width: 119
+        height: 77
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 5e475121dc2df4c60800000000000000
+      internalID: 7804688457469883621
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: THEME_EASTER_PARALLAX_1_1_6
+      rect:
+        serializedVersion: 2
+        x: 929
+        y: 69
+        width: 63
+        height: 39
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: e67c157c530a184f0800000000000000
+      internalID: -828204703621724306
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: THEME_EASTER_PARALLAX_1_1_7
+      rect:
+        serializedVersion: 2
+        x: 390
+        y: 1
+        width: 176
+        height: 44
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 01d594284bcc622f0800000000000000
+      internalID: -997885191763960560
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: THEME_EASTER_PARALLAX_1_1_8
+      rect:
+        serializedVersion: 2
+        x: 577
+        y: 1
+        width: 70
+        height: 37
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: b87597216a10945b0800000000000000
+      internalID: -5383770066758576245
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: THEME_EASTER_PARALLAX_1_1_9
+      rect:
+        serializedVersion: 2
+        x: 658
+        y: 2
+        width: 50
+        height: 24
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 9e2592a7a3eb3fa00800000000000000
+      internalID: 789183518086877929
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: THEME_EASTER_PARALLAX_1_1_10
+      rect:
+        serializedVersion: 2
+        x: 928
+        y: 7
+        width: 55
+        height: 55
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 304c3792738d1a0a0800000000000000
+      internalID: -6871973824960412669
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
     outline: []
     physicsShape: []
     bones: []

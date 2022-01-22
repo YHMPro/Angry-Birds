@@ -1,7 +1,52 @@
 fileFormatVersion: 2
 guid: 08756ba9f5c04a24bb961d899f68e154
 TextureImporter:
-  internalIDToNameTable: []
+  internalIDToNameTable:
+  - first:
+      213: -6579262427296634327
+    second: THEME_STPATRICK_PARALLAX_1_1_0
+  - first:
+      213: -3137987964876586006
+    second: THEME_STPATRICK_PARALLAX_1_1_1
+  - first:
+      213: -2496811360184104154
+    second: THEME_STPATRICK_PARALLAX_1_1_2
+  - first:
+      213: -7502100158682873661
+    second: THEME_STPATRICK_PARALLAX_1_1_3
+  - first:
+      213: 1631516464206888444
+    second: THEME_STPATRICK_PARALLAX_1_1_4
+  - first:
+      213: 1297964960097382865
+    second: THEME_STPATRICK_PARALLAX_1_1_5
+  - first:
+      213: -4568305795064595700
+    second: THEME_STPATRICK_PARALLAX_1_1_6
+  - first:
+      213: 6167872220989347128
+    second: THEME_STPATRICK_PARALLAX_1_1_7
+  - first:
+      213: 7961662157058398958
+    second: THEME_STPATRICK_PARALLAX_1_1_8
+  - first:
+      213: 6132385791228397445
+    second: THEME_STPATRICK_PARALLAX_1_1_9
+  - first:
+      213: -8697156345220261392
+    second: THEME_STPATRICK_PARALLAX_1_1_10
+  - first:
+      213: 579657830033566031
+    second: THEME_STPATRICK_PARALLAX_1_1_11
+  - first:
+      213: -7770725634616898964
+    second: THEME_STPATRICK_PARALLAX_1_1_12
+  - first:
+      213: -273169052879943384
+    second: THEME_STPATRICK_PARALLAX_1_1_13
+  - first:
+      213: 1294714740124118941
+    second: THEME_STPATRICK_PARALLAX_1_1_14
   externalObjects: {}
   serializedVersion: 11
   mipmaps:
@@ -31,16 +76,16 @@ TextureImporter:
   maxTextureSize: 2048
   textureSettings:
     serializedVersion: 2
-    filterMode: -1
-    aniso: -1
-    mipBias: -100
+    filterMode: 1
+    aniso: 1
+    mipBias: 0
     wrapU: 1
     wrapV: 1
     wrapW: 1
   nPOTScale: 0
   lightmap: 0
   compressionQuality: 50
-  spriteMode: 1
+  spriteMode: 2
   spriteExtrude: 1
   spriteMeshType: 1
   alignment: 0
@@ -71,9 +116,372 @@ TextureImporter:
     overridden: 0
     androidETC2FallbackOverride: 0
     forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: Windows Store Apps
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: Android
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: WebGL
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
   spriteSheet:
     serializedVersion: 2
-    sprites: []
+    sprites:
+    - serializedVersion: 2
+      name: THEME_STPATRICK_PARALLAX_1_1_0
+      rect:
+        serializedVersion: 2
+        x: 1
+        y: 265
+        width: 1026
+        height: 101
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 92ae8e84ea3c1b4a0800000000000000
+      internalID: -6579262427296634327
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: THEME_STPATRICK_PARALLAX_1_1_1
+      rect:
+        serializedVersion: 2
+        x: 1
+        y: 85
+        width: 1026
+        height: 176
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: ae3841c5290a374d0800000000000000
+      internalID: -3137987964876586006
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: THEME_STPATRICK_PARALLAX_1_1_2
+      rect:
+        serializedVersion: 2
+        x: 1
+        y: 29
+        width: 467
+        height: 54
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 62b011deb4b895dd0800000000000000
+      internalID: -2496811360184104154
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: THEME_STPATRICK_PARALLAX_1_1_3
+      rect:
+        serializedVersion: 2
+        x: 470
+        y: 44
+        width: 70
+        height: 32
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 3c04e4c47af23e790800000000000000
+      internalID: -7502100158682873661
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: THEME_STPATRICK_PARALLAX_1_1_4
+      rect:
+        serializedVersion: 2
+        x: 541
+        y: 44
+        width: 56
+        height: 37
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: cfdb04e749f44a610800000000000000
+      internalID: 1631516464206888444
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: THEME_STPATRICK_PARALLAX_1_1_5
+      rect:
+        serializedVersion: 2
+        x: 602
+        y: 2
+        width: 127
+        height: 79
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 1d13289114c430210800000000000000
+      internalID: 1297964960097382865
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: THEME_STPATRICK_PARALLAX_1_1_6
+      rect:
+        serializedVersion: 2
+        x: 731
+        y: 49
+        width: 109
+        height: 32
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: c0bf0d3551e1a90c0800000000000000
+      internalID: -4568305795064595700
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: THEME_STPATRICK_PARALLAX_1_1_7
+      rect:
+        serializedVersion: 2
+        x: 842
+        y: 27
+        width: 45
+        height: 26
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 835d1103b1fa89550800000000000000
+      internalID: 6167872220989347128
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: THEME_STPATRICK_PARALLAX_1_1_8
+      rect:
+        serializedVersion: 2
+        x: 889
+        y: 27
+        width: 59
+        height: 56
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: eead2259c818d7e60800000000000000
+      internalID: 7961662157058398958
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: THEME_STPATRICK_PARALLAX_1_1_9
+      rect:
+        serializedVersion: 2
+        x: 954
+        y: 14
+        width: 71
+        height: 67
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 58742d7e26c9a1550800000000000000
+      internalID: 6132385791228397445
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: THEME_STPATRICK_PARALLAX_1_1_10
+      rect:
+        serializedVersion: 2
+        x: 521
+        y: 1
+        width: 74
+        height: 41
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 0f99c1f226e7d4780800000000000000
+      internalID: -8697156345220261392
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: THEME_STPATRICK_PARALLAX_1_1_11
+      rect:
+        serializedVersion: 2
+        x: 731
+        y: 30
+        width: 9
+        height: 15
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: f49ac6aa9bb5b0800800000000000000
+      internalID: 579657830033566031
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: THEME_STPATRICK_PARALLAX_1_1_12
+      rect:
+        serializedVersion: 2
+        x: 472
+        y: 1
+        width: 42
+        height: 22
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: c6a43a5d436d82490800000000000000
+      internalID: -7770725634616898964
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: THEME_STPATRICK_PARALLAX_1_1_13
+      rect:
+        serializedVersion: 2
+        x: 786
+        y: 5
+        width: 11
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 82906779132853cf0800000000000000
+      internalID: -273169052879943384
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: THEME_STPATRICK_PARALLAX_1_1_14
+      rect:
+        serializedVersion: 2
+        x: 802
+        y: 5
+        width: 9
+        height: 13
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: d9f6f8a4230c7f110800000000000000
+      internalID: 1294714740124118941
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
     outline: []
     physicsShape: []
     bones: []
