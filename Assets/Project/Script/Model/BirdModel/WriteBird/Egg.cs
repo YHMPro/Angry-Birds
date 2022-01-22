@@ -4,7 +4,7 @@ using UnityEngine;
 using Farme;
 namespace Bird_VS_Boar
 {
-    public class Egg : MonoBehaviour
+    public class Egg : MonoBehaviour,IDied
     {
         /// <summary>
         /// 是否可选择
@@ -31,15 +31,15 @@ namespace Bird_VS_Boar
 
         private void Start()
         {
-            MonoSingletonFactory<ShareMono>.GetSingleton().ApplyUpdateAction(EnumUpdateAction.Standard,EggUpdate);
+            //MonoSingletonFactory<ShareMono>.GetSingleton().ApplyUpdateAction(EnumUpdateAction.Standard,EggUpdate);
         }
         private void OnMouseDown()
         {
-           if(m_IsSelectable)
-            {
-                m_IsSelectable = false;
-                Debug.Log("收集一刻蛋");//设置一个目标点做缓动运动      
-            }
+           //if(m_IsSelectable)
+           // {
+           //     m_IsSelectable = false;
+           //     Debug.Log("收集一刻蛋");//设置一个目标点做缓动运动      
+           // }
         }
         private void EggUpdate()
         {
@@ -53,5 +53,18 @@ namespace Bird_VS_Boar
             //    m_IsSelectable = true;
             //}
         }
+        #region Died
+        public void Died(bool isDestroy = false)
+        {
+            if(isDestroy)
+            {
+                Destroy(gameObject);
+            }
+            else
+            {
+                GoReusePool.Put(typeof(Egg).Name, gameObject);
+            }
+        }
+        #endregion
     }
 }

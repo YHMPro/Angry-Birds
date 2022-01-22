@@ -16,11 +16,15 @@ namespace Bird_VS_Boar
         /// </summary>
         private static bool m_IsGameOver = false;
         /// <summary>
+        /// 当前评星
+        /// </summary>
+        private static int m_NowRating = 0;
+        /// <summary>
         /// 当前分数
         /// </summary>
         private static int m_NowScore = 0;
         /// <summary>
-        /// 当前分数
+        /// 当前关卡分数
         /// </summary>
         public static int NowScore
         {

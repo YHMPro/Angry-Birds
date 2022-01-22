@@ -139,6 +139,7 @@ namespace Bird_VS_Boar
         {
             base.OnDisable();
             RecyclyAudio();//回收音效
+            MonoSingletonFactory<ShareMono>.GetSingleton().RemoveUpdateAction(EnumUpdateAction.Standard, this.OnBirdFlyUpdate_Common);
             GameManager.RemoveBird(this);//将小鸟从游戏管理器中移除
             GameManager.RemoveDiedTarget(this);
         }
@@ -241,10 +242,10 @@ namespace Bird_VS_Boar
         /// </summary>
         public void OnBirdFlyUpdate_Common()//用于处理鸟的飞行后的首次碰撞  
         {
-            if (!gameObject.activeInHierarchy)
-            {
-                MonoSingletonFactory<ShareMono>.GetSingleton().RemoveUpdateAction(EnumUpdateAction.Standard, this.OnBirdFlyUpdate_Common);
-            }
+            //if (!gameObject.activeInHierarchy)
+            //{
+            //    MonoSingletonFactory<ShareMono>.GetSingleton().RemoveUpdateAction(EnumUpdateAction.Standard, this.OnBirdFlyUpdate_Common);
+            //}
             //小鸟面朝飞行方向
             transform.eulerAngles = new Vector3(0, 0, -Vector2.SignedAngle(m_Rig2D.velocity.normalized, Vector2.right));        
         }

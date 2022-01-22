@@ -6,6 +6,7 @@ using UnityEngine.UI;
 using Farme.Audio;
 using Farme.Tool;
 using Farme;
+using Bird_VS_Boar.LevelConfig;
 
 namespace Bird_VS_Boar
 {
@@ -225,12 +226,12 @@ namespace Bird_VS_Boar
         /// 监听重玩本关
         /// </summary>
         private void OnReplayLevel()
-        {
-            
+        {        
             SetState(EnumPanelState.Hide, () =>
             {            
                 GameManager.ReplayLevel();
                 GameManager.GameControl(EnumGameControlType.Continue);
+                RefreshPanel();
             });
         }
         /// <summary>
@@ -242,6 +243,7 @@ namespace Bird_VS_Boar
             {              
                 GameManager.LastLevel();
                 GameManager.GameControl(EnumGameControlType.Continue);
+                RefreshPanel();
             });
         }
         /// <summary>
@@ -253,6 +255,7 @@ namespace Bird_VS_Boar
             {               
                 GameManager.NextLevel();
                 GameManager.GameControl(EnumGameControlType.Continue);
+                RefreshPanel();
             });
            
         }
@@ -266,6 +269,17 @@ namespace Bird_VS_Boar
                 GameManager.ReturnLevel();
                 GameManager.GameControl(EnumGameControlType.Continue);
             });     
+        }
+        #endregion
+
+        #region 刷新面板
+        private void RefreshPanel()
+        {
+            int levelNum = LevelConfigManager.GetLevelNum(GameManager.NowLevelType);
+            #region 按钮更新
+            m_LastLevelBtn.Interactable = GameManager.NowLevelIndex > 1;
+            m_NextLevelBtn.Interactable = GameManager.NowLevelIndex < levelNum;
+            #endregion
         }
         #endregion
     }

@@ -9,6 +9,7 @@ using UnityEngine.Events;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 using System;
+using Farme.Audio;
 namespace Bird_VS_Boar
 {
     /// <summary>
@@ -523,6 +524,18 @@ namespace Bird_VS_Boar
                 MonoSingletonFactory<ShareMono>.GetSingleton().ClearFixedUpdate();
                 MonoSingletonFactory<ShareMono>.GetSingleton().ClearLateUpdate();
                 #endregion
+                #region 清除通过Resources加载的资源缓存
+                ResourcesLoad.ClearAllCache();
+                #endregion
+                #region 清除通过AudioClipManager加载的音效缓存
+                if (NotMonoSingletonFactory<OtherConfigInfo>.SingletonExist)
+                {
+                    AudioClipManager.UnLoadAllAudioClip(new string[] //忽略组
+                    {
+                        NotMonoSingletonFactory<OtherConfigInfo>.GetSingleton().GetButtonAudioPath()
+                    });
+                }               
+                #endregion                
                 GC.Collect();
             }, (result) => 
             {

@@ -34,14 +34,17 @@ namespace Bird_VS_Boar
      
         protected override void OnBirdFlyBreak()
         {
-            MonoSingletonFactory<ShareMono>.GetSingleton().RemoveUpdateAction(EnumUpdateAction.Standard, OnSkillUpdate_Common);
+            MonoSingletonFactory<ShareMono>.GetSingleton().RemoveUpdateAction(EnumUpdateAction.Standard,this.OnSkillUpdate_Common);
             m_Anim.SetTrigger("IsSkill");//播放技能动画
             MonoSingletonFactory<ShareMono>.GetSingleton().DelayAction(m_Anim.AnimatorClipTimeLength("BlackBirdSkill"), ()=> 
             {
                 OnSkillUpdate();                      
             });
         }
-
+        public override void OnSkillUpdate_Common()
+        {
+            base.OnSkillUpdate_Common();
+        }
         protected override void OnSkillUpdate()
         {       
             PlaySkillAudio();//播放技能音效

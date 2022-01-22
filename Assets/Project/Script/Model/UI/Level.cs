@@ -6,7 +6,6 @@ using UnityEngine.UI;
 using Bird_VS_Boar.LevelConfig;
 using Farme.Tool;
 using Farme.UI;
-using UnityEngine.SceneManagement;
 namespace Bird_VS_Boar
 {
     /// <summary>
@@ -15,9 +14,17 @@ namespace Bird_VS_Boar
     public class Level : BaseMono
     {
         /// <summary>
-        /// 父级
+        /// 背景
         /// </summary>
-        private static Transform m_Parent;
+        private Image m_Img;
+        /// <summary>
+        /// 关卡锁
+        /// </summary>
+        private Image m_LevelLock;
+        /// <summary>
+        /// 星星矩形框
+        /// </summary>
+        private RectTransform m_StarRect;
         /// <summary>
         /// 关卡索引
         /// </summary>
@@ -26,16 +33,48 @@ namespace Bird_VS_Boar
         /// 关卡评星
         /// </summary>
         private int m_LevelRating = 0;
-        [SerializeField]
         /// <summary>
         /// 默认星星
         /// </summary>
-        private Sprite m_Stars_Default;
-        [SerializeField]
+        private static Sprite m_StarsDefault = null;
+        /// <summary>
+        /// 默认星星
+        /// </summary>
+        private static Sprite StarsDefault
+        {
+            get
+            {
+                if(m_StarsDefault == null)
+                {
+                    if (SeasonConfigInfo.SeasonConfigInfoDic.TryGetValue(GameManager.NowLevelType, out SeasonConfigInfo seasonConfigInfo))
+                    {
+                        m_StarsDefault = ResourcesLoad.Load<Sprite>(seasonConfigInfo.GetStarDefaultSpritePath(), true);
+                    }
+                }
+                return m_StarsDefault;
+            }
+        }
         /// <summary>
         /// 填充星星
         /// </summary>
-        private Sprite m_Stars_Fill;
+        private static Sprite m_StarsFill = null;
+        /// <summary>
+        /// 填充星星
+        /// </summary>
+        private static Sprite StarsFill
+        {
+            get
+            {
+                if (m_StarsFill == null)
+                {
+                    if (SeasonConfigInfo.SeasonConfigInfoDic.TryGetValue(GameManager.NowLevelType, out SeasonConfigInfo seasonConfigInfo))
+                    {
+                        m_StarsFill = ResourcesLoad.Load<Sprite>(seasonConfigInfo.GetStarFillSpritePath(), true);
+                    }
+                }
+                return m_StarsFill;
+            }
+        }
         /// <summary>
         /// 关卡索引文本
         /// </summary>
@@ -44,25 +83,30 @@ namespace Bird_VS_Boar
         /// 按钮
         /// </summary>
         private UIBtn m_Btn;
+
         protected override void Awake()
         {
             base.Awake();
+            RegisterComponentsTypes<RectTransform>();
             RegisterComponentsTypes<Image>();
             RegisterComponentsTypes<Text>();
             m_Btn = GetComponent<UIBtn>();
             m_TextIndex=GetComponent<Text>("LevelIndex");
+            m_Img = GetComponent<Image>();
+            m_LevelLock = GetComponent<Image>("LevelLock");
+            m_StarRect=GetComponent<RectTransform>("StarRect");
         }
 
         protected override void Start()
         {
             base.Start();
-            m_Btn.OnPointerClickEvent.AddListener(OnClick);         
+            m_Btn.OnPointerClickEvent.AddListener(OnClick);                  
         }
 
         protected override void OnEnable()
         {
             base.OnEnable();
-            StarsFill(true);
+            StarsFillFun(true);
             
         }
 
@@ -80,11 +124,18 @@ namespace Bird_VS_Boar
         #region RefreshUI
         private void RefreshUI()
         {
+            #region 更新背景
+            if (SeasonConfigInfo.SeasonConfigInfoDic.TryGetValue(GameManager.NowLevelType, out SeasonConfigInfo seasonConfigInfo))
+            {
+                m_Img.sprite = ResourcesLoad.Load<Sprite>(seasonConfigInfo.GetLevelBGSpritePath(),true);
+            }
+            #endregion
+            #region 更新关卡所欲
             m_LevelIndex = 1;
             for (int index=0;index< transform.GetSiblingIndex();index++)
             {
                 m_LevelIndex += transform.parent.GetChild(index).gameObject.activeInHierarchy ? 1 : 0;
-            }
+            }         
             //获取关卡配置信息
             LevelConfig.LevelConfig levelConfig = LevelConfigManager.GetLevelConfig(GameManager.NowLevelType + "_" + m_LevelIndex);
             if(levelConfig == null)
@@ -92,9 +143,14 @@ namespace Bird_VS_Boar
                 Debuger.LogError("不存在此场景的配置:\n关卡类型:"+ GameManager.NowLevelType+"\n关卡索引:"+ m_LevelIndex);
                 return;
             }
+            m_LevelLock.sprite = ResourcesLoad.Load<Sprite>(seasonConfigInfo.GetLevelLockSpritePath(),true);
+            m_LevelLock.gameObject.SetActive(!levelConfig.IsThrough);
+            m_Btn.Interactable = levelConfig.IsThrough;
+            m_StarRect.gameObject.SetActive(levelConfig.IsThrough);
             m_TextIndex.text = m_LevelIndex.ToString();
             m_LevelRating = Mathf.Clamp(levelConfig.LevelRating,0,3);
-            StarsFill();
+            StarsFillFun();
+            #endregion
         }
         #endregion
 
@@ -103,20 +159,20 @@ namespace Bird_VS_Boar
         /// 星星填充
         /// </summary>
         /// <param name="isReset">是否重置</param>
-        private void StarsFill(bool isReset = false)
+        private void StarsFillFun(bool isReset = false)
         {
             if (isReset)
             {
                 for (int index = 1; index <= 3; index++)
                 {
-                    GetComponent<Image>("Star" + index).sprite = m_Stars_Default;//填充                                                                                    
+                    GetComponent<Image>("Star" + index).sprite = StarsDefault;//填充                                                                                    
                 }
             }
             else
             {
                 for (int index = 1; index <= m_LevelRating; index++)
                 {
-                    GetComponent<Image>("Star" + index).sprite = m_Stars_Fill;//填充                                                                                    
+                    GetComponent<Image>("Star" + index).sprite = StarsFill;//填充                                                                                    
                 }
             }
         }

@@ -24,12 +24,45 @@ namespace Bird_VS_Boar
         /// 关卡类型背景精灵路径
         /// </summary>
         private string m_LevelTypeBGSpritePath;
+        /// <summary>
+        /// 关卡背景精灵路径
+        /// </summary>
+        private string m_LevelBGSpritePath;
+        /// <summary>
+        /// 默认星星路径
+        /// </summary>
+        private string m_StarDefaultSpritePath;
+        /// <summary>
+        /// 填充星星路径
+        /// </summary>
+        private string m_StarFillSpritePath;
+        /// <summary>
+        /// 关卡锁精灵路径
+        /// </summary>
+        private string m_LevelLockSpritePath;
 
+        public string GetLevelLockSpritePath()
+        {
+            return m_LevelLockSpritePath;
+        }
+
+        public string GetStarDefaultSpritePath()
+        {
+            return m_StarDefaultSpritePath;
+        }
+
+        public string GetStarFillSpritePath()
+        {
+            return m_StarFillSpritePath;
+        }
+        public string GetLevelBGSpritePath()
+        {
+            return m_LevelBGSpritePath;
+        }
         public string GetLevelTypeBGSpritePath()
         {
             return m_LevelTypeBGSpritePath;
         }
-
         public string GetSeasonAudioPath()
         {
             return m_SeasonAudioPath;
@@ -39,6 +72,10 @@ namespace Bird_VS_Boar
             m_CommonPath = "Season/"+GetType().Name + "/";
             m_SeasonAudioPath = m_CommonPath + "BGM";
             m_LevelTypeBGSpritePath = m_CommonPath + "LevelTyoeBG";
+            m_LevelBGSpritePath = m_CommonPath + "LevelBg";
+            m_StarDefaultSpritePath = "Season/StarDefault";
+            m_StarFillSpritePath = "Season/StarFill";
+            m_LevelLockSpritePath = "Season/LevelLock";
         }
     }
     /// <summary>

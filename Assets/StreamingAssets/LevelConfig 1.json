@@ -1,5 +1,9 @@
 ﻿{
   "Spring_1": {
+    "LevelType": 1,
+    "LevelRating": 0,
+    "LevelHistoryScore": 0,
+    "IsThrough": true,
     "SlingShotPosition": {
       "x": 0,
       "y": 0,
@@ -10,10 +14,25 @@
       "y": 4.5,
       "z": -10
     },
-    "LevelType": 1,
-    "LevelRating": 3,
-    "LevelHistoryScore": 0,
     "PigConfigs": [
+      {
+        "PigType": 1,
+        "Position": {
+          "x": 5.91,
+          "y": 2.23,
+          "z": -0.095703125
+        },
+        "Euler": {
+          "x": 0,
+          "y": 0,
+          "z": 0
+        },
+        "Scale": {
+          "x": 0.7,
+          "y": 0.7,
+          "z": 0.7
+        }
+      },
       {
         "PigType": 1,
         "Position": {
@@ -49,24 +68,6 @@
           "y": 0.7,
           "z": 0.7
         }
-      },
-      {
-        "PigType": 1,
-        "Position": {
-          "x": 5.91,
-          "y": 2.23,
-          "z": -0.095703125
-        },
-        "Euler": {
-          "x": 0,
-          "y": 0,
-          "z": 0
-        },
-        "Scale": {
-          "x": 0.7,
-          "y": 0.7,
-          "z": 0.7
-        }
       }
     ],
     "BarrierConfigs": [
@@ -74,7 +75,7 @@
         "BarrierType": 1,
         "BarrierShapeType": 6,
         "Position": {
-          "x": 7.91,
+          "x": 5.91,
           "y": 1.3,
           "z": 0
         },
@@ -112,7 +113,7 @@
         "BarrierType": 1,
         "BarrierShapeType": 6,
         "Position": {
-          "x": 5.91,
+          "x": 7.91,
           "y": 1.3,
           "z": 0
         },
@@ -130,6 +131,10 @@
     ]
   },
   "Spring_2": {
+    "LevelType": 1,
+    "LevelRating": 0,
+    "LevelHistoryScore": 0,
+    "IsThrough": false,
     "SlingShotPosition": {
       "x": 0,
       "y": 0,
@@ -140,9 +145,6 @@
       "y": 4.5,
       "z": -10
     },
-    "LevelType": 1,
-    "LevelRating": 1,
-    "LevelHistoryScore": 0,
     "PigConfigs": [
       {
         "PigType": 1,
@@ -204,7 +206,45 @@
         "BarrierType": 1,
         "BarrierShapeType": 1,
         "Position": {
+          "x": 5.8,
+          "y": 1.22,
+          "z": 0
+        },
+        "Euler": {
+          "x": 0,
+          "y": 0,
+          "z": 0
+        },
+        "Scale": {
+          "x": 1,
+          "y": 1,
+          "z": 1
+        }
+      },
+      {
+        "BarrierType": 1,
+        "BarrierShapeType": 1,
+        "Position": {
           "x": 7.99,
+          "y": 1.22,
+          "z": 0
+        },
+        "Euler": {
+          "x": 0,
+          "y": 0,
+          "z": 0
+        },
+        "Scale": {
+          "x": 1,
+          "y": 1,
+          "z": 1
+        }
+      },
+      {
+        "BarrierType": 1,
+        "BarrierShapeType": 1,
+        "Position": {
+          "x": 5.8,
           "y": 1.59,
           "z": 0
         },
@@ -224,44 +264,6 @@
         "BarrierShapeType": 1,
         "Position": {
           "x": 7.99,
-          "y": 1.22,
-          "z": 0
-        },
-        "Euler": {
-          "x": 0,
-          "y": 0,
-          "z": 0
-        },
-        "Scale": {
-          "x": 1,
-          "y": 1,
-          "z": 1
-        }
-      },
-      {
-        "BarrierType": 1,
-        "BarrierShapeType": 1,
-        "Position": {
-          "x": 5.8,
-          "y": 1.22,
-          "z": 0
-        },
-        "Euler": {
-          "x": 0,
-          "y": 0,
-          "z": 0
-        },
-        "Scale": {
-          "x": 1,
-          "y": 1,
-          "z": 1
-        }
-      },
-      {
-        "BarrierType": 1,
-        "BarrierShapeType": 1,
-        "Position": {
-          "x": 5.8,
           "y": 1.59,
           "z": 0
         },
@@ -279,6 +281,10 @@
     ]
   },
   "Spring_3": {
+    "LevelType": 1,
+    "LevelRating": 0,
+    "LevelHistoryScore": 0,
+    "IsThrough": false,
     "SlingShotPosition": {
       "x": 0,
       "y": 0,
@@ -289,10 +295,25 @@
       "y": 4.5,
       "z": -10
     },
-    "LevelType": 1,
-    "LevelRating": 1,
-    "LevelHistoryScore": 0,
     "PigConfigs": [
+      {
+        "PigType": 1,
+        "Position": {
+          "x": 5.91,
+          "y": 2.23,
+          "z": -0.095703125
+        },
+        "Euler": {
+          "x": 0,
+          "y": 0,
+          "z": 0
+        },
+        "Scale": {
+          "x": 0.7,
+          "y": 0.7,
+          "z": 0.7
+        }
+      },
       {
         "PigType": 1,
         "Position": {
@@ -328,13 +349,16 @@
           "y": 0.7,
           "z": 0.7
         }
-      },
+      }
+    ],
+    "BarrierConfigs": [
       {
-        "PigType": 1,
+        "BarrierType": 1,
+        "BarrierShapeType": 7,
         "Position": {
-          "x": 5.91,
-          "y": 2.23,
-          "z": -0.095703125
+          "x": 4.9,
+          "y": 1.43,
+          "z": 0
         },
         "Euler": {
           "x": 0,
@@ -342,13 +366,11 @@
           "z": 0
         },
         "Scale": {
-          "x": 0.7,
-          "y": 0.7,
-          "z": 0.7
+          "x": 1,
+          "y": 1,
+          "z": 1
         }
-      }
-    ],
-    "BarrierConfigs": [
+      },
       {
         "BarrierType": 1,
         "BarrierShapeType": 1,
@@ -386,29 +408,14 @@
           "y": 1,
           "z": 1
         }
-      },
-      {
-        "BarrierType": 1,
-        "BarrierShapeType": 7,
-        "Position": {
-          "x": 4.9,
-          "y": 1.43,
-          "z": 0
-        },
-        "Euler": {
-          "x": 0,
-          "y": 0,
-          "z": 0
-        },
-        "Scale": {
-          "x": 1,
-          "y": 1,
-          "z": 1
-        }
       }
     ]
   },
   "Summer_1": {
+    "LevelType": 2,
+    "LevelRating": 0,
+    "LevelHistoryScore": 0,
+    "IsThrough": true,
     "SlingShotPosition": {
       "x": 0,
       "y": 0,
@@ -419,9 +426,6 @@
       "y": 4.5,
       "z": -10
     },
-    "LevelType": 2,
-    "LevelRating": 2,
-    "LevelHistoryScore": 0,
     "PigConfigs": [
       {
         "PigType": 1,
@@ -539,6 +543,10 @@
     ]
   },
   "Summer_2": {
+    "LevelType": 2,
+    "LevelRating": 0,
+    "LevelHistoryScore": 0,
+    "IsThrough": false,
     "SlingShotPosition": {
       "x": 0,
       "y": 0,
@@ -549,9 +557,6 @@
       "y": 4.5,
       "z": -10
     },
-    "LevelType": 2,
-    "LevelRating": 3,
-    "LevelHistoryScore": 0,
     "PigConfigs": [
       {
         "PigType": 1,
@@ -669,6 +674,10 @@
     ]
   },
   "Autumn_1": {
+    "LevelType": 3,
+    "LevelRating": 0,
+    "LevelHistoryScore": 0,
+    "IsThrough": true,
     "SlingShotPosition": {
       "x": 0,
       "y": 0,
@@ -679,14 +688,11 @@
       "y": 4.5,
       "z": -10
     },
-    "LevelType": 3,
-    "LevelRating": 1,
-    "LevelHistoryScore": 0,
     "PigConfigs": [
       {
         "PigType": 1,
         "Position": {
-          "x": 7.83,
+          "x": 6.85,
           "y": 2.23,
           "z": -0.095703125
         },
@@ -704,7 +710,7 @@
       {
         "PigType": 1,
         "Position": {
-          "x": 6.85,
+          "x": 7.83,
           "y": 2.23,
           "z": -0.095703125
         },
@@ -743,8 +749,8 @@
         "BarrierType": 1,
         "BarrierShapeType": 7,
         "Position": {
-          "x": 7.75,
-          "y": 1.06,
+          "x": 6.38,
+          "y": 3.28,
           "z": 0
         },
         "Euler": {
@@ -762,8 +768,8 @@
         "BarrierType": 1,
         "BarrierShapeType": 7,
         "Position": {
-          "x": 6.38,
-          "y": 3.28,
+          "x": 7.75,
+          "y": 1.06,
           "z": 0
         },
         "Euler": {
@@ -799,6 +805,10 @@
     ]
   },
   "Autumn_2": {
+    "LevelType": 3,
+    "LevelRating": 0,
+    "LevelHistoryScore": 0,
+    "IsThrough": false,
     "SlingShotPosition": {
       "x": 0,
       "y": 0,
@@ -809,32 +819,11 @@
       "y": 4.5,
       "z": -10
     },
-    "LevelType": 3,
-    "LevelRating": 0,
-    "LevelHistoryScore": 0,
     "PigConfigs": [
       {
         "PigType": 1,
         "Position": {
           "x": 5.91,
-          "y": 2.23,
-          "z": -0.095703125
-        },
-        "Euler": {
-          "x": 0,
-          "y": 0,
-          "z": 0
-        },
-        "Scale": {
-          "x": 0.7,
-          "y": 0.7,
-          "z": 0.7
-        }
-      },
-      {
-        "PigType": 1,
-        "Position": {
-          "x": 6.85,
           "y": 2.23,
           "z": -0.095703125
         },
@@ -866,6 +855,24 @@
           "y": 0.7,
           "z": 0.7
         }
+      },
+      {
+        "PigType": 1,
+        "Position": {
+          "x": 6.85,
+          "y": 2.23,
+          "z": -0.095703125
+        },
+        "Euler": {
+          "x": 0,
+          "y": 0,
+          "z": 0
+        },
+        "Scale": {
+          "x": 0.7,
+          "y": 0.7,
+          "z": 0.7
+        }
       }
     ],
     "BarrierConfigs": [
@@ -875,44 +882,6 @@
         "Position": {
           "x": 7.7,
           "y": 3.48,
-          "z": 0
-        },
-        "Euler": {
-          "x": 0,
-          "y": 0,
-          "z": 0
-        },
-        "Scale": {
-          "x": 1,
-          "y": 1,
-          "z": 1
-        }
-      },
-      {
-        "BarrierType": 1,
-        "BarrierShapeType": 6,
-        "Position": {
-          "x": 6.55,
-          "y": 1.24,
-          "z": 0
-        },
-        "Euler": {
-          "x": 0,
-          "y": 0,
-          "z": 0
-        },
-        "Scale": {
-          "x": 1,
-          "y": 1,
-          "z": 1
-        }
-      },
-      {
-        "BarrierType": 1,
-        "BarrierShapeType": 7,
-        "Position": {
-          "x": 5.26,
-          "y": 1.47,
           "z": 0
         },
         "Euler": {
@@ -963,10 +932,52 @@
           "y": 1,
           "z": 1
         }
+      },
+      {
+        "BarrierType": 1,
+        "BarrierShapeType": 7,
+        "Position": {
+          "x": 5.26,
+          "y": 1.47,
+          "z": 0
+        },
+        "Euler": {
+          "x": 0,
+          "y": 0,
+          "z": 0
+        },
+        "Scale": {
+          "x": 1,
+          "y": 1,
+          "z": 1
+        }
+      },
+      {
+        "BarrierType": 1,
+        "BarrierShapeType": 6,
+        "Position": {
+          "x": 6.55,
+          "y": 1.24,
+          "z": 0
+        },
+        "Euler": {
+          "x": 0,
+          "y": 0,
+          "z": 0
+        },
+        "Scale": {
+          "x": 1,
+          "y": 1,
+          "z": 1
+        }
       }
     ]
   },
   "Winter_1": {
+    "LevelType": 4,
+    "LevelRating": 0,
+    "LevelHistoryScore": 0,
+    "IsThrough": true,
     "SlingShotPosition": {
       "x": 0,
       "y": 0,
@@ -977,9 +988,6 @@
       "y": 4.5,
       "z": -10
     },
-    "LevelType": 4,
-    "LevelRating": 3,
-    "LevelHistoryScore": 0,
     "PigConfigs": [
       {
         "PigType": 1,
@@ -1037,25 +1045,6 @@
       }
     ],
     "BarrierConfigs": [
-      {
-        "BarrierType": 2,
-        "BarrierShapeType": 2,
-        "Position": {
-          "x": 7.55,
-          "y": 4.34,
-          "z": 0
-        },
-        "Euler": {
-          "x": 0,
-          "y": 0,
-          "z": 0
-        },
-        "Scale": {
-          "x": 1,
-          "y": 1,
-          "z": 1
-        }
-      },
       {
         "BarrierType": 2,
         "BarrierShapeType": 2,
@@ -1076,11 +1065,68 @@
         }
       },
       {
+        "BarrierType": 2,
+        "BarrierShapeType": 2,
+        "Position": {
+          "x": 7.55,
+          "y": 4.34,
+          "z": 0
+        },
+        "Euler": {
+          "x": 0,
+          "y": 0,
+          "z": 0
+        },
+        "Scale": {
+          "x": 1,
+          "y": 1,
+          "z": 1
+        }
+      },
+      {
+        "BarrierType": 1,
+        "BarrierShapeType": 6,
+        "Position": {
+          "x": 7.7,
+          "y": 3.48,
+          "z": 0
+        },
+        "Euler": {
+          "x": 0,
+          "y": 0,
+          "z": 0
+        },
+        "Scale": {
+          "x": 1,
+          "y": 1,
+          "z": 1
+        }
+      },
+      {
+        "BarrierType": 1,
+        "BarrierShapeType": 6,
+        "Position": {
+          "x": 6.55,
+          "y": 1.24,
+          "z": 0
+        },
+        "Euler": {
+          "x": 0,
+          "y": 0,
+          "z": 0
+        },
+        "Scale": {
+          "x": 1,
+          "y": 1,
+          "z": 1
+        }
+      },
+      {
         "BarrierType": 1,
         "BarrierShapeType": 7,
         "Position": {
-          "x": 7.75,
-          "y": 1.06,
+          "x": 5.26,
+          "y": 1.47,
           "z": 0
         },
         "Euler": {
@@ -1117,46 +1163,8 @@
         "BarrierType": 1,
         "BarrierShapeType": 7,
         "Position": {
-          "x": 5.26,
-          "y": 1.47,
-          "z": 0
-        },
-        "Euler": {
-          "x": 0,
-          "y": 0,
-          "z": 0
-        },
-        "Scale": {
-          "x": 1,
-          "y": 1,
-          "z": 1
-        }
-      },
-      {
-        "BarrierType": 1,
-        "BarrierShapeType": 6,
-        "Position": {
-          "x": 6.55,
-          "y": 1.24,
-          "z": 0
-        },
-        "Euler": {
-          "x": 0,
-          "y": 0,
-          "z": 0
-        },
-        "Scale": {
-          "x": 1,
-          "y": 1,
-          "z": 1
-        }
-      },
-      {
-        "BarrierType": 1,
-        "BarrierShapeType": 6,
-        "Position": {
-          "x": 7.7,
-          "y": 3.48,
+          "x": 7.75,
+          "y": 1.06,
           "z": 0
         },
         "Euler": {

@@ -81,6 +81,7 @@
     <Compile Include="Assets\Frame\UI\BasePanel.cs" />
     <Compile Include="Assets\Frame\UI\StandardWindow.cs" />
     <Compile Include="Assets\Frame\UI\WindowRoot.cs" />
+    <Compile Include="Assets\LevelConfigBuilder.cs" />
     <Compile Include="Assets\Project\Script\CustomDataStruct.cs" />
     <Compile Include="Assets\Project\Script\Entry.cs" />
     <Compile Include="Assets\Project\Script\GameAudio.cs" />

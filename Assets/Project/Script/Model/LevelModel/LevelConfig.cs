@@ -9,14 +9,6 @@ namespace Bird_VS_Boar.LevelConfig
     public class LevelConfig
     {
         /// <summary>
-        /// 弹弓坐标
-        /// </summary>
-        public CustomVector3 SlingShotPosition;
-        /// <summary>
-        /// 相机坐标
-        /// </summary>
-        public CustomVector3 Camera2DPosition;
-        /// <summary>
         /// 关卡类型
         /// </summary>
         public EnumGameLevelType LevelType = EnumGameLevelType.None;
@@ -28,6 +20,18 @@ namespace Bird_VS_Boar.LevelConfig
         /// 关卡历史最佳分数
         /// </summary>
         public int LevelHistoryScore = 0;
+        /// <summary>
+        /// 是否通过(满足关卡开启的基本条件即可开锁)
+        /// </summary>
+        public bool IsThrough = false;
+        /// <summary>
+        /// 弹弓坐标
+        /// </summary>
+        public CustomVector3 SlingShotPosition;
+        /// <summary>
+        /// 相机坐标
+        /// </summary>
+        public CustomVector3 Camera2DPosition;
         /// <summary>
         /// 猪配置列表
         /// </summary>

@@ -7,6 +7,8 @@ using Farme.Extend;
 using UnityEngine.EventSystems;
 using Farme.Tool;
 using DG.Tweening;
+using Bird_VS_Boar.LevelConfig;
+
 namespace Bird_VS_Boar
 {
     /// <summary>
@@ -45,9 +47,9 @@ namespace Bird_VS_Boar
             m_ReplayLevelBtn.OnPointerClickEvent.AddListener(OnReplayLevel);
             m_NextLevelBtn.OnPointerClickEvent.AddListener(OnNextLevel);
             m_ButtonListImg.UIEventRegistered(EventTriggerType.PointerEnter, OnButtonListImgEnter);
-            m_ButtonListImg.UIEventRegistered(EventTriggerType.PointerExit, OnButtonListImgExit);              
+            m_ButtonListImg.UIEventRegistered(EventTriggerType.PointerExit, OnButtonListImgExit);
+            RefreshPanel();
         }
-
         protected override void OnDestroy()
         {            
             m_ButtonListImg.UIEventRemove(EventTriggerType.PointerEnter, OnButtonListImgEnter);
@@ -62,7 +64,16 @@ namespace Bird_VS_Boar
         }
         private void OnLastLevel()
         {
+            //#region 依照数据表来加载场景内容     
+            //int levelNum = LevelConfigManager.GetLevelNum(GameManager.NowLevelType);
+            //LevelConfig.LevelConfig levelConfig = LevelConfigManager.GetLevelConfig(GameManager.NowLevelType.ToString() + "_" + GameManager.NowLevelIndex);//读取关卡配置数据     
+            //if (levelConfig == null)
+            //{
+            //    Debuger.LogError("不存在此场景的配置");
+            //    return;
+            //}
             GameManager.LastLevel();
+            RefreshPanel();
         }
 
         private void OnReturnLevel()
@@ -77,13 +88,23 @@ namespace Bird_VS_Boar
         }
 
         private void OnNextLevel()
-        {
-            
+        {        
             GameManager.NextLevel();
+            RefreshPanel();
         }
         #endregion
 
 
+        #region 刷新面板
+        private void RefreshPanel()
+        {
+            int levelNum = LevelConfigManager.GetLevelNum(GameManager.NowLevelType);
+            #region 按钮更新
+            m_LastLevelBtn.Interactable = GameManager.NowLevelIndex > 1;
+            m_NextLevelBtn.Interactable = GameManager.NowLevelIndex < levelNum;
+            #endregion
+        }
+        #endregion
         #region 指针事件监听
         private void OnButtonListImgEnter(BaseEventData bEData)//进入
         {

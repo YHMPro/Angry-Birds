@@ -12,11 +12,7 @@ namespace Bird_VS_Boar
     /// 游戏关卡面板
     /// </summary>
     public class GameLevelPanel : BasePanel
-    {
-        /// <summary>
-        /// 用于缓存关卡的矩形框
-        /// </summary>
-        private RectTransform m_LevelRectCache;
+    {       
         /// <summary>
         /// 关卡矩形框
         /// </summary>
@@ -48,7 +44,6 @@ namespace Bird_VS_Boar
             m_NextSeasonBtn = GetComponent<UIBtn>("NextSeason");
             m_LastSeasonBtn = GetComponent<UIBtn>("LastSeason");
             m_LevelRect = GetComponent<RectTransform>("LevelRect");
-            m_LevelRectCache = GetComponent<RectTransform>("LevelRectCache");
         }
 
         protected override void Start()
@@ -149,7 +144,7 @@ namespace Bird_VS_Boar
             }
             Debuger.Log("播放关卡面板的背景音乐");
             //更新背景音乐
-            GameAudio.PlayBackGroundAudio(seasonConfigInfo.GetSeasonAudioPath());
+            GameAudio.PlayBackGroundAudio(seasonConfigInfo.GetSeasonAudioPath());           
             //回收关卡
             for (int index=0;index<m_LevelRect.childCount;index++)
             {

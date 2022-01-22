@@ -12,12 +12,19 @@ namespace Bird_VS_Boar
             m_BirdType = EnumBirdType.WhiteBird;
             base.Awake();
         }
+
+        protected override void OnDisable()
+        {
+            base.OnDisable();
+            MonoSingletonFactory<ShareMono>.GetSingleton().RemoveUpdateAction(EnumUpdateAction.Standard, this.ProductEggUpdate);
+        }
+
         protected override void OnSkillUpdate()
         {
             base.OnSkillUpdate();
             m_Rig2D.isKinematic = true;
             m_Rig2D.velocity = Vector2.zero;
-            MonoSingletonFactory<ShareMono>.GetSingleton().ApplyUpdateAction(EnumUpdateAction.Standard,ProductEggUpdate);
+            MonoSingletonFactory<ShareMono>.GetSingleton().ApplyUpdateAction(EnumUpdateAction.Standard, this.ProductEggUpdate);
         }     
         private float m_Interval = 10;
         private float m_Time = 0;
@@ -25,13 +32,17 @@ namespace Bird_VS_Boar
         {
             if (Time.time >= m_Time)
             {
-                MonoSingletonFactory<ShareMono>.GetSingleton().RemoveUpdateAction(EnumUpdateAction.Standard,ProductEggUpdate);
+                MonoSingletonFactory<ShareMono>.GetSingleton().RemoveUpdateAction(EnumUpdateAction.Standard, this.ProductEggUpdate);
                 m_Anim.SetTrigger("IsSkill");
                 MonoSingletonFactory<ShareMono>.GetSingleton().DelayAction(m_Anim.AnimatorClipTimeLength("WhiteBirdSkill"), ProducetEgg);                           
             }
         }
         private void ProducetEgg()
         {
+            if(!gameObject.activeInHierarchy)
+            {
+                return;
+            }
             GameObject go;
             if (!GoReusePool.Take(typeof(Egg).Name, out go))
             {               

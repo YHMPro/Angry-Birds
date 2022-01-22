@@ -4,7 +4,7 @@ using UnityEngine;
 using Farme;
 namespace Bird_VS_Boar
 {
-    public class Blister : MonoBehaviour
+    public class Blister : MonoBehaviour,IDied
     {
         private Coroutine m_C = null;
         /// <summary>
@@ -93,6 +93,18 @@ namespace Bird_VS_Boar
         {
             GoReusePool.Put(GetType().Name, gameObject);
         }
-
+        #region Died
+        public void Died(bool isDestroy = false)
+        {
+            if(isDestroy)
+            {
+                Destroy(gameObject);
+            }
+            else
+            {
+                Recycle();
+            }
+        }
+        #endregion
     }
 }

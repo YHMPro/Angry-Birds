@@ -19,6 +19,11 @@ namespace Bird_VS_Boar
             MonoSingletonFactory<ShareMono>.GetSingleton().ApplyUpdateAction(EnumUpdateAction.Standard,this.OnSkillUpdate_Common);//持续监听技能释放指令
         }
 
+        protected override void OnDisable()
+        {
+            base.OnDisable();
+            MonoSingletonFactory<ShareMono>.GetSingleton().RemoveUpdateAction(EnumUpdateAction.Standard, this.OnSkillUpdate_Common);
+        }
         public override void OnSkillUpdate_Common()
         {
             if (!m_IsReleaseSkill)

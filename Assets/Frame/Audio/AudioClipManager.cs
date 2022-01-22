@@ -164,5 +164,72 @@ namespace Farme.Audio
             return null;
         }
         #endregion
+
+        #region Clear
+        /// <summary>
+        /// 卸载缓存的音效剪辑
+        /// </summary>
+        /// <param name="clipKey">剪辑唯一标识(剪辑路径或AB包名+剪辑名)</param>
+        /// <returns></returns>
+        public static bool UnLoadAudioClip(string clipKey)
+        {
+            if(AudioClipDic.TryGetValue(clipKey, out AudioClip result))
+            {
+                result.UnloadAudioData();
+                AudioClipDic.Remove(clipKey);
+                return true;
+            }
+            return false;
+        }
+        /// <summary>
+        /// 依照忽略来进行采写(默认为不忽略)
+        /// </summary>
+        /// <param name="ignoreClipKeys">忽略剪辑数组</param>
+        public static void UnLoadAllAudioClip(string[] ignoreClipKeys = null)
+        {
+            bool isUnLoad;
+            List<string> unLoadKeys = null;
+            if(ignoreClipKeys != null)
+            {
+                unLoadKeys =  new List<string>();
+            }
+            foreach(string clipKey in AudioClipDic.Keys)
+            {
+                isUnLoad = true;
+                if (ignoreClipKeys != null)
+                {
+                    foreach (var ignoreClipKey in ignoreClipKeys)
+                    {
+                        if (Equals(ignoreClipKey, clipKey))
+                        {
+                            isUnLoad = false;
+                            break;//跳出ignoreClipKeys循环
+                        }
+                    }
+                    if (!isUnLoad)
+                    {                      
+                        continue;//跳过本次
+                    }
+                }              
+                if (AudioClipDic.TryGetValue(clipKey, out AudioClip result))
+                {                   
+                    unLoadKeys.Add(clipKey);
+                    result.UnloadAudioData();                  
+                }
+            }
+            if(ignoreClipKeys!=null)
+            {
+                foreach(var unLoadKey in unLoadKeys)
+                {
+                    AudioClipDic.Remove(unLoadKey);
+                }
+            }
+            else
+            {
+                AudioClipDic.Clear();
+            }
+           
+        }
+        #endregion
     }
 }

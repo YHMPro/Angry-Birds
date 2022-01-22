@@ -97,8 +97,8 @@ namespace Bird_VS_Boar
         {
             //GameManager.NowLevelIndex = LevelIndex;
             //GameManager.NowLevelType = LevelType;
-            //LevelConfigBuilder.LevelIndex = LevelIndex;
-            //LevelConfigBuilder.LevelType = LevelType;
+            LevelConfigBuilder.LevelIndex = LevelIndex;
+            LevelConfigBuilder.LevelType = LevelType;
         }
     }
 }

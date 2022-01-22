@@ -84,7 +84,7 @@ namespace Bird_VS_Boar
             {
                 if(m_Bg.sprite==null)
                 {
-                    m_Bg.sprite = ResourcesLoad.Load<Sprite>(info.GetLevelTypeBGSpritePath());
+                    m_Bg.sprite = ResourcesLoad.Load<Sprite>(info.GetLevelTypeBGSpritePath(),true);
                 }
             }
         }

@@ -12,6 +12,34 @@ namespace Bird_VS_Boar
     public class UIBtn : MonoBehaviour
     {
         /// <summary>
+        /// 是否可交互
+        /// </summary>
+        private bool m_Interactable = true;
+        /// <summary>
+        /// 是否可交互
+        /// </summary>
+        public bool Interactable
+        {
+            get
+            {
+                return m_Interactable;
+            }
+            set
+            {
+                m_Interactable = value;
+                if (!value)
+                {
+                    m_Img.color = m_DisabledColor;
+                    m_Icon.color = m_DisabledColor;
+                }
+                else
+                {
+                    m_Img.color = m_DefaultColor;
+                    m_Icon.color = m_DefaultColor;
+                }
+            }
+        }
+        /// <summary>
         /// 默认颜色
         /// </summary>
         private Color32 m_DefaultColor = Color.white;
@@ -19,6 +47,13 @@ namespace Bird_VS_Boar
         /// 按下颜色
         /// </summary>
         private Color32 m_PressColor = new Color32(255, 255, 255, 150);
+        /// <summary>
+        /// 禁用颜色
+        /// </summary>
+        private Color32 m_DisabledColor = new Color32(100, 100, 100, 255);
+        /// <summary>
+        /// 
+        /// </summary>
         private Image m_Img;
         /// <summary>
         /// 与指针的距离
@@ -57,16 +92,14 @@ namespace Bird_VS_Boar
             m_Img.UIEventRegistered(EventTriggerType.PointerExit, OnPointerExit);
             m_Img.UIEventRegistered(EventTriggerType.PointerClick, OnPointerClick);
             m_Img.UIEventRegistered(EventTriggerType.PointerDown, OnPointerDown);
-
-
         }
 
         private void ScaleUpdate()
         {
             //计算指针的位置与自身的距离
-            m_ToPointerDistance = Mathf.Clamp((transform.position - Input.mousePosition).magnitude, 0, m_Img.rectTransform.rect.width / 2f - 3f);
+            m_ToPointerDistance = Mathf.Clamp((transform.position - Input.mousePosition).magnitude, 0, (m_Img.rectTransform.rect.width* m_Img.transform.lossyScale.x) / 2f - 3f);
             //调控放缩量
-            transform.localScale = Vector3.one - (1f - m_ToPointerDistance / (m_Img.rectTransform.rect.width / 2f - 3f)) * Vector3.one * m_ScaleValue;
+            transform.localScale = Vector3.one - (1f - m_ToPointerDistance / ((m_Img.rectTransform.rect.width* m_Img.transform.lossyScale.x) / 2f - 3f)) * Vector3.one * m_ScaleValue;
         }
 
         private void OnDestroy()
@@ -85,24 +118,41 @@ namespace Bird_VS_Boar
         private void OnPointerEnter(BaseEventData bEData)
         {
             MonoSingletonFactory<ShareMono>.GetSingleton().ApplyUpdateAction(EnumUpdateAction.Standard, this.ScaleUpdate);
+            if (!m_Interactable)
+            {
+                return;
+            }
             m_OnPointerEnterEvent?.Invoke();
         }
         private void OnPointerExit(BaseEventData bEData)
         {
             MonoSingletonFactory<ShareMono>.GetSingleton().RemoveUpdateAction(EnumUpdateAction.Standard, this.ScaleUpdate);
+            transform.localScale = Vector3.one;
+            if (!m_Interactable)
+            {
+                return;
+            }
             m_Img.color = m_DefaultColor;
             m_Icon.color = m_DefaultColor;
             m_OnPointerExitEvent?.Invoke();
         }
         private void OnPointerClick(BaseEventData bEData)
         {
+            if (!m_Interactable)
+            {
+                return;
+            }
             m_Img.color = m_DefaultColor;
             m_Icon.color = m_DefaultColor;
-            GameAudio.PlayButtonAudio();
+            GameAudio.PlayButtonAudio();           
             m_OnPointerClickEvent?.Invoke();
         }
         private void OnPointerDown(BaseEventData bEData)
         {
+            if (!m_Interactable)
+            {
+                return;
+            }
             m_Img.color = m_PressColor;
             m_Icon.color = m_PressColor;
         }
