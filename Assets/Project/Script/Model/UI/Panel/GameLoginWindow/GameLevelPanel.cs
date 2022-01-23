@@ -128,9 +128,7 @@ namespace Bird_VS_Boar
         /// 刷新面板
         /// </summary>
         private void RefreshPanel()
-        {
-            
-
+        {          
             if (!NotMonoSingletonFactory<OtherConfigInfo>.SingletonExist)
             {
                 Debuger.LogError("配置信息未实例化");
@@ -142,7 +140,8 @@ namespace Bird_VS_Boar
                 Debuger.LogError("没有找到季节配置信息");
                 return;
             }
-            Debuger.Log("播放关卡面板的背景音乐");
+            //更新关卡界面背景
+            m_Bg.sprite = ResourcesLoad.Load<Sprite>(seasonConfigInfo.GetLevelInterfaceBGSpritePath(),true);
             //更新背景音乐
             GameAudio.PlayBackGroundAudio(seasonConfigInfo.GetSeasonAudioPath());           
             //回收关卡

@@ -134,7 +134,7 @@
     "LevelType": 1,
     "LevelRating": 0,
     "LevelHistoryScore": 0,
-    "IsThrough": false,
+    "IsThrough": true,
     "SlingShotPosition": {
       "x": 0,
       "y": 0,

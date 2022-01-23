@@ -17,5 +17,13 @@ namespace Bird_VS_Boar
         /// 逻辑更新事件
         /// </summary>
         public readonly static string LogicUpdateEvent = "LogicUpdateEvent";
+        /// <summary>
+        /// 保存关卡数据事件
+        /// </summary>
+        public readonly static string SaveLevelDataEvent = "SaveLevelDataEvent";
+        /// <summary>
+        /// 保存关卡数据到本地
+        /// </summary>
+        public readonly static string SaveLevelDataToThisLocalityEvent = "SaveLevelDataToThisLocalityEvent";
     }
 }

@@ -98,10 +98,10 @@ namespace Bird_VS_Boar
         #region 刷新面板
         private void RefreshPanel()
         {
-            int levelNum = LevelConfigManager.GetLevelNum(GameManager.NowLevelType);
+            int levelNum = LevelConfigManager.GetLevelNum(GameManager.NowLevelType);            
             #region 按钮更新
             m_LastLevelBtn.Interactable = GameManager.NowLevelIndex > 1;
-            m_NextLevelBtn.Interactable = GameManager.NowLevelIndex < levelNum;
+            m_NextLevelBtn.Interactable = GameManager.NowLevelIndex < levelNum ? LevelConfigManager.GetLevelConfig(GameManager.NowLevelType + "_" + (GameManager.NowLevelIndex + 1)).IsThrough : false;
             #endregion
         }
         #endregion

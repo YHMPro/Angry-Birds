@@ -165,6 +165,7 @@ namespace Bird_VS_Boar
         /// </summary>
         public static void Init()
         { 
+            
             if (NotMonoSingletonFactory<OtherConfigInfo>.SingletonExist)
             {
                 OtherConfigInfo otherConfigInfo = NotMonoSingletonFactory<OtherConfigInfo>.GetSingleton();
@@ -558,6 +559,16 @@ namespace Bird_VS_Boar
         public static void ProgramExit()
         {
             Application.Quit();
+        }
+        #endregion
+
+        #region DataSave      
+        /// <summary>
+        /// 保存关卡数据到本地(程序退出时调用)
+        /// </summary>
+        public static void SaveLevelDataToThisLocality()
+        {
+            LevelConfigManager.SaveLevelConfig();
         }
         #endregion
     }

@@ -187,41 +187,44 @@ namespace Farme.Audio
         /// <param name="ignoreClipKeys">忽略剪辑数组</param>
         public static void UnLoadAllAudioClip(string[] ignoreClipKeys = null)
         {
-            bool isUnLoad;
-            List<string> unLoadKeys = null;
+            bool isUnload;
+            List<string> unloadKeys = null;
             if(ignoreClipKeys != null)
             {
-                unLoadKeys =  new List<string>();
+                unloadKeys =  new List<string>();
             }
             foreach(string clipKey in AudioClipDic.Keys)
             {
-                isUnLoad = true;
+                isUnload = true;
                 if (ignoreClipKeys != null)
                 {
                     foreach (var ignoreClipKey in ignoreClipKeys)
                     {
                         if (Equals(ignoreClipKey, clipKey))
                         {
-                            isUnLoad = false;
+                            isUnload = false;
                             break;//跳出ignoreClipKeys循环
                         }
                     }
-                    if (!isUnLoad)
+                    if (!isUnload)
                     {                      
                         continue;//跳过本次
                     }
                 }              
                 if (AudioClipDic.TryGetValue(clipKey, out AudioClip result))
-                {                   
-                    unLoadKeys.Add(clipKey);
+                {
+                    if (unloadKeys != null)
+                    {
+                        unloadKeys.Add(clipKey);
+                    }
                     result.UnloadAudioData();                  
                 }
             }
             if(ignoreClipKeys!=null)
             {
-                foreach(var unLoadKey in unLoadKeys)
+                foreach(var unloadKey in unloadKeys)
                 {
-                    AudioClipDic.Remove(unLoadKey);
+                    AudioClipDic.Remove(unloadKey);
                 }
             }
             else

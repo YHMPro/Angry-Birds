@@ -3,14 +3,15 @@ using System.Collections.Generic;
 using UnityEngine;
 using Farme;
 using Farme.Tool;
+using Bird_VS_Boar.LevelConfig;
+
 namespace Bird_VS_Boar
 {
     /// <summary>
     /// 游戏逻辑处理
     /// </summary>
     public class GameLogic 
-    {
-        
+    {       
         /// <summary>
         /// 游戏是否结束
         /// </summary>
@@ -107,6 +108,8 @@ namespace Bird_VS_Boar
         public static void Clear()
         {
             m_NowScore = 0;
+            //获取当前关卡的最佳历史分数
+            m_HistoryScore = LevelConfigManager.GetLevelConfig(GameManager.NowLevelType + "_" + GameManager.NowLevelIndex).LevelHistoryScore;
             MesgManager.MesgBreakListen<int>(ProjectEvents.ScoreUpdateEvent, ScoreUpdate);
             MesgManager.MesgBreakListen<EnumBirdType>(ProjectEvents.CoinUpdateEvent, CoinUpdate);
             MesgManager.MesgBreakListen(ProjectEvents.LogicUpdateEvent, LogicUpdate);
@@ -137,6 +140,18 @@ namespace Bird_VS_Boar
                 Debuger.Log("胜利");
                 m_IsGameOver = true;
                 GameManager.GameOver(true);
+                #region 设置下一关开发
+                int levelNum = LevelConfigManager.GetLevelNum(GameManager.NowLevelType);
+                if(GameManager.NowLevelIndex < levelNum)
+                {
+                    LevelConfigManager.GetLevelConfig(GameManager.NowLevelType + "_" + (GameManager.NowLevelIndex + 1)).IsThrough = true;
+                }
+                #endregion
+                //设置当前关卡的最佳历史分数
+                if(m_NowScore> m_HistoryScore)
+                {
+                    LevelConfigManager.GetLevelConfig(GameManager.NowLevelType + "_" + GameManager.NowLevelIndex).LevelHistoryScore = m_NowScore;
+                }
             }
             else if (!IsBuy)//钱币不能满足购买一只小鸟(最低价)
             {

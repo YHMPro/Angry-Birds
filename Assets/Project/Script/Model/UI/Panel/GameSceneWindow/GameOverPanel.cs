@@ -93,6 +93,16 @@ namespace Bird_VS_Boar
         }
 
 
+        protected override void OnEnable()
+        {
+            base.OnEnable();
+            RefreshPanel();
+        }
+
+        protected override void LateOnEnable()
+        {
+            base.LateOnEnable();
+        }
         public void Update()
         {
             
@@ -127,7 +137,6 @@ namespace Bird_VS_Boar
         #region Lose
         public void Lose()
         {
-            m_NextLevelBtn.gameObject.SetActive(false);
             m_LoseGo.gameObject.SetActive(true);
             m_NowScoreText.text = GameLogic.NowScore.ToString();
             m_HistoryScoreText.text=GameLogic.HistoryScore.ToString();
@@ -231,7 +240,6 @@ namespace Bird_VS_Boar
             {            
                 GameManager.ReplayLevel();
                 GameManager.GameControl(EnumGameControlType.Continue);
-                RefreshPanel();
             });
         }
         /// <summary>
@@ -243,7 +251,6 @@ namespace Bird_VS_Boar
             {              
                 GameManager.LastLevel();
                 GameManager.GameControl(EnumGameControlType.Continue);
-                RefreshPanel();
             });
         }
         /// <summary>
@@ -255,7 +262,6 @@ namespace Bird_VS_Boar
             {               
                 GameManager.NextLevel();
                 GameManager.GameControl(EnumGameControlType.Continue);
-                RefreshPanel();
             });
            
         }
@@ -278,7 +284,7 @@ namespace Bird_VS_Boar
             int levelNum = LevelConfigManager.GetLevelNum(GameManager.NowLevelType);
             #region 按钮更新
             m_LastLevelBtn.Interactable = GameManager.NowLevelIndex > 1;
-            m_NextLevelBtn.Interactable = GameManager.NowLevelIndex < levelNum;
+            m_NextLevelBtn.Interactable = GameManager.NowLevelIndex < levelNum ? LevelConfigManager.GetLevelConfig(GameManager.NowLevelType + "_" + (GameManager.NowLevelIndex + 1)).IsThrough : false;
             #endregion
         }
         #endregion

@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Farme.Tool;
 namespace Bird_VS_Boar
 {
     /// <summary>
@@ -16,10 +17,18 @@ namespace Bird_VS_Boar
         /// 季节配置信息容器
         /// </summary>
         public static Dictionary<EnumGameLevelType, SeasonConfigInfo> SeasonConfigInfoDic=new Dictionary<EnumGameLevelType, SeasonConfigInfo>();
+
+        #region 音效路径
         /// <summary>
         /// 季节音效路径
         /// </summary>
         private string m_SeasonAudioPath;
+        #endregion
+        #region 精灵路径
+        /// <summary>
+        /// 关卡界面背景精灵路径
+        /// </summary>
+        private string m_LevelInterfaceBGSpritePath;
         /// <summary>
         /// 关卡类型背景精灵路径
         /// </summary>
@@ -40,7 +49,13 @@ namespace Bird_VS_Boar
         /// 关卡锁精灵路径
         /// </summary>
         private string m_LevelLockSpritePath;
+        #endregion
 
+        public string GetLevelInterfaceBGSpritePath()
+        {
+            return m_LevelInterfaceBGSpritePath;
+        }
+     
         public string GetLevelLockSpritePath()
         {
             return m_LevelLockSpritePath;
@@ -76,6 +91,10 @@ namespace Bird_VS_Boar
             m_StarDefaultSpritePath = "Season/StarDefault";
             m_StarFillSpritePath = "Season/StarFill";
             m_LevelLockSpritePath = "Season/LevelLock";
+
+            #region 待          
+            m_LevelInterfaceBGSpritePath = "?";
+            #endregion
         }
     }
     /// <summary>

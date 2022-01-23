@@ -14,6 +14,10 @@ namespace Bird_VS_Boar
     public class GameLevelTypePanel : BasePanel
     {
         /// <summary>
+        /// 界面背景
+        /// </summary>
+        private Image m_Bg;
+        /// <summary>
         /// 返回按钮
         /// </summary>
         private UIBtn m_ReturnBtn;
@@ -30,6 +34,7 @@ namespace Bird_VS_Boar
 
             m_ReturnBtn=GetComponent<UIBtn>("ReturnBtn");
             m_LevelTypeRectImg = GetComponent<Image>("LevelTypeRect");
+            m_Bg = GetComponent<Image>("Bg");
         }
 
 
@@ -39,6 +44,12 @@ namespace Bird_VS_Boar
             Debuger.Log("播放关卡类型面板的音乐");
         }
 
+        protected override void LateOnEnable()
+        {
+            base.LateOnEnable();
+            RefreshPanel();
+        }
+
         protected override void Start()
         {
             base.Start();
@@ -46,6 +57,8 @@ namespace Bird_VS_Boar
             if (NotMonoSingletonFactory<OtherConfigInfo>.SingletonExist)
             {
                 OtherConfigInfo otherConfigInfo = NotMonoSingletonFactory<OtherConfigInfo>.GetSingleton();
+                //加载关卡类型界面背景
+                m_Bg.sprite = ResourcesLoad.Load<Sprite>(otherConfigInfo.GetLevelTypeInterfaceBGSpritePath(), true);
                 foreach (var levelType in Enum.GetValues(typeof(EnumGameLevelType)))
                 {
                     if ((EnumGameLevelType)levelType != EnumGameLevelType.None)
@@ -58,6 +71,23 @@ namespace Bird_VS_Boar
                 }
             }
         }
+
+
+        #region RefreshPanel
+        /// <summary>
+        /// 刷新面板
+        /// </summary>
+        private void RefreshPanel()
+        {
+            if (NotMonoSingletonFactory<OtherConfigInfo>.SingletonExist)
+            {
+                OtherConfigInfo otherConfigInfo = NotMonoSingletonFactory<OtherConfigInfo>.GetSingleton();
+                //更新背景音乐
+                GameAudio.PlayBackGroundAudio(otherConfigInfo.GetLevelTypePanelAudioPath());
+            }
+
+        }
+        #endregion
 
         #region Button
         private void OnReturn()

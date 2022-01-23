@@ -71,6 +71,10 @@ namespace Bird_VS_Boar
         #endregion
         #region Audio
         /// <summary>
+        /// 关卡类型面板音效路径
+        /// </summary>
+        protected string m_LevelTypePanelAudioPath;
+        /// <summary>
         /// 弹弓音效路径
         /// </summary>
         protected string m_SlingShotAudioPath;
@@ -125,6 +129,12 @@ namespace Bird_VS_Boar
         /// </summary>
         protected string m_ScorePrefabPath;
         #endregion
+        #region 精灵
+        /// <summary>
+        /// 关卡类型界面背景精灵路径
+        /// </summary>
+        protected string m_LevelTypeInterfaceBGSpritePath;
+        #endregion
         public void InitConfigInfo()
         {
             m_CommonPath = GetType().Name + "/";
@@ -146,8 +156,22 @@ namespace Bird_VS_Boar
             m_EggOrderInLayer = 1;
             m_BoomOrderInLayer = 20;
             m_ScoreOrderInLayer = 40;
+
+            #region 待
+            m_LevelTypeInterfaceBGSpritePath = "?";
+            m_LevelTypePanelAudioPath = "?";
+            #endregion
         }
 
+        public string GetLevelTypePanelAudioPath()
+        {
+            return m_LevelTypePanelAudioPath;
+        }
+
+        public string GetLevelTypeInterfaceBGSpritePath()
+        {
+            return m_LevelTypeInterfaceBGSpritePath;
+        }
         public string GetLevelTypePrefabPath()
         {
             return m_CommonPath + m_LevelTypePrefabPath;
