@@ -13,7 +13,6 @@ GameObject:
   - component: {fileID: 6483044573080093694}
   - component: {fileID: 6483044573080093690}
   - component: {fileID: 6483044573080093691}
-  - component: {fileID: 7035709393389973160}
   m_Layer: 8
   m_Name: Bird
   m_TagString: Bird
@@ -224,18 +223,6 @@ TrailRenderer:
   m_MinVertexDistance: 0.1
   m_Autodestruct: 0
   m_Emitting: 1
---- !u!114 &7035709393389973160
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6483044573080093692}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d558db5680c976749a90fbfd8f096aa4, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &9000999612564990196
 GameObject:
   m_ObjectHideFlags: 0

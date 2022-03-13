@@ -93,6 +93,7 @@
     <Compile Include="Assets\Project\Script\GameConfigInfo\SeasonConfigInfo.cs" />
     <Compile Include="Assets\Project\Script\GameLogic.cs" />
     <Compile Include="Assets\Project\Script\GameManager.cs" />
+    <Compile Include="Assets\Project\Script\MapManager.cs" />
     <Compile Include="Assets\Project\Script\Model\BarrierModel\Barrier.cs" />
     <Compile Include="Assets\Project\Script\Model\BarrierModel\Ice.cs" />
     <Compile Include="Assets\Project\Script\Model\BarrierModel\Rock.cs" />
@@ -118,6 +119,7 @@
     <Compile Include="Assets\Project\Script\Model\FlyPath\FlyPath.cs" />
     <Compile Include="Assets\Project\Script\Model\LevelModel\LevelConfig.cs" />
     <Compile Include="Assets\Project\Script\Model\LevelModel\LevelConfigManager.cs" />
+    <Compile Include="Assets\Project\Script\Model\MapModel\Map.cs" />
     <Compile Include="Assets\Project\Script\Model\PigModel\OldPig.cs" />
     <Compile Include="Assets\Project\Script\Model\PigModel\Pig.cs" />
     <Compile Include="Assets\Project\Script\Model\PigModel\RockPig.cs" />
@@ -347,6 +349,12 @@
     </Reference>
     <Reference Include="DOTween">
       <HintPath>Assets\Plugins\Demigiant\DOTween\DOTween.dll</HintPath>
+    </Reference>
+    <Reference Include="UnityEditor.iOS.Extensions.Xcode">
+      <HintPath>C:\Program Files\Unity\2019.4.33f1\Editor\Data\PlaybackEngines\iOSSupport\UnityEditor.iOS.Extensions.Xcode.dll</HintPath>
+    </Reference>
+    <Reference Include="UnityEditor.iOS.Extensions.Common">
+      <HintPath>C:\Program Files\Unity\2019.4.33f1\Editor\Data\PlaybackEngines\iOSSupport\UnityEditor.iOS.Extensions.Common.dll</HintPath>
     </Reference>
     <Reference Include="mscorlib">
       <HintPath>C:\Program Files\Unity\2019.4.33f1\Editor\Data\MonoBleedingEdge\lib\mono\4.7.1-api\mscorlib.dll</HintPath>

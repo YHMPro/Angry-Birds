@@ -147,6 +147,16 @@ namespace Bird_VS_Boar
             }
         }
         /// <summary>
+        /// 当前场景中可销毁的对象数量
+        /// </summary>
+        public static int NowSceneDiedTargetNum
+        {
+            get
+            {
+                return m_DiedTargets.Count;
+            }
+        }
+        /// <summary>
         /// 猪列表
         /// </summary>
         private static List<Pig> m_Pigs = new List<Pig>();
@@ -158,8 +168,10 @@ namespace Bird_VS_Boar
         /// 可销毁对象列表
         /// </summary>
         private static List<IDied> m_DiedTargets = new List<IDied>();
-
-
+        /// <summary>
+        /// 协程
+        /// </summary>
+        private static Coroutine m_Cor = null;
         /// <summary>
         /// 初始化
         /// </summary>
@@ -197,8 +209,8 @@ namespace Bird_VS_Boar
         /// </summary>
         public static void Clear()
         {
-            m_Pigs = new List<Pig>();  
-            m_Birds = new List<Bird>();
+            m_Pigs.Clear();
+            m_Birds.Clear();
         }
         
 
@@ -225,7 +237,8 @@ namespace Bird_VS_Boar
             {
                 m_Pigs.Remove(pig);
                 Debuger.Log("当前场景内猪的数量:" + NowScenePigNum);
-                MonoSingletonFactory<ShareMono>.GetSingleton().DelayRealtimeAction(3f, () =>
+                RemoveCor();
+                m_Cor =MonoSingletonFactory<ShareMono>.GetSingleton().DelayRealtimeAction(3f, () =>
                 {
                     MesgManager.MesgTirgger(ProjectEvents.LogicUpdateEvent);
                 });
@@ -253,7 +266,8 @@ namespace Bird_VS_Boar
             {
                 m_Birds.Remove(bird);
                 Debuger.Log("当前场景内鸟的数量:" + NowSceneBirdNum);
-                MonoSingletonFactory<ShareMono>.GetSingleton().DelayRealtimeAction(3f, () =>
+                RemoveCor();
+                m_Cor =MonoSingletonFactory<ShareMono>.GetSingleton().DelayRealtimeAction(3f, () =>
                 {
                     MesgManager.MesgTirgger(ProjectEvents.LogicUpdateEvent);
                 });
@@ -271,6 +285,7 @@ namespace Bird_VS_Boar
                 return;
             }
             m_DiedTargets.Add(died);
+            //Debuger.Log("当前场景可销毁对象的数量:"+ died.Name + NowSceneDiedTargetNum);
         }
         /// <summary>
         /// 移除可销毁对象
@@ -281,7 +296,11 @@ namespace Bird_VS_Boar
             if (m_DiedTargets.Contains(died))
             {
                 m_DiedTargets.Remove(died);
-                Debuger.Log("当前场景可销毁对象的数量:" + NowSceneBirdNum);
+                foreach(var d in m_DiedTargets)
+                {
+                    Debuger.Log("当前场景可销毁对象名称:" + d.Name + "总数:"+ NowSceneDiedTargetNum);
+                }
+                
             }
         }
         #endregion
@@ -296,6 +315,11 @@ namespace Bird_VS_Boar
             if(m_IsShieldGameOverEvent)
             {
                 return;
+            }
+            //断开当前挂载小鸟的更新
+            if (GameLogic.NowComeBird != null)
+            {
+                MonoSingletonFactory<ShareMono>.GetSingleton().RemoveUpdateAction(EnumUpdateAction.Standard, GameLogic.NowComeBird.BirdControlUpdate);//移除小鸟控制更新
             }
             StandardWindow window = MonoSingletonFactory<WindowRoot>.GetSingleton().GetWindow("GameSceneWindow");
             if(window==null|| !window.GetPanel<GameOverPanel>("GameOverPanel", out var panel))
@@ -337,37 +361,46 @@ namespace Bird_VS_Boar
             GameLogic.NowComeBird = null;
             if (MonoSingletonFactory<SlingShot>.SingletonExist)
             {
+                Debuger.Log("清除弹弓线");
                 MonoSingletonFactory<SlingShot>.GetSingleton().ClearLine();
             }     
-            GameLogic.Init();//初始化逻辑管理器
-            foreach (var config in levelConfig.BarrierConfigs)
+            GameLogic.Init();//初始化逻辑管理器                
+            if (MapManager.LoadMap())
             {
-                //获取障碍物预制路径
-                if (BarrierConfigInfo.BarrierConfigInfoDic.TryGetValue(config.BarrierType, out var info))
+                foreach (var barrierConfig in levelConfig.BarrierConfigs)
                 {
-                    if (!GoReusePool.Take(config.BarrierType.ToString() + config.BarrierShapeType.ToString(), out GameObject go))
+                    //获取障碍物预制路径
+                    if (BarrierConfigInfo.BarrierConfigInfoDic.TryGetValue(barrierConfig.BarrierType, out var info))
                     {
-                        if (!GoLoad.Take(info.GetBarrierPrefabPath(config.BarrierShapeType), out go))
+                        if (!GoReusePool.Take(barrierConfig.BarrierType.ToString() + barrierConfig.BarrierShapeType.ToString(), out GameObject barrierGo))
                         {
-                            Debuger.LogError("障碍物配置信息错误");
-                            return;
+                            if (!GoLoad.Take(info.GetBarrierPrefabPath(barrierConfig.BarrierShapeType), out barrierGo))
+                            {
+                                Debuger.LogError("障碍物配置信息错误");
+                                continue;
+                            }
                         }
+                        barrierGo.transform.position = barrierConfig.Position.ToVector3();
+                        barrierGo.transform.eulerAngles = barrierConfig.Euler.ToVector3();
+                        barrierGo.transform.localScale = barrierConfig.Scale.ToVector3();
                     }
-                    go.transform.position = config.Position.ToVector3();
-                    go.transform.eulerAngles = config.Euler.ToVector3();
-                    go.transform.localScale = config.Scale.ToVector3();
                 }
-            }
-            foreach (var config in levelConfig.PigConfigs)
-            {
-                //获取障碍物预制路径
-                if (PigConfigInfo.PigConfigInfoDic.TryGetValue(config.PigType, out var info))
+                foreach (var piConfig in levelConfig.PigConfigs)
                 {
-                    if (GoLoad.Take(info.GetPigPrefabPath(), out GameObject go))
+                    //获取猪预制路径
+                    if (PigConfigInfo.PigConfigInfoDic.TryGetValue(piConfig.PigType, out var info))
                     {
-                        go.transform.position = config.Position.ToVector3();
-                        go.transform.eulerAngles = config.Euler.ToVector3();
-                        go.transform.localScale = config.Scale.ToVector3();
+                        if (!GoReusePool.Take(piConfig.PigType.ToString(), out GameObject pigGo))
+                        {
+                            if (!GoLoad.Take(info.GetPigPrefabPath(), out pigGo))
+                            {
+                                Debuger.LogError("猪配置信息错误");
+                                continue;
+                            }
+                        }
+                        pigGo.transform.position = piConfig.Position.ToVector3();
+                        pigGo.transform.eulerAngles = piConfig.Euler.ToVector3();
+                        pigGo.transform.localScale = piConfig.Scale.ToVector3();
                     }
                 }
             }
@@ -511,7 +544,8 @@ namespace Bird_VS_Boar
         }
         #endregion
 
-        #region SceneLoad
+        #region Scene
+
         /// <summary>
         /// 场景加载
         /// </summary>
@@ -550,6 +584,15 @@ namespace Bird_VS_Boar
                 Debuger.Log("场景加载进度:" + pro);
             });
         }
+        /// <summary>
+        /// 场景卸载
+        /// </summary>
+        /// <param name="sceneType"></param>
+        /// <param name="callback"></param>
+        public static void UnSceneLoad(EnumSceneType sceneType, UnityAction callback)
+        {
+            //Farme.SceneLoad.UnLoadSceneAsync()
+        }
         #endregion
 
         #region Quit
@@ -571,5 +614,16 @@ namespace Bird_VS_Boar
             LevelConfigManager.SaveLevelConfig();
         }
         #endregion
+        /// <summary>
+        /// 移除协程
+        /// </summary>
+        private static void RemoveCor()
+        {
+            if(m_Cor!=null)
+            {
+                MonoSingletonFactory<ShareMono>.GetSingleton().StopCoroutine(m_Cor);
+                m_Cor = null;
+            }
+        }
     }
 }

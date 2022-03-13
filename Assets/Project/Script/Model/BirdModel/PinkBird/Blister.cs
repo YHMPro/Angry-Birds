@@ -2,10 +2,21 @@
 using System.Collections.Generic;
 using UnityEngine;
 using Farme;
+using Farme.Tool;
 namespace Bird_VS_Boar
 {
     public class Blister : MonoBehaviour,IDied
     {
+        /// <summary>
+        /// 名称
+        /// </summary>
+        public string Name
+        {
+            get
+            {
+                return name;
+            }
+        }
         private Coroutine m_C = null;
         /// <summary>
         /// 碰撞器
@@ -35,7 +46,7 @@ namespace Bird_VS_Boar
         private GameObject m_CheckGo = null;
         [SerializeField]
         private float m_UpMoveSpeed = 10f;
-        private Vector3 m_MoveDir = new Vector3(0.5f, 1,0);
+        private Vector3 m_MoveDir = new Vector3(0, 1,0);
         private void Awake()
         {            
             m_EdgeCo2D = GetComponents<EdgeCollider2D>()[1];
@@ -91,6 +102,7 @@ namespace Bird_VS_Boar
 
         private void Recycle()
         {
+            Debuger.Log("回收气球");
             GoReusePool.Put(GetType().Name, gameObject);
         }
         #region Died

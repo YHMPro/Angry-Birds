@@ -7,10 +7,21 @@ namespace Bird_VS_Boar
 {
     public class FlyPath : MonoBehaviour
     {
-        private Coroutine m_C;
+        private Coroutine m_Cor;
         private int m_PathPointCount = 3;
         private Transform[] m_PointTrans;
         private bool m_Active = false;
+
+
+        private void OnDestroy()
+        {
+            if (m_Cor != null)
+            {
+                MonoSingletonFactory<ShareMono>.GetSingleton().StopCoroutine(m_Cor);
+                m_Cor = null;
+            }
+        }
+
         private Transform[] PointTrans
         {
             get
@@ -46,9 +57,10 @@ namespace Bird_VS_Boar
                 m_Active = active;
                 if (m_Active)
                 {
-                    if(m_C!=null)
+                    if(m_Cor != null)
                     {
-                        MonoSingletonFactory<ShareMono>.GetSingleton().StopCoroutine(m_C);
+                        MonoSingletonFactory<ShareMono>.GetSingleton().StopCoroutine(m_Cor);
+                        m_Cor = null;
                     }
                     foreach (var pointTran in PointTrans)
                     {
@@ -57,7 +69,7 @@ namespace Bird_VS_Boar
                 }
                 else
                 {
-                    m_C = MonoSingletonFactory<ShareMono>.GetSingleton().DelayAction(2, () =>
+                    m_Cor = MonoSingletonFactory<ShareMono>.GetSingleton().DelayAction(2, () =>
                     {
                         foreach (var pointTran in PointTrans)
                         {

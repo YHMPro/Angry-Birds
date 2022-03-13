@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using Farme;
 using UnityEngine.UI;
+using Farme.Extend;
 namespace Bird_VS_Boar
 {
     /// <summary>
@@ -64,11 +65,19 @@ namespace Bird_VS_Boar
                 }
             }
             MesgManager.MesgTirgger(ProjectEvents.CoinUpdateEvent, m_BirdType);//更新硬币
-            GameLogic.NowComeBird = goods.GetComponent<Bird>();
+            AddBirdCom(goods);
             if (MonoSingletonFactory<SlingShot>.SingletonExist)
             {
                 MonoSingletonFactory<SlingShot>.GetSingleton().BindBird();
             }
+        }
+        /// <summary>
+        /// 添加小鸟组件
+        /// </summary>
+        /// <param name="bird"></param>
+        protected virtual void AddBirdCom(GameObject bird)
+        {
+            
         }
         /// <summary>
         /// 小鸟配置信息设置

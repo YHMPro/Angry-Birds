@@ -150,6 +150,8 @@ namespace Bird_VS_Boar
             m_BoomPrefabPath = "Boom";
             m_EggPrefabPath = "Egg";
             m_PointPrefabPath = "Point";
+            m_LevelTypePanelAudioPath = "BGM";
+            m_LevelTypeInterfaceBGSpritePath = "BG";
             m_StarAudioPaths = new string[] { "Star1", "Star2", "Star3" };
             //层级顺序  分数>Boom>蛋>点
             m_PointOrderInLayer = -1;
@@ -158,19 +160,19 @@ namespace Bird_VS_Boar
             m_ScoreOrderInLayer = 40;
 
             #region 待
-            m_LevelTypeInterfaceBGSpritePath = "?";
-            m_LevelTypePanelAudioPath = "?";
+            
+            
             #endregion
         }
 
         public string GetLevelTypePanelAudioPath()
         {
-            return m_LevelTypePanelAudioPath;
+            return m_CommonPath+m_LevelTypePanelAudioPath;
         }
 
         public string GetLevelTypeInterfaceBGSpritePath()
         {
-            return m_LevelTypeInterfaceBGSpritePath;
+            return m_CommonPath+m_LevelTypeInterfaceBGSpritePath;
         }
         public string GetLevelTypePrefabPath()
         {

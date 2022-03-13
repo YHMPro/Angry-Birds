@@ -26,6 +26,16 @@ namespace Bird_VS_Boar
     public abstract class Bird : BaseMono,IBoom, IDiedAudio,IDied
     {
         /// <summary>
+        /// 名称
+        /// </summary>
+        public string Name
+        {
+            get
+            {
+                return name;
+            }
+        }
+        /// <summary>
         /// 小鸟类型
         /// </summary>
         protected EnumBirdType m_BirdType=EnumBirdType.None;
@@ -77,6 +87,10 @@ namespace Bird_VS_Boar
         /// 绘制线结束点
         /// </summary>
         protected Transform drawLineEnd;
+        /// <summary>
+        /// 协程
+        /// </summary>
+        protected Coroutine m_Cor;
         /// <summary>
         /// 射线检测的组
         /// </summary>
@@ -242,6 +256,7 @@ namespace Bird_VS_Boar
         /// </summary>
         public void OnBirdFlyUpdate_Common()//用于处理鸟的飞行后的首次碰撞  
         {
+            Debuger.Log("小鸟飞行更新");
             //if (!gameObject.activeInHierarchy)
             //{
             //    MonoSingletonFactory<ShareMono>.GetSingleton().RemoveUpdateAction(EnumUpdateAction.Standard, this.OnBirdFlyUpdate_Common);
@@ -255,7 +270,7 @@ namespace Bird_VS_Boar
         protected virtual void OnBirdFlyBreak()
         {
             m_Anim.SetTrigger("IsHurt");//受伤动画            
-            MonoSingletonFactory<ShareMono>.GetSingleton().DelayAction(3.0f,()=> 
+            m_Cor=MonoSingletonFactory<ShareMono>.GetSingleton().DelayAction(3f,()=> 
             {
                 if (gameObject.activeInHierarchy)
                 {
@@ -451,13 +466,19 @@ namespace Bird_VS_Boar
         #region Died
         public virtual void Died(bool isDestroy=false)
         {
+            if (m_Cor != null)
+            {
+                MonoSingletonFactory<ShareMono>.GetSingleton().StopCoroutine(m_Cor);//撤销游戏结束后小鸟延迟销毁逻辑的执行
+                m_Cor = null;
+            }
             if (isDestroy)
             {
                 Destroy(gameObject);
             }
             else 
-            { 
-            GoReusePool.Put(m_BirdType.ToString(), this.gameObject);//回收小鸟
+            {
+                Debuger.Log("回收鸟");
+                GoReusePool.Put(m_BirdType.ToString(), this.gameObject);//回收小鸟
             }
         }
         #endregion

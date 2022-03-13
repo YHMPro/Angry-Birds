@@ -76,7 +76,7 @@ namespace Bird_VS_Boar
             int starTotal = 0;
             for (int index=1; index <= levelNum; index++)
             {
-                starTotal += LevelConfigManager.GetLevelConfig(m_GameLevelType + "_" + index).LevelRating;
+                starTotal += LevelConfigManager.GetLevelConfig(m_GameLevelType + "_" + index).LevelHistoryRating;
             }
             Debuger.Log("关卡:" + m_GameLevelType.ToString() + "\n星星总获得数:" + starTotal);
             m_StarText.text = starTotal.ToString();

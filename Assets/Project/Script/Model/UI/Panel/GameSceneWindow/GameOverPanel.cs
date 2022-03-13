@@ -174,7 +174,7 @@ namespace Bird_VS_Boar
             }
             OtherConfigInfo otherConfigInfo = NotMonoSingletonFactory<OtherConfigInfo>.GetSingleton();
             WaitForSecondsRealtime waitFor = new WaitForSecondsRealtime(m_StarShowTimeInterval);//使其不受Timescale影响
-            for (int index=1;index<=3;index++)
+            for (int index=1;index<= GameLogic.NowRating; index++)
             {
                 GetComponent<Image>("Star" + index).sprite = m_Stars_Fill[index - 1];//填充星星               
                 PlayAudio(otherConfigInfo.GetStarAudioPath(index - 1));//播放声音

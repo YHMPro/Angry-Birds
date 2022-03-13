@@ -21,19 +21,25 @@ namespace Bird_VS_Boar
         /// </summary>
         private static int m_NowRating = 0;
         /// <summary>
+        /// 当前评星
+        /// </summary>
+        public static int NowRating => m_NowRating;
+        /// <summary>
+        /// 历史最佳评星
+        /// </summary>
+        private static int m_HistoryRating = 0;
+        /// <summary>
+        /// 历史最佳评星
+        /// </summary>
+        public static int HistoryRating => m_HistoryRating;
+        /// <summary>
         /// 当前分数
         /// </summary>
         private static int m_NowScore = 0;
         /// <summary>
         /// 当前关卡分数
         /// </summary>
-        public static int NowScore
-        {
-            get
-            {
-                return m_NowScore;
-            }
-        }
+        public static int NowScore => m_NowScore;     
         /// <summary>
         /// 历史最佳分数
         /// </summary>
@@ -41,10 +47,7 @@ namespace Bird_VS_Boar
         /// <summary>
         /// 历史最佳分数
         /// </summary>
-        public static int HistoryScore
-        {
-            get { return m_HistoryScore; }
-        }
+        public static int HistoryScore => m_HistoryScore;
         /// <summary>
         /// 当前登场的小鸟
         /// </summary>
@@ -110,6 +113,9 @@ namespace Bird_VS_Boar
             m_NowScore = 0;
             //获取当前关卡的最佳历史分数
             m_HistoryScore = LevelConfigManager.GetLevelConfig(GameManager.NowLevelType + "_" + GameManager.NowLevelIndex).LevelHistoryScore;
+            m_NowRating = 0;
+            //获取当前关卡的最佳评星
+            m_HistoryRating = LevelConfigManager.GetLevelConfig(GameManager.NowLevelType + "_" + GameManager.NowLevelIndex).LevelHistoryRating;
             MesgManager.MesgBreakListen<int>(ProjectEvents.ScoreUpdateEvent, ScoreUpdate);
             MesgManager.MesgBreakListen<EnumBirdType>(ProjectEvents.CoinUpdateEvent, CoinUpdate);
             MesgManager.MesgBreakListen(ProjectEvents.LogicUpdateEvent, LogicUpdate);
@@ -138,19 +144,25 @@ namespace Bird_VS_Boar
             if(GameManager.NowScenePigNum==0)//当前场景的猪为零
             {
                 Debuger.Log("胜利");
-                m_IsGameOver = true;
-                GameManager.GameOver(true);
+                m_IsGameOver = true;                    
                 #region 设置下一关开发
                 int levelNum = LevelConfigManager.GetLevelNum(GameManager.NowLevelType);
                 if(GameManager.NowLevelIndex < levelNum)
                 {
                     LevelConfigManager.GetLevelConfig(GameManager.NowLevelType + "_" + (GameManager.NowLevelIndex + 1)).IsThrough = true;
                 }
+                RatingLogic();//评星判断        
+                GameManager.GameOver(true);
                 #endregion
                 //设置当前关卡的最佳历史分数
-                if(m_NowScore> m_HistoryScore)
+                if (m_NowScore> m_HistoryScore)
                 {
                     LevelConfigManager.GetLevelConfig(GameManager.NowLevelType + "_" + GameManager.NowLevelIndex).LevelHistoryScore = m_NowScore;
+                }
+                //设置当前关卡的星级
+                if(m_NowRating>m_HistoryRating)
+                {
+                    LevelConfigManager.GetLevelConfig(GameManager.NowLevelType + "_" + GameManager.NowLevelIndex).LevelHistoryRating = m_NowRating;
                 }
             }
             else if (!IsBuy)//钱币不能满足购买一只小鸟(最低价)
@@ -176,6 +188,17 @@ namespace Bird_VS_Boar
             {
                 Debuger.LogWarning("鸟配置信息读取失败。");
             }
+        }
+        #endregion
+
+        #region RatingLogic
+        /// <summary>
+        /// 评星判断
+        /// </summary>
+        private static void RatingLogic()
+        {
+            Debuger.Log("评星待植入判断逻辑");
+            m_NowRating = 2;
         }
         #endregion
     }

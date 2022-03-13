@@ -9,20 +9,24 @@ namespace Bird_VS_Boar
         protected override void Awake()
         {
             m_BirdType = EnumBirdType.LittleBlueBird;
-            Destroy(GetComponent<BlueBird>());         
+            //Destroy(GetComponent<BlueBird>());         
             base.Awake();
         }
 
         protected override void OnEnable()
         {
-            base.OnEnable();
             GameManager.AddDiedTarget(this);
+            GameManager.AddBird(this);
+            base.OnEnable();
+           
         }
 
         protected override void OnDisable()
         {
             RecyclyAudio();//回收音效
             GameManager.RemoveDiedTarget(this);
+            GameManager.RemoveBird(this);
+            MonoSingletonFactory<ShareMono>.GetSingleton().RemoveUpdateAction(EnumUpdateAction.Standard, this.OnBirdFlyUpdate_Common);
         }
         protected override void Start()
         {

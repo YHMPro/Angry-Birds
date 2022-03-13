@@ -13,9 +13,9 @@ namespace Bird_VS_Boar.LevelConfig
         /// </summary>
         public EnumGameLevelType LevelType = EnumGameLevelType.None;
         /// <summary>
-        /// 关卡评星
+        /// 关卡历史最佳评星
         /// </summary>
-        public int LevelRating = 0;
+        public int LevelHistoryRating = 0;
         /// <summary>
         /// 关卡历史最佳分数
         /// </summary>

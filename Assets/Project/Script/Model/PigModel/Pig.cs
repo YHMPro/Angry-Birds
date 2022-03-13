@@ -34,6 +34,16 @@ namespace Bird_VS_Boar
     public abstract class Pig : BaseMono, IBoom, IScore,IDiedAudio,IDied
     {
         /// <summary>
+        /// 名称
+        /// </summary>
+        public string Name
+        {
+            get
+            {
+                return name;
+            }
+        }
+        /// <summary>
         /// 碰撞器
         /// </summary>
         protected Collider2D m_Co = null;
@@ -257,6 +267,7 @@ namespace Bird_VS_Boar
             }
             else
             {
+                Debuger.Log("回收猪");
                 GoReusePool.Put(m_PigType.ToString(), this.gameObject);//回收该猪
             }
         }

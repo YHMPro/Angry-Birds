@@ -91,9 +91,10 @@ namespace Bird_VS_Boar
             m_StarDefaultSpritePath = "Season/StarDefault";
             m_StarFillSpritePath = "Season/StarFill";
             m_LevelLockSpritePath = "Season/LevelLock";
+            m_LevelInterfaceBGSpritePath = m_CommonPath+"BG";
+            #region 待
 
-            #region 待          
-            m_LevelInterfaceBGSpritePath = "?";
+
             #endregion
         }
     }

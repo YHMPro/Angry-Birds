@@ -18,6 +18,16 @@ namespace Bird_VS_Boar
     public class Boom : MonoBehaviour,IDied
     {
         /// <summary>
+        /// 名称
+        /// </summary>
+        public string Name
+        {
+            get
+            {
+                return name;
+            }
+        }
+        /// <summary>
         /// 当前最大的层级
         /// </summary>
         private static int m_NowMaxOrderInLayer = 0;

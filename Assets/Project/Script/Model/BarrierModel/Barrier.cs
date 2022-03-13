@@ -71,7 +71,7 @@ namespace Bird_VS_Boar
 
     }
     [Serializable]
-    public abstract class Barrier : BaseMono, IScore,IDiedAudio,IDied
+    public abstract class Barrier : BaseMono, IScore, IDiedAudio, IDied
     {
         /// <summary>
         /// 碰撞器
@@ -90,7 +90,7 @@ namespace Bird_VS_Boar
         /// <summary>
         /// 障碍物类型
         /// </summary>
-        protected EnumBarrierType m_BarrierType= EnumBarrierType.None;
+        protected EnumBarrierType m_BarrierType = EnumBarrierType.None;
         /// <summary>
         /// 精灵
         /// </summary>
@@ -117,6 +117,17 @@ namespace Bird_VS_Boar
         /// 分数类型
         /// </summary>
         protected EnumScoreType m_ScoreType = EnumScoreType.None;
+        /// <summary>
+        /// 名称
+        /// </summary>
+        public string Name
+        {
+            get
+            {
+                return name;
+            }
+        }
+
         protected override void Awake()
         {
             base.Awake();
@@ -294,6 +305,7 @@ namespace Bird_VS_Boar
             }
             else
             {
+                Debuger.Log("回收障碍物");
                 GoReusePool.Put(m_BarrierType.ToString() + m_BarrierShapeType.ToString(), this.gameObject);//回收该障碍物
             }
         }

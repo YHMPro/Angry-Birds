@@ -11,11 +11,12 @@ namespace Bird_VS_Boar
             m_BirdType = EnumBirdType.BlueBird;
             base.Awake();
         }
-
+        
         protected override void OnSkillUpdate()
         {
             PlaySkillAudio();
             ProductLittleBlueBird();
+            Died();//小鸟死亡
         }
 
         protected void ProductLittleBlueBird()
@@ -34,21 +35,21 @@ namespace Bird_VS_Boar
                         return;
                     }
                 }
-                LittleBlueBird blueBird;              
+                LittleBlueBird blueBird;                 
                 if (!go.TryGetComponent(out blueBird))
-                {
+                {                 
                     blueBird = go.AddComponent<LittleBlueBird>();
                 }
                 go.transform.position = transform.position;              
                 Vector2 velocity = m_Rig2D.velocity;
                 float angle = Vector2.SignedAngle(Vector2.right, velocity.normalized);
-                angle += i == 0 ? 10 : i == 1 ? 0 : -10;
+                angle += (i == 0) ? 10 : ((i == 1) ? 0 : -10);
                 velocity = new Vector2(Mathf.Cos(angle / 180.0f * Mathf.PI), Mathf.Sin(angle / 180.0f * Mathf.PI));
                 blueBird.SetBirdFlyVelocity(velocity * m_Rig2D.velocity.magnitude);
                 MonoSingletonFactory<ShareMono>.GetSingleton().ApplyUpdateAction(EnumUpdateAction.Standard,blueBird.OnBirdFlyUpdate_Common);
                 blueBird.ActiveTrailRenderer(true);                
             }
-            Died();//小鸟死亡
+           
         }     
     }
 }

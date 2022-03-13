@@ -29,12 +29,12 @@ namespace Bird_VS_Boar
                 m_Interactable = value;
                 if (!value)
                 {
-                    m_Img.color = m_DisabledColor;
+                    Img.color = m_DisabledColor;
                     m_Icon.color = m_DisabledColor;
                 }
                 else
                 {
-                    m_Img.color = m_DefaultColor;
+                    Img.color = m_DefaultColor;
                     m_Icon.color = m_DefaultColor;
                 }
             }
@@ -55,6 +55,17 @@ namespace Bird_VS_Boar
         /// 
         /// </summary>
         private Image m_Img;
+        private Image Img
+        {
+            get
+            {
+                if(m_Img==null)
+                {
+                    m_Img = GetComponent<Image>();
+                }
+                return m_Img;
+            }
+        }
         /// <summary>
         /// 与指针的距离
         /// </summary>

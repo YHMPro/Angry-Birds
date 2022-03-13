@@ -7,6 +7,16 @@ namespace Bird_VS_Boar
     public class Egg : MonoBehaviour,IDied
     {
         /// <summary>
+        /// 名称
+        /// </summary>
+        public string Name
+        {
+            get
+            {
+                return name;
+            }
+        }
+        /// <summary>
         /// 是否可选择
         /// </summary>
         private bool m_IsSelectable = false;

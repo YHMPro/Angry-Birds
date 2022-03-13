@@ -148,7 +148,7 @@ namespace Bird_VS_Boar
             m_Btn.Interactable = levelConfig.IsThrough;
             m_StarRect.gameObject.SetActive(levelConfig.IsThrough);
             m_TextIndex.text = m_LevelIndex.ToString();
-            m_LevelRating = Mathf.Clamp(levelConfig.LevelRating,0,3);
+            m_LevelRating = Mathf.Clamp(levelConfig.LevelHistoryRating, 0,3);
             StarsFillFun();
             #endregion
         }

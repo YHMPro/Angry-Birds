@@ -65,9 +65,9 @@ namespace Bird_VS_Boar
         public void SetLimit(float xMin,float xMax,float yMin,float yMax)
         {
             m_XMin = xMin;
-            m_YMax = yMin;
-            m_XMax = xMax;
-            m_YMax = yMax;
+            m_XMax= xMax;
+            m_YMin = yMin;
+            m_YMax = yMax;         
         }
         private Vector3 Limit(Vector3 v)
         {

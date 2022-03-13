@@ -1,12 +1,12 @@
-﻿{
+{
   "Spring_1": {
     "LevelType": 1,
-    "LevelRating": 2,
+    "LevelHistoryRating": 1,
     "LevelHistoryScore": 0,
     "IsThrough": true,
     "SlingShotPosition": {
       "x": 0,
-      "y": 0,
+      "y": 1.164,
       "z": 0
     },
     "Camera2DPosition": {
@@ -132,12 +132,12 @@
   },
   "Spring_2": {
     "LevelType": 1,
-    "LevelRating": 0,
+    "LevelHistoryRating": 0,
     "LevelHistoryScore": 0,
     "IsThrough": true,
     "SlingShotPosition": {
       "x": 0,
-      "y": 0,
+      "y": 1.164,
       "z": 0
     },
     "Camera2DPosition": {
@@ -282,12 +282,12 @@
   },
   "Spring_3": {
     "LevelType": 1,
-    "LevelRating": 0,
+    "LevelHistoryRating": 0,
     "LevelHistoryScore": 0,
     "IsThrough": false,
     "SlingShotPosition": {
       "x": 0,
-      "y": 0,
+      "y": 1.164,
       "z": 0
     },
     "Camera2DPosition": {
@@ -413,7 +413,7 @@
   },
   "Summer_1": {
     "LevelType": 2,
-    "LevelRating": 0,
+    "LevelHistoryRating": 0,
     "LevelHistoryScore": 0,
     "IsThrough": true,
     "SlingShotPosition": {
@@ -544,7 +544,7 @@
   },
   "Summer_2": {
     "LevelType": 2,
-    "LevelRating": 0,
+    "LevelHistoryRating": 0,
     "LevelHistoryScore": 0,
     "IsThrough": false,
     "SlingShotPosition": {
@@ -675,7 +675,7 @@
   },
   "Autumn_1": {
     "LevelType": 3,
-    "LevelRating": 0,
+    "LevelHistoryRating": 0,
     "LevelHistoryScore": 0,
     "IsThrough": true,
     "SlingShotPosition": {
@@ -806,7 +806,7 @@
   },
   "Autumn_2": {
     "LevelType": 3,
-    "LevelRating": 0,
+    "LevelHistoryRating": 0,
     "LevelHistoryScore": 0,
     "IsThrough": false,
     "SlingShotPosition": {
@@ -975,7 +975,7 @@
   },
   "Winter_1": {
     "LevelType": 4,
-    "LevelRating": 0,
+    "LevelHistoryRating": 0,
     "LevelHistoryScore": 0,
     "IsThrough": true,
     "SlingShotPosition": {

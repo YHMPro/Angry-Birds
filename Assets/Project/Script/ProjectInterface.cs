@@ -20,6 +20,7 @@ namespace Bird_VS_Boar
     /// </summary>
     public interface IDied
     {
+        string Name { get; }
         /// <summary>
         /// 死亡
         /// </summary>
