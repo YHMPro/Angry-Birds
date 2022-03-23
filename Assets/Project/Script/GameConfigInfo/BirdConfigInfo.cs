@@ -131,17 +131,16 @@ namespace Bird_VS_Boar
         protected string[] m_BirdSkillAudioPaths;
         #endregion        
         public virtual void InitConfigInfo()
-        {
-            
+        {        
             m_OrderInLayer = 2;//暂时所有小鸟都为2
-            m_BirdDiedAudioPath = "Bird/BirdCommon/De1";
-            m_CommonPath="Bird/"+GetType().Name+"/";
-            m_BirdPrefabPath =  "Bird";
+            m_BirdDiedAudioPath = "BirdConfigInfo/De1";
+            m_CommonPath= "BirdConfigInfo/" + GetType().Name+"/";
+            m_BirdPrefabPath = m_CommonPath+"Bird";
         }
                  
         public string GetBirdPrefabPath()
         {
-            return m_CommonPath + m_BirdPrefabPath;
+            return m_BirdPrefabPath;
         }
         public string GetDiedAudioPath()
         {

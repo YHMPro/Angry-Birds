@@ -165,6 +165,33 @@ namespace Farme.UI
             m_GR.Raycast(m_PED, resultLi);
             return true;
         }
+
+        /// <summary>
+        /// 创建面板
+        /// </summary>
+        /// <typeparam name="T">面板类型</typeparam>
+        /// <param name="abName">包名</param>
+        /// <param name="resName">资源名称</param>
+        /// <param name="panelName">面板名称</param>
+        /// <param name="layer">层级</param>
+        /// <param name="callback">回调</param>
+        public void CreatePanel<T>(string abName,string resName, string panelName, EnumPanelLayer layer = EnumPanelLayer.BOTTOM, UnityAction<T> callback = null) where T : BasePanel
+        {
+            if (m_PanelDic.ContainsKey(panelName))
+            {
+                Debuger.LogWarning("面板:" + panelName + "反复创建,已屏蔽这次创建。");
+                return;
+            }
+            if (GoLoad.Take(abName, resName, out GameObject panel, GetPanelLayer(layer)))
+            {
+                T t = panel.InspectComponent<T>();
+                t.RelyWindow = this;
+                m_PanelDic.Add(panelName, t);
+                callback?.Invoke(t);
+                return;
+            }
+            Debuger.LogWarning("面板加载失败。");
+        }
         /// <summary>
         /// 创建面板
         /// </summary>
@@ -175,9 +202,12 @@ namespace Farme.UI
         /// <param name="callback">回调</param>
         public void CreatePanel<T>(string path,string panelName, EnumPanelLayer layer = EnumPanelLayer.BOTTOM, UnityAction<T> callback=null) where T:BasePanel
         {
+            string[] data = Bird_VS_Boar.ProjectTool.ParsingRESPath(path);
+            CreatePanel(data[0], data[1], panelName, layer, callback);
+            return;
             if (m_PanelDic.ContainsKey(panelName))
             {
-                Debuger.LogWarning("面板:" + panelName + "反复创建,已屏蔽这次创建。");              
+                Debuger.LogWarning("面板:" + panelName + "反复创建,已屏蔽这次创建。");
                 return;
             }
             if (GoLoad.Take(path, out GameObject panel, GetPanelLayer(layer)))

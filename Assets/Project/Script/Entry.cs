@@ -85,10 +85,10 @@ namespace Bird_VS_Boar
 
         private void OnValidate()
         {
-            LevelConfigBuilder.LevelIndex = LevelIndex;
-            LevelConfigBuilder.LevelType = LevelType;
-            LevelConfigBuilder.IsThrough = IsThrough;
-            LevelConfigBuilder.CoinNum = CoinNum;
+            //LevelConfigBuilder.LevelIndex = LevelIndex;
+            //LevelConfigBuilder.LevelType = LevelType;
+            //LevelConfigBuilder.IsThrough = IsThrough;
+            //LevelConfigBuilder.CoinNum = CoinNum;
         }
     }
 }

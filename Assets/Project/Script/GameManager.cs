@@ -388,6 +388,7 @@ namespace Bird_VS_Boar
                     //获取障碍物预制路径
                     if (!GoReusePool.Take(levelConfig.BarrierConfigs[index].BarrierType.ToString() + levelConfig.BarrierConfigs[index].BarrierShapeType.ToString(), out GameObject barrierGo))
                     {
+                        //string data = BarrierConfigInfo.GetBarrierConfigInfo(levelConfig.BarrierConfigs[index].BarrierType).GetBarrierPrefabPath(levelConfig.BarrierConfigs[index].BarrierShapeType);
 
                         if (!GoLoad.Take(BarrierConfigInfo.GetBarrierConfigInfo(levelConfig.BarrierConfigs[index].BarrierType).GetBarrierPrefabPath(levelConfig.BarrierConfigs[index].BarrierShapeType), out barrierGo))
                         {

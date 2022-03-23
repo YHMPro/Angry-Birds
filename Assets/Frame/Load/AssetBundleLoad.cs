@@ -24,7 +24,7 @@ namespace Farme
         /// <summary>
         /// 包容器
         /// </summary>
-        private static Dictionary<string, AssetBundle> m_ABDic = new Dictionary<string, AssetBundle>();     
+        private static Dictionary<string, AssetBundle> m_ABDic = new Dictionary<string, AssetBundle>();
         /// <summary>
         /// 包目录文件夹地址
         /// </summary>
@@ -32,7 +32,7 @@ namespace Farme
         /// <summary>
         /// 主包名
         /// </summary>
-        private static string m_MainABName = null;      
+        private static string m_MainABName = null;
         /// <summary>
         /// 包目录文件夹地址
         /// </summary>

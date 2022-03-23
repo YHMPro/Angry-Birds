@@ -75,14 +75,14 @@ namespace Bird_VS_Boar
         protected string m_BarrierDestroyAudioPath;
         public virtual void InitConfigInfo()
         {    
-            m_CommonPath = "Barrier/" + GetType().Name + "/";
+            m_CommonPath = "BarrierConfigInfo/" + GetType().Name + "/";
             m_BarrierPrefabPath = "Barrier";
-            m_BarrierDestroyAudioPath = "De1";
+            m_BarrierDestroyAudioPath = m_CommonPath+ "De1";
             m_OrderInLayer = 11;
         }
         public string GetBarrierDestroyAudioPath()
         {
-            return m_CommonPath + m_BarrierDestroyAudioPath;
+            return m_BarrierDestroyAudioPath;
         }
         public string GetBarrierPrefabPath(EnumBarrierShapeType barrierShape)
         {

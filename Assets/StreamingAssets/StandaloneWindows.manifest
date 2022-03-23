@@ -1,0 +1,103 @@
+ManifestFileVersion: 0
+CRC: 1007063700
+AssetBundleManifest:
+  AssetBundleInfos:
+    Info_0:
+      Name: iceconfiginfo
+      Dependencies:
+        Dependency_0: barrierconfiginfo
+    Info_1:
+      Name: rockconfiginfo
+      Dependencies:
+        Dependency_0: barrierconfiginfo
+    Info_2:
+      Name: woodconfiginfo
+      Dependencies:
+        Dependency_0: barrierconfiginfo
+    Info_3:
+      Name: barrierconfiginfo
+      Dependencies: {}
+    Info_4:
+      Name: birdconfiginfo
+      Dependencies: {}
+    Info_5:
+      Name: blackbirdconfiginfo
+      Dependencies:
+        Dependency_0: commonres
+    Info_6:
+      Name: bluebirdconfiginfo
+      Dependencies:
+        Dependency_0: commonres
+    Info_7:
+      Name: greenbirdconfiginfo
+      Dependencies:
+        Dependency_0: commonres
+    Info_8:
+      Name: pinkbirdconfiginfo
+      Dependencies:
+        Dependency_0: commonres
+    Info_9:
+      Name: redbirdconfiginfo
+      Dependencies:
+        Dependency_0: commonres
+    Info_10:
+      Name: vanbirdconfiginfo
+      Dependencies:
+        Dependency_0: commonres
+    Info_11:
+      Name: whitebirdconfiginfo
+      Dependencies:
+        Dependency_0: commonres
+    Info_12:
+      Name: yellowbirdconfiginfo
+      Dependencies:
+        Dependency_0: commonres
+    Info_13:
+      Name: otherconfiginfo
+      Dependencies:
+        Dependency_0: commonres
+    Info_14:
+      Name: oldpigconfiginfo
+      Dependencies:
+        Dependency_0: commonres
+    Info_15:
+      Name: pigconfiginfo
+      Dependencies: {}
+    Info_16:
+      Name: commonres
+      Dependencies: {}
+    Info_17:
+      Name: rockpigconfiginfo
+      Dependencies:
+        Dependency_0: commonres
+    Info_18:
+      Name: youngpigconfiginfo
+      Dependencies:
+        Dependency_0: commonres
+    Info_19:
+      Name: seasonconfiginfo
+      Dependencies: {}
+    Info_20:
+      Name: gameglobalwindow
+      Dependencies:
+        Dependency_0: commonres
+    Info_21:
+      Name: gameloginwindow
+      Dependencies:
+        Dependency_0: commonres
+    Info_22:
+      Name: gamescenewindow
+      Dependencies:
+        Dependency_0: commonres
+    Info_23:
+      Name: autumnconfiginfo
+      Dependencies: {}
+    Info_24:
+      Name: springconfiginfo
+      Dependencies: {}
+    Info_25:
+      Name: summerconfiginfo
+      Dependencies: {}
+    Info_26:
+      Name: winterconfiginfo
+      Dependencies: {}

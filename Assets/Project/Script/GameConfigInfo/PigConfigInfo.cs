@@ -77,13 +77,13 @@ namespace Bird_VS_Boar
         protected virtual void InitConfigInfo()
         {
             m_OrderInLayer = 0;//暂时所有猪都为0
-            m_PigDiedAudioPath = "Pig/PigCommon/De1";
-            m_CommonPath = "Pig/" + GetType().Name + "/";
-            m_PigPrefabPath = "Pig";
+            m_PigDiedAudioPath = "PigConfigInfo/De1";
+            m_CommonPath = "PigConfigInfo/" + GetType().Name + "/";
+            m_PigPrefabPath = m_CommonPath + "Pig";
         }
         public string GetPigPrefabPath()
         {
-            return m_CommonPath + m_PigPrefabPath;
+            return  m_PigPrefabPath;
         }
         public string GetDiedAudioPath()
         {

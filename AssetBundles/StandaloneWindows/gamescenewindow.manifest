@@ -1,0 +1,80 @@
+ManifestFileVersion: 0
+CRC: 2984397468
+Hashes:
+  AssetFileHash:
+    serializedVersion: 2
+    Hash: 2b11056301801fb541524781e7afca81
+  TypeTreeHash:
+    serializedVersion: 2
+    Hash: bd0d902ae740e52082d341ff84bd2744
+HashAppended: 0
+ClassTypes:
+- Class: 1
+  Script: {instanceID: 0}
+- Class: 4
+  Script: {instanceID: 0}
+- Class: 21
+  Script: {instanceID: 0}
+- Class: 28
+  Script: {instanceID: 0}
+- Class: 43
+  Script: {instanceID: 0}
+- Class: 48
+  Script: {instanceID: 0}
+- Class: 114
+  Script: {fileID: 11500000, guid: 1aa08ab6e0800fa44ae55d278d1423e3, type: 3}
+- Class: 114
+  Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
+- Class: 114
+  Script: {fileID: 11500000, guid: 5f7201a12d95ffc409449d95f23cf332, type: 3}
+- Class: 114
+  Script: {fileID: 11500000, guid: 44485790d93832a44ac6e9acbefcf3ca, type: 3}
+- Class: 114
+  Script: {fileID: 11500000, guid: 8c486371b51ee9f45b50754f80ccbedf, type: 3}
+- Class: 114
+  Script: {fileID: 11500000, guid: 9caeca7314e8f264d87f85dbbe836051, type: 3}
+- Class: 114
+  Script: {fileID: 11500000, guid: a8cb29d30fb232046a097443b9c7883e, type: 3}
+- Class: 114
+  Script: {fileID: 11500000, guid: 31a19414c41e5ae4aae2af33fee712f6, type: 3}
+- Class: 114
+  Script: {fileID: 11500000, guid: dfdf226532f20e34cb80fab06fb7cf0e, type: 3}
+- Class: 114
+  Script: {fileID: 11500000, guid: f2f4a966b840c4347b05eec7f37c8752, type: 3}
+- Class: 114
+  Script: {fileID: 11500000, guid: 981cea57cab139049b33b074960a63d0, type: 3}
+- Class: 114
+  Script: {fileID: 11500000, guid: 59f8146938fff824cb5fd77236b75775, type: 3}
+- Class: 114
+  Script: {fileID: 11500000, guid: 30649d3a9faa99c48a7b1166b86bf2a0, type: 3}
+- Class: 114
+  Script: {fileID: 11500000, guid: c1fba01b35c08894c8491333521a3092, type: 3}
+- Class: 114
+  Script: {fileID: 11500000, guid: eb71283be56f6cc4dab5f4d3b75b9a77, type: 3}
+- Class: 114
+  Script: {fileID: 11500000, guid: abdc1a4dc7cb7434c9da8d637ed1ae0e, type: 3}
+- Class: 114
+  Script: {fileID: 11500000, guid: 5413746e22b887247882349f5aef60a1, type: 3}
+- Class: 114
+  Script: {fileID: 11500000, guid: bbdcb8ae9e754734685c369dade349dc, type: 3}
+- Class: 115
+  Script: {instanceID: 0}
+- Class: 128
+  Script: {instanceID: 0}
+- Class: 198
+  Script: {instanceID: 0}
+- Class: 199
+  Script: {instanceID: 0}
+- Class: 213
+  Script: {instanceID: 0}
+- Class: 222
+  Script: {instanceID: 0}
+- Class: 224
+  Script: {instanceID: 0}
+SerializeReferenceClassIdentifiers: []
+Assets:
+- Assets/Resources/UI/GameSceneWindow/GoodsPanel.prefab
+- Assets/Resources/UI/GameSceneWindow/GameOverPanel.prefab
+- Assets/Resources/UI/GameSceneWindow/GameInterfacePanel.prefab
+Dependencies:
+- S:/UnityPro2019.3.7f1/Project2/Angry-Birds/AssetBundles/StandaloneWindows/commonres

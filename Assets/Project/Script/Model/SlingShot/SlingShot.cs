@@ -57,7 +57,10 @@ namespace Bird_VS_Boar
             base.Start();
             if (NotMonoSingletonFactory<OtherConfigInfo>.SingletonExist)
             {
-                m_As.clip = AudioClipManager.GetAudioClip(NotMonoSingletonFactory<OtherConfigInfo>.GetSingleton().GetSlingShotAudioPath());
+                if(AudioClipManager.GetAudioClip(NotMonoSingletonFactory<OtherConfigInfo>.GetSingleton().GetSlingShotAudioPath(),out AudioClip clip))
+                {
+                    m_As.clip = clip;
+                }
             }
             m_As.outputAudioMixerGroup = AudioMixerManager.GetAudioMixerGroup("Effect");
 

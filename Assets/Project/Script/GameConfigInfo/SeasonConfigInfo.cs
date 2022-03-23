@@ -108,7 +108,7 @@ namespace Bird_VS_Boar
 
         public string GetLevelMapPrefabPath()
         {
-            return m_CommonPath + "Map"/*GameManager.NowLevelIndex*/;
+            return m_CommonPath + "Map";
         }
 
         public string GetLevelInterfaceBGSpritePath()
@@ -148,14 +148,14 @@ namespace Bird_VS_Boar
         }
         public virtual void InitConfigInfo()
         {
-            m_CommonPath = "Season/"+GetType().Name + "/";
+            m_CommonPath = "SeasonConfigInfo/" + GetType().Name + "/";
             m_SeasonAudioPath = m_CommonPath + "SeasonBGM";
             m_LevelAudioPath = m_CommonPath + "LevelBGM";
             m_LevelTypeBGSpritePath = m_CommonPath + "LevelTyoeBG";
             m_LevelBGSpritePath = m_CommonPath + "LevelBg";
-            m_StarDefaultSpritePath = "Season/StarDefault";
-            m_StarFillSpritePath = "Season/StarFill";
-            m_LevelLockSpritePath = "Season/LevelLock";
+            m_StarDefaultSpritePath = "SeasonConfigInfo/StarDefault";
+            m_StarFillSpritePath = "SeasonConfigInfo/StarFill";
+            m_LevelLockSpritePath = "SeasonConfigInfo/LevelLock";
             m_LevelInterfaceBGSpritePath = m_CommonPath+"BG";
             #region 待
 

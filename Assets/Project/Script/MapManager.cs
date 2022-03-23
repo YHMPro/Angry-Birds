@@ -17,9 +17,9 @@ namespace Bird_VS_Boar
         /// <returns></returns>
         public static bool LoadMap()
         {
-            //ClearMapCache();
-            if (!GoReusePool.Take(GameManager.NowLevelType.ToString() + "/Map" /*+GameManager.NowLevelIndex*/, out GameObject mapGo, null))
+            if (!GoReusePool.Take(GameManager.NowLevelType.ToString() + "/Map", out GameObject mapGo, null))
             {
+
                 if (!GoLoad.Take(GameManager.NowSeasonConfigInfo.GetLevelMapPrefabPath(), out mapGo))
                 {
                     Debuger.Log(GameManager.NowSeasonConfigInfo.GetLevelMapPrefabPath() + "地图加载失败!!!");

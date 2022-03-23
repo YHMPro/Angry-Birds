@@ -12,8 +12,10 @@ namespace Bird_VS_Boar
     public class LoginEntry : MonoBehaviour
     {
         private void Awake()
-        {
-            Debuger.Enable = false;
+        {          
+            //Debuger.Enable = false;
+            AssetBundleLoad.PackageCatalogueFile_URL = Application.streamingAssetsPath+"/";
+            AssetBundleLoad.MainABName = "StandaloneWindows";
             LevelConfigManager.ReadConfigTableData();//读取配置表数据
             MonoSingletonFactory<ShareMono>.GetSingleton(null, false);
             MonoSingletonFactory<DataManager>.GetSingleton(null, false);

@@ -1,0 +1,43 @@
+ManifestFileVersion: 0
+CRC: 3748995563
+Hashes:
+  AssetFileHash:
+    serializedVersion: 2
+    Hash: 60b744824d39bb00bf8a1f92b262eade
+  TypeTreeHash:
+    serializedVersion: 2
+    Hash: 647f15652a14df6dbad936ec4355bbdc
+HashAppended: 0
+ClassTypes:
+- Class: 1
+  Script: {instanceID: 0}
+- Class: 4
+  Script: {instanceID: 0}
+- Class: 21
+  Script: {instanceID: 0}
+- Class: 28
+  Script: {instanceID: 0}
+- Class: 48
+  Script: {instanceID: 0}
+- Class: 61
+  Script: {instanceID: 0}
+- Class: 83
+  Script: {instanceID: 0}
+- Class: 114
+  Script: {fileID: 11500000, guid: cc553dc52256ec5419598fe9c0534ab0, type: 3}
+- Class: 115
+  Script: {instanceID: 0}
+- Class: 212
+  Script: {instanceID: 0}
+- Class: 213
+  Script: {instanceID: 0}
+SerializeReferenceClassIdentifiers: []
+Assets:
+- Assets/Resources/SeasonConfigInfo/AutumnConfigInfo/BG.png
+- Assets/Resources/SeasonConfigInfo/AutumnConfigInfo/LevelTyoeBG.png
+- Assets/Resources/SeasonConfigInfo/AutumnConfigInfo/LevelBg.png
+- Assets/angrybirdspng/Res/THEME_05_THEME_5.png
+- Assets/Resources/SeasonConfigInfo/AutumnConfigInfo/LevelBGM.mp3
+- Assets/Resources/SeasonConfigInfo/AutumnConfigInfo/SeasonBGM.mp3
+- Assets/Resources/SeasonConfigInfo/AutumnConfigInfo/Map.prefab
+Dependencies: []

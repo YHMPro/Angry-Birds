@@ -1,0 +1,50 @@
+ManifestFileVersion: 0
+CRC: 3875894845
+Hashes:
+  AssetFileHash:
+    serializedVersion: 2
+    Hash: 80108ed634f2f1f8ca9f9f1369c0679f
+  TypeTreeHash:
+    serializedVersion: 2
+    Hash: 8526a23d6022169ad1d6475a632007ec
+HashAppended: 0
+ClassTypes:
+- Class: 1
+  Script: {instanceID: 0}
+- Class: 21
+  Script: {instanceID: 0}
+- Class: 28
+  Script: {instanceID: 0}
+- Class: 48
+  Script: {instanceID: 0}
+- Class: 114
+  Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
+- Class: 114
+  Script: {fileID: 11500000, guid: 5f7201a12d95ffc409449d95f23cf332, type: 3}
+- Class: 114
+  Script: {fileID: 11500000, guid: 44485790d93832a44ac6e9acbefcf3ca, type: 3}
+- Class: 114
+  Script: {fileID: 11500000, guid: 8a8695521f0d02e499659fee002a26c2, type: 3}
+- Class: 114
+  Script: {fileID: 11500000, guid: c5e700d4ffc08f245a31e0d6db8edaa5, type: 3}
+- Class: 114
+  Script: {fileID: 11500000, guid: c8d82bf4edd158e43b3868f72f3b5df8, type: 3}
+- Class: 114
+  Script: {fileID: 11500000, guid: cec84b8845608c049a2107e795f06f62, type: 3}
+- Class: 115
+  Script: {instanceID: 0}
+- Class: 128
+  Script: {instanceID: 0}
+- Class: 213
+  Script: {instanceID: 0}
+- Class: 222
+  Script: {instanceID: 0}
+- Class: 224
+  Script: {instanceID: 0}
+SerializeReferenceClassIdentifiers: []
+Assets:
+- Assets/Resources/UI/GameLoginWindow/GameLevelPanel.prefab
+- Assets/Resources/UI/GameLoginWindow/GameLevelTypePanel.prefab
+- Assets/Resources/UI/GameLoginWindow/GameLoginPanel.prefab
+Dependencies:
+- S:/UnityPro2019.3.7f1/Project2/Angry-Birds/AssetBundles/StandaloneWindows/commonres
