@@ -298,7 +298,6 @@ namespace Farme
             m_MainAB.Unload(unloadAllLoadedObjects);
             m_MainAB = null;
             m_MainABInfo = null;
-            m_MainABName = null;
         }
         /// <summary>
         /// 卸载包(主包的卸载已提供专门的函数(UnLoadMainAB)进行处理)

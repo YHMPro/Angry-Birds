@@ -605,7 +605,8 @@ namespace Bird_VS_Boar
                 MonoSingletonFactory<ShareMono>.GetSingleton().ClearLateUpdate();
                 #endregion
                 #region 清除通过Resources加载的资源缓存
-                ResourcesLoad.ClearAllCache();
+                AssetBundleLoad.UnLoadMainAB(true);
+                //ResourcesLoad.ClearAllCache();
                 #endregion
                 #region 清除通过AudioClipManager加载的音效缓存
                 if (NotMonoSingletonFactory<OtherConfigInfo>.SingletonExist)
