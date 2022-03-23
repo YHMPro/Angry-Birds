@@ -33,6 +33,7 @@ namespace Bird_VS_Boar
     [Serializable]
     public abstract class Pig : BaseMono, IBoom, IScore,IDiedAudio,IDied
     {
+        public GameObject go => this.gameObject;
         /// <summary>
         /// 名称
         /// </summary>
@@ -43,6 +44,10 @@ namespace Bird_VS_Boar
                 return name;
             }
         }
+        /// <summary>
+        /// 猪配置信息
+        /// </summary>
+        protected PigConfigInfo m_ConfigInfo = null;
         /// <summary>
         /// 碰撞器
         /// </summary>
@@ -84,6 +89,7 @@ namespace Bird_VS_Boar
         protected override void Awake()
         {
             base.Awake();
+            m_ConfigInfo = PigConfigInfo.GetPigConfigInfo(m_PigType);
             m_Sr =GetComponent<SpriteRenderer>();
             m_Rig2D = GetComponent<Rigidbody2D>();
             m_Anim = GetComponent<Animator>();
@@ -93,11 +99,8 @@ namespace Bird_VS_Boar
         protected override void Start()
         {
             base.Start();
-            if (PigConfigInfo.PigConfigInfoDic.TryGetValue(m_PigType, out var config))
-            {
-                //设置自身渲染层级
-                m_Sr.sortingOrder = config.OrderInLayer;
-            }                  
+            //设置自身渲染层级
+            m_Sr.sortingOrder = m_ConfigInfo.OrderInLayer;
         }
 
         protected override void OnEnable()
@@ -174,19 +177,11 @@ namespace Bird_VS_Boar
         #region Audio
         protected virtual void PlayDiedAudio()
         {
-            if (!PigConfigInfo.PigConfigInfoDic.TryGetValue(m_PigType, out var config))
-            {
-                return;
-            }
-            PlayAudio(config.GetDiedAudioPath());
+            PlayAudio(m_ConfigInfo.GetDiedAudioPath());
         }
         protected virtual void PlayHurtAudio()
         {
-            if (!PigConfigInfo.PigConfigInfoDic.TryGetValue(m_PigType, out var config))
-            {
-                return;
-            }
-            PlayAudio(config.GetHurtAudioPath());
+            PlayAudio(m_ConfigInfo.GetHurtAudioPath());
         }
         protected virtual void PlaySkillAudio()
         {
@@ -263,7 +258,7 @@ namespace Bird_VS_Boar
         {
             if (isDestroy)
             {
-                Destroy(gameObject);
+                DestroyImmediate(gameObject);
             }
             else
             {

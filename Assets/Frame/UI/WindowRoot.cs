@@ -17,9 +17,11 @@ namespace Farme.UI
         private EventSystem m_ES = null;
         private StandaloneInputModule m_InputModule = null;
         private Camera m_Camera = null;
-        private Dictionary<string, StandardWindow> m_WindowModelDic = null;            
+        private Dictionary<string, StandardWindow> m_WindowModelDic = null;   
+        private static Vector2 m_ScreenSize=Vector2.zero;
         #endregion
         #region 属性
+        public static Vector2 ScreenSize => m_ScreenSize;
         /// <summary>
         /// 事件系统
         /// </summary>
@@ -52,6 +54,7 @@ namespace Farme.UI
         #region 生命周期函数
         private void Awake()
         {
+            m_ScreenSize = new Vector2(Screen.width, Screen.height);
             m_WindowModelDic = new Dictionary<string, StandardWindow>();
             m_ES = GetComponent<EventSystem>();
             m_InputModule = GetComponent<StandaloneInputModule>();

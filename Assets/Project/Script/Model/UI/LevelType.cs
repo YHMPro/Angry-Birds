@@ -80,13 +80,10 @@ namespace Bird_VS_Boar
             }
             Debuger.Log("关卡:" + m_GameLevelType.ToString() + "\n星星总获得数:" + starTotal);
             m_StarText.text = starTotal.ToString();
-            if(SeasonConfigInfo.SeasonConfigInfoDic.TryGetValue(m_GameLevelType,out SeasonConfigInfo info))
+            if (m_Bg.sprite == null)
             {
-                if(m_Bg.sprite==null)
-                {
-                    m_Bg.sprite = ResourcesLoad.Load<Sprite>(info.GetLevelTypeBGSpritePath(),true);
-                }
-            }
+                m_Bg.sprite = ResourcesLoad.Load<Sprite>(SeasonConfigInfo.GetSeasonConfigInfo(m_GameLevelType).GetLevelTypeBGSpritePath(), true);
+            }       
         }
         #endregion
         #region Button

@@ -51,8 +51,8 @@ namespace Bird_VS_Boar
             Vector3 aimPos;
             if (GameManager.NowCameraFollowTarget == null)
             {
-                return;
-                //aimPos = MonoSingletonFactory<SlingShot>.GetSingleton().transform.position;
+                //return;
+                aimPos = MonoSingletonFactory<SlingShot>.GetSingleton().transform.position;
             }
             else
             {
@@ -60,7 +60,7 @@ namespace Bird_VS_Boar
             }
            
             aimPos = Limit(aimPos);
-            transform.position = Vector3.Lerp(transform.position, Limit(aimPos), 0.5f*Time.fixedDeltaTime);
+            transform.position = Vector3.Lerp(transform.position, Limit(aimPos),1.5f*Time.fixedDeltaTime);
         }
         public void SetLimit(float xMin,float xMax,float yMin,float yMax)
         {

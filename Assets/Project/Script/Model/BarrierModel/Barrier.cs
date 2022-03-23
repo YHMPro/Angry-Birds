@@ -73,6 +73,11 @@ namespace Bird_VS_Boar
     [Serializable]
     public abstract class Barrier : BaseMono, IScore, IDiedAudio, IDied
     {
+        public GameObject go => this.gameObject;
+        /// <summary>
+        /// 配置信息
+        /// </summary>
+        protected BarrierConfigInfo m_ConfigInfo;
         /// <summary>
         /// 碰撞器
         /// </summary>
@@ -127,28 +132,30 @@ namespace Bird_VS_Boar
                 return name;
             }
         }
-
+        /// <summary>
+        /// 是否碰撞
+        /// </summary>
+        protected bool m_IsCollision = false;
         protected override void Awake()
         {
             base.Awake();
+            m_ConfigInfo = BarrierConfigInfo.GetBarrierConfigInfo(m_BarrierType);
             m_Rig2D = GetComponent<Rigidbody2D>();
             m_Sr=GetComponent<SpriteRenderer>();
             m_Co=GetComponent<Collider2D>();
+            m_Co.enabled = false;
         }
 
         protected override void Start()
         {
             base.Start();
-            if (BarrierConfigInfo.BarrierConfigInfoDic.TryGetValue(m_BarrierType, out var config))
-            {
-                //设置自身渲染层级
-                m_Sr.sortingOrder = config.OrderInLayer;
-            }
+            //设置自身渲染层级
+            m_Sr.sortingOrder = m_ConfigInfo.OrderInLayer;
         }
         protected override void OnEnable()
         {
             base.OnEnable();
-            m_Co.enabled = false;
+            m_IsCollision = false;
             m_Rig2D.isKinematic = true;
             GameManager.AddDiedTarget(this);
             m_BearEnergySum = 0;
@@ -176,6 +183,10 @@ namespace Bird_VS_Boar
 
         private void OnCollisionEnter2D(Collision2D collision)
         {
+            if(m_IsCollision)
+            {
+                return;
+            }
             float relativeSpeed = collision.relativeVelocity.magnitude;
             if (relativeSpeed <= 6)
             {
@@ -196,6 +207,7 @@ namespace Bird_VS_Boar
             }
             else
             {
+                m_IsCollision = true;
                 OpenScore();//打开分数
                 OpenBoom();//打开Boom特效
                 PlayDiedAudio();//播放死亡音效
@@ -215,20 +227,12 @@ namespace Bird_VS_Boar
 
         #region Audio
         protected virtual void PlayDiedAudio()
-        {
-            if (!BarrierConfigInfo.BarrierConfigInfoDic.TryGetValue(m_BarrierType, out var config))
-            {
-                return;
-            }
-            PlayAudio(config.GetBarrierDestroyAudioPath());
+        {          
+            PlayAudio(m_ConfigInfo.GetBarrierDestroyAudioPath());
         }
         protected virtual void PlayBrokenAudio()
-        {
-            if (!BarrierConfigInfo.BarrierConfigInfoDic.TryGetValue(m_BarrierType, out var config))
-            {
-                return;
-            }
-            PlayAudio(config.GetBarrierBrokenAudioPath(Mathf.Clamp((int)m_HurtGrade, 1, m_Sps.Length - 1)));
+        {       
+            PlayAudio(m_ConfigInfo.GetBarrierBrokenAudioPath(Mathf.Clamp((int)m_HurtGrade, 1, m_Sps.Length - 1)));
         }   
         protected void PlayAudio(string audioPath)
         {
@@ -306,6 +310,7 @@ namespace Bird_VS_Boar
             else
             {
                 Debuger.Log("回收障碍物");
+                m_Co.enabled = false;
                 GoReusePool.Put(m_BarrierType.ToString() + m_BarrierShapeType.ToString(), this.gameObject);//回收该障碍物
             }
         }

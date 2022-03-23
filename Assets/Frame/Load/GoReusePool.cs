@@ -32,26 +32,20 @@ namespace Farme
         public static bool Take(string reuseGroup, out GameObject result,Transform parent=null)
         {
             result = null;
-            if (ReuseGoDic.TryGetValue(reuseGroup, out List<GameObject> goLi)&& goLi.Count>0)
+            if (ReuseGoDic.TryGetValue(reuseGroup, out List<GameObject> goLi)&& (goLi.Count>0))
             {
-                foreach (var go in goLi)
+
+                result = goLi[0];
+                goLi.Remove(result);
+                if (result!=null)
                 {
-                    if (go != null)
+                    if (parent != null)
                     {
-                        result = go;
-                        if (parent != null)
-                        {
-                            result.transform.SetParent(parent);
-                        }                 
-                        result.SetActive(true);
-                        goLi.Remove(result);
-                        return true;
+                        result.transform.SetParent(parent);
                     }
-                }
-                if (result == null)
-                {
-                    goLi.Clear();
-                }
+                    result.SetActive(true);
+                    return true;
+                }                                              
             }
             return false;
         }

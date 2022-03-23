@@ -7,6 +7,16 @@ namespace Bird_VS_Boar
 {
     public class WhiteBird : SkillBird
     {
+        [SerializeField]
+        /// <summary>
+        /// 反作用速度
+        /// </summary>
+        private float m_ReactionSpeed = 8;
+        [SerializeField]
+        /// <summary>
+        /// 鸡蛋发射速度
+        /// </summary>
+        private float m_EggShootSpeed = 25;
         protected override void Awake()
         {
             m_BirdType = EnumBirdType.WhiteBird;
@@ -16,50 +26,38 @@ namespace Bird_VS_Boar
         protected override void OnDisable()
         {
             base.OnDisable();
-            MonoSingletonFactory<ShareMono>.GetSingleton().RemoveUpdateAction(EnumUpdateAction.Standard, this.ProductEggUpdate);
         }
 
         protected override void OnSkillUpdate()
         {
-            base.OnSkillUpdate();
-            m_Rig2D.isKinematic = true;
-            m_Rig2D.velocity = Vector2.zero;
-            MonoSingletonFactory<ShareMono>.GetSingleton().ApplyUpdateAction(EnumUpdateAction.Standard, this.ProductEggUpdate);
+            m_Rig2D.velocity = Vector2.up* m_ReactionSpeed;
+            m_Anim.SetTrigger("IsHurt");
+            ProducetEgg();           
         }     
-        private float m_Interval = 10;
-        private float m_Time = 0;
-        private void ProductEggUpdate()
-        {
-            if (Time.time >= m_Time)
-            {
-                MonoSingletonFactory<ShareMono>.GetSingleton().RemoveUpdateAction(EnumUpdateAction.Standard, this.ProductEggUpdate);
-                m_Anim.SetTrigger("IsSkill");
-                MonoSingletonFactory<ShareMono>.GetSingleton().DelayAction(m_Anim.AnimatorClipTimeLength("WhiteBirdSkill"), ProducetEgg);                           
-            }
-        }
+    
         private void ProducetEgg()
         {
-            if(!gameObject.activeInHierarchy)
+            for (int i = 0; i < 3; i++)
             {
-                return;
-            }
-            GameObject go;
-            if (!GoReusePool.Take(typeof(Egg).Name, out go))
-            {               
-                if(!NotMonoSingletonFactory<OtherConfigInfo>.SingletonExist)
+                if (!GoReusePool.Take(typeof(Egg).Name, out GameObject go))
                 {
-                    return;
+                    if (!NotMonoSingletonFactory<OtherConfigInfo>.SingletonExist)
+                    {
+                        return;
+                    }
+                    if (!GoLoad.Take(NotMonoSingletonFactory<OtherConfigInfo>.GetSingleton().GetEggPrefabPath(), out go))
+                    {
+                        return;
+                    }
                 }
-                if (!GoLoad.Take(NotMonoSingletonFactory<OtherConfigInfo>.GetSingleton().GetEggPrefabPath(), out go))
-                {
-                    return;
-                }
-            }
-            m_Anim.SetTrigger("IsDefault");
-            PlaySkillAudio();
-            go.transform.position = transform.position;
-            MonoSingletonFactory<ShareMono>.GetSingleton().ApplyUpdateAction(EnumUpdateAction.Standard,ProductEggUpdate);
-            m_Time = Time.time + m_Interval;
+                Egg egg = go.InspectComponent<Egg>();
+                go.transform.position = transform.position;
+                Vector2 velocity = Vector2.down;
+                float angle = Vector2.SignedAngle(Vector2.right, velocity.normalized);
+                angle += (i == 0) ? 15 : ((i == 1) ? 0 : -15);
+                velocity = new Vector2(Mathf.Cos(angle / 180.0f * Mathf.PI), Mathf.Sin(angle / 180.0f * Mathf.PI));
+                egg.SetBirdFlyVelocity(velocity * m_EggShootSpeed);           
+            }         
         }       
     }
 }

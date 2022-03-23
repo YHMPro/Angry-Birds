@@ -1,6 +1,11 @@
 ﻿using Farme;
+using UnityEngine;
 namespace Bird_VS_Boar
 {
+    public interface IGoods:IInterfaceBase
+    {
+        void Refresh();
+    }
     /// <summary>
     /// 时间
     /// </summary>
@@ -20,6 +25,7 @@ namespace Bird_VS_Boar
     /// </summary>
     public interface IDied
     {
+        GameObject go { get; }
         string Name { get; }
         /// <summary>
         /// 死亡

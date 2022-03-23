@@ -17,6 +17,7 @@ namespace Bird_VS_Boar
     }
     public class Boom : MonoBehaviour,IDied
     {
+        public GameObject go => this.gameObject;
         /// <summary>
         /// 名称
         /// </summary>
@@ -115,7 +116,7 @@ namespace Bird_VS_Boar
         {
             if (isDestroy)
             {
-                Destroy(gameObject);
+                DestroyImmediate(gameObject);
             }
             else
             {

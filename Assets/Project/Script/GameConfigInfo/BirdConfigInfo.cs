@@ -12,7 +12,70 @@ namespace Bird_VS_Boar
         /// <summary>
         /// 小鸟配置信息容器
         /// </summary>
-        public static Dictionary<EnumBirdType, BirdConfigInfo> BirdConfigInfoDic = new Dictionary<EnumBirdType, BirdConfigInfo>();
+        private static Dictionary<EnumBirdType,BirdConfigInfo> m_BirdConfigInfoDic=new Dictionary<EnumBirdType, BirdConfigInfo>();
+        private static T GetBirdConfigInfo<T>(EnumBirdType birdType) where T : BirdConfigInfo,new()
+        {
+            if(!m_BirdConfigInfoDic.TryGetValue(birdType,out BirdConfigInfo info))
+            {
+                info = new T();
+                info.InitConfigInfo();
+                m_BirdConfigInfoDic.Add(birdType, info);
+            }                        
+            return (T)info;          
+        }
+        public static BirdConfigInfo GetBirdConfigInfo(EnumBirdType birdType)
+        {
+            BirdConfigInfo birdConfigInfo = null;
+            switch(birdType)
+            {
+                case EnumBirdType.RedBird:
+                    {
+                        birdConfigInfo = GetBirdConfigInfo<RedBirdConfigInfo>(birdType);
+                        break;
+                    }
+                case EnumBirdType.GreenBird:
+                    {
+                        birdConfigInfo = GetBirdConfigInfo<GreenBirdConfigInfo>(birdType);
+                        break;
+                    }
+                case EnumBirdType.BlackBird:
+                    {
+                        birdConfigInfo = GetBirdConfigInfo<BlackBirdConfigInfo>(birdType);
+                        break;
+                    }
+                case EnumBirdType.BlueBird:
+                    {
+                        birdConfigInfo = GetBirdConfigInfo<BlueBirdConfigInfo>(birdType);
+                        break;
+                    }
+                case EnumBirdType.PinkBird:
+                    {
+                        birdConfigInfo = GetBirdConfigInfo<PinkBirdConfigInfo>(birdType);
+                        break;
+                    }
+                case EnumBirdType.VanBird:
+                    {
+                        birdConfigInfo = GetBirdConfigInfo<VanBirdConfigInfo>(birdType);
+                        break;
+                    }
+                case EnumBirdType.WhiteBird:
+                    {
+                        birdConfigInfo = GetBirdConfigInfo<WhiteBirdConfigInfo>(birdType);
+                        break;
+                    }
+                case EnumBirdType.YellowBird:
+                    {
+                        birdConfigInfo = GetBirdConfigInfo<YellowBirdConfigInfo>(birdType);
+                        break;
+                    }
+                case EnumBirdType.LittleBlueBird:
+                    {
+                        birdConfigInfo = GetBirdConfigInfo<BlueBirdConfigInfo>(birdType);
+                        break;
+                    }
+            }
+            return birdConfigInfo;
+        }
         /// <summary>
         /// 所需硬币
         /// </summary>
@@ -69,7 +132,7 @@ namespace Bird_VS_Boar
         #endregion        
         public virtual void InitConfigInfo()
         {
-            m_Coin = 1;//暂时所有小鸟都为1
+            
             m_OrderInLayer = 2;//暂时所有小鸟都为2
             m_BirdDiedAudioPath = "Bird/BirdCommon/De1";
             m_CommonPath="Bird/"+GetType().Name+"/";
@@ -154,6 +217,7 @@ namespace Bird_VS_Boar
         public override void InitConfigInfo()
         {
             base.InitConfigInfo();
+            m_Coin = 1;
             m_BirdSelectAudioPaths = CreateGroup("Select", 1);
             m_BirdFlyAudioPaths = CreateGroup("Fly", 1);
         }
@@ -164,6 +228,7 @@ namespace Bird_VS_Boar
         public override void InitConfigInfo()
         {
             base.InitConfigInfo();
+            m_Coin = 3;
             m_BirdSelectAudioPaths = CreateGroup("Select", 1);
             m_BirdFlyAudioPaths = CreateGroup("Fly", 1);
             m_BirdSkillAudioPaths = CreateGroup("Skill", 1);
@@ -176,6 +241,7 @@ namespace Bird_VS_Boar
         public override void InitConfigInfo()
         {
             base.InitConfigInfo();
+            m_Coin = 2;
             m_BirdSelectAudioPaths = CreateGroup("Select", 1);
             m_BirdFlyAudioPaths = CreateGroup("Fly", 1);
         }
@@ -186,6 +252,7 @@ namespace Bird_VS_Boar
         public override void InitConfigInfo()
         {
             base.InitConfigInfo();
+            m_Coin = 2;
             m_BirdSelectAudioPaths = CreateGroup("Select", 1);
             m_BirdFlyAudioPaths = CreateGroup("Fly", 1);
             m_BirdCollisionAudioPaths = CreateGroup("Co", 4);
@@ -197,6 +264,7 @@ namespace Bird_VS_Boar
         public override void InitConfigInfo()
         {
             base.InitConfigInfo();
+            m_Coin = 2;
             m_BirdSelectAudioPaths = CreateGroup("Select", 3);
             m_BirdFlyAudioPaths = CreateGroup("Fly", 3);
             m_BirdCollisionAudioPaths = CreateGroup("Co", 5);
@@ -209,6 +277,7 @@ namespace Bird_VS_Boar
         public override void InitConfigInfo()
         {
             base.InitConfigInfo();
+            m_Coin = 3;
             m_BirdSelectAudioPaths = CreateGroup("Select", 1);
             m_BirdFlyAudioPaths = CreateGroup("Fly", 1);
             m_BirdCollisionAudioPaths = CreateGroup("Co", 4);
@@ -221,6 +290,7 @@ namespace Bird_VS_Boar
         public override void InitConfigInfo()
         {
             base.InitConfigInfo();
+            m_Coin = 5;
             m_BirdSelectAudioPaths = CreateGroup("Select", 1);
             m_BirdFlyAudioPaths = CreateGroup("Fly", 1);
             m_BirdCollisionAudioPaths = CreateGroup("Co", 5);
@@ -233,6 +303,7 @@ namespace Bird_VS_Boar
         public override void InitConfigInfo()
         {
             base.InitConfigInfo();
+            m_Coin = 2;
             m_BirdSelectAudioPaths = CreateGroup("Select", 1);
             m_BirdFlyAudioPaths = CreateGroup("Fly", 1);
             m_BirdCollisionAudioPaths = CreateGroup("Co", 5);

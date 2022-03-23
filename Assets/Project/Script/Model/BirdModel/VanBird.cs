@@ -14,6 +14,7 @@ namespace Bird_VS_Boar
         protected override void Awake()
         {
             m_BirdType = EnumBirdType.VanBird;
+            //m_ConfigInfo = BirdConfigInfo.GetBirdConfigInfo<VanBirdConfigInfo>(m_BirdType);
             base.Awake();
             m_AimTran = transform.Find("Aim");
         }

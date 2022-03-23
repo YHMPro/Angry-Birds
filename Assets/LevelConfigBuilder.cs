@@ -8,6 +8,14 @@ namespace Bird_VS_Boar.LevelConfig
     public class LevelConfigBuilder //: EditorWindow
     {
         /// <summary>
+        /// 是否通过
+        /// </summary>
+        public static bool IsThrough = false;
+        /// <summary>
+        /// 硬币数量
+        /// </summary>
+        public static int CoinNum = 0;
+        /// <summary>
         /// 关卡索引
         /// </summary>
         public static int LevelIndex = -1;
@@ -25,6 +33,8 @@ namespace Bird_VS_Boar.LevelConfig
         {
             LevelConfig config = new LevelConfig();
             config.LevelType = LevelType;
+            config.CoinNum = CoinNum;
+            config.IsThrough = IsThrough;
             //查找场景内的弹弓
             SlingShot slingShot = Object.FindObjectOfType<SlingShot>();
             if (slingShot != null)

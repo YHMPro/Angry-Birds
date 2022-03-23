@@ -10,6 +10,7 @@ namespace Bird_VS_Boar
         protected override void Awake()
         {
             m_BirdType = EnumBirdType.RedBird;
+            //m_ConfigInfo = BirdConfigInfo.GetBirdConfigInfo<RedBirdConfigInfo>(m_BirdType);
             base.Awake();
         }
 

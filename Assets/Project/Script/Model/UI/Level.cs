@@ -46,10 +46,7 @@ namespace Bird_VS_Boar
             {
                 if(m_StarsDefault == null)
                 {
-                    if (SeasonConfigInfo.SeasonConfigInfoDic.TryGetValue(GameManager.NowLevelType, out SeasonConfigInfo seasonConfigInfo))
-                    {
-                        m_StarsDefault = ResourcesLoad.Load<Sprite>(seasonConfigInfo.GetStarDefaultSpritePath(), true);
-                    }
+                    m_StarsDefault = ResourcesLoad.Load<Sprite>(GameManager.NowSeasonConfigInfo.GetStarDefaultSpritePath(), true);              
                 }
                 return m_StarsDefault;
             }
@@ -67,10 +64,7 @@ namespace Bird_VS_Boar
             {
                 if (m_StarsFill == null)
                 {
-                    if (SeasonConfigInfo.SeasonConfigInfoDic.TryGetValue(GameManager.NowLevelType, out SeasonConfigInfo seasonConfigInfo))
-                    {
-                        m_StarsFill = ResourcesLoad.Load<Sprite>(seasonConfigInfo.GetStarFillSpritePath(), true);
-                    }
+                    m_StarsFill = ResourcesLoad.Load<Sprite>(GameManager.NowSeasonConfigInfo.GetStarFillSpritePath(), true);               
                 }
                 return m_StarsFill;
             }
@@ -125,10 +119,7 @@ namespace Bird_VS_Boar
         private void RefreshUI()
         {
             #region 更新背景
-            if (SeasonConfigInfo.SeasonConfigInfoDic.TryGetValue(GameManager.NowLevelType, out SeasonConfigInfo seasonConfigInfo))
-            {
-                m_Img.sprite = ResourcesLoad.Load<Sprite>(seasonConfigInfo.GetLevelBGSpritePath(),true);
-            }
+            m_Img.sprite = ResourcesLoad.Load<Sprite>(GameManager.NowSeasonConfigInfo.GetLevelBGSpritePath(), true);         
             #endregion
             #region 更新关卡所欲
             m_LevelIndex = 1;
@@ -143,7 +134,7 @@ namespace Bird_VS_Boar
                 Debuger.LogError("不存在此场景的配置:\n关卡类型:"+ GameManager.NowLevelType+"\n关卡索引:"+ m_LevelIndex);
                 return;
             }
-            m_LevelLock.sprite = ResourcesLoad.Load<Sprite>(seasonConfigInfo.GetLevelLockSpritePath(),true);
+            m_LevelLock.sprite = ResourcesLoad.Load<Sprite>(GameManager.NowSeasonConfigInfo.GetLevelLockSpritePath(),true);
             m_LevelLock.gameObject.SetActive(!levelConfig.IsThrough);
             m_Btn.Interactable = levelConfig.IsThrough;
             m_StarRect.gameObject.SetActive(levelConfig.IsThrough);

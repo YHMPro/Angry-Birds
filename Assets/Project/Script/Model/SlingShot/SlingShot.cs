@@ -39,7 +39,7 @@ namespace Bird_VS_Boar
                 if(GameLogic.NowComeBird!=null)
                 {
                     Vector2 birdToSelfDir = GetOriginGlobalPos(GameLogic.NowComeBird.transform.position.z) - GameLogic.NowComeBird.transform.position;
-                    return birdToSelfDir.normalized * birdToSelfDir.magnitude / StretchDis * m_ApplyingMaxSpeed;
+                    return birdToSelfDir.normalized * (birdToSelfDir.magnitude / StretchDis * m_ApplyingMaxSpeed);
                 }
                 return Vector2.zero;
             }
@@ -115,6 +115,7 @@ namespace Bird_VS_Boar
             if (GetComponent("LeftRendererLine", out LineRenderer leftLR))
             {
                 leftLR.positionCount = 0;
+                Debuger.Log(leftLR.positionCount);
             }
             if (GetComponent("RightRendererLine", out LineRenderer rightLR))
             {
@@ -127,7 +128,7 @@ namespace Bird_VS_Boar
                 return;
             GameLogic.NowComeBird.transform.position = GetOriginGlobalPos(GameLogic.NowComeBird.transform.position.z);
             m_SJ2D.connectedBody = GameLogic.NowComeBird.GetComponent<Rigidbody2D>();//设置刚体绑定链接
-            MonoSingletonFactory<ShareMono>.GetSingleton().ApplyUpdateAction(EnumUpdateAction.Standard,GameLogic.NowComeBird.BirdControlUpdate);//添加小鸟控制更新
+            GameLogic.NowComeBird.AddBirdControlUpdate();
         }
 
         public void BreakBird()
@@ -139,8 +140,7 @@ namespace Bird_VS_Boar
             {
                 MonoSingletonFactory<Camera2D>.GetSingleton().BindBird();
             }
-            MonoSingletonFactory<ShareMono>.GetSingleton().RemoveUpdateAction(EnumUpdateAction.Standard,GameLogic.NowComeBird.BirdControlUpdate);//移除小鸟控制更新
-            MonoSingletonFactory<ShareMono>.GetSingleton().ApplyUpdateAction(EnumUpdateAction.Standard,GameLogic.NowComeBird.OnBirdFlyUpdate_Common);//添加小鸟飞行更新
+            GameLogic.NowComeBird.AddOnBirdFlyUpdate_Common();//添加小鸟飞行更新
             GameLogic.NowComeBird.SetBirdFlyVelocity(ApplyingVelocity);//设置小鸟基于弹弓获得的初始速度
             GameLogic.NowComeBird.IsFreeze_ZRotation = false;//解除小鸟Z轴选中冻结       
             //计算预瞄准点位置

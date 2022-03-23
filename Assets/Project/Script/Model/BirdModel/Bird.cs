@@ -5,6 +5,7 @@ using Farme;
 using Farme.Audio;
 using Farme.Tool;
 using Farme.UI;
+using UnityEngine.EventSystems;
 namespace Bird_VS_Boar
 { 
     /// <summary>
@@ -25,6 +26,7 @@ namespace Bird_VS_Boar
     }
     public abstract class Bird : BaseMono,IBoom, IDiedAudio,IDied
     {
+        public GameObject go => this.gameObject;
         /// <summary>
         /// 名称
         /// </summary>
@@ -120,6 +122,7 @@ namespace Bird_VS_Boar
         protected override void Awake()
         {
             base.Awake();
+            m_ConfigInfo = BirdConfigInfo.GetBirdConfigInfo(m_BirdType);
             m_Sr =GetComponent<SpriteRenderer>();
             m_CC2D = gameObject.AddComponent<CircleCollider2D>();
             m_Rig2D = GetComponent<Rigidbody2D>();
@@ -142,18 +145,18 @@ namespace Bird_VS_Boar
         protected override void Start()
         {
             base.Start();
-            InitTrailRenderer();//初始化拖尾
-            if (BirdConfigInfo.BirdConfigInfoDic.TryGetValue(m_BirdType, out var config))
-            {
-                //设置自身渲染层级
-                m_Sr.sortingOrder = config.OrderInLayer;
-            }           
+            InitTrailRenderer();//初始化拖尾                               
+            m_Sr.sortingOrder = m_ConfigInfo.OrderInLayer;//设置自身渲染层级
+
         }
         protected override void OnDisable()
         {
             base.OnDisable();
-            RecyclyAudio();//回收音效
-            MonoSingletonFactory<ShareMono>.GetSingleton().RemoveUpdateAction(EnumUpdateAction.Standard, this.OnBirdFlyUpdate_Common);
+            #region RemoveUpdate
+            RemoveBirdControlUpdate();
+            RemoveOnBirdFlyUpdate_Common();
+            #endregion
+            RecyclyAudio();//回收音效       
             GameManager.RemoveBird(this);//将小鸟从游戏管理器中移除
             GameManager.RemoveDiedTarget(this);
         }
@@ -167,13 +170,13 @@ namespace Bird_VS_Boar
         }
 
         protected virtual void OnMouseDown()
-        {          
-            if(!MonoSingletonFactory<WindowRoot>.SingletonExist)
+        {
+            if (!MonoSingletonFactory<WindowRoot>.SingletonExist)
             {
                 return;
             }
             WindowRoot windowRoot = MonoSingletonFactory<WindowRoot>.GetSingleton();
-            if(windowRoot.ES.currentSelectedGameObject!=null)//当操作对象是UI时则屏蔽此次事件响应
+            if (windowRoot.ES.IsPointerOverGameObject())//当操作对象是UI时则屏蔽此次事件响应
             {
                 return;
             }
@@ -192,14 +195,24 @@ namespace Bird_VS_Boar
         }
 
         protected virtual void OnMouseUp()
-        {          
-            if(!m_IsCheck)
+        {
+            if (!MonoSingletonFactory<WindowRoot>.SingletonExist)
+            {
+                return;
+            }
+            WindowRoot windowRoot = MonoSingletonFactory<WindowRoot>.GetSingleton();
+            if (windowRoot.ES.IsPointerOverGameObject())//当操作对象是UI时则屏蔽此次事件响应
+            {
+                return;
+            }
+            if ((!m_IsCheck))
             {
                 return;
             }
             if (!GameLogic.BirdIsNowComeBirdLogic(this))
                 return;
             m_IsCheck = false;
+            this.RemoveBirdControlUpdate();
             if (MonoSingletonFactory<SlingShot>.SingletonExist)
             {
                 SlingShot slingShot = MonoSingletonFactory<SlingShot>.GetSingleton();
@@ -218,8 +231,23 @@ namespace Bird_VS_Boar
             
         }
         #region Update
-        public void BirdControlUpdate()
+        /// <summary>
+        /// 添加小鸟控制更新
+        /// </summary>
+        public void AddBirdControlUpdate()
         {
+            MonoSingletonFactory<ShareMono>.GetSingleton().ApplyUpdateAction(EnumUpdateAction.Standard,this.BirdControlUpdate);//添加小鸟控制更新
+
+        }
+        /// <summary>
+        /// 移除小鸟控制更新
+        /// </summary>
+        public void RemoveBirdControlUpdate()
+        {
+            MonoSingletonFactory<ShareMono>.GetSingleton().RemoveUpdateAction(EnumUpdateAction.Standard,this.BirdControlUpdate);//移除小鸟控制更新
+        }
+        private void BirdControlUpdate()
+        {            
             if (m_IsCheck)//是否选中
             {
                 if (MonoSingletonFactory<Camera2D>.SingletonExist)
@@ -245,32 +273,38 @@ namespace Bird_VS_Boar
             }
             else
             {
+               
                 SlingShot slingShot = MonoSingletonFactory<SlingShot>.GetSingleton();
                 //渲染线
                 slingShot.RendererLine(drawLineEnd.position);
             }
         }
         
+        public void AddOnBirdFlyUpdate_Common()
+        {
+            MonoSingletonFactory<ShareMono>.GetSingleton().ApplyUpdateAction(EnumUpdateAction.Standard, this.OnBirdFlyUpdate_Common);
+        }
+        public void RemoveOnBirdFlyUpdate_Common()
+        {
+            MonoSingletonFactory<ShareMono>.GetSingleton().RemoveUpdateAction(EnumUpdateAction.Standard, this.OnBirdFlyUpdate_Common);
+        }
         /// <summary>
         /// 监听小鸟飞行更新
         /// </summary>
-        public void OnBirdFlyUpdate_Common()//用于处理鸟的飞行后的首次碰撞  
-        {
-            Debuger.Log("小鸟飞行更新");
-            //if (!gameObject.activeInHierarchy)
-            //{
-            //    MonoSingletonFactory<ShareMono>.GetSingleton().RemoveUpdateAction(EnumUpdateAction.Standard, this.OnBirdFlyUpdate_Common);
-            //}
+        private void OnBirdFlyUpdate_Common()//用于处理鸟的飞行后的首次碰撞  
+        {     
             //小鸟面朝飞行方向
             transform.eulerAngles = new Vector3(0, 0, -Vector2.SignedAngle(m_Rig2D.velocity.normalized, Vector2.right));        
         }
+        #endregion
+
         /// <summary>
         /// 监听小鸟飞行中断
         /// </summary>
         protected virtual void OnBirdFlyBreak()
         {
             m_Anim.SetTrigger("IsHurt");//受伤动画            
-            m_Cor=MonoSingletonFactory<ShareMono>.GetSingleton().DelayAction(3f,()=> 
+            m_Cor = MonoSingletonFactory<ShareMono>.GetSingleton().DelayAction(3f, () =>
             {
                 if (gameObject.activeInHierarchy)
                 {
@@ -280,23 +314,19 @@ namespace Bird_VS_Boar
                 }
             });
         }
-        #endregion
+
         #region Collision
         /// <summary>
         /// 监听碰撞(替代OnBirdFlyUpdate_Common)
         /// </summary>
         /// <param name="collision"></param>
         protected virtual void OnCollisionEnter2D(Collision2D collision)
-        {
-            //if (m_Rig2D.velocity.magnitude > 0.5f)
-            //{
-            //    PlayCollisionAudio();//播放碰撞音效
-            //}
+        {        
             if (m_IsCollision)
             {
                 return;
             }
-            MonoSingletonFactory<ShareMono>.GetSingleton().RemoveUpdateAction(EnumUpdateAction.Standard,this.OnBirdFlyUpdate_Common);
+            RemoveOnBirdFlyUpdate_Common();
             m_IsCollision = true;
             Debuger.Log("技能失效");
             ActiveTrailRenderer(false);//关闭拖尾
@@ -335,45 +365,29 @@ namespace Bird_VS_Boar
         /// 播放飞行音效
         /// </summary>
         protected virtual void PlayFlyAudio()
-        {
-            if(!BirdConfigInfo.BirdConfigInfoDic.TryGetValue(m_BirdType, out var config))
-            {
-                return;
-            }
-            PlayAudio(config.GetFlyAudioPaths());
+        {         
+            PlayAudio(m_ConfigInfo.GetFlyAudioPaths());
         }
         /// <summary>
         /// 播放选中音效
         /// </summary>
         protected virtual void PlaySelectAudio()
-        {
-            if (!BirdConfigInfo.BirdConfigInfoDic.TryGetValue(m_BirdType, out var config))
-            {
-                return;
-            }
-            PlayAudio(config.GetSelectAudioPaths());
+        {      
+            PlayAudio(m_ConfigInfo.GetSelectAudioPaths());
         }
         /// <summary>
         /// 播放死亡音效
         /// </summary>
         protected virtual void PlayDiedAudio()
-        {
-            if (!BirdConfigInfo.BirdConfigInfoDic.TryGetValue(m_BirdType, out var config))
-            {
-                return;
-            }
-            PlayAudio(config.GetDiedAudioPath());
+        {        
+            PlayAudio(m_ConfigInfo.GetDiedAudioPath());
         }
         /// <summary>
         /// 播放碰撞音效
         /// </summary>
         protected virtual void PlayCollisionAudio()
         {
-            if (!BirdConfigInfo.BirdConfigInfoDic.TryGetValue(m_BirdType, out var config))
-            {
-                return;
-            }
-            PlayAudio(config.GetCollisionAudioPaths());
+            PlayAudio(m_ConfigInfo.GetCollisionAudioPaths());
         }
         /// <summary>
         /// 播放技能音效
@@ -466,14 +480,10 @@ namespace Bird_VS_Boar
         #region Died
         public virtual void Died(bool isDestroy=false)
         {
-            if (m_Cor != null)
-            {
-                MonoSingletonFactory<ShareMono>.GetSingleton().StopCoroutine(m_Cor);//撤销游戏结束后小鸟延迟销毁逻辑的执行
-                m_Cor = null;
-            }
+            CancleCor();
             if (isDestroy)
             {
-                Destroy(gameObject);
+                DestroyImmediate(gameObject);
             }
             else 
             {
@@ -482,7 +492,16 @@ namespace Bird_VS_Boar
             }
         }
         #endregion
-
-        
+        /// <summary>
+        /// 撤销协程的监听
+        /// </summary>
+        protected void CancleCor()
+        {
+            if (m_Cor != null)
+            {
+                MonoSingletonFactory<ShareMono>.GetSingleton().StopCoroutine(m_Cor);//撤销游戏结束后小鸟延迟销毁逻辑的执行
+                m_Cor = null;
+            }
+        }
     }
 }

@@ -27,9 +27,18 @@ namespace Bird_VS_Boar
         public override void OnSkillUpdate_Common()
         {
             if (!m_IsReleaseSkill)
-            {
+            {                
                 if (Input.GetMouseButtonDown(1))
                 {
+                    if (!MonoSingletonFactory<WindowRoot>.SingletonExist)
+                    {
+                        return;
+                    }
+                    WindowRoot windowRoot = MonoSingletonFactory<WindowRoot>.GetSingleton();
+                    if (windowRoot.ES.IsPointerOverGameObject())//当操作对象是UI时则屏蔽此次事件响应
+                    {
+                        return;
+                    }
                     m_IsReleaseSkill = true;
                     OnSkillUpdate();
                     MonoSingletonFactory<ShareMono>.GetSingleton().RemoveUpdateAction(EnumUpdateAction.Standard,this.OnSkillUpdate_Common);
@@ -49,11 +58,11 @@ namespace Bird_VS_Boar
         }
         protected override void PlaySkillAudio()
         {
-            if (!BirdConfigInfo.BirdConfigInfoDic.TryGetValue(m_BirdType, out var config))
-            {
-                return;
-            }
-            PlayAudio(config.GetSkillAudioPaths());
+            //if (!BirdConfigInfo.BirdConfigInfoDic.TryGetValue(m_BirdType, out var config))
+            //{
+            //    return;
+            //}
+            PlayAudio(m_ConfigInfo.GetSkillAudioPaths());
         }
     }
 }

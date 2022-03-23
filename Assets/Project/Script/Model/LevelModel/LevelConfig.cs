@@ -21,6 +21,10 @@ namespace Bird_VS_Boar.LevelConfig
         /// </summary>
         public int LevelHistoryScore = 0;
         /// <summary>
+        /// 硬币数量
+        /// </summary>
+        public int CoinNum = 0;
+        /// <summary>
         /// 是否通过(满足关卡开启的基本条件即可开锁)
         /// </summary>
         public bool IsThrough = false;
@@ -39,7 +43,7 @@ namespace Bird_VS_Boar.LevelConfig
         /// <summary>
         /// 障碍物配置列表
         /// </summary>
-        public List<BarrierConfig> BarrierConfigs=new List<BarrierConfig>();   
+        public List<BarrierConfig> BarrierConfigs=new List<BarrierConfig>();
     }
     /// <summary>
     /// 猪配置

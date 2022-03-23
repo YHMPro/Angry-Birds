@@ -23,7 +23,7 @@ namespace Bird_VS_Boar
 
         protected override void OnBirdFlyBreak()
         {
-            MonoSingletonFactory<ShareMono>.GetSingleton().RemoveUpdateAction(EnumUpdateAction.Standard, OnSkillUpdate_Common);
+            MonoSingletonFactory<ShareMono>.GetSingleton().RemoveUpdateAction(EnumUpdateAction.Standard, this.OnSkillUpdate_Common);
             ProductBlister();
             PlaySkillAudio();
         }

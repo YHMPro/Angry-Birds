@@ -2,10 +2,14 @@
 using System.Collections.Generic;
 using UnityEngine;
 using Farme;
+using DG.Tweening;
+using Farme.UI;
+using Farme.Tool;
 namespace Bird_VS_Boar
 {
     public class Egg : MonoBehaviour,IDied
     {
+        public GameObject go => this.gameObject;
         /// <summary>
         /// 名称
         /// </summary>
@@ -20,7 +24,10 @@ namespace Bird_VS_Boar
         /// 是否可选择
         /// </summary>
         private bool m_IsSelectable = false;
-
+        /// <summary>
+        /// 是否碰撞
+        /// </summary>
+        private bool m_IsCollision = false;
         /// <summary>
         /// 碰撞盒子
         /// </summary>
@@ -39,36 +46,50 @@ namespace Bird_VS_Boar
             m_Rig2D = GetComponent<Rigidbody2D>();
         }
 
-        private void Start()
+        private void OnEnable()
         {
-            //MonoSingletonFactory<ShareMono>.GetSingleton().ApplyUpdateAction(EnumUpdateAction.Standard,EggUpdate);
+            GameManager.AddDiedTarget(this);
         }
+
+       
         private void OnMouseDown()
         {
-           //if(m_IsSelectable)
-           // {
-           //     m_IsSelectable = false;
-           //     Debug.Log("收集一刻蛋");//设置一个目标点做缓动运动      
-           // }
+            if (m_IsSelectable)
+            {
+                m_IsSelectable = false;              
+                GameLogic.CoinAdd();
+                Died(true);//回收     
+            }
         }
-        private void EggUpdate()
+        private void OnDisable()
         {
-            //if (Physics2D.OverlapCircle(transform.position, m_CC2D.radius, LayerMask.GetMask(rayCastGroup)))
-            //{
-            //    MonoSingletonFactory<ShareMono>.GetSingleton().RemoveUpdateUAction(EggUpdate);
-            //    m_Rig2D.isKinematic = true;
-            //    m_Rig2D.velocity *= 0;
-            //    m_Rig2D.angularVelocity *= 0;
-            //    m_CC2D.isTrigger = true;
-            //    m_IsSelectable = true;
-            //}
+            GameManager.RemoveDiedTarget(this);
         }
+        private void OnCollisionEnter2D(Collision2D collision)
+        {
+            if (!m_IsCollision)
+            {
+                m_IsSelectable = true;
+            }
+        }
+
+        #region Velocity
+        /// <summary>
+        /// 设置鸡蛋飞行速度
+        /// </summary>
+        /// <param name="velocity">速度</param>
+        public virtual void SetBirdFlyVelocity(Vector2 velocity)
+        {
+            m_Rig2D.velocity = velocity;
+        }
+        #endregion
+        
         #region Died
         public void Died(bool isDestroy = false)
         {
             if(isDestroy)
             {
-                Destroy(gameObject);
+                DestroyImmediate(gameObject);
             }
             else
             {

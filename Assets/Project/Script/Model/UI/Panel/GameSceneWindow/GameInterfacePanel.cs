@@ -8,7 +8,7 @@ using UnityEngine.EventSystems;
 using Farme.Tool;
 using DG.Tweening;
 using Bird_VS_Boar.LevelConfig;
-
+using Farme;
 namespace Bird_VS_Boar
 {
     /// <summary>
@@ -60,20 +60,23 @@ namespace Bird_VS_Boar
         #region Button
         private void OnSet()
         {
-
+            GameManager.GameControl(EnumGameControlType.Stop);
+            //m_SetBtn.gameObject.SetActive(false);
+            //打开设置面板
+            StandardWindow window = MonoSingletonFactory<WindowRoot>.GetSingleton().GetWindow("GameGlobalWindow");
+            if (window == null || !window.GetPanel<GameSetPanel>("GameSetPanel", out var panel))
+            {
+                Debuger.LogError("窗口GameSceneWindow不存在或面板GameOverPanel不存在!!!");
+                return;
+            }
+            panel.SetState(EnumPanelState.Show, () =>
+            {
+                panel.ActiveDataControl(false);
+            });
         }
         private void OnLastLevel()
-        {
-            //#region 依照数据表来加载场景内容     
-            //int levelNum = LevelConfigManager.GetLevelNum(GameManager.NowLevelType);
-            //LevelConfig.LevelConfig levelConfig = LevelConfigManager.GetLevelConfig(GameManager.NowLevelType.ToString() + "_" + GameManager.NowLevelIndex);//读取关卡配置数据     
-            //if (levelConfig == null)
-            //{
-            //    Debuger.LogError("不存在此场景的配置");
-            //    return;
-            //}
-            GameManager.LastLevel();
-            RefreshPanel();
+        {            
+            GameManager.LastLevel();      
         }
 
         private void OnReturnLevel()
@@ -89,14 +92,13 @@ namespace Bird_VS_Boar
 
         private void OnNextLevel()
         {        
-            GameManager.NextLevel();
-            RefreshPanel();
+            GameManager.NextLevel();     
         }
         #endregion
 
 
         #region 刷新面板
-        private void RefreshPanel()
+        public void RefreshPanel()
         {
             int levelNum = LevelConfigManager.GetLevelNum(GameManager.NowLevelType);            
             #region 按钮更新
@@ -109,7 +111,6 @@ namespace Bird_VS_Boar
         private void OnButtonListImgEnter(BaseEventData bEData)//进入
         {
             GameManager.GameControl(EnumGameControlType.Stop);
-            Debuger.Log("测试:进入");
             m_ButtonListImg.transform.DOLocalMoveX(960f, 0.5f).SetEase(m_Ease).SetUpdate(true);
             
         }
@@ -130,7 +131,6 @@ namespace Bird_VS_Boar
             }
             GameManager.GameControl(EnumGameControlType.Continue);
             m_ButtonListImg.transform.DOLocalMoveX(1160f, 0.5f).SetEase(m_Ease).SetUpdate(true);
-            Debuger.Log("测试:离开");
         }
         #endregion
     }

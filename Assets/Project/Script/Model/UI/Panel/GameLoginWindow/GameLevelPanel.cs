@@ -134,16 +134,11 @@ namespace Bird_VS_Boar
                 Debuger.LogError("配置信息未实例化");
                 return;
             }
-            OtherConfigInfo otherConfigInfo = NotMonoSingletonFactory<OtherConfigInfo>.GetSingleton();        
-            if (!SeasonConfigInfo.SeasonConfigInfoDic.TryGetValue(GameManager.NowLevelType,out SeasonConfigInfo seasonConfigInfo))
-            {
-                Debuger.LogError("没有找到季节配置信息");
-                return;
-            }
+            OtherConfigInfo otherConfigInfo = NotMonoSingletonFactory<OtherConfigInfo>.GetSingleton();              
             //更新关卡界面背景
-            m_Bg.sprite = ResourcesLoad.Load<Sprite>(seasonConfigInfo.GetLevelInterfaceBGSpritePath(),true);
+            m_Bg.sprite = ResourcesLoad.Load<Sprite>(GameManager.NowSeasonConfigInfo.GetLevelInterfaceBGSpritePath(),true);
             //更新背景音乐
-            GameAudio.PlayBackGroundAudio(seasonConfigInfo.GetSeasonAudioPath());           
+            GameAudio.PlayBackGroundAudio(GameManager.NowSeasonConfigInfo.GetSeasonAudioPath());           
             //回收关卡
             for (int index=0;index<m_LevelRect.childCount;index++)
             {

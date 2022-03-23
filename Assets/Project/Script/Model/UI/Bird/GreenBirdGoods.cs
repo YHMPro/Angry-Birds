@@ -8,15 +8,11 @@ namespace Bird_VS_Boar
     {
         protected override void Awake()
         {
-            base.Awake();
             m_BirdType = EnumBirdType.GreenBird;
+            base.Awake();
+           
         }
-        protected override void BirdConfigInfoSet(out BirdConfigInfo config)
-        {
-            config = new GreenBirdConfigInfo();
-            config.InitConfigInfo();
-            BirdConfigInfo.BirdConfigInfoDic.Add(EnumBirdType.GreenBird, config);
-        }
+       
         protected override void AddBirdCom(GameObject bird)
         {
             GameLogic.NowComeBird = bird.InspectComponent<GreenBird>();

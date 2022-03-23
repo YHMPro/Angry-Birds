@@ -4,6 +4,7 @@ using UnityEngine.UI;
 using Farme.Extend;
 using UnityEngine.Events;
 using Farme;
+using Farme.UI;
 namespace Bird_VS_Boar
 {
     /// <summary>
@@ -54,7 +55,7 @@ namespace Bird_VS_Boar
         /// <summary>
         /// 
         /// </summary>
-        private Image m_Img;
+        private Image m_Img = null;
         private Image Img
         {
             get
@@ -94,25 +95,32 @@ namespace Bird_VS_Boar
         }
         private void Awake()
         {
-            m_Img = GetComponent<Image>();
         }
-
+        private void OnEnable()
+        {
+            ScaleUpdate();
+        }
         private void Start()
         {
-            m_Img.UIEventRegistered(EventTriggerType.PointerEnter, OnPointerEnter);
-            m_Img.UIEventRegistered(EventTriggerType.PointerExit, OnPointerExit);
-            m_Img.UIEventRegistered(EventTriggerType.PointerClick, OnPointerClick);
-            m_Img.UIEventRegistered(EventTriggerType.PointerDown, OnPointerDown);
+            Img.UIEventRegistered(EventTriggerType.PointerEnter, OnPointerEnter);
+            Img.UIEventRegistered(EventTriggerType.PointerExit, OnPointerExit);
+            Img.UIEventRegistered(EventTriggerType.PointerClick, OnPointerClick);
+            Img.UIEventRegistered(EventTriggerType.PointerDown, OnPointerDown);
         }
 
         private void ScaleUpdate()
         {
+            if (!MonoSingletonFactory<WindowRoot>.SingletonExist)
+            {
+                return;
+            }     
             //计算指针的位置与自身的距离
-            m_ToPointerDistance = Mathf.Clamp((transform.position - Input.mousePosition).magnitude, 0, (m_Img.rectTransform.rect.width* m_Img.transform.lossyScale.x) / 2f - 3f);
+            m_ToPointerDistance = Mathf.Clamp(((Vector3)RectTransformUtility.WorldToScreenPoint(MonoSingletonFactory<WindowRoot>.GetSingleton().Camera, transform.position) - Input.mousePosition).magnitude, 0, (Img.rectTransform.rect.width* Img.transform.localScale.x) / 2f - 3f);
             //调控放缩量
-            transform.localScale = Vector3.one - (1f - m_ToPointerDistance / ((m_Img.rectTransform.rect.width* m_Img.transform.lossyScale.x) / 2f - 3f)) * Vector3.one * m_ScaleValue;
+            transform.localScale = Vector3.one - (1f - m_ToPointerDistance / ((Img.rectTransform.rect.width* Img.transform.localScale.x) / 2f - 3f)) * Vector3.one * m_ScaleValue;
         }
 
+       
         private void OnDestroy()
         {
             MonoSingletonFactory<ShareMono>.GetSingleton().RemoveUpdateAction(EnumUpdateAction.Standard, this.ScaleUpdate);
@@ -121,15 +129,19 @@ namespace Bird_VS_Boar
             m_OnPointerExitEvent.RemoveAllListeners();
             m_OnPointerClickEvent.RemoveAllListeners();
 
-            m_Img.UIEventRemove(EventTriggerType.PointerEnter, OnPointerEnter);
-            m_Img.UIEventRemove(EventTriggerType.PointerExit, OnPointerExit);
-            m_Img.UIEventRemove(EventTriggerType.PointerClick, OnPointerClick);
-            m_Img.UIEventRemove(EventTriggerType.PointerDown, OnPointerDown);
+            Img.UIEventRemove(EventTriggerType.PointerEnter, OnPointerEnter);
+            Img.UIEventRemove(EventTriggerType.PointerExit, OnPointerExit);
+            Img.UIEventRemove(EventTriggerType.PointerClick, OnPointerClick);
+            Img.UIEventRemove(EventTriggerType.PointerDown, OnPointerDown);
         }
         private void OnPointerEnter(BaseEventData bEData)
         {
             MonoSingletonFactory<ShareMono>.GetSingleton().ApplyUpdateAction(EnumUpdateAction.Standard, this.ScaleUpdate);
             if (!m_Interactable)
+            {
+                return;
+            }
+            if (!IsPointerMouseLeftKey(bEData as PointerEventData))
             {
                 return;
             }
@@ -143,7 +155,11 @@ namespace Bird_VS_Boar
             {
                 return;
             }
-            m_Img.color = m_DefaultColor;
+            if (!IsPointerMouseLeftKey(bEData as PointerEventData))
+            {
+                return;
+            }
+            Img.color = m_DefaultColor;
             m_Icon.color = m_DefaultColor;
             m_OnPointerExitEvent?.Invoke();
         }
@@ -153,7 +169,11 @@ namespace Bird_VS_Boar
             {
                 return;
             }
-            m_Img.color = m_DefaultColor;
+            if (!IsPointerMouseLeftKey(bEData as PointerEventData))
+            {
+                return;
+            }
+            Img.color = m_DefaultColor;
             m_Icon.color = m_DefaultColor;
             GameAudio.PlayButtonAudio();           
             m_OnPointerClickEvent?.Invoke();
@@ -164,8 +184,18 @@ namespace Bird_VS_Boar
             {
                 return;
             }
-            m_Img.color = m_PressColor;
+            if (!IsPointerMouseLeftKey(bEData as PointerEventData))
+            {
+                return;
+            }
+            Img.color = m_PressColor;
             m_Icon.color = m_PressColor;
+        }
+
+
+        private bool IsPointerMouseLeftKey(PointerEventData pEData)
+        {
+            return pEData.button == PointerEventData.InputButton.Left;
         }
     }
 }

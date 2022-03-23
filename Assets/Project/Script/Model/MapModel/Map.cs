@@ -9,7 +9,7 @@ namespace Bird_VS_Boar
     /// </summary>
     public class Map : MonoBehaviour,IDied
     {
-
+        public GameObject go => this.gameObject;
         /// <summary>
         /// 名称
         /// </summary>
@@ -34,11 +34,11 @@ namespace Bird_VS_Boar
         {
             if (isDestroy)
             {
-                //Destroy(gameObject);
+                DestroyImmediate(gameObject);
             }
             else
             {
-                GoReusePool.Put(GameManager.NowLevelType.ToString() +"/"+ GameManager.NowLevelIndex.ToString(), this.gameObject);//回收该障碍物
+                GoReusePool.Put(GameManager.NowLevelType.ToString() +"/Map"/*+ GameManager.NowLevelIndex.ToString()*/, this.gameObject);//回收该障碍物
             }
         }
 

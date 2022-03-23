@@ -29,6 +29,11 @@ namespace Bird_VS_Boar.LevelConfig
             }
             return levelNum;
         }
+        /// <summary>
+        /// 添加关卡配置信息
+        /// </summary>
+        /// <param name="key"></param>
+        /// <param name="levelConfig"></param>
         public static void AddLevelConfig(string key, LevelConfig levelConfig)
         {                     
             if (!m_LevelConfigDic.ContainsKey(key))
@@ -42,6 +47,10 @@ namespace Bird_VS_Boar.LevelConfig
                 Debuger.Log("覆盖场景配置数据:" + key);
             }
         }
+        /// <summary>
+        /// 移除关卡配置信息
+        /// </summary>
+        /// <param name="key"></param>
         public static void RemoveLevelConfig(string key)
         {
             if (m_LevelConfigDic.ContainsKey(key))
@@ -50,6 +59,22 @@ namespace Bird_VS_Boar.LevelConfig
                 Debuger.Log("移除场景配置数据:" + key);
             }
         }
+        /// <summary>
+        /// 重置关卡数据
+        /// </summary>
+        public static void ResetLevelData()
+        {
+            foreach(var key in m_LevelConfigDic.Keys)
+            {
+                LevelConfig levelConfig = m_LevelConfigDic[key];            
+                levelConfig.IsThrough = key.Split('_')[1] == "1";
+                levelConfig.LevelHistoryRating = 0;
+                levelConfig.LevelHistoryScore = 0;               
+            }
+        }
+        /// <summary>
+        /// 保存关卡配置信息
+        /// </summary>
         public static void SaveLevelConfig()
         {          
             string json = JsonConvert.SerializeObject(m_LevelConfigDic);
@@ -63,6 +88,11 @@ namespace Bird_VS_Boar.LevelConfig
                 File.WriteAllText(m_FilePath, json, System.Text.Encoding.UTF8);
             }     
         }
+        /// <summary>
+        /// 获取关卡配置信息
+        /// </summary>
+        /// <param name="key"></param>
+        /// <returns></returns>
         public static LevelConfig GetLevelConfig(string key)
         {
             if(m_LevelConfigDic.TryGetValue(key, out LevelConfig levelConfig))
@@ -71,6 +101,9 @@ namespace Bird_VS_Boar.LevelConfig
             }
             return null;
         }     
+        /// <summary>
+        /// 读取配置信息表数据
+        /// </summary>
         public static void ReadConfigTableData()
         {
             if (!File.Exists(m_FilePath))

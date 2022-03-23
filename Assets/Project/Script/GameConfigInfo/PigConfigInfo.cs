@@ -7,9 +7,45 @@ namespace Bird_VS_Boar
     {    
         
         /// <summary>
-        /// 小鸟配置信息容器
+        /// 猪配置信息容器
         /// </summary>
-        public static Dictionary<EnumPigType, PigConfigInfo> PigConfigInfoDic = new Dictionary<EnumPigType, PigConfigInfo>();
+        private static Dictionary<EnumPigType,PigConfigInfo> m_PigConfigInfoDic=new Dictionary<EnumPigType, PigConfigInfo>();
+        /// <summary>
+        /// 猪配置信息容器
+        /// </summary>
+        private static T GetPigConfigInfo<T>(EnumPigType pigType) where T :PigConfigInfo,new()
+        {
+            if(!m_PigConfigInfoDic.TryGetValue(pigType,out PigConfigInfo info))
+            {
+                info = new T();
+                info.InitConfigInfo();
+                m_PigConfigInfoDic.Add(pigType, info);
+            }
+            return (T)info;
+        }
+        public static PigConfigInfo GetPigConfigInfo(EnumPigType pigType)
+        {
+            PigConfigInfo pigConfigInfo = null;
+            switch (pigType)
+            {
+                case EnumPigType.OldPig:
+                    {
+                        pigConfigInfo = GetPigConfigInfo<OldPigConfigInfo>(pigType);
+                        break;
+                    }
+                case EnumPigType.YoungPig:
+                    {
+                        pigConfigInfo = GetPigConfigInfo<YoungPigConfigInfo>(pigType);
+                        break;
+                    }
+                case EnumPigType.RockPig:
+                    {
+                        pigConfigInfo = GetPigConfigInfo<RockPigConfigInfo>(pigType);
+                        break;
+                    }
+            }
+            return pigConfigInfo;
+        }
         /// <summary>
         /// 排序层级
         /// </summary>

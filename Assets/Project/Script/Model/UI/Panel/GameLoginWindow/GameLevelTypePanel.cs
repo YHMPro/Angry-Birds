@@ -17,10 +17,7 @@ namespace Bird_VS_Boar
         /// 界面背景
         /// </summary>
         private Image m_Bg;
-        /// <summary>
-        /// 返回按钮
-        /// </summary>
-        private UIBtn m_ReturnBtn;
+
         /// <summary>
         /// 关卡类型矩形框
         /// </summary>
@@ -32,7 +29,6 @@ namespace Bird_VS_Boar
             RegisterComponentsTypes<UIBtn>();
             RegisterComponentsTypes<Image>();
 
-            m_ReturnBtn=GetComponent<UIBtn>("ReturnBtn");
             m_LevelTypeRectImg = GetComponent<Image>("LevelTypeRect");
             m_Bg = GetComponent<Image>("Bg");
         }
@@ -53,7 +49,6 @@ namespace Bird_VS_Boar
         protected override void Start()
         {
             base.Start();
-            m_ReturnBtn.OnPointerClickEvent.AddListener(OnReturn);
             if (NotMonoSingletonFactory<OtherConfigInfo>.SingletonExist)
             {
                 OtherConfigInfo otherConfigInfo = NotMonoSingletonFactory<OtherConfigInfo>.GetSingleton();
@@ -90,10 +85,7 @@ namespace Bird_VS_Boar
         #endregion
 
         #region Button
-        private void OnReturn()
-        {
-
-        }
+       
         #endregion
     }
 }

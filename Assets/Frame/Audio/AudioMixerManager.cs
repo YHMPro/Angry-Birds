@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Audio;
+using Farme.Tool;
 namespace Farme.Audio
 {
     /// <summary>
@@ -42,7 +43,7 @@ namespace Farme.Audio
                 {
                     if(ResourcesLoad.Load(m_MainAudioMixerPath, out m_MainAudioMixer))
                     {
-                        Debug.Log("加载主音效混合器成功!");
+                        Debuger.Log("加载主音效混合器成功!");
                     }
                 }
                 return m_MainAudioMixer;

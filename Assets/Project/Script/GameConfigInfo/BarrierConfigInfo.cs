@@ -5,7 +5,47 @@ namespace Bird_VS_Boar
 {
     public class BarrierConfigInfo
     {
-        public static Dictionary<EnumBarrierType, BarrierConfigInfo> BarrierConfigInfoDic=new Dictionary<EnumBarrierType, BarrierConfigInfo>();
+        /// <summary>
+        /// 障碍物配置信息
+        /// </summary>
+        private static Dictionary<EnumBarrierType, BarrierConfigInfo> m_BarrierConfigInfoDic = new Dictionary<EnumBarrierType, BarrierConfigInfo>();
+        /// <summary>
+        /// 障碍物配置信息
+        /// </summary>
+        private static T GetBarrierConfigInfo<T>(EnumBarrierType barrierType) where T : BarrierConfigInfo,new()
+        {
+            if(!m_BarrierConfigInfoDic.TryGetValue(barrierType,out BarrierConfigInfo info))
+            {
+                info=new T();
+                info.InitConfigInfo();
+                m_BarrierConfigInfoDic.Add(barrierType, info);
+            }
+            return (T)info;
+        }
+
+        public static BarrierConfigInfo GetBarrierConfigInfo(EnumBarrierType barrierType)
+        {
+            BarrierConfigInfo barrierConfigInfo = null;
+            switch(barrierType)
+            {
+                case EnumBarrierType.Ice:
+                    {
+                        barrierConfigInfo = GetBarrierConfigInfo<IceConfigInfo>(barrierType);
+                        break;
+                    }
+                case EnumBarrierType.Wood:
+                    {
+                        barrierConfigInfo = GetBarrierConfigInfo<WoodConfigInfo>(barrierType);
+                        break;
+                    }
+                case EnumBarrierType.Rock:
+                    {
+                        barrierConfigInfo = GetBarrierConfigInfo<RockConfigInfo>(barrierType);
+                        break;
+                    }
+            }
+            return barrierConfigInfo;
+        }
         /// <summary>
         /// 排序层级
         /// </summary>

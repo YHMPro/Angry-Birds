@@ -17,12 +17,63 @@ namespace Bird_VS_Boar
         /// 季节配置信息容器
         /// </summary>
         public static Dictionary<EnumGameLevelType, SeasonConfigInfo> SeasonConfigInfoDic=new Dictionary<EnumGameLevelType, SeasonConfigInfo>();
-
+        /// <summary>
+        /// 季节配置信息容器
+        /// </summary>
+        private static Dictionary<EnumGameLevelType, SeasonConfigInfo> m_SeasonConfigInfoDic = new Dictionary<EnumGameLevelType, SeasonConfigInfo>();
+        /// <summary>
+        /// 获取季节配置信息
+        /// </summary>
+        private static T GetSeasonConfigInfo<T>(EnumGameLevelType gameLevelType) where T : SeasonConfigInfo,new()
+        {
+            if(!m_SeasonConfigInfoDic.TryGetValue(gameLevelType,out SeasonConfigInfo info))
+            {
+                info = new T();
+                info.InitConfigInfo();
+                m_SeasonConfigInfoDic.Add(gameLevelType , info);
+            }
+            return (T)info;
+        }
+        /// <summary>
+        /// 获取季节配置信息
+        /// </summary>
+        public static SeasonConfigInfo GetSeasonConfigInfo(EnumGameLevelType gameLevelType)
+        {
+            SeasonConfigInfo seasonConfigInfo = null;
+            switch(gameLevelType)
+            {
+                case EnumGameLevelType.Spring:
+                    {
+                        seasonConfigInfo = GetSeasonConfigInfo<SpringConfigInfo>(gameLevelType);
+                        break;
+                    }
+                case EnumGameLevelType.Summer:
+                    {
+                        seasonConfigInfo = GetSeasonConfigInfo<SummerConfigInfo>(gameLevelType);
+                        break;
+                    }
+                case EnumGameLevelType.Autumn:
+                    {
+                        seasonConfigInfo = GetSeasonConfigInfo<AutumnConfigInfo>(gameLevelType);
+                        break;
+                    }
+                case EnumGameLevelType.Winter:
+                    {
+                        seasonConfigInfo = GetSeasonConfigInfo<WinterConfigInfo>(gameLevelType);
+                        break;
+                    }
+            }
+            return seasonConfigInfo;
+        }
         #region 音效路径
         /// <summary>
         /// 季节音效路径
         /// </summary>
         private string m_SeasonAudioPath;
+        /// <summary>
+        /// 关卡背景音乐
+        /// </summary>
+        private string m_LevelAudioPath;
         #endregion
         #region 精灵路径
         /// <summary>
@@ -50,6 +101,15 @@ namespace Bird_VS_Boar
         /// </summary>
         private string m_LevelLockSpritePath;
         #endregion
+
+        #region 预制路径
+       
+        #endregion
+
+        public string GetLevelMapPrefabPath()
+        {
+            return m_CommonPath + "Map"/*GameManager.NowLevelIndex*/;
+        }
 
         public string GetLevelInterfaceBGSpritePath()
         {
@@ -82,10 +142,15 @@ namespace Bird_VS_Boar
         {
             return m_SeasonAudioPath;
         }
+        public string GetLevelAudioPath()
+        {
+            return m_LevelAudioPath;
+        }
         public virtual void InitConfigInfo()
         {
             m_CommonPath = "Season/"+GetType().Name + "/";
-            m_SeasonAudioPath = m_CommonPath + "BGM";
+            m_SeasonAudioPath = m_CommonPath + "SeasonBGM";
+            m_LevelAudioPath = m_CommonPath + "LevelBGM";
             m_LevelTypeBGSpritePath = m_CommonPath + "LevelTyoeBG";
             m_LevelBGSpritePath = m_CommonPath + "LevelBg";
             m_StarDefaultSpritePath = "Season/StarDefault";

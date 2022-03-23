@@ -7,6 +7,7 @@ namespace Bird_VS_Boar
 {
     public class Blister : MonoBehaviour,IDied
     {
+        public GameObject go => this.gameObject;
         /// <summary>
         /// 名称
         /// </summary>
@@ -17,7 +18,7 @@ namespace Bird_VS_Boar
                 return name;
             }
         }
-        private Coroutine m_C = null;
+        private Coroutine m_Cor = null;
         /// <summary>
         /// 碰撞器
         /// </summary>
@@ -54,13 +55,22 @@ namespace Bird_VS_Boar
 
         private void OnEnable()
         {
+            CheckGoLi.Clear();
             m_CheckGo = null;
             m_EdgeCo2D.enabled = false;
-            m_C=MonoSingletonFactory<ShareMono>.GetSingleton().DelayAction(3.0f, Recycle);
+            GameManager.AddDiedTarget(this);
+            m_Cor = MonoSingletonFactory<ShareMono>.GetSingleton().DelayAction(3.0f, Recycle);
         }
         private void Start()
         {
            
+        }
+
+        private void OnDisable()
+        {
+            MonoSingletonFactory<ShareMono>.GetSingleton().RemoveUpdateAction(EnumUpdateAction.Standard, this.FlyUpdate);
+            GameManager.RemoveDiedTarget(this);     
+            CancleCor();      
         }
         private void FlyUpdate()
         {                   
@@ -73,11 +83,8 @@ namespace Bird_VS_Boar
             {
                 if (!CheckGoLi.Contains(collision.gameObject))
                 {
-                    if (m_C != null)
-                    {
-                        MonoSingletonFactory<ShareMono>.GetSingleton().StopCoroutine(m_C);
-                    }
-                    m_CheckGo = collision.gameObject;
+                    CancleCor();
+                     m_CheckGo = collision.gameObject;
                     if (!CheckGoLi.Contains(collision.gameObject))
                     {
                         CheckGoLi.Add(collision.gameObject);
@@ -85,10 +92,10 @@ namespace Bird_VS_Boar
                     transform.position = m_CheckGo.transform.position;
                     m_CheckGo.GetComponent<Pig>().SetGravityScale(0.01f);
                     m_EdgeCo2D.enabled = true;
-                    MonoSingletonFactory<ShareMono>.GetSingleton().ApplyUpdateAction(EnumUpdateAction.Standard,FlyUpdate);
-                    MonoSingletonFactory<ShareMono>.GetSingleton().DelayAction(10f, () =>
+                    MonoSingletonFactory<ShareMono>.GetSingleton().ApplyUpdateAction(EnumUpdateAction.Standard,this.FlyUpdate);
+                    m_Cor=MonoSingletonFactory<ShareMono>.GetSingleton().DelayAction(10f, () =>
                     {
-                        MonoSingletonFactory<ShareMono>.GetSingleton().RemoveUpdateAction(EnumUpdateAction.Standard,FlyUpdate);
+                        MonoSingletonFactory<ShareMono>.GetSingleton().RemoveUpdateAction(EnumUpdateAction.Standard,this.FlyUpdate);
                         if(m_CheckGo != null)
                         {
                             m_CheckGo.GetComponent<Pig>().SetGravityScale(1.0f);
@@ -110,7 +117,7 @@ namespace Bird_VS_Boar
         {
             if(isDestroy)
             {
-                Destroy(gameObject);
+                DestroyImmediate(gameObject);
             }
             else
             {
@@ -118,5 +125,16 @@ namespace Bird_VS_Boar
             }
         }
         #endregion
+        /// <summary>
+        /// 撤销协程监听
+        /// </summary>
+        private void CancleCor()
+        {
+            if (m_Cor != null)
+            {
+                MonoSingletonFactory<ShareMono>.GetSingleton().StopCoroutine(m_Cor);
+                m_Cor = null;
+            }
+        }
     }
 }

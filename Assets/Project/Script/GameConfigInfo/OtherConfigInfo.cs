@@ -71,6 +71,22 @@ namespace Bird_VS_Boar
         #endregion
         #region Audio
         /// <summary>
+        /// 关卡胜利音效路径
+        /// </summary>
+        protected string m_LevelWinAudioPath;
+        /// <summary>
+        /// 关卡失败音效路径
+        /// </summary>
+        protected string m_LevelLoseAudioPath;
+        /// <summary>
+        /// 关卡开始鸟的音效路径
+        /// </summary>
+        protected string m_LevelStartBirdAudioPath;
+        /// <summary>
+        /// 关卡开始猪的音效路径
+        /// </summary>
+        protected string m_LevelStartPigAudioPath;
+        /// <summary>
         /// 关卡类型面板音效路径
         /// </summary>
         protected string m_LevelTypePanelAudioPath;
@@ -152,6 +168,10 @@ namespace Bird_VS_Boar
             m_PointPrefabPath = "Point";
             m_LevelTypePanelAudioPath = "BGM";
             m_LevelTypeInterfaceBGSpritePath = "BG";
+            m_LevelWinAudioPath = "LevelWin";
+            m_LevelLoseAudioPath = "LevelLose";
+            m_LevelStartBirdAudioPath = "LevelStartBird";
+            m_LevelStartPigAudioPath = "LevelStartPig";
             m_StarAudioPaths = new string[] { "Star1", "Star2", "Star3" };
             //层级顺序  分数>Boom>蛋>点
             m_PointOrderInLayer = -1;
@@ -163,6 +183,26 @@ namespace Bird_VS_Boar
             
             
             #endregion
+        }
+
+        public string GetLevelStartPigAudioPath()
+        {
+            return m_CommonPath+m_LevelStartPigAudioPath;
+        }
+        
+        //public string GetLevelStartBirdAudioPath()
+        //{
+        //    return m_CommonPath+m_LevelStartBirdAudioPath;
+        //}
+
+        public string GetLevelLoseAudioPath()
+        {
+            return m_CommonPath + m_LevelLoseAudioPath;
+        }
+
+        public string GetLevelWinAudioPath()
+        {
+            return m_CommonPath + m_LevelWinAudioPath;
         }
 
         public string GetLevelTypePanelAudioPath()

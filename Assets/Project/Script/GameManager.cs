@@ -10,6 +10,7 @@ using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 using System;
 using Farme.Audio;
+using Bird_VS_Boar.Data;
 namespace Bird_VS_Boar
 {
     /// <summary>
@@ -27,7 +28,7 @@ namespace Bird_VS_Boar
         GameScene
     }
     /// <summary>
-    /// 游戏关卡类型
+    /// 季节类型
     /// </summary>
     public enum EnumGameLevelType
     {
@@ -71,13 +72,23 @@ namespace Bird_VS_Boar
     /// 游戏管理器
     /// </summary>
     public class GameManager
-    {     
+    {
+
+        /// <summary>
+        /// 当前季节的配置信息
+        /// </summary>
+        public static SeasonConfigInfo NowSeasonConfigInfo => SeasonConfigInfo.GetSeasonConfigInfo(m_NowLevelType);
+        /// <summary>
+        /// 当前关卡的配置信息
+        /// </summary>
+        public static LevelConfig.LevelConfig NowLevelConfig => LevelConfigManager.GetLevelConfig(m_NowLevelType + "_" + m_NowLevelIndex);
+
         /// <summary>
         /// 当前关卡类型
         /// </summary>
         private static EnumGameLevelType m_NowLevelType = EnumGameLevelType.None;
         /// <summary>
-        /// 当前关卡类型
+        /// 当前季节类型
         /// </summary>
         public static EnumGameLevelType NowLevelType
         {
@@ -186,7 +197,7 @@ namespace Bird_VS_Boar
                 MonoSingletonFactory<Camera2D>.GetSingleton(GoLoad.Take(otherConfigInfo.GetCamera2DPrefabPath()));
             }
             //创建GameSceneWindow
-            MonoSingletonFactory<WindowRoot>.GetSingleton().CreateWindow("GameSceneWindow", RenderMode.ScreenSpaceOverlay, (window) =>
+            MonoSingletonFactory<WindowRoot>.GetSingleton().CreateWindow("GameSceneWindow", RenderMode.ScreenSpaceCamera, (window) =>
             {
                 window.CanvasScaler.referenceResolution = new Vector2(1920, 1080);//设置画布尺寸
                 window.CanvasScaler.uiScaleMode = CanvasScaler.ScaleMode.ScaleWithScreenSize;//设置适配的方式
@@ -254,6 +265,7 @@ namespace Bird_VS_Boar
             {
                 return;
             }
+            RemoveCor();
             m_Birds.Add(bird);
         }
         /// <summary>
@@ -284,6 +296,7 @@ namespace Bird_VS_Boar
             {
                 return;
             }
+            MonoSingletonFactory<DataManager>.GetSingleton().Test.Add(died.go);
             m_DiedTargets.Add(died);
             //Debuger.Log("当前场景可销毁对象的数量:"+ died.Name + NowSceneDiedTargetNum);
         }
@@ -296,10 +309,11 @@ namespace Bird_VS_Boar
             if (m_DiedTargets.Contains(died))
             {
                 m_DiedTargets.Remove(died);
-                foreach(var d in m_DiedTargets)
-                {
-                    Debuger.Log("当前场景可销毁对象名称:" + d.Name + "总数:"+ NowSceneDiedTargetNum);
-                }
+                MonoSingletonFactory<DataManager>.GetSingleton().Test.Remove(died.go);
+                //foreach (var d in m_DiedTargets)
+                //{
+                //    Debuger.Log("当前场景可销毁对象名称:" + d.Name + "总数:"+ NowSceneDiedTargetNum);
+                //}
                 
             }
         }
@@ -316,11 +330,6 @@ namespace Bird_VS_Boar
             {
                 return;
             }
-            //断开当前挂载小鸟的更新
-            if (GameLogic.NowComeBird != null)
-            {
-                MonoSingletonFactory<ShareMono>.GetSingleton().RemoveUpdateAction(EnumUpdateAction.Standard, GameLogic.NowComeBird.BirdControlUpdate);//移除小鸟控制更新
-            }
             StandardWindow window = MonoSingletonFactory<WindowRoot>.GetSingleton().GetWindow("GameSceneWindow");
             if(window==null|| !window.GetPanel<GameOverPanel>("GameOverPanel", out var panel))
             {
@@ -329,7 +338,12 @@ namespace Bird_VS_Boar
             }
             panel.SetState(EnumPanelState.Show, () =>
             {
-                if(isWin)
+                if (NotMonoSingletonFactory<OtherConfigInfo>.SingletonExist)
+                {
+                    OtherConfigInfo otherConfigInfo = NotMonoSingletonFactory<OtherConfigInfo>.GetSingleton();
+                    GameAudio.PlayBackGroundAudioOnce(isWin ? otherConfigInfo.GetLevelWinAudioPath() : otherConfigInfo.GetLevelLoseAudioPath());
+                }
+                if (isWin)
                 {                  
                     panel.Win();
                 }
@@ -358,51 +372,57 @@ namespace Bird_VS_Boar
                 return;
             }
             m_IsShieldGameOverEvent = false;
-            GameLogic.NowComeBird = null;
+            GameLogic.Init();//初始化逻辑管理器     
             if (MonoSingletonFactory<SlingShot>.SingletonExist)
             {
                 Debuger.Log("清除弹弓线");
                 MonoSingletonFactory<SlingShot>.GetSingleton().ClearLine();
-            }     
-            GameLogic.Init();//初始化逻辑管理器                
+            }
+            MonoSingletonFactory<DataManager>.GetSingleton().Test.Clear();
+            //地图加载                  
             if (MapManager.LoadMap())
             {
-                foreach (var barrierConfig in levelConfig.BarrierConfigs)
+               
+                for (int index = 0; index < levelConfig.BarrierConfigs.Count; index++)
                 {
                     //获取障碍物预制路径
-                    if (BarrierConfigInfo.BarrierConfigInfoDic.TryGetValue(barrierConfig.BarrierType, out var info))
+                    if (!GoReusePool.Take(levelConfig.BarrierConfigs[index].BarrierType.ToString() + levelConfig.BarrierConfigs[index].BarrierShapeType.ToString(), out GameObject barrierGo))
                     {
-                        if (!GoReusePool.Take(barrierConfig.BarrierType.ToString() + barrierConfig.BarrierShapeType.ToString(), out GameObject barrierGo))
+
+                        if (!GoLoad.Take(BarrierConfigInfo.GetBarrierConfigInfo(levelConfig.BarrierConfigs[index].BarrierType).GetBarrierPrefabPath(levelConfig.BarrierConfigs[index].BarrierShapeType), out barrierGo))
                         {
-                            if (!GoLoad.Take(info.GetBarrierPrefabPath(barrierConfig.BarrierShapeType), out barrierGo))
-                            {
-                                Debuger.LogError("障碍物配置信息错误");
-                                continue;
-                            }
+                            Debuger.LogError("障碍物配置信息错误");
+                            continue;
                         }
-                        barrierGo.transform.position = barrierConfig.Position.ToVector3();
-                        barrierGo.transform.eulerAngles = barrierConfig.Euler.ToVector3();
-                        barrierGo.transform.localScale = barrierConfig.Scale.ToVector3();
                     }
+                    barrierGo.transform.position = levelConfig.BarrierConfigs[index].Position.ToVector3();
+                    barrierGo.transform.eulerAngles = levelConfig.BarrierConfigs[index].Euler.ToVector3();
+                    barrierGo.transform.localScale = levelConfig.BarrierConfigs[index].Scale.ToVector3();
                 }
-                foreach (var piConfig in levelConfig.PigConfigs)
+                for (int index=0;index< levelConfig.PigConfigs.Count;index++)
                 {
-                    //获取猪预制路径
-                    if (PigConfigInfo.PigConfigInfoDic.TryGetValue(piConfig.PigType, out var info))
+                    if (!GoReusePool.Take(levelConfig.PigConfigs[index].PigType.ToString(), out GameObject pigGo))
                     {
-                        if (!GoReusePool.Take(piConfig.PigType.ToString(), out GameObject pigGo))
+
+                        if (!GoLoad.Take(PigConfigInfo.GetPigConfigInfo(levelConfig.PigConfigs[index].PigType).GetPigPrefabPath(), out pigGo))
                         {
-                            if (!GoLoad.Take(info.GetPigPrefabPath(), out pigGo))
-                            {
-                                Debuger.LogError("猪配置信息错误");
-                                continue;
-                            }
+                            Debuger.LogError("猪配置信息错误");
+                            continue;
                         }
-                        pigGo.transform.position = piConfig.Position.ToVector3();
-                        pigGo.transform.eulerAngles = piConfig.Euler.ToVector3();
-                        pigGo.transform.localScale = piConfig.Scale.ToVector3();
                     }
-                }
+                    pigGo.transform.position = levelConfig.PigConfigs[index].Position.ToVector3();
+                    pigGo.transform.eulerAngles = levelConfig.PigConfigs[index].Euler.ToVector3();
+                    pigGo.transform.localScale = levelConfig.PigConfigs[index].Scale.ToVector3();
+                }               
+            }
+            //播放关卡背景音乐
+            GameAudio.PlayBackGroundAudio(NowSeasonConfigInfo.GetLevelAudioPath());
+            //播放关卡猪与鸟的背景音乐
+            if(NotMonoSingletonFactory<OtherConfigInfo>.SingletonExist)
+            {
+                OtherConfigInfo otherConfigInfo = NotMonoSingletonFactory<OtherConfigInfo>.GetSingleton();
+                //GameAudio.PlayBackGroundAudioOnce(otherConfigInfo.GetLevelStartBirdAudioPath());
+                GameAudio.PlayBackGroundAudioOnce(otherConfigInfo.GetLevelStartPigAudioPath());
             }
             #endregion
         }
@@ -443,6 +463,14 @@ namespace Bird_VS_Boar
                 Debuger.Log("重玩本关");
                 //重新加载本关
                 GameStart();
+                //刷新相关UI面板
+                StandardWindow window = MonoSingletonFactory<WindowRoot>.GetSingleton().GetWindow("GameSceneWindow");
+                if (window == null || !window.GetPanel<GameInterfacePanel>("GameInterfacePanel", out var panel))
+                {
+                    Debuger.LogError("窗口GameSceneWindow不存在或面板GameOverPanel不存在!!!");
+                    return;
+                }
+                panel.RefreshPanel();
             });
             
         }
@@ -459,6 +487,14 @@ namespace Bird_VS_Boar
                 --m_NowLevelIndex;
                 GameStart();
                 Debuger.Log("上一关");
+                //刷新相关UI面板
+                StandardWindow window = MonoSingletonFactory<WindowRoot>.GetSingleton().GetWindow("GameSceneWindow");
+                if (window == null || !window.GetPanel<GameInterfacePanel>("GameInterfacePanel", out var panel))
+                {
+                    Debuger.LogError("窗口GameSceneWindow不存在或面板GameOverPanel不存在!!!");
+                    return;
+                }
+                panel.RefreshPanel();
             });
             
         }
@@ -475,6 +511,14 @@ namespace Bird_VS_Boar
                 ++m_NowLevelIndex;
                 GameStart();
                 Debuger.Log("下一关");
+                //刷新相关UI面板
+                StandardWindow window = MonoSingletonFactory<WindowRoot>.GetSingleton().GetWindow("GameSceneWindow");
+                if (window == null || !window.GetPanel<GameInterfacePanel>("GameInterfacePanel", out var panel))
+                {
+                    Debuger.LogError("窗口GameSceneWindow不存在或面板GameOverPanel不存在!!!");
+                    return;
+                }
+                panel.RefreshPanel();
             });
             
         }
@@ -511,7 +555,7 @@ namespace Bird_VS_Boar
                     Debuger.Log("返回关卡");
                     SceneLoad(EnumSceneType.LoginScene, () =>
                     {
-                        MonoSingletonFactory<WindowRoot>.GetSingleton().CreateWindow("GameLoginWindow", RenderMode.ScreenSpaceOverlay, (gameLoginWindow) =>//加载游戏登入窗口
+                        MonoSingletonFactory<WindowRoot>.GetSingleton().CreateWindow("GameLoginWindow", RenderMode.ScreenSpaceCamera, (gameLoginWindow) =>//加载游戏登入窗口
                         {
                             gameLoginWindow.CanvasScaler.referenceResolution = new Vector2(1920, 1080);//设置画布尺寸
                             gameLoginWindow.CanvasScaler.uiScaleMode = CanvasScaler.ScaleMode.ScaleWithScreenSize;//设置适配的方式
@@ -535,12 +579,12 @@ namespace Bird_VS_Boar
         {
             m_IsShieldGameOverEvent = true;
             GameLogic.Clear();
-            //回收场景内的所有物体(猪、障碍物、小鸟)        
-            for (int index = m_DiedTargets.Count - 1; index >= 0; index--)
-            {            
-                m_DiedTargets[index].Died(isDestroy);
+            //回收场景内的所有物体(猪、障碍物、小鸟)
+            while(m_DiedTargets.Count>0)
+            {
+                m_DiedTargets[0].Died(isDestroy);
             }
-            callback?.Invoke();
+            callback?.Invoke();                
         }
         #endregion
 
@@ -595,17 +639,14 @@ namespace Bird_VS_Boar
         }
         #endregion
 
-        #region Quit
+        #region Data
         /// <summary>
-        /// 程序退出
+        /// 重置关卡数据
         /// </summary>
-        public static void ProgramExit()
+        public static void ResetLevelData()
         {
-            Application.Quit();
+            LevelConfigManager.ResetLevelData();
         }
-        #endregion
-
-        #region DataSave      
         /// <summary>
         /// 保存关卡数据到本地(程序退出时调用)
         /// </summary>

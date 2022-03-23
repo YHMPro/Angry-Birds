@@ -19,6 +19,10 @@ namespace Bird_VS_Boar
         /// 音效
         /// </summary>
         private Audio m_Effect = null;
+        /// <summary>
+        /// 烟花释放时间间隔
+        /// </summary>
+        private float m_FireworkReleseTimeInterval = 0.25f;
         [SerializeField]
         /// <summary>
         /// 星星显示的时间间隔
@@ -34,6 +38,11 @@ namespace Bird_VS_Boar
         /// 填充星星
         /// </summary>
         private Sprite[] m_Stars_Fill = new Sprite[3];
+        [SerializeField]
+        /// <summary>
+        /// 烟花粒子
+        /// </summary>
+        private ParticleSystem[] m_Fireworks=new ParticleSystem[3];
         /// <summary>
         /// 赢
         /// </summary>
@@ -154,12 +163,14 @@ namespace Bird_VS_Boar
             {
                 for(int index=1;index<=3;index++)
                 {
-                    GetComponent<Image>("Star" + index).sprite = m_Stars_Default[index - 1];//填充                                                                                    
+                    GetComponent<Image>("Star" + index).sprite = m_Stars_Default[index - 1];//填充
+                    m_Fireworks[index-1].Stop(true);            
                 }
             }
             else
             {              
-                StartCoroutine(IEStarsFill());           
+                StartCoroutine(IEStarsFill());
+                StartCoroutine(IEFireworkRelese());
             }
         }
         /// <summary>
@@ -180,11 +191,27 @@ namespace Bird_VS_Boar
                 PlayAudio(otherConfigInfo.GetStarAudioPath(index - 1));//播放声音
                 yield return waitFor;
             }
+            StopCoroutine(IEFireworkRelese());//停止烟花释放协程
+            for (int index = 0; index < 3; index++)//关闭烟花
+            {
+                m_Fireworks[index].Stop(true);
+            }
             //回收声音
             RecyclyAudio();
         }
         #endregion
 
+        #region Firework
+        private IEnumerator IEFireworkRelese()
+        {
+            WaitForSecondsRealtime waitFor = new WaitForSecondsRealtime(m_FireworkReleseTimeInterval);//使其不受Timescale影响
+            for (int index = 0; index <3; index++)
+            {
+                m_Fireworks[index].Play(true);              
+                yield return waitFor;
+            }
+        }
+        #endregion
         #region Audio
         /// <summary>
         /// 播放音效

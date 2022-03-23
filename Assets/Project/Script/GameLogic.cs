@@ -4,6 +4,7 @@ using UnityEngine;
 using Farme;
 using Farme.Tool;
 using Bird_VS_Boar.LevelConfig;
+using Farme.UI;
 
 namespace Bird_VS_Boar
 {
@@ -17,7 +18,7 @@ namespace Bird_VS_Boar
         /// </summary>
         private static bool m_IsGameOver = false;
         /// <summary>
-        /// 当前评星
+        /// 当前评星(0~3)
         /// </summary>
         private static int m_NowRating = 0;
         /// <summary>
@@ -86,6 +87,10 @@ namespace Bird_VS_Boar
         /// </summary>
         private static int m_CoinNum=1000;
         /// <summary>
+        /// 钱币数量
+        /// </summary>
+        public static int CoinNum => m_CoinNum;
+        /// <summary>
         /// 钱币是否能够购买小鸟
         /// </summary>
         public static bool IsBuy
@@ -101,9 +106,15 @@ namespace Bird_VS_Boar
         public static void Init()
         {
             m_IsGameOver = false;
+            m_NowComeBird = null;
             MesgManager.MesgListen<int>(ProjectEvents.ScoreUpdateEvent, ScoreUpdate);
-            MesgManager.MesgListen<EnumBirdType>(ProjectEvents.CoinUpdateEvent, CoinUpdate);
+            MesgManager.MesgListen<BirdConfigInfo>(ProjectEvents.CoinUpdateEvent, CoinUpdate);
             MesgManager.MesgListen(ProjectEvents.LogicUpdateEvent, LogicUpdate);
+            LevelConfig.LevelConfig levelConfig = LevelConfigManager.GetLevelConfig(GameManager.NowLevelType + "_" + GameManager.NowLevelIndex);
+            m_HistoryScore = levelConfig.LevelHistoryScore;
+            m_HistoryRating = levelConfig.LevelHistoryRating;
+            m_CoinNum = levelConfig.CoinNum;
+            CoinUpdate(null);
         }
         /// <summary>
         /// 清除数据
@@ -111,13 +122,9 @@ namespace Bird_VS_Boar
         public static void Clear()
         {
             m_NowScore = 0;
-            //获取当前关卡的最佳历史分数
-            m_HistoryScore = LevelConfigManager.GetLevelConfig(GameManager.NowLevelType + "_" + GameManager.NowLevelIndex).LevelHistoryScore;
             m_NowRating = 0;
-            //获取当前关卡的最佳评星
-            m_HistoryRating = LevelConfigManager.GetLevelConfig(GameManager.NowLevelType + "_" + GameManager.NowLevelIndex).LevelHistoryRating;
             MesgManager.MesgBreakListen<int>(ProjectEvents.ScoreUpdateEvent, ScoreUpdate);
-            MesgManager.MesgBreakListen<EnumBirdType>(ProjectEvents.CoinUpdateEvent, CoinUpdate);
+            MesgManager.MesgBreakListen<BirdConfigInfo>(ProjectEvents.CoinUpdateEvent, CoinUpdate);
             MesgManager.MesgBreakListen(ProjectEvents.LogicUpdateEvent, LogicUpdate);
         }
         #region ScoreUpdate
@@ -157,15 +164,15 @@ namespace Bird_VS_Boar
                 //设置当前关卡的最佳历史分数
                 if (m_NowScore> m_HistoryScore)
                 {
-                    LevelConfigManager.GetLevelConfig(GameManager.NowLevelType + "_" + GameManager.NowLevelIndex).LevelHistoryScore = m_NowScore;
+                    GameManager.NowLevelConfig.LevelHistoryScore = m_NowScore;
                 }
                 //设置当前关卡的星级
                 if(m_NowRating>m_HistoryRating)
                 {
-                    LevelConfigManager.GetLevelConfig(GameManager.NowLevelType + "_" + GameManager.NowLevelIndex).LevelHistoryRating = m_NowRating;
+                   GameManager.NowLevelConfig.LevelHistoryRating = m_NowRating;
                 }
             }
-            else if (!IsBuy)//钱币不能满足购买一只小鸟(最低价)
+            else if ((m_NowComeBird==null) && (!IsBuy))//钱币不能满足购买一只小鸟(最低价)并且当前无登场小鸟
             {
                 Debuger.Log("失败");
                 m_IsGameOver = true;
@@ -174,21 +181,31 @@ namespace Bird_VS_Boar
         }
         #endregion
         #region CoinUpdate
-        /// <summary>
-        /// 硬币更新
-        /// </summary>
-        private static void CoinUpdate(EnumBirdType birdType)
+        public static void CoinAdd()
         {
-            if (BirdConfigInfo.BirdConfigInfoDic.TryGetValue(birdType, out var config))
+            m_CoinNum++;
+            StandardWindow window = MonoSingletonFactory<WindowRoot>.GetSingleton().GetWindow("GameSceneWindow");
+            if (window == null || !window.GetPanel<GoodsPanel>("GoodsPanel", out var panel))
             {
-                m_CoinNum -= config.Coin;
-                Debuger.Log("当前硬币数量:" + m_CoinNum);
+                Debuger.LogError("窗口GameSceneWindow不存在或面板GoodsPanel不存在!!!");
+                return;
             }
-            else
-            {
-                Debuger.LogWarning("鸟配置信息读取失败。");
-            }
+            panel.RefreshPanel();
         }
+        private static void CoinUpdate(BirdConfigInfo configInfo)
+        {
+            if (configInfo != null)
+            {
+                m_CoinNum -= configInfo.Coin;
+            }
+            StandardWindow window = MonoSingletonFactory<WindowRoot>.GetSingleton().GetWindow("GameSceneWindow");
+            if (window == null || !window.GetPanel<GoodsPanel>("GoodsPanel", out var panel))
+            {
+                Debuger.LogError("窗口GameSceneWindow不存在或面板GoodsPanel不存在!!!");
+                return;
+            }
+            panel.RefreshPanel();
+        }     
         #endregion
 
         #region RatingLogic
@@ -197,8 +214,7 @@ namespace Bird_VS_Boar
         /// </summary>
         private static void RatingLogic()
         {
-            Debuger.Log("评星待植入判断逻辑");
-            m_NowRating = 2;
+            m_NowRating = Mathf.Clamp(m_CoinNum + ((m_NowComeBird == null) ? 0 : 1), 0, 3);
         }
         #endregion
     }
