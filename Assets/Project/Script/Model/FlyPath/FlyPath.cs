@@ -17,7 +17,10 @@ namespace Bird_VS_Boar
         {
             if (m_Cor != null)
             {
-                MonoSingletonFactory<ShareMono>.GetSingleton().StopCoroutine(m_Cor);
+                if (MonoSingletonFactory<ShareMono>.SingletonExist)
+                {
+                    MonoSingletonFactory<ShareMono>.GetSingleton().StopCoroutine(m_Cor);
+                }
                 m_Cor = null;
             }
         }

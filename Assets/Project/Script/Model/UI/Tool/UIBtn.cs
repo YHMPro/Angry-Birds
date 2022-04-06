@@ -123,7 +123,10 @@ namespace Bird_VS_Boar
        
         private void OnDestroy()
         {
-            MonoSingletonFactory<ShareMono>.GetSingleton().RemoveUpdateAction(EnumUpdateAction.Standard, this.ScaleUpdate);
+            if (MonoSingletonFactory<ShareMono>.SingletonExist)
+            {
+                MonoSingletonFactory<ShareMono>.GetSingleton().RemoveUpdateAction(EnumUpdateAction.Standard, this.ScaleUpdate);
+            }
 
             m_OnPointerEnterEvent.RemoveAllListeners();
             m_OnPointerExitEvent.RemoveAllListeners();

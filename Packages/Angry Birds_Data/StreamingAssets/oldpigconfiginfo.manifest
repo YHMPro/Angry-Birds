@@ -1,0 +1,46 @@
+ManifestFileVersion: 0
+CRC: 1828454752
+Hashes:
+  AssetFileHash:
+    serializedVersion: 2
+    Hash: 78e8f3d7ef17083025d14a012da31a06
+  TypeTreeHash:
+    serializedVersion: 2
+    Hash: 9286537f5aca68146aa758ae1d134979
+HashAppended: 0
+ClassTypes:
+- Class: 1
+  Script: {instanceID: 0}
+- Class: 4
+  Script: {instanceID: 0}
+- Class: 21
+  Script: {instanceID: 0}
+- Class: 48
+  Script: {instanceID: 0}
+- Class: 50
+  Script: {instanceID: 0}
+- Class: 58
+  Script: {instanceID: 0}
+- Class: 74
+  Script: {instanceID: 0}
+- Class: 83
+  Script: {instanceID: 0}
+- Class: 91
+  Script: {instanceID: 0}
+- Class: 95
+  Script: {instanceID: 0}
+- Class: 114
+  Script: {fileID: 11500000, guid: 411b556636b1b9640966ad9999c4a77b, type: 3}
+- Class: 115
+  Script: {instanceID: 0}
+- Class: 212
+  Script: {instanceID: 0}
+- Class: 213
+  Script: {instanceID: 0}
+SerializeReferenceClassIdentifiers: []
+Assets:
+- Assets/Resources/PigConfigInfo/OldPigConfigInfo/Pig.prefab
+- Assets/Resources/PigConfigInfo/OldPigConfigInfo/Hurt2.mp3
+- Assets/Resources/PigConfigInfo/OldPigConfigInfo/Hurt1.mp3
+Dependencies:
+- S:/UnityPro2019.3.7f1/Project2/Angry-Birds/AssetBundles/StandaloneWindows/commonres

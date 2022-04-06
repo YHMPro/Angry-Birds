@@ -160,10 +160,6 @@ namespace Bird_VS_Boar
             GameManager.RemoveBird(this);//将小鸟从游戏管理器中移除
             GameManager.RemoveDiedTarget(this);
         }
-        protected override void OnDestroy()
-        {
-            base.OnDestroy();
-        }
         protected virtual void OnMouseEnter()
         {
             

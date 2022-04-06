@@ -249,10 +249,13 @@ namespace Bird_VS_Boar
                 m_Pigs.Remove(pig);
                 Debuger.Log("当前场景内猪的数量:" + NowScenePigNum);
                 RemoveCor();
-                m_Cor =MonoSingletonFactory<ShareMono>.GetSingleton().DelayRealtimeAction(3f, () =>
+                if (MonoSingletonFactory<ShareMono>.SingletonExist)
                 {
-                    MesgManager.MesgTirgger(ProjectEvents.LogicUpdateEvent);
-                });
+                    m_Cor = MonoSingletonFactory<ShareMono>.GetSingleton().DelayRealtimeAction(3f, () =>
+                     {
+                         MesgManager.MesgTirgger(ProjectEvents.LogicUpdateEvent);
+                     });
+                }
             }
         }
         /// <summary>
@@ -279,10 +282,13 @@ namespace Bird_VS_Boar
                 m_Birds.Remove(bird);
                 Debuger.Log("当前场景内鸟的数量:" + NowSceneBirdNum);
                 RemoveCor();
-                m_Cor =MonoSingletonFactory<ShareMono>.GetSingleton().DelayRealtimeAction(3f, () =>
+                if (MonoSingletonFactory<ShareMono>.SingletonExist)
                 {
-                    MesgManager.MesgTirgger(ProjectEvents.LogicUpdateEvent);
-                });
+                    m_Cor = MonoSingletonFactory<ShareMono>.GetSingleton().DelayRealtimeAction(3f, () =>
+                     {
+                         MesgManager.MesgTirgger(ProjectEvents.LogicUpdateEvent);
+                     });
+                }
                 
             }
         }
@@ -296,7 +302,7 @@ namespace Bird_VS_Boar
             {
                 return;
             }
-            MonoSingletonFactory<DataManager>.GetSingleton().Test.Add(died.go);
+            //MonoSingletonFactory<DataManager>.GetSingleton().Test.Add(died.go);
             m_DiedTargets.Add(died);
             //Debuger.Log("当前场景可销毁对象的数量:"+ died.Name + NowSceneDiedTargetNum);
         }
@@ -309,7 +315,10 @@ namespace Bird_VS_Boar
             if (m_DiedTargets.Contains(died))
             {
                 m_DiedTargets.Remove(died);
-                MonoSingletonFactory<DataManager>.GetSingleton().Test.Remove(died.go);
+                //if (MonoSingletonFactory<DataManager>.SingletonExist)
+                //{
+                //    MonoSingletonFactory<DataManager>.GetSingleton().Test.Remove(died.go);
+                //}
                 //foreach (var d in m_DiedTargets)
                 //{
                 //    Debuger.Log("当前场景可销毁对象名称:" + d.Name + "总数:"+ NowSceneDiedTargetNum);
@@ -378,7 +387,7 @@ namespace Bird_VS_Boar
                 Debuger.Log("清除弹弓线");
                 MonoSingletonFactory<SlingShot>.GetSingleton().ClearLine();
             }
-            MonoSingletonFactory<DataManager>.GetSingleton().Test.Clear();
+            //MonoSingletonFactory<DataManager>.GetSingleton().Test.Clear();
             //地图加载                  
             if (MapManager.LoadMap())
             {
@@ -641,6 +650,8 @@ namespace Bird_VS_Boar
         }
         #endregion
 
+       
+
         #region Data
         /// <summary>
         /// 重置关卡数据
@@ -664,7 +675,10 @@ namespace Bird_VS_Boar
         {
             if(m_Cor!=null)
             {
-                MonoSingletonFactory<ShareMono>.GetSingleton().StopCoroutine(m_Cor);
+                if (MonoSingletonFactory<ShareMono>.SingletonExist)
+                {
+                    MonoSingletonFactory<ShareMono>.GetSingleton().StopCoroutine(m_Cor);
+                }
                 m_Cor = null;
             }
         }

@@ -18,7 +18,7 @@ namespace Bird_VS_Boar
             AssetBundleLoad.MainABName = "StandaloneWindows";
             LevelConfigManager.ReadConfigTableData();//读取配置表数据
             MonoSingletonFactory<ShareMono>.GetSingleton(null, false);
-            MonoSingletonFactory<DataManager>.GetSingleton(null, false);
+            //MonoSingletonFactory<DataManager>.GetSingleton(null, false);
             NotMonoSingletonFactory<OtherConfigInfo>.GetSingleton().InitConfigInfo();//创建单例并实例化配置信息
         }
 

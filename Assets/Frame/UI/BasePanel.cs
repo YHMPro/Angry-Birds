@@ -38,11 +38,11 @@ namespace Farme.UI
 
         protected override void OnDestroy()
         {
-            base.OnDestroy();
             if (m_RelyWindow != null)
             {
                 m_RelyWindow.RemovePanel(gameObject.name);
             }
+            base.OnDestroy();     
         }
         #region 字段    
         [SerializeField]

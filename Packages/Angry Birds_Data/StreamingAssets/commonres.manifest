@@ -1,0 +1,22 @@
+ManifestFileVersion: 0
+CRC: 915296187
+Hashes:
+  AssetFileHash:
+    serializedVersion: 2
+    Hash: a6c557c818c11c21cbead41b8076dc5b
+  TypeTreeHash:
+    serializedVersion: 2
+    Hash: c90fc19e2679e5295d10bd00f33cb4c3
+HashAppended: 0
+ClassTypes:
+- Class: 28
+  Script: {instanceID: 0}
+- Class: 213
+  Script: {instanceID: 0}
+SerializeReferenceClassIdentifiers: []
+Assets:
+- Assets/angrybirdspng/INGAME_BIRDS_2.png
+- Assets/angrybirdspng/INGAME_PIGSDAY_1.png
+- Assets/angrybirdspng/BUTTONS_SHEET_1.png
+- Assets/angrybirdspng/INGAME_BIRDS_1.png
+Dependencies: []

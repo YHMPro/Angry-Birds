@@ -80,9 +80,7 @@ namespace Bird_VS_Boar
             }
         }
 
-        private void OnDestroy()
-        {
-        }
+      
         public static void OpenBoom(EnumBoomType boomType,Vector3 pos)
         {
             if(boomType == EnumBoomType.None)

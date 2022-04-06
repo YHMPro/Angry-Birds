@@ -39,7 +39,10 @@ namespace Bird_VS_Boar
 
         private void OnDestroy()
         {
-            MonoSingletonFactory<ShareMono>.GetSingleton().RemoveUpdateAction(EnumUpdateAction.Fixed, Follow);//暂时放在这里
+            if (MonoSingletonFactory<ShareMono>.SingletonExist)
+            {
+                MonoSingletonFactory<ShareMono>.GetSingleton().RemoveUpdateAction(EnumUpdateAction.Fixed, Follow);//暂时放在这里
+            }
         }
         public void BindBird()
         {        

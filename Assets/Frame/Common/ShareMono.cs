@@ -51,6 +51,13 @@ namespace Farme
         {
             m_FixCallback?.Invoke();
         }
+
+        private void OnDestroy()
+        {
+            ClearFixedUpdate();
+            ClearLateUpdate();
+            ClearUpdate();
+        }
         #endregion
         protected ShareMono() { }       
         #region 事件       
@@ -120,7 +127,12 @@ namespace Farme
                     }
             }
         }
-
+        #region 应用程序退出前自动调用
+        private void OnApplicationQuit()
+        {
+            MonoSingletonFactory<ShareMono>.ClearSingleton();
+        }
+        #endregion
         #region 不受Timescale影响
         /// <summary>
         /// 延迟执行(无参数传递,不受Timescale影响) 

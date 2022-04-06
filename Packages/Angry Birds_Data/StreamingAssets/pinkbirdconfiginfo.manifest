@@ -1,0 +1,54 @@
+ManifestFileVersion: 0
+CRC: 3390321037
+Hashes:
+  AssetFileHash:
+    serializedVersion: 2
+    Hash: 23653869f277f9faacf383d0c3d125ad
+  TypeTreeHash:
+    serializedVersion: 2
+    Hash: 27c5bf83a95e45df290adc8fd95c1e6f
+HashAppended: 0
+ClassTypes:
+- Class: 1
+  Script: {instanceID: 0}
+- Class: 4
+  Script: {instanceID: 0}
+- Class: 21
+  Script: {instanceID: 0}
+- Class: 48
+  Script: {instanceID: 0}
+- Class: 50
+  Script: {instanceID: 0}
+- Class: 74
+  Script: {instanceID: 0}
+- Class: 83
+  Script: {instanceID: 0}
+- Class: 91
+  Script: {instanceID: 0}
+- Class: 95
+  Script: {instanceID: 0}
+- Class: 96
+  Script: {instanceID: 0}
+- Class: 212
+  Script: {instanceID: 0}
+- Class: 213
+  Script: {instanceID: 0}
+SerializeReferenceClassIdentifiers: []
+Assets:
+- Assets/Resources/BirdConfigInfo/PinkBirdConfigInfo/Bird.prefab
+- Assets/Resources/BirdConfigInfo/PinkBirdConfigInfo/Co1.mp3
+- Assets/Resources/BirdConfigInfo/PinkBirdConfigInfo/Skill3.mp3
+- Assets/Resources/BirdConfigInfo/PinkBirdConfigInfo/Co4.mp3
+- Assets/Resources/BirdConfigInfo/PinkBirdConfigInfo/Select1.mp3
+- Assets/Resources/BirdConfigInfo/PinkBirdConfigInfo/Co2.mp3
+- Assets/Resources/BirdConfigInfo/PinkBirdConfigInfo/Select3.mp3
+- Assets/Resources/BirdConfigInfo/PinkBirdConfigInfo/Fly1.mp3
+- Assets/Resources/BirdConfigInfo/PinkBirdConfigInfo/Fly3.mp3
+- Assets/Resources/BirdConfigInfo/PinkBirdConfigInfo/Skill1.mp3
+- Assets/Resources/BirdConfigInfo/PinkBirdConfigInfo/Skill2.mp3
+- Assets/Resources/BirdConfigInfo/PinkBirdConfigInfo/Select2.mp3
+- Assets/Resources/BirdConfigInfo/PinkBirdConfigInfo/Co5.mp3
+- Assets/Resources/BirdConfigInfo/PinkBirdConfigInfo/Fly2.mp3
+- Assets/Resources/BirdConfigInfo/PinkBirdConfigInfo/Co3.mp3
+Dependencies:
+- S:/UnityPro2019.3.7f1/Project2/Angry-Birds/AssetBundles/StandaloneWindows/commonres

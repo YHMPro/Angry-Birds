@@ -129,10 +129,7 @@ namespace Bird_VS_Boar
             RecyclyAudio();
         }
 
-        protected override void OnDestroy()
-        {
-            base.OnDestroy();
-        }
+     
         #region Collision
         private void OnCollisionEnter2D(Collision2D collision)
         {

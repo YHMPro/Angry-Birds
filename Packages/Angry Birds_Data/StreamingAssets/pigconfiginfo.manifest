@@ -1,0 +1,17 @@
+ManifestFileVersion: 0
+CRC: 856495191
+Hashes:
+  AssetFileHash:
+    serializedVersion: 2
+    Hash: 0872cb0934aa470d9bdc6ebb32a412cf
+  TypeTreeHash:
+    serializedVersion: 2
+    Hash: 3f7d0c5e0986ec71841622bcb2f9be1c
+HashAppended: 0
+ClassTypes:
+- Class: 83
+  Script: {instanceID: 0}
+SerializeReferenceClassIdentifiers: []
+Assets:
+- Assets/Resources/PigConfigInfo/De1.mp3
+Dependencies: []

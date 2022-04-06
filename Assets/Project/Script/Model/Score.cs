@@ -83,9 +83,7 @@ namespace Bird_VS_Boar
             }
         }
 
-        private void OnDestroy()
-        {
-        }
+       
         public static void OpenScore(EnumScoreType scoreType,Vector3 pos)
         {
             if(scoreType == EnumScoreType.None)
