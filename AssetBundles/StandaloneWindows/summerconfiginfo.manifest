@@ -1,5 +1,5 @@
 ManifestFileVersion: 0
-CRC: 1957539589
+CRC: 1016221762
 Hashes:
   AssetFileHash:
     serializedVersion: 2
@@ -33,10 +33,10 @@ ClassTypes:
   Script: {instanceID: 0}
 SerializeReferenceClassIdentifiers: []
 Assets:
-- Assets/Resources/SeasonConfigInfo/SummerConfigInfo/LevelBGM.mp3
-- Assets/Resources/SeasonConfigInfo/SummerConfigInfo/Map.prefab
-- Assets/Resources/SeasonConfigInfo/SummerConfigInfo/LevelTyoeBG.png
-- Assets/Resources/SeasonConfigInfo/SummerConfigInfo/SeasonBGM.mp3
-- Assets/Resources/SeasonConfigInfo/SummerConfigInfo/BG.png
-- Assets/Resources/SeasonConfigInfo/SummerConfigInfo/LevelBg.png
+- Assets/Resources_/SeasonConfigInfo/SummerConfigInfo/LevelBGM.mp3
+- Assets/Resources_/SeasonConfigInfo/SummerConfigInfo/Map.prefab
+- Assets/Resources_/SeasonConfigInfo/SummerConfigInfo/LevelTyoeBG.png
+- Assets/Resources_/SeasonConfigInfo/SummerConfigInfo/SeasonBGM.mp3
+- Assets/Resources_/SeasonConfigInfo/SummerConfigInfo/BG.png
+- Assets/Resources_/SeasonConfigInfo/SummerConfigInfo/LevelBg.png
 Dependencies: []

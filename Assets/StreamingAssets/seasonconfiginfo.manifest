@@ -1,5 +1,5 @@
 ManifestFileVersion: 0
-CRC: 1663664886
+CRC: 1305672876
 Hashes:
   AssetFileHash:
     serializedVersion: 2
@@ -15,7 +15,7 @@ ClassTypes:
   Script: {instanceID: 0}
 SerializeReferenceClassIdentifiers: []
 Assets:
-- Assets/Resources/SeasonConfigInfo/LevelLock.png
-- Assets/Resources/SeasonConfigInfo/StarFill.png
-- Assets/Resources/SeasonConfigInfo/StarDefault.png
+- Assets/Resources_/SeasonConfigInfo/LevelLock.png
+- Assets/Resources_/SeasonConfigInfo/StarFill.png
+- Assets/Resources_/SeasonConfigInfo/StarDefault.png
 Dependencies: []

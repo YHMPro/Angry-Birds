@@ -1,12 +1,12 @@
 ManifestFileVersion: 0
-CRC: 2302656683
+CRC: 872166925
 Hashes:
   AssetFileHash:
     serializedVersion: 2
     Hash: 94762a0c814036c0b6fd4e02eea8cf10
   TypeTreeHash:
     serializedVersion: 2
-    Hash: 8c129c8592da481c44312a536be0ff62
+    Hash: 7fa820ecfce863e292c4e2595b88039a
 HashAppended: 0
 ClassTypes:
 - Class: 1
@@ -18,15 +18,15 @@ ClassTypes:
 - Class: 48
   Script: {instanceID: 0}
 - Class: 114
-  Script: {fileID: 11500000, guid: 1aa08ab6e0800fa44ae55d278d1423e3, type: 3}
-- Class: 114
   Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
+- Class: 114
+  Script: {fileID: 11500000, guid: 1aa08ab6e0800fa44ae55d278d1423e3, type: 3}
 - Class: 114
   Script: {fileID: 11500000, guid: 5f7201a12d95ffc409449d95f23cf332, type: 3}
 - Class: 114
-  Script: {fileID: 11500000, guid: 44485790d93832a44ac6e9acbefcf3ca, type: 3}
-- Class: 114
   Script: {fileID: 11500000, guid: 31a19414c41e5ae4aae2af33fee712f6, type: 3}
+- Class: 114
+  Script: {fileID: 11500000, guid: 44485790d93832a44ac6e9acbefcf3ca, type: 3}
 - Class: 114
   Script: {fileID: 11500000, guid: 4b4597ece7eeef54bb31a0a34c1433a6, type: 3}
 - Class: 114
@@ -43,6 +43,6 @@ ClassTypes:
   Script: {instanceID: 0}
 SerializeReferenceClassIdentifiers: []
 Assets:
-- Assets/Resources/UI/GameGlobalWindow/GameSetPanel.prefab
+- Assets/Resources_/UI/GameGlobalWindow/GameSetPanel.prefab
 Dependencies:
 - S:/UnityPro2019.3.7f1/Project2/Angry-Birds/AssetBundles/StandaloneWindows/commonres

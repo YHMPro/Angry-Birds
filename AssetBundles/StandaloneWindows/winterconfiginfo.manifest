@@ -1,5 +1,5 @@
 ManifestFileVersion: 0
-CRC: 967335362
+CRC: 1110325508
 Hashes:
   AssetFileHash:
     serializedVersion: 2
@@ -33,10 +33,10 @@ ClassTypes:
   Script: {instanceID: 0}
 SerializeReferenceClassIdentifiers: []
 Assets:
-- Assets/Resources/SeasonConfigInfo/WinterConfigInfo/LevelBGM.mp3
-- Assets/Resources/SeasonConfigInfo/WinterConfigInfo/LevelBg.png
-- Assets/Resources/SeasonConfigInfo/WinterConfigInfo/Map.prefab
-- Assets/Resources/SeasonConfigInfo/WinterConfigInfo/LevelTyoeBG.png
-- Assets/Resources/SeasonConfigInfo/WinterConfigInfo/SeasonBGM.mp3
-- Assets/Resources/SeasonConfigInfo/WinterConfigInfo/BG.png
+- Assets/Resources_/SeasonConfigInfo/WinterConfigInfo/LevelBGM.mp3
+- Assets/Resources_/SeasonConfigInfo/WinterConfigInfo/LevelBg.png
+- Assets/Resources_/SeasonConfigInfo/WinterConfigInfo/Map.prefab
+- Assets/Resources_/SeasonConfigInfo/WinterConfigInfo/LevelTyoeBG.png
+- Assets/Resources_/SeasonConfigInfo/WinterConfigInfo/SeasonBGM.mp3
+- Assets/Resources_/SeasonConfigInfo/WinterConfigInfo/BG.png
 Dependencies: []

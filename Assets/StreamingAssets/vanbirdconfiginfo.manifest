@@ -1,5 +1,5 @@
 ManifestFileVersion: 0
-CRC: 4169375963
+CRC: 1140561485
 Hashes:
   AssetFileHash:
     serializedVersion: 2
@@ -37,13 +37,13 @@ ClassTypes:
   Script: {instanceID: 0}
 SerializeReferenceClassIdentifiers: []
 Assets:
-- Assets/Resources/BirdConfigInfo/VanBirdConfigInfo/Co2.mp3
-- Assets/Resources/BirdConfigInfo/VanBirdConfigInfo/Co3.mp3
-- Assets/Resources/BirdConfigInfo/VanBirdConfigInfo/Bird.prefab
-- Assets/Resources/BirdConfigInfo/VanBirdConfigInfo/Fly1.mp3
-- Assets/Resources/BirdConfigInfo/VanBirdConfigInfo/Co1.mp3
-- Assets/Resources/BirdConfigInfo/VanBirdConfigInfo/Select1.mp3
-- Assets/Resources/BirdConfigInfo/VanBirdConfigInfo/Skill1.mp3
-- Assets/Resources/BirdConfigInfo/VanBirdConfigInfo/Co4.mp3
+- Assets/Resources_/BirdConfigInfo/VanBirdConfigInfo/Co2.mp3
+- Assets/Resources_/BirdConfigInfo/VanBirdConfigInfo/Co3.mp3
+- Assets/Resources_/BirdConfigInfo/VanBirdConfigInfo/Bird.prefab
+- Assets/Resources_/BirdConfigInfo/VanBirdConfigInfo/Fly1.mp3
+- Assets/Resources_/BirdConfigInfo/VanBirdConfigInfo/Co1.mp3
+- Assets/Resources_/BirdConfigInfo/VanBirdConfigInfo/Select1.mp3
+- Assets/Resources_/BirdConfigInfo/VanBirdConfigInfo/Skill1.mp3
+- Assets/Resources_/BirdConfigInfo/VanBirdConfigInfo/Co4.mp3
 Dependencies:
 - S:/UnityPro2019.3.7f1/Project2/Angry-Birds/AssetBundles/StandaloneWindows/commonres

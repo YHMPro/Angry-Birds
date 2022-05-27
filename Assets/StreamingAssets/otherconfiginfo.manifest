@@ -1,5 +1,5 @@
 ManifestFileVersion: 0
-CRC: 1971773570
+CRC: 562270834
 Hashes:
   AssetFileHash:
     serializedVersion: 2
@@ -81,25 +81,25 @@ ClassTypes:
   Script: {instanceID: 0}
 SerializeReferenceClassIdentifiers: []
 Assets:
-- Assets/Resources/OtherConfigInfo/SlingShot.prefab
-- Assets/Resources/OtherConfigInfo/BG.png
-- Assets/Resources/OtherConfigInfo/Blister.prefab
-- Assets/Resources/OtherConfigInfo/Button.mp3
-- Assets/Resources/OtherConfigInfo/BGM.mp3
-- Assets/Resources/OtherConfigInfo/LevelStartPig.mp3
-- Assets/Resources/OtherConfigInfo/Score.prefab
-- Assets/Resources/OtherConfigInfo/SlingShotAudio.mp3
-- Assets/Resources/OtherConfigInfo/LevelWin.mp3
-- Assets/Resources/OtherConfigInfo/FlyPath.prefab
-- Assets/Resources/OtherConfigInfo/LevelLose.mp3
-- Assets/Resources/OtherConfigInfo/Boom.prefab
-- Assets/Resources/OtherConfigInfo/Egg.prefab
-- Assets/Resources/OtherConfigInfo/Star2.mp3
-- Assets/Resources/OtherConfigInfo/Star3.mp3
-- Assets/Resources/OtherConfigInfo/Star1.mp3
-- Assets/Resources/OtherConfigInfo/Camera2D.prefab
-- Assets/Resources/OtherConfigInfo/LevelType.prefab
-- Assets/Resources/OtherConfigInfo/Level.prefab
-- Assets/Resources/OtherConfigInfo/Point.prefab
+- Assets/Resources_/OtherConfigInfo/SlingShot.prefab
+- Assets/Resources_/OtherConfigInfo/BG.png
+- Assets/Resources_/OtherConfigInfo/Blister.prefab
+- Assets/Resources_/OtherConfigInfo/Button.mp3
+- Assets/Resources_/OtherConfigInfo/BGM.mp3
+- Assets/Resources_/OtherConfigInfo/LevelStartPig.mp3
+- Assets/Resources_/OtherConfigInfo/Score.prefab
+- Assets/Resources_/OtherConfigInfo/SlingShotAudio.mp3
+- Assets/Resources_/OtherConfigInfo/LevelWin.mp3
+- Assets/Resources_/OtherConfigInfo/FlyPath.prefab
+- Assets/Resources_/OtherConfigInfo/LevelLose.mp3
+- Assets/Resources_/OtherConfigInfo/Boom.prefab
+- Assets/Resources_/OtherConfigInfo/Egg.prefab
+- Assets/Resources_/OtherConfigInfo/Star2.mp3
+- Assets/Resources_/OtherConfigInfo/Star3.mp3
+- Assets/Resources_/OtherConfigInfo/Star1.mp3
+- Assets/Resources_/OtherConfigInfo/Camera2D.prefab
+- Assets/Resources_/OtherConfigInfo/LevelType.prefab
+- Assets/Resources_/OtherConfigInfo/Level.prefab
+- Assets/Resources_/OtherConfigInfo/Point.prefab
 Dependencies:
 - S:/UnityPro2019.3.7f1/Project2/Angry-Birds/AssetBundles/StandaloneWindows/commonres

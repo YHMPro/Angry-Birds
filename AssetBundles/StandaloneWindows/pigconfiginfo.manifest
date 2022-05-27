@@ -1,5 +1,5 @@
 ManifestFileVersion: 0
-CRC: 856495191
+CRC: 1282881027
 Hashes:
   AssetFileHash:
     serializedVersion: 2
@@ -13,5 +13,5 @@ ClassTypes:
   Script: {instanceID: 0}
 SerializeReferenceClassIdentifiers: []
 Assets:
-- Assets/Resources/PigConfigInfo/De1.mp3
+- Assets/Resources_/PigConfigInfo/De1.mp3
 Dependencies: []
