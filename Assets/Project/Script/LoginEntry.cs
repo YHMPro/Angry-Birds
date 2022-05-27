@@ -56,11 +56,7 @@ namespace Bird_VS_Boar
                         panel.RefreshPanel();
                     });
                 });
-            });
-            if (GoLoad.Take("FarmeLockFile/WindowRoot", out GameObject windowRootGo))
-            {
-               
-            }
+            });     
         }
 
     }

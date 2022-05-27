@@ -13,7 +13,7 @@ namespace Farme.UI
     {       
         protected WindowRoot() { }
         #region 字段
-        private readonly string m_WindowModelPath = "FarmeLockFile\\StandardWindow";
+        private readonly string m_WindowModelPath = "FarmeLockFile/StandardWindow";
         private EventSystem m_ES = null;
         private StandaloneInputModule m_InputModule = null;
         private Camera m_Camera = null;
@@ -49,6 +49,7 @@ namespace Farme.UI
             m_ES =gameObject.AddComponent<EventSystem>();
             m_InputModule = gameObject.AddComponent<StandaloneInputModule>();
             m_Camera = Camera.main;
+            DontDestroyOnLoad(this.gameObject);
         }
         #endregion
         #region 方法

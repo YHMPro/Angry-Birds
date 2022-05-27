@@ -18,6 +18,11 @@ namespace Farme
         /// <returns>go实例</returns>
         public static GameObject Take(string goPath,Transform parent = null)
         {
+            string[] data = Bird_VS_Boar.ProjectTool.ParsingRESPath(goPath);
+            if (data[0] != "farmelockfile")
+            {
+                return Take(data[0], data[1], parent);
+            }            
             GameObject go = ResLoad.Load<GameObject>(goPath);
             string goName = go.name;
             go = Object.Instantiate(go, parent);
@@ -34,6 +39,11 @@ namespace Farme
         /// <returns></returns>
         public static bool Take(string goPath, out GameObject result, Transform parent = null)
         {
+            //string[] data = Bird_VS_Boar.ProjectTool.ParsingRESPath(goPath);
+            //if (data[0] != "farmefockfile")
+            //{
+            //    return Take(data[0], data[1], out result, parent);
+            //}
             result = Take(goPath, parent);
             return result != null;
         }

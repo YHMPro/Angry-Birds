@@ -51,14 +51,14 @@ namespace Farme.UI
         {      
             base.Awake();    
             m_Text=GetComponentInChildren<Text>(true);
-            m_Bg = GetComponent<Image>();
-            m_NativeScale = transform.localScale;
+            m_Bg = GetComponent<Image>();    
             m_RectTransform = transform as RectTransform;
         }
 
         protected override void Start()
         {
             base.Start();
+            m_NativeScale = transform.localScale;
             m_RelyCanvasRenderMode = GetComponentInParent<Canvas>().renderMode;
             m_CircumcircleRadius = Mathf.Sqrt(Mathf.Pow(m_RectTransform.rect.width / 2.0f * transform.localScale.x, 2) + Mathf.Pow(m_RectTransform.rect.height / 2.0f * transform.localScale.y, 2));
         }

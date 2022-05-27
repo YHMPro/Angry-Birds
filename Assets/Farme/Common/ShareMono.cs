@@ -28,6 +28,7 @@ namespace Farme
     /// </summary>
     public class ShareMono : MonoSingletonBase<ShareMono>
     {
+        
         #region 生命周期 
         /// <summary>
         /// 持续更新
@@ -51,7 +52,11 @@ namespace Farme
         {
             m_FixCallback?.Invoke();
         }
-
+        protected override void Awake()
+        {
+            base.Awake();
+            DontDestroyOnLoad(this.gameObject);
+        }
         protected override void OnDestroy()
         {
             ClearFixedUpdate();

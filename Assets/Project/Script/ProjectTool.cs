@@ -17,8 +17,8 @@ namespace Bird_VS_Boar
             if(data.Length>2)
             {
                 //忽略第一个元素
-                data[0] = data[1];
-                data[1] = data[2];
+                data[0] = data[data.Length-2];
+                data[1] = data[data.Length-1];
                 data[2] = null;
             }           
             data[0] = data[0].ToLower();//转小写字母
