@@ -1,5 +1,5 @@
 ManifestFileVersion: 0
-CRC: 1007063700
+CRC: 960949382
 AssetBundleManifest:
   AssetBundleInfos:
     Info_0:
@@ -100,4 +100,7 @@ AssetBundleManifest:
       Dependencies: {}
     Info_26:
       Name: winterconfiginfo
+      Dependencies: {}
+    Info_27:
+      Name: audio
       Dependencies: {}

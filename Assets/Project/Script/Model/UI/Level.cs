@@ -11,7 +11,7 @@ namespace Bird_VS_Boar
     /// <summary>
     /// 关卡按钮
     /// </summary>
-    public class Level : BaseMono
+    public class Level : MonoBase
     {
         /// <summary>
         /// 背景
@@ -80,7 +80,7 @@ namespace Bird_VS_Boar
         /// <summary>
         /// 按钮
         /// </summary>
-        private UIBtn m_Btn;
+        private ElasticBtn m_Btn;
 
         protected override void Awake()
         {
@@ -88,7 +88,7 @@ namespace Bird_VS_Boar
             RegisterComponentsTypes<RectTransform>();
             RegisterComponentsTypes<Image>();
             RegisterComponentsTypes<Text>();
-            m_Btn = GetComponent<UIBtn>();
+            m_Btn = GetComponent<ElasticBtn>();
             m_TextIndex=GetComponent<Text>("LevelIndex");
             m_Img = GetComponent<Image>();
             m_LevelLock = GetComponent<Image>("LevelLock");
@@ -98,7 +98,7 @@ namespace Bird_VS_Boar
         protected override void Start()
         {
             base.Start();
-            m_Btn.OnPointerClickEvent.AddListener(OnClick);                  
+            m_Btn.onClick.AddListener(OnClick);                  
         }
 
         protected override void OnEnable()
@@ -144,7 +144,7 @@ namespace Bird_VS_Boar
             m_LevelLock.sprite = AssetBundleLoad.LoadAsset<Sprite>(data[0], data[1]);
             //m_LevelLock.sprite = ResourcesLoad.Load<Sprite>(GameManager.NowSeasonConfigInfo.GetLevelLockSpritePath(),true);
             m_LevelLock.gameObject.SetActive(!levelConfig.IsThrough);
-            m_Btn.Interactable = levelConfig.IsThrough;
+            m_Btn.interactable = levelConfig.IsThrough;
             m_StarRect.gameObject.SetActive(levelConfig.IsThrough);
             m_TextIndex.text = m_LevelIndex.ToString();
             m_LevelRating = Mathf.Clamp(levelConfig.LevelHistoryRating, 0,3);
@@ -181,12 +181,12 @@ namespace Bird_VS_Boar
         private void OnClick()
         {                 
             //关闭游戏登入窗口
-            if(!MonoSingletonFactory<WindowRoot>.SingletonExist)
+            if(!WindowRoot.Exists)
             {
                 Debuger.LogError("窗口根节点丢失");
                 return;
             }
-            StandardWindow window = MonoSingletonFactory<WindowRoot>.GetSingleton().GetWindow("GameLoginWindow");
+            StandardWindow window = WindowRoot.GetSingleton().GetWindow("GameLoginWindow");
             if(window==null)
             {
                 Debuger.LogError("登入窗口实例不存在");

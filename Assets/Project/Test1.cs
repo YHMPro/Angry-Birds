@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using Farme;
-public class Test1 : BaseMono
+public class Test1 : MonoBase
 {
     public float Force = 5;
     [SerializeField]

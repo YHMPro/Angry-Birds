@@ -59,7 +59,7 @@ namespace Bird_VS_Boar
             m_CheckGo = null;
             m_EdgeCo2D.enabled = false;
             GameManager.AddDiedTarget(this);
-            m_Cor = MonoSingletonFactory<ShareMono>.GetSingleton().DelayAction(3.0f, Recycle);
+            m_Cor = ShareMono.GetSingleton().DelayAction(3.0f, Recycle);
         }
         private void Start()
         {
@@ -68,7 +68,7 @@ namespace Bird_VS_Boar
 
         private void OnDisable()
         {
-            MonoSingletonFactory<ShareMono>.GetSingleton().RemoveUpdateAction(EnumUpdateAction.Standard, this.FlyUpdate);
+            ShareMono.GetSingleton().RemoveUpdateAction(EnumUpdateAction.Standard, this.FlyUpdate);
             GameManager.RemoveDiedTarget(this);     
             CancleCor();      
         }
@@ -92,10 +92,10 @@ namespace Bird_VS_Boar
                     transform.position = m_CheckGo.transform.position;
                     m_CheckGo.GetComponent<Pig>().SetGravityScale(0.01f);
                     m_EdgeCo2D.enabled = true;
-                    MonoSingletonFactory<ShareMono>.GetSingleton().ApplyUpdateAction(EnumUpdateAction.Standard,this.FlyUpdate);
-                    m_Cor=MonoSingletonFactory<ShareMono>.GetSingleton().DelayAction(10f, () =>
+                    ShareMono.GetSingleton().ApplyUpdateAction(EnumUpdateAction.Standard,this.FlyUpdate);
+                    m_Cor= ShareMono.GetSingleton().DelayAction(10f, () =>
                     {
-                        MonoSingletonFactory<ShareMono>.GetSingleton().RemoveUpdateAction(EnumUpdateAction.Standard,this.FlyUpdate);
+                        ShareMono.GetSingleton().RemoveUpdateAction(EnumUpdateAction.Standard,this.FlyUpdate);
                         if(m_CheckGo != null)
                         {
                             m_CheckGo.GetComponent<Pig>().SetGravityScale(1.0f);
@@ -132,7 +132,7 @@ namespace Bird_VS_Boar
         {
             if (m_Cor != null)
             {
-                MonoSingletonFactory<ShareMono>.GetSingleton().StopCoroutine(m_Cor);
+                ShareMono.GetSingleton().StopCoroutine(m_Cor);
                 m_Cor = null;
             }
         }

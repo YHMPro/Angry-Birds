@@ -35,23 +35,23 @@ namespace Bird_VS_Boar
             m_AimTran.gameObject.SetActive(true);
             m_Rig2D.gravityScale = 0;
             m_Rig2D.velocity = Vector2.zero;
-            MonoSingletonFactory<ShareMono>.GetSingleton().ApplyUpdateAction(EnumUpdateAction.Standard,AimControlUpdate);
+            ShareMono.GetSingleton().ApplyUpdateAction(EnumUpdateAction.Standard,AimControlUpdate);
         }
         /// <summary>
         /// 目标控制更新
         /// </summary>
         private void AimControlUpdate()
         {
-            if (MonoSingletonFactory<Camera2D>.SingletonExist)
+            if (Camera2D.Exists)
             {
-                Vector3 movePos = MonoSingletonFactory<Camera2D>.GetSingleton().ScreenToWorldPoint(Input.mousePosition, transform.position.z);
+                Vector3 movePos = Camera2D.GetSingleton().ScreenToWorldPoint(Input.mousePosition, transform.position.z);
                 m_AimTran.position = movePos;
                 if (Input.GetMouseButtonDown(0))
                 {                  
                     PlaySkillAudio();
                     Vector3 dir = (movePos - transform.position).normalized;                   
                     m_Rig2D.velocity = dir * 15.0f;
-                    MonoSingletonFactory<ShareMono>.GetSingleton().RemoveUpdateAction(EnumUpdateAction.Standard,AimControlUpdate);
+                    ShareMono.GetSingleton().RemoveUpdateAction(EnumUpdateAction.Standard,AimControlUpdate);
                     m_AimTran.gameObject.SetActive(false);
                 }
             }

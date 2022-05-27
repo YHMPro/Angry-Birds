@@ -4,6 +4,7 @@ using UnityEngine;
 using Farme;
 using UnityEngine.UI;
 using Farme.Extend;
+using Farme.UI;
 namespace Bird_VS_Boar
 {
     /// <summary>
@@ -24,14 +25,14 @@ namespace Bird_VS_Boar
     /// <summary>
     /// 货物
     /// </summary>
-    public class Goods : BaseMono,IGoods
+    public class Goods : MonoBase,IGoods
     {
         [SerializeField]
         /// <summary>
         /// 小鸟类型
         /// </summary>
         protected EnumBirdType m_BirdType=EnumBirdType.None;
-        protected UIBtn m_GoodsBtn;
+        protected ElasticBtn m_GoodsBtn;
         protected Text m_Price;
         protected BirdConfigInfo m_ConfigInfo;
         protected Image m_GoodsImgFilled;
@@ -42,7 +43,7 @@ namespace Bird_VS_Boar
             m_ConfigInfo = BirdConfigInfo.GetBirdConfigInfo(m_BirdType);
             RegisterComponentsTypes<Text>();
             RegisterComponentsTypes<Image>();
-            m_GoodsBtn = GetComponent<UIBtn>();
+            m_GoodsBtn = GetComponent<ElasticBtn>();
             m_GoodsImgFilled = GetComponent<Image>("GoodsImgFilled");
             m_Price =GetComponent<Text>("PriceText");
         }
@@ -54,7 +55,7 @@ namespace Bird_VS_Boar
         protected override void Start()
         {
             base.Start();
-            m_GoodsBtn.OnPointerClickEvent.AddListener(OnGoodsClick);
+            m_GoodsBtn.onClick.AddListener(OnGoodsClick);
             m_Price.text = m_ConfigInfo.Coin.ToString();
         }
 
@@ -85,9 +86,9 @@ namespace Bird_VS_Boar
             }
             MesgManager.MesgTirgger(ProjectEvents.CoinUpdateEvent, m_ConfigInfo);//更新硬币
             AddBirdCom(goods);
-            if (MonoSingletonFactory<SlingShot>.SingletonExist)
+            if (SlingShot.Exists)
             {
-                MonoSingletonFactory<SlingShot>.GetSingleton().BindBird();
+                SlingShot.GetSingleton().BindBird();
             }
         }
         /// <summary>

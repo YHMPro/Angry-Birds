@@ -13,29 +13,29 @@ namespace Bird_VS_Boar
     /// </summary>
     public class GameLoginPanel : BasePanel
     {
-        private UIBtn m_StartBtn;
-        private UIBtn m_SetBtn;
+        private ElasticBtn m_StartBtn;
+        private ElasticBtn m_SetBtn;
 
 
         protected override void Awake()
         {
             base.Awake();
-            RegisterComponentsTypes<UIBtn>();
-            m_StartBtn = GetComponent<UIBtn>("StartBtn");
-            m_SetBtn = GetComponent<UIBtn>("SetBtn");
+            RegisterComponentsTypes<ElasticBtn>();
+            m_StartBtn = GetComponent<ElasticBtn>("StartBtn");
+            m_SetBtn = GetComponent<ElasticBtn>("SetBtn");
         }
 
         protected override void Start()
         {
             base.Start();
-            m_StartBtn.OnPointerClickEvent.AddListener(OnStart);
-            m_SetBtn.OnPointerClickEvent.AddListener(OnSet);
+            m_StartBtn.onClick.AddListener(OnStart);
+            m_SetBtn.onClick.AddListener(OnSet);
         }
 
         #region ButtonEvent
         private void OnStart()
         {
-            StandardWindow window = MonoSingletonFactory<WindowRoot>.GetSingleton().GetWindow("GameLoginWindow");
+            StandardWindow window = WindowRoot.GetSingleton().GetWindow("GameLoginWindow");
             if (window == null)
             {
                 Debuger.LogError("窗口GameLoginWindow不存在");
@@ -51,7 +51,7 @@ namespace Bird_VS_Boar
         }
         private void OnSet()
         {
-            StandardWindow window = MonoSingletonFactory<WindowRoot>.GetSingleton().GetWindow("GameGlobalWindow");
+            StandardWindow window = WindowRoot.GetSingleton().GetWindow("GameGlobalWindow");
             if (window == null || !window.GetPanel<GameSetPanel>("GameSetPanel", out var panel))
             {
                 Debuger.LogError("窗口GameSceneWindow不存在或面板GameOverPanel不存在!!!");

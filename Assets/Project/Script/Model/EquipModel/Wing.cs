@@ -8,7 +8,7 @@ namespace Bird_VS_Boar
     /// <summary>
     /// 翅膀
     /// </summary>
-    public class Wing : BaseMono
+    public class Wing : MonoBase
     {
         /// <summary>
         /// 移动距离
@@ -57,7 +57,7 @@ namespace Bird_VS_Boar
         {
             if(m_BindTarget == null)
             {
-                MonoSingletonFactory<ShareMono>.GetSingleton().RemoveUpdateAction(EnumUpdateAction.Standard, this.SportUpdate);
+                ShareMono.GetSingleton().RemoveUpdateAction(EnumUpdateAction.Standard, this.SportUpdate);
             }
             else
             {
@@ -77,7 +77,7 @@ namespace Bird_VS_Boar
             m_BindTarget = target;
             if (target == null)
             {
-                MonoSingletonFactory<ShareMono>.GetSingleton().ApplyUpdateAction(EnumUpdateAction.Standard, this.SportUpdate);
+                ShareMono.GetSingleton().ApplyUpdateAction(EnumUpdateAction.Standard, this.SportUpdate);
             }
         }
         [SerializeField]

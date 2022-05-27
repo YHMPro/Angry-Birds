@@ -17,7 +17,7 @@ namespace Bird_VS_Boar
         /// <returns></returns>
         public static bool LoadMap()
         {
-            if (!GoReusePool.Take(GameManager.NowLevelType.ToString() + "/Map", out GameObject mapGo, null))
+            if (!GoReusePool.Take(GameManager.NowLevelType.ToString() + "/Map", out GameObject mapGo))
             {
 
                 if (!GoLoad.Take(GameManager.NowSeasonConfigInfo.GetLevelMapPrefabPath(), out mapGo))
@@ -36,7 +36,7 @@ namespace Bird_VS_Boar
             if (GameManager.NowLevelIndex >= 3)
             {
                 //移除NowLevelIndex-2的地图缓存
-                if (GoReusePool.Take(GameManager.NowLevelType.ToString() + "/" + (GameManager.NowLevelIndex - 2), out GameObject map1, null))
+                if (GoReusePool.Take(GameManager.NowLevelType.ToString() + "/" + (GameManager.NowLevelIndex - 2), out GameObject map1))
                 {
                     map1.GetComponent<IDied>().Died(true);
                 }
@@ -45,7 +45,7 @@ namespace Bird_VS_Boar
             if (GameManager.NowLevelIndex <= (LevelConfigManager.GetLevelNum(GameManager.NowLevelType) - 2))
             {
                 //移除NowLevelIndex+2的地图缓存
-                if (GoReusePool.Take(GameManager.NowLevelType.ToString() + "/" + (GameManager.NowLevelIndex + 2), out GameObject map2, null))
+                if (GoReusePool.Take(GameManager.NowLevelType.ToString() + "/" + (GameManager.NowLevelIndex + 2), out GameObject map2))
                 {
                     map2.GetComponent<IDied>().Died(true);
                 }

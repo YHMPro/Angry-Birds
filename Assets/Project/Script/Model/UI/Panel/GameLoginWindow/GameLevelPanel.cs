@@ -24,42 +24,42 @@ namespace Bird_VS_Boar
         /// <summary>
         /// 返回按钮
         /// </summary>
-        private UIBtn m_ReturnBtn;
+        private ElasticBtn m_ReturnBtn;
         /// <summary>
         /// 下一个季节
         /// </summary>
-        private UIBtn m_NextSeasonBtn;
+        private ElasticBtn m_NextSeasonBtn;
         /// <summary>
         /// 上一个季节
         /// </summary>
-        private UIBtn m_LastSeasonBtn;
+        private ElasticBtn m_LastSeasonBtn;
         protected override void Awake()
         {
             base.Awake();
             RegisterComponentsTypes<Image>();
-            RegisterComponentsTypes<UIBtn>();
+            RegisterComponentsTypes<ElasticBtn>();
             RegisterComponentsTypes<RectTransform>();
             m_Bg=GetComponent<Image>("Bg");
-            m_ReturnBtn = GetComponent<UIBtn>("ReturnBtn");
-            m_NextSeasonBtn = GetComponent<UIBtn>("NextSeason");
-            m_LastSeasonBtn = GetComponent<UIBtn>("LastSeason");
+            m_ReturnBtn = GetComponent<ElasticBtn>("ReturnBtn");
+            m_NextSeasonBtn = GetComponent<ElasticBtn>("NextSeason");
+            m_LastSeasonBtn = GetComponent<ElasticBtn>("LastSeason");
             m_LevelRect = GetComponent<RectTransform>("LevelRect");
         }
 
         protected override void Start()
         {
             base.Start();
-            m_ReturnBtn.OnPointerClickEvent.AddListener(OnReturn);
-            m_NextSeasonBtn.OnPointerClickEvent.AddListener(OnNextSeason);
-            m_LastSeasonBtn.OnPointerClickEvent.AddListener(OnLastSeason);
+            m_ReturnBtn.onClick.AddListener(OnReturn);
+            m_NextSeasonBtn.onClick.AddListener(OnNextSeason);
+            m_LastSeasonBtn.onClick.AddListener(OnLastSeason);
         }
 
         protected override void OnEnable()
         {
             base.OnEnable();
             RefreshPanel();
-        }     
-        #region UIBtn
+        }
+        #region ElasticBtn
         /// <summary>
         /// 监听返回
         /// </summary>
@@ -67,11 +67,11 @@ namespace Bird_VS_Boar
         {
             GameManager.NowLevelIndex = -1;
             GameManager.NowLevelType = EnumGameLevelType.None;
-            if (!MonoSingletonFactory<WindowRoot>.SingletonExist)
+            if (!WindowRoot.Exists)
             {
                 return;
             }
-            StandardWindow gameLoginWindow = MonoSingletonFactory<WindowRoot>.GetSingleton().GetWindow("GameLoginWindow");
+            StandardWindow gameLoginWindow = WindowRoot.GetSingleton().GetWindow("GameLoginWindow");
             if (gameLoginWindow == null)
             {
                 return;
@@ -129,12 +129,12 @@ namespace Bird_VS_Boar
         /// </summary>
         private void RefreshPanel()
         {          
-            if (!NotMonoSingletonFactory<OtherConfigInfo>.SingletonExist)
+            if (!OtherConfigInfo.Exists)
             {
                 Debuger.LogError("配置信息未实例化");
                 return;
             }
-            OtherConfigInfo otherConfigInfo = NotMonoSingletonFactory<OtherConfigInfo>.GetSingleton();
+            OtherConfigInfo otherConfigInfo = OtherConfigInfo.GetSingleton();
             //更新关卡界面背景
             string[] data = ProjectTool.ParsingRESPath(GameManager.NowSeasonConfigInfo.GetLevelInterfaceBGSpritePath());
             m_Bg.sprite = AssetBundleLoad.LoadAsset<Sprite>(data[0], data[1]);

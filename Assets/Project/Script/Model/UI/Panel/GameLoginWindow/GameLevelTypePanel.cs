@@ -26,7 +26,7 @@ namespace Bird_VS_Boar
         protected override void Awake()
         {
             base.Awake();
-            RegisterComponentsTypes<UIBtn>();
+            RegisterComponentsTypes<ElasticBtn>();
             RegisterComponentsTypes<Image>();
 
             m_LevelTypeRectImg = GetComponent<Image>("LevelTypeRect");
@@ -49,9 +49,9 @@ namespace Bird_VS_Boar
         protected override void Start()
         {
             base.Start();
-            if (NotMonoSingletonFactory<OtherConfigInfo>.SingletonExist)
+            if (OtherConfigInfo.Exists)
             {
-                OtherConfigInfo otherConfigInfo = NotMonoSingletonFactory<OtherConfigInfo>.GetSingleton();
+                OtherConfigInfo otherConfigInfo = OtherConfigInfo.GetSingleton();
                 //加载关卡类型界面背景
                 string[] data = ProjectTool.ParsingRESPath(otherConfigInfo.GetLevelTypeInterfaceBGSpritePath());
                 m_Bg.sprite = AssetBundleLoad.LoadAsset<Sprite>(data[0], data[1]);
@@ -76,9 +76,9 @@ namespace Bird_VS_Boar
         /// </summary>
         private void RefreshPanel()
         {
-            if (NotMonoSingletonFactory<OtherConfigInfo>.SingletonExist)
+            if (OtherConfigInfo.Exists)
             {
-                OtherConfigInfo otherConfigInfo = NotMonoSingletonFactory<OtherConfigInfo>.GetSingleton();
+                OtherConfigInfo otherConfigInfo = OtherConfigInfo.GetSingleton();
                 //更新背景音乐
                 GameAudio.PlayBackGroundAudio(otherConfigInfo.GetLevelTypePanelAudioPath());
             }

@@ -41,11 +41,11 @@ namespace Bird_VS_Boar
             {
                 if (!GoReusePool.Take(typeof(Egg).Name, out GameObject go))
                 {
-                    if (!NotMonoSingletonFactory<OtherConfigInfo>.SingletonExist)
+                    if (!OtherConfigInfo.Exists)
                     {
                         return;
                     }
-                    if (!GoLoad.Take(NotMonoSingletonFactory<OtherConfigInfo>.GetSingleton().GetEggPrefabPath(), out go))
+                    if (!GoLoad.Take(OtherConfigInfo.GetSingleton().GetEggPrefabPath(), out go))
                     {
                         return;
                     }

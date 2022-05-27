@@ -15,14 +15,14 @@ namespace Bird_VS_Boar
             {
                 return;
             }
-            base.OnMouseUp();         
-            MonoSingletonFactory<ShareMono>.GetSingleton().ApplyUpdateAction(EnumUpdateAction.Standard,this.OnSkillUpdate_Common);//持续监听技能释放指令
+            base.OnMouseUp();
+            ShareMono.GetSingleton().ApplyUpdateAction(EnumUpdateAction.Standard,this.OnSkillUpdate_Common);//持续监听技能释放指令
         }
 
         protected override void OnDisable()
         {
             base.OnDisable();
-            MonoSingletonFactory<ShareMono>.GetSingleton().RemoveUpdateAction(EnumUpdateAction.Standard, this.OnSkillUpdate_Common);
+            ShareMono.GetSingleton().RemoveUpdateAction(EnumUpdateAction.Standard, this.OnSkillUpdate_Common);
         }
         public override void OnSkillUpdate_Common()
         {
@@ -30,18 +30,18 @@ namespace Bird_VS_Boar
             {                
                 if (Input.GetMouseButtonDown(1))
                 {
-                    if (!MonoSingletonFactory<WindowRoot>.SingletonExist)
+                    if (!WindowRoot.Exists)
                     {
                         return;
                     }
-                    WindowRoot windowRoot = MonoSingletonFactory<WindowRoot>.GetSingleton();
+                    WindowRoot windowRoot = WindowRoot.GetSingleton();
                     if (windowRoot.ES.IsPointerOverGameObject())//当操作对象是UI时则屏蔽此次事件响应
                     {
                         return;
                     }
                     m_IsReleaseSkill = true;
                     OnSkillUpdate();
-                    MonoSingletonFactory<ShareMono>.GetSingleton().RemoveUpdateAction(EnumUpdateAction.Standard,this.OnSkillUpdate_Common);
+                    ShareMono.GetSingleton().RemoveUpdateAction(EnumUpdateAction.Standard,this.OnSkillUpdate_Common);
                 }
             }
         }
@@ -54,7 +54,7 @@ namespace Bird_VS_Boar
         protected override void OnBirdFlyBreak()
         {         
             base.OnBirdFlyBreak();
-            MonoSingletonFactory<ShareMono>.GetSingleton().RemoveUpdateAction(EnumUpdateAction.Standard,this. OnSkillUpdate_Common);
+            ShareMono.GetSingleton().RemoveUpdateAction(EnumUpdateAction.Standard,this. OnSkillUpdate_Common);
         }
         protected override void PlaySkillAudio()
         {

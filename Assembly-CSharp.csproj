@@ -53,34 +53,29 @@
     <UnityVersion>2019.4.33f1</UnityVersion>
   </PropertyGroup>
   <ItemGroup>
-    <Compile Include="Assets\Frame\Audio\Audio.cs" />
-    <Compile Include="Assets\Frame\Audio\AudioClipManager.cs" />
-    <Compile Include="Assets\Frame\Audio\AudioManager.cs" />
-    <Compile Include="Assets\Frame\Audio\AudioMixerManager.cs" />
-    <Compile Include="Assets\Frame\Common\BaseMono.cs" />
-    <Compile Include="Assets\Frame\Common\InterfaceManager.cs" />
-    <Compile Include="Assets\Frame\Common\MesgManager.cs" />
-    <Compile Include="Assets\Frame\Common\ShareMono.cs" />
-    <Compile Include="Assets\Frame\Extend.cs" />
-    <Compile Include="Assets\Frame\Factory\AbstractSingletonFactory.cs" />
-    <Compile Include="Assets\Frame\Factory\MonoFactory.cs" />
-    <Compile Include="Assets\Frame\Factory\MonoSingletonFactory.cs" />
-    <Compile Include="Assets\Frame\Factory\NotMonoFactory.cs" />
-    <Compile Include="Assets\Frame\Factory\NotMonoSingletonFactory.cs" />
-    <Compile Include="Assets\Frame\Interface.cs" />
-    <Compile Include="Assets\Frame\Load\AssetBundleLoad.cs" />
-    <Compile Include="Assets\Frame\Load\GoLoad.cs" />
-    <Compile Include="Assets\Frame\Load\GoReusePool.cs" />
-    <Compile Include="Assets\Frame\Load\ResourcesLoad.cs" />
-    <Compile Include="Assets\Frame\Load\SceneLoad.cs" />
-    <Compile Include="Assets\Frame\Net\WebDownloadTool.cs" />
-    <Compile Include="Assets\Frame\Plugins\Audio\MP3Tool.cs" />
-    <Compile Include="Assets\Frame\Tool\AStar\AStar.cs" />
-    <Compile Include="Assets\Frame\Tool\AStar\AStarConfig.cs" />
-    <Compile Include="Assets\Frame\Tool\AStar\AStarGrid.cs" />
-    <Compile Include="Assets\Frame\UI\BasePanel.cs" />
-    <Compile Include="Assets\Frame\UI\StandardWindow.cs" />
-    <Compile Include="Assets\Frame\UI\WindowRoot.cs" />
+    <Compile Include="Assets\Farme\Audio\Audio.cs" />
+    <Compile Include="Assets\Farme\Audio\AudioClipManager.cs" />
+    <Compile Include="Assets\Farme\Audio\AudioManager.cs" />
+    <Compile Include="Assets\Farme\Audio\AudioMixerManager.cs" />
+    <Compile Include="Assets\Farme\Common\BaseUI.cs" />
+    <Compile Include="Assets\Farme\Common\InterfaceManager.cs" />
+    <Compile Include="Assets\Farme\Common\MesgManager.cs" />
+    <Compile Include="Assets\Farme\Common\MonoBase.cs" />
+    <Compile Include="Assets\Farme\Common\MonoSingletonBase.cs" />
+    <Compile Include="Assets\Farme\Common\ShareMono.cs" />
+    <Compile Include="Assets\Farme\Common\Singleton.cs" />
+    <Compile Include="Assets\Farme\Extend.cs" />
+    <Compile Include="Assets\Farme\Interface.cs" />
+    <Compile Include="Assets\Farme\Load\AssetBundleLoad.cs" />
+    <Compile Include="Assets\Farme\Load\AtlasAssetsLoad.cs" />
+    <Compile Include="Assets\Farme\Load\GoLoad.cs" />
+    <Compile Include="Assets\Farme\Load\GoReusePool.cs" />
+    <Compile Include="Assets\Farme\Load\ResLoad.cs" />
+    <Compile Include="Assets\Farme\Load\SceneLoad.cs" />
+    <Compile Include="Assets\Farme\UI\BasePanel.cs" />
+    <Compile Include="Assets\Farme\UI\ElasticBtn.cs" />
+    <Compile Include="Assets\Farme\UI\StandardWindow.cs" />
+    <Compile Include="Assets\Farme\UI\WindowRoot.cs" />
     <Compile Include="Assets\Project\Script\CustomDataStruct.cs" />
     <Compile Include="Assets\Project\Script\DataManager.cs" />
     <Compile Include="Assets\Project\Script\Entry.cs" />
@@ -145,17 +140,15 @@
     <Compile Include="Assets\Project\Script\Model\UI\Panel\GameSceneWindow\GameInterfacePanel.cs" />
     <Compile Include="Assets\Project\Script\Model\UI\Panel\GameSceneWindow\GameOverPanel.cs" />
     <Compile Include="Assets\Project\Script\Model\UI\Panel\GameSceneWindow\GoodsPanel.cs" />
-    <Compile Include="Assets\Project\Script\Model\UI\Tool\UIBtn.cs" />
     <Compile Include="Assets\Project\Script\ProjectEvents.cs" />
     <Compile Include="Assets\Project\Script\ProjectInterface.cs" />
     <Compile Include="Assets\Project\Script\ProjectTool.cs" />
     <Compile Include="Assets\Project\Test1.cs" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Assets\Frame\Plugins\Audio\NAudio.dll" />
-    <None Include="Assets\Frame\Plugins\Newtonsoft.Json.dll" />
-    <None Include="Assets\Frame\Plugins\Log\Debuger.dll" />
-    <None Include="Assets\Frame\Plugins\Log\Debuger.xml" />
+    <None Include="Assets\Farme\Plugins\Log\Debuger.dll" />
+    <None Include="Assets\Farme\Plugins\Newtonsoft.Json.dll" />
+    <None Include="Assets\Farme\Plugins\Log\Debuger.xml" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="UnityEngine">
@@ -341,17 +334,14 @@
     <Reference Include="UnityEditor">
       <HintPath>C:\Program Files\Unity\2019.4.33f1\Editor\Data\Managed\UnityEditor.dll</HintPath>
     </Reference>
-    <Reference Include="Newtonsoft.Json">
-      <HintPath>Assets\Frame\Plugins\Newtonsoft.Json.dll</HintPath>
-    </Reference>
-    <Reference Include="NAudio">
-      <HintPath>Assets\Frame\Plugins\Audio\NAudio.dll</HintPath>
-    </Reference>
-    <Reference Include="Debuger">
-      <HintPath>Assets\Frame\Plugins\Log\Debuger.dll</HintPath>
-    </Reference>
     <Reference Include="DOTween">
       <HintPath>Assets\Plugins\Demigiant\DOTween\DOTween.dll</HintPath>
+    </Reference>
+    <Reference Include="Debuger">
+      <HintPath>Assets\Farme\Plugins\Log\Debuger.dll</HintPath>
+    </Reference>
+    <Reference Include="Newtonsoft.Json">
+      <HintPath>Assets\Farme\Plugins\Newtonsoft.Json.dll</HintPath>
     </Reference>
     <Reference Include="UnityEditor.iOS.Extensions.Xcode">
       <HintPath>C:\Program Files\Unity\2019.4.33f1\Editor\Data\PlaybackEngines\iOSSupport\UnityEditor.iOS.Extensions.Xcode.dll</HintPath>

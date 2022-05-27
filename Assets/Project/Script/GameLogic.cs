@@ -184,7 +184,7 @@ namespace Bird_VS_Boar
         public static void CoinAdd()
         {
             m_CoinNum++;
-            StandardWindow window = MonoSingletonFactory<WindowRoot>.GetSingleton().GetWindow("GameSceneWindow");
+            StandardWindow window = WindowRoot.GetSingleton().GetWindow("GameSceneWindow");
             if (window == null || !window.GetPanel<GoodsPanel>("GoodsPanel", out var panel))
             {
                 Debuger.LogError("窗口GameSceneWindow不存在或面板GoodsPanel不存在!!!");
@@ -198,7 +198,7 @@ namespace Bird_VS_Boar
             {
                 m_CoinNum -= configInfo.Coin;
             }
-            StandardWindow window = MonoSingletonFactory<WindowRoot>.GetSingleton().GetWindow("GameSceneWindow");
+            StandardWindow window = WindowRoot.GetSingleton().GetWindow("GameSceneWindow");
             if (window == null || !window.GetPanel<GoodsPanel>("GoodsPanel", out var panel))
             {
                 Debuger.LogError("窗口GameSceneWindow不存在或面板GoodsPanel不存在!!!");

@@ -71,7 +71,7 @@ namespace Bird_VS_Boar
 
     }
     [Serializable]
-    public abstract class Barrier : BaseMono, IScore, IDiedAudio, IDied
+    public abstract class Barrier : MonoBase, IScore, IDiedAudio, IDied
     {
         public GameObject go => this.gameObject;
         /// <summary>

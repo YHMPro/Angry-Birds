@@ -8,12 +8,12 @@ using Farme.Tool;
 using Farme.UI;
 namespace Bird_VS_Boar
 {
-    public class LevelType : BaseMono
+    public class LevelType : MonoBase
     {
         /// <summary>
         /// 按钮
         /// </summary>
-        private UIBtn m_Btn;
+        private ElasticBtn m_Btn;
         /// <summary>
         /// 背景
         /// </summary>
@@ -47,14 +47,14 @@ namespace Bird_VS_Boar
             base.Awake();
             RegisterComponentsTypes<Text>();
             m_Bg=GetComponent<Image>();
-            m_Btn=GetComponent<UIBtn>();
+            m_Btn=GetComponent<ElasticBtn>();
             m_StarText=GetComponent<Text>("StarText");
         }
 
         protected override void Start()
         {
             base.Start();
-            m_Btn.OnPointerClickEvent.AddListener(OnClick);
+            m_Btn.onClick.AddListener(OnClick);
         }
 
         protected override void LateOnEnable()
@@ -91,11 +91,11 @@ namespace Bird_VS_Boar
         #region Button
         private void OnClick()
         {
-            if(!MonoSingletonFactory<WindowRoot>.SingletonExist)
+            if(!WindowRoot.Exists)
             {
                 return;
             }
-            StandardWindow gameLoginWindow = MonoSingletonFactory<WindowRoot>.GetSingleton().GetWindow("GameLoginWindow");
+            StandardWindow gameLoginWindow = WindowRoot.GetSingleton().GetWindow("GameLoginWindow");
             if(gameLoginWindow==null)
             {
                 return;

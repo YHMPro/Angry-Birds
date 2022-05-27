@@ -50,9 +50,9 @@ namespace Bird_VS_Boar
             m_Sr = GetComponent<SpriteRenderer>();
             if (m_NowMaxOrderInLayer == 0)
             {
-                if (NotMonoSingletonFactory<OtherConfigInfo>.SingletonExist)
+                if (OtherConfigInfo.Exists)
                 {
-                    m_NowMaxOrderInLayer = NotMonoSingletonFactory<OtherConfigInfo>.GetSingleton().BoomOrderInLayer;
+                    m_NowMaxOrderInLayer = OtherConfigInfo.GetSingleton().BoomOrderInLayer;
                 }
             }
         }
@@ -72,10 +72,10 @@ namespace Bird_VS_Boar
             --m_BoomNum;
             if (m_BoomNum == 0)
             {
-                if (NotMonoSingletonFactory<OtherConfigInfo>.SingletonExist)
+                if (OtherConfigInfo.Exists)
                 {
                     Debuger.Log("层级重置(Boom)");
-                    m_NowMaxOrderInLayer = NotMonoSingletonFactory<OtherConfigInfo>.GetSingleton().BoomOrderInLayer;
+                    m_NowMaxOrderInLayer = OtherConfigInfo.GetSingleton().BoomOrderInLayer;
                 }
             }
         }
@@ -89,11 +89,11 @@ namespace Bird_VS_Boar
             }
             if (!GoReusePool.Take(typeof(Boom).Name, out GameObject go))
             {
-                if (!NotMonoSingletonFactory<OtherConfigInfo>.SingletonExist)
+                if (!OtherConfigInfo.Exists)
                 {
                     return;
                 }
-                if (!GoLoad.Take(NotMonoSingletonFactory<OtherConfigInfo>.GetSingleton().GetBoomPrefabPath(), out go))
+                if (!GoLoad.Take(OtherConfigInfo.GetSingleton().GetBoomPrefabPath(), out go))
                 {
                     return;
                 }

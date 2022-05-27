@@ -53,11 +53,11 @@ namespace Bird_VS_Boar
                 m_Button.AbleRecycle = false;//不可自动回收
                 m_Button.Group = AudioMixerManager.GetAudioMixerGroup("Button");
             }
-            if (!NotMonoSingletonFactory<OtherConfigInfo>.SingletonExist)
+            if (!OtherConfigInfo.Exists)
             {
                 return;
             }
-            OtherConfigInfo otherConfigInfo = NotMonoSingletonFactory<OtherConfigInfo>.GetSingleton();
+            OtherConfigInfo otherConfigInfo = OtherConfigInfo.GetSingleton();
             if (AudioClipManager.GetAudioClip(otherConfigInfo.GetButtonAudioPath(), out AudioClip clip))
             {
                 m_Button.Clip = clip;

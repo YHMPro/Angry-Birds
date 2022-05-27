@@ -14,20 +14,20 @@ namespace Bird_VS_Boar
         private Slider m_ButtonVolume;
         private Slider m_BgVolume;
         private Slider m_EffectVolume;
-        private UIBtn m_DataControlBtn;
-        private UIBtn m_CloseBtn;
+        private ElasticBtn m_DataControlBtn;
+        private ElasticBtn m_CloseBtn;
         protected override void Awake()
         {
             base.Awake();
             RegisterComponentsTypes<Slider>();
-            RegisterComponentsTypes<UIBtn>();
+            RegisterComponentsTypes<ElasticBtn>();
 
             m_GlobalVolume=GetComponent<Slider>("GlobalVolume");
             m_ButtonVolume =GetComponent<Slider>("ButtonVolume");
             m_BgVolume=GetComponent<Slider>("BGVolume");
             m_EffectVolume=GetComponent<Slider>("EffectVolume");
-            m_DataControlBtn = GetComponent<UIBtn>("DataControlBtn");
-            m_CloseBtn = GetComponent<UIBtn>("CloseBtn");
+            m_DataControlBtn = GetComponent<ElasticBtn>("DataControlBtn");
+            m_CloseBtn = GetComponent<ElasticBtn>("CloseBtn");
 
             
         }
@@ -35,8 +35,8 @@ namespace Bird_VS_Boar
         protected override void Start()
         {
             base.Start();
-            m_CloseBtn.OnPointerClickEvent.AddListener(OnClose);
-            m_DataControlBtn.OnPointerClickEvent.AddListener(OnDataControl);
+            m_CloseBtn.onClick.AddListener(OnClose);
+            m_DataControlBtn.onClick.AddListener(OnDataControl);
             m_GlobalVolume.onValueChanged.AddListener(OnGlobalVolume);
             m_ButtonVolume.onValueChanged.AddListener(OnButtonVolume);
             m_BgVolume.onValueChanged.AddListener(OnBgVolume);
@@ -70,7 +70,7 @@ namespace Bird_VS_Boar
         /// <param name="active"></param>
         public void ActiveDataControl(bool active)
         {
-            m_DataControlBtn.Interactable = active;
+            m_DataControlBtn.interactable = active;
         }
 
         #region ButtonEvent

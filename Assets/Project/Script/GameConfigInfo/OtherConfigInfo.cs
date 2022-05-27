@@ -1,9 +1,10 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Farme;
 namespace Bird_VS_Boar
 {
-    public class OtherConfigInfo
+    public class OtherConfigInfo:SingletonBase<OtherConfigInfo>
     {
         private string m_CommonPath;
         #region 渲染层级

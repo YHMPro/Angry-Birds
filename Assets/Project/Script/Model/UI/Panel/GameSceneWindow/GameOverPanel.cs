@@ -62,42 +62,42 @@ namespace Bird_VS_Boar
         /// <summary>
         /// 重玩本关
         /// </summary>
-        private UIBtn m_ReplayLevelBtn;
+        private ElasticBtn m_ReplayLevelBtn;
         /// <summary>
         /// 上一关
         /// </summary>
-        private UIBtn m_LastLevelBtn;
+        private ElasticBtn m_LastLevelBtn;
         /// <summary>
         /// 下一关
         /// </summary>
-        private UIBtn m_NextLevelBtn;
+        private ElasticBtn m_NextLevelBtn;
         /// <summary>
         /// 返回关卡
         /// </summary>
-        private UIBtn m_ReturnLevelBtn;
+        private ElasticBtn m_ReturnLevelBtn;
         protected override void Awake()
         {
             base.Awake();
             RegisterComponentsTypes<Text>();
             RegisterComponentsTypes<Image>();
-            RegisterComponentsTypes<UIBtn>();
+            RegisterComponentsTypes<ElasticBtn>();
             m_WinGo = transform.Find("GameWinRect").gameObject;
             m_LoseGo= transform.Find("GameLoseRect").gameObject;
             m_NowScoreText = GetComponent<Text>("NowScoreText");
             m_HistoryScoreText = GetComponent<Text>("HistoryScoreText");
-            m_ReplayLevelBtn = GetComponent<UIBtn>("ReplayLevelBtn");
-            m_NextLevelBtn = GetComponent<UIBtn>("NextLevelBtn");
-            m_LastLevelBtn = GetComponent<UIBtn>("LastLevelBtn");
-            m_ReturnLevelBtn = GetComponent<UIBtn>("ReturnLevelBtn");
+            m_ReplayLevelBtn = GetComponent<ElasticBtn>("ReplayLevelBtn");
+            m_NextLevelBtn = GetComponent<ElasticBtn>("NextLevelBtn");
+            m_LastLevelBtn = GetComponent<ElasticBtn>("LastLevelBtn");
+            m_ReturnLevelBtn = GetComponent<ElasticBtn>("ReturnLevelBtn");
         }
 
         protected override void Start()
         {
             base.Start();
-            m_ReplayLevelBtn.OnPointerClickEvent.AddListener(OnReplayLevel);
-            m_NextLevelBtn.OnPointerClickEvent.AddListener(OnNextLevel);
-            m_LastLevelBtn.OnPointerClickEvent.AddListener(OnLastLevel);
-            m_ReturnLevelBtn.OnPointerClickEvent.AddListener(OnReturnLevel);
+            m_ReplayLevelBtn.onClick.AddListener(OnReplayLevel);
+            m_NextLevelBtn.onClick.AddListener(OnNextLevel);
+            m_LastLevelBtn.onClick.AddListener(OnLastLevel);
+            m_ReturnLevelBtn.onClick.AddListener(OnReturnLevel);
             StarsFill(true);
         }
 
@@ -139,7 +139,7 @@ namespace Bird_VS_Boar
             m_WinGo.gameObject.SetActive(true);
             m_NowScoreText.text = GameLogic.NowScore.ToString();
             m_HistoryScoreText.text = GameLogic.HistoryScore.ToString();
-            MonoSingletonFactory<ShareMono>.GetSingleton().DelayRealtimeAction(0.5f,false,StarsFill);
+            ShareMono.GetSingleton().DelayRealtimeAction(0.5f,false,StarsFill);
         }
         #endregion
 
@@ -179,11 +179,11 @@ namespace Bird_VS_Boar
         private IEnumerator IEStarsFill()
         {
            
-            if (!NotMonoSingletonFactory<OtherConfigInfo>.SingletonExist)
+            if (!OtherConfigInfo.Exists)
             {
                 yield break;
             }
-            OtherConfigInfo otherConfigInfo = NotMonoSingletonFactory<OtherConfigInfo>.GetSingleton();
+            OtherConfigInfo otherConfigInfo = OtherConfigInfo.GetSingleton();
             WaitForSecondsRealtime waitFor = new WaitForSecondsRealtime(m_StarShowTimeInterval);//使其不受Timescale影响
             for (int index=1;index<= GameLogic.NowRating; index++)
             {
@@ -310,8 +310,8 @@ namespace Bird_VS_Boar
         {
             int levelNum = LevelConfigManager.GetLevelNum(GameManager.NowLevelType);
             #region 按钮更新
-            m_LastLevelBtn.Interactable = GameManager.NowLevelIndex > 1;
-            m_NextLevelBtn.Interactable = GameManager.NowLevelIndex < levelNum ? LevelConfigManager.GetLevelConfig(GameManager.NowLevelType + "_" + (GameManager.NowLevelIndex + 1)).IsThrough : false;
+            m_LastLevelBtn.interactable = GameManager.NowLevelIndex > 1;
+            m_NextLevelBtn.interactable = GameManager.NowLevelIndex < levelNum ? LevelConfigManager.GetLevelConfig(GameManager.NowLevelType + "_" + (GameManager.NowLevelIndex + 1)).IsThrough : false;
             #endregion
         }
         #endregion

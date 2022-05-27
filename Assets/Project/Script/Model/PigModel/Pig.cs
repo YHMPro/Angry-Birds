@@ -31,7 +31,7 @@ namespace Bird_VS_Boar
         Destroy
     }
     [Serializable]
-    public abstract class Pig : BaseMono, IBoom, IScore,IDiedAudio,IDied
+    public abstract class Pig : MonoBase, IBoom, IScore,IDiedAudio,IDied
     {
         public GameObject go => this.gameObject;
         /// <summary>

@@ -29,40 +29,37 @@ namespace Bird_VS_Boar
             //PlayerPrefs.SetFloat("EffectVolume", 1);
             //PlayerPrefs.Save();    
             LevelConfigManager.ReadConfigTableData();//读取配置表数据
-            MonoSingletonFactory<ShareMono>.GetSingleton(null, false);
+            _=ShareMono.GetSingleton();
             //MonoSingletonFactory<DataManager>.GetSingleton(null, false);
-            NotMonoSingletonFactory<OtherConfigInfo>.GetSingleton().InitConfigInfo();//创建单例并实例化配置信息
+            OtherConfigInfo.GetSingleton().InitConfigInfo();//创建单例并实例化配置信息
         }
 
         public void Start()
         {
-            if (GoLoad.Take("FarmeLockFile/WindowRoot", out GameObject windowRootGo))
+            WindowRoot windowRoot = WindowRoot.GetSingleton();
+            windowRoot.CreateWindow("GameLoginWindow", RenderMode.ScreenSpaceCamera, (window) =>
             {
-                WindowRoot windowRoot = MonoSingletonFactory<WindowRoot>.GetSingleton(windowRootGo, false);
-                windowRoot.CreateWindow("GameLoginWindow", RenderMode.ScreenSpaceCamera, (window) =>
+                window.CanvasScaler.referenceResolution = new Vector2(1920, 1080);//设置画布尺寸
+                window.CanvasScaler.uiScaleMode = CanvasScaler.ScaleMode.ScaleWithScreenSize;//设置适配的方式
+                window.Canvas.sortingOrder = 0;//设置画布层级
+                window.CreatePanel<GameLoginPanel>("UI/GameLoginWindow/GameLoginPanel", "GameLoginPanel", EnumPanelLayer.BOTTOM, (panel) =>//加载面板
                 {
-                    window.CanvasScaler.referenceResolution = new Vector2(1920, 1080);//设置画布尺寸
-                    window.CanvasScaler.uiScaleMode = CanvasScaler.ScaleMode.ScaleWithScreenSize;//设置适配的方式
-                    window.Canvas.sortingOrder = 0;//设置画布层级
-                    window.CreatePanel<GameLoginPanel>("UI/GameLoginWindow/GameLoginPanel", "GameLoginPanel", EnumPanelLayer.BOTTOM, (panel) =>//加载面板
-                    {
 
-                    });
                 });
-                windowRoot.CreateWindow("GameGlobalWindow", RenderMode.ScreenSpaceCamera, (window) =>
+            });
+            windowRoot.CreateWindow("GameGlobalWindow", RenderMode.ScreenSpaceCamera, (window) =>
+            {
+                window.CanvasScaler.referenceResolution = new Vector2(1920, 1080);//设置画布尺寸
+                window.CanvasScaler.uiScaleMode = CanvasScaler.ScaleMode.ScaleWithScreenSize;//设置适配的方式
+                window.Canvas.sortingOrder = 1;//设置画布层级
+                window.CreatePanel<GameSetPanel>("UI/GameGlobalWindow/GameSetPanel", "GameSetPanel", EnumPanelLayer.TOP, (panel) =>//加载面板
                 {
-                    window.CanvasScaler.referenceResolution = new Vector2(1920, 1080);//设置画布尺寸
-                    window.CanvasScaler.uiScaleMode = CanvasScaler.ScaleMode.ScaleWithScreenSize;//设置适配的方式
-                    window.Canvas.sortingOrder = 1;//设置画布层级
-                    window.CreatePanel<GameSetPanel>("UI/GameGlobalWindow/GameSetPanel", "GameSetPanel", EnumPanelLayer.TOP, (panel) =>//加载面板
+                    panel.SetState(EnumPanelState.Hide, () =>
                     {
-                        panel.SetState(EnumPanelState.Hide, () =>
-                        {
-                            panel.RefreshPanel();
-                        });
+                        panel.RefreshPanel();
                     });
                 });
-            }
+            });         
         }
         // Start is called before the first frame update
         void OnEnable()

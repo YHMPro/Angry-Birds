@@ -23,7 +23,7 @@ namespace Bird_VS_Boar
 
         protected override void OnBirdFlyBreak()
         {
-            MonoSingletonFactory<ShareMono>.GetSingleton().RemoveUpdateAction(EnumUpdateAction.Standard, this.OnSkillUpdate_Common);
+            ShareMono.GetSingleton().RemoveUpdateAction(EnumUpdateAction.Standard, this.OnSkillUpdate_Common);
             ProductBlister();
             PlaySkillAudio();
         }
@@ -38,11 +38,11 @@ namespace Bird_VS_Boar
                 GameObject go;
                 if(!GoReusePool.Take(typeof(Blister).Name,out go))
                 {
-                    if(!NotMonoSingletonFactory<OtherConfigInfo>.SingletonExist)
+                    if(!OtherConfigInfo.Exists)
                     {
                         return;
                     }                  
-                    if (!GoLoad.Take(NotMonoSingletonFactory<OtherConfigInfo>.GetSingleton().GetBlisterPrefabPath(), out go))
+                    if (!GoLoad.Take(OtherConfigInfo.GetSingleton().GetBlisterPrefabPath(), out go))
                     {
                         return;
                     }

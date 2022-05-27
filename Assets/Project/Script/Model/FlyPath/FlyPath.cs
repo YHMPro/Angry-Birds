@@ -5,7 +5,7 @@ using Farme;
 using Farme.Tool;
 namespace Bird_VS_Boar
 {
-    public class FlyPath : MonoBehaviour
+    public class FlyPath : MonoSingletonBase<FlyPath>
     {
         private Coroutine m_Cor;
         private int m_PathPointCount = 3;
@@ -13,13 +13,14 @@ namespace Bird_VS_Boar
         private bool m_Active = false;
 
 
-        private void OnDestroy()
+        protected override void OnDestroy()
         {
+            base.OnDestroy();
             if (m_Cor != null)
             {
-                if (MonoSingletonFactory<ShareMono>.SingletonExist)
+                if (ShareMono.Exists)
                 {
-                    MonoSingletonFactory<ShareMono>.GetSingleton().StopCoroutine(m_Cor);
+                    ShareMono.GetSingleton().StopCoroutine(m_Cor);
                 }
                 m_Cor = null;
             }
@@ -31,7 +32,7 @@ namespace Bird_VS_Boar
             {
                 if(m_PointTrans==null)
                 {
-                    if (!NotMonoSingletonFactory<OtherConfigInfo>.SingletonExist)
+                    if (!OtherConfigInfo.Exists)
                     {
                         Debuger.Log("OtherConfigInfo未实例化");
                         return null;
@@ -39,7 +40,7 @@ namespace Bird_VS_Boar
                     m_PointTrans = new Transform[m_PathPointCount];                 
                     for (int i = 0; i < m_PathPointCount; i++)
                     {
-                        if (GoLoad.Take(NotMonoSingletonFactory<OtherConfigInfo>.GetSingleton().GetPointPrefabPath(), out GameObject go, transform))
+                        if (GoLoad.Take(OtherConfigInfo.GetSingleton().GetPointPrefabPath(), out GameObject go, transform))
                         {
                             m_PointTrans[i] = go.transform;
                             go.SetActive(false);
@@ -62,7 +63,7 @@ namespace Bird_VS_Boar
                 {
                     if(m_Cor != null)
                     {
-                        MonoSingletonFactory<ShareMono>.GetSingleton().StopCoroutine(m_Cor);
+                        ShareMono.GetSingleton().StopCoroutine(m_Cor);
                         m_Cor = null;
                     }
                     foreach (var pointTran in PointTrans)
@@ -72,7 +73,7 @@ namespace Bird_VS_Boar
                 }
                 else
                 {
-                    m_Cor = MonoSingletonFactory<ShareMono>.GetSingleton().DelayAction(2, () =>
+                    m_Cor = ShareMono.GetSingleton().DelayAction(2, () =>
                     {
                         foreach (var pointTran in PointTrans)
                         {
@@ -93,11 +94,11 @@ namespace Bird_VS_Boar
                 return;
             if (!m_Active)
                 return;
-            if(MonoSingletonFactory<SlingShot>.SingletonExist)
+            if(SlingShot.Exists)
             {
                 for(int i=0;i< PointTrans.Length; i++)
                 {
-                    PointTrans[i].position = MonoSingletonFactory<SlingShot>.GetSingleton().CountPathPoint(startTime+timeInterval * i) + (Vector2)GameLogic.NowComeBird.transform.position;           
+                    PointTrans[i].position = SlingShot.GetSingleton().CountPathPoint(startTime+timeInterval * i) + (Vector2)GameLogic.NowComeBird.transform.position;           
                 }
             }
         }

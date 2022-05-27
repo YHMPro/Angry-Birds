@@ -187,17 +187,16 @@ namespace Bird_VS_Boar
         /// 初始化
         /// </summary>
         public static void Init()
-        { 
-            
-            if (NotMonoSingletonFactory<OtherConfigInfo>.SingletonExist)
+        {      
+            if (OtherConfigInfo.Exists)
             {
-                OtherConfigInfo otherConfigInfo = NotMonoSingletonFactory<OtherConfigInfo>.GetSingleton();
-                MonoSingletonFactory<SlingShot>.GetSingleton(GoLoad.Take(otherConfigInfo.GetSlingShotPrefabPath()));
-                MonoSingletonFactory<FlyPath>.GetSingleton(GoLoad.Take(otherConfigInfo.GetFlyPathPrefabPath()));
-                MonoSingletonFactory<Camera2D>.GetSingleton(GoLoad.Take(otherConfigInfo.GetCamera2DPrefabPath()));
+                OtherConfigInfo otherConfigInfo = OtherConfigInfo.GetSingleton();
+                _=GoLoad.Take(otherConfigInfo.GetSlingShotPrefabPath());
+                _=GoLoad.Take(otherConfigInfo.GetFlyPathPrefabPath());
+                _ = GoLoad.Take(otherConfigInfo.GetCamera2DPrefabPath());
             }
             //创建GameSceneWindow
-            MonoSingletonFactory<WindowRoot>.GetSingleton().CreateWindow("GameSceneWindow", RenderMode.ScreenSpaceCamera, (window) =>
+            WindowRoot.GetSingleton().CreateWindow("GameSceneWindow", RenderMode.ScreenSpaceCamera, (window) =>
             {
                 window.CanvasScaler.referenceResolution = new Vector2(1920, 1080);//设置画布尺寸
                 window.CanvasScaler.uiScaleMode = CanvasScaler.ScaleMode.ScaleWithScreenSize;//设置适配的方式
@@ -249,9 +248,9 @@ namespace Bird_VS_Boar
                 m_Pigs.Remove(pig);
                 Debuger.Log("当前场景内猪的数量:" + NowScenePigNum);
                 RemoveCor();
-                if (MonoSingletonFactory<ShareMono>.SingletonExist)
+                if (ShareMono.Exists)
                 {
-                    m_Cor = MonoSingletonFactory<ShareMono>.GetSingleton().DelayRealtimeAction(3f, () =>
+                    m_Cor = ShareMono.GetSingleton().DelayRealtimeAction(3f, () =>
                      {
                          MesgManager.MesgTirgger(ProjectEvents.LogicUpdateEvent);
                      });
@@ -282,9 +281,9 @@ namespace Bird_VS_Boar
                 m_Birds.Remove(bird);
                 Debuger.Log("当前场景内鸟的数量:" + NowSceneBirdNum);
                 RemoveCor();
-                if (MonoSingletonFactory<ShareMono>.SingletonExist)
+                if (ShareMono.Exists)
                 {
-                    m_Cor = MonoSingletonFactory<ShareMono>.GetSingleton().DelayRealtimeAction(3f, () =>
+                    m_Cor = ShareMono.GetSingleton().DelayRealtimeAction(3f, () =>
                      {
                          MesgManager.MesgTirgger(ProjectEvents.LogicUpdateEvent);
                      });
@@ -339,7 +338,7 @@ namespace Bird_VS_Boar
             {
                 return;
             }
-            StandardWindow window = MonoSingletonFactory<WindowRoot>.GetSingleton().GetWindow("GameSceneWindow");
+            StandardWindow window = WindowRoot.GetSingleton().GetWindow("GameSceneWindow");
             if(window==null|| !window.GetPanel<GameOverPanel>("GameOverPanel", out var panel))
             {
                 Debuger.LogError("窗口GameSceneWindow不存在或面板GameOverPanel不存在!!!");
@@ -347,9 +346,9 @@ namespace Bird_VS_Boar
             }
             panel.SetState(EnumPanelState.Show, () =>
             {
-                if (NotMonoSingletonFactory<OtherConfigInfo>.SingletonExist)
+                if (OtherConfigInfo.Exists)
                 {
-                    OtherConfigInfo otherConfigInfo = NotMonoSingletonFactory<OtherConfigInfo>.GetSingleton();
+                    OtherConfigInfo otherConfigInfo = OtherConfigInfo.GetSingleton();
                     GameAudio.PlayBackGroundAudioOnce(isWin ? otherConfigInfo.GetLevelWinAudioPath() : otherConfigInfo.GetLevelLoseAudioPath());
                 }
                 if (isWin)
@@ -382,10 +381,10 @@ namespace Bird_VS_Boar
             }
             m_IsShieldGameOverEvent = false;
             GameLogic.Init();//初始化逻辑管理器     
-            if (MonoSingletonFactory<SlingShot>.SingletonExist)
+            if (SlingShot.Exists)
             {
                 Debuger.Log("清除弹弓线");
-                MonoSingletonFactory<SlingShot>.GetSingleton().ClearLine();
+                SlingShot.GetSingleton().ClearLine();
             }
             //MonoSingletonFactory<DataManager>.GetSingleton().Test.Clear();
             //地图加载                  
@@ -428,9 +427,9 @@ namespace Bird_VS_Boar
             //播放关卡背景音乐
             GameAudio.PlayBackGroundAudio(NowSeasonConfigInfo.GetLevelAudioPath());
             //播放关卡猪与鸟的背景音乐
-            if(NotMonoSingletonFactory<OtherConfigInfo>.SingletonExist)
+            if(OtherConfigInfo.Exists)
             {
-                OtherConfigInfo otherConfigInfo = NotMonoSingletonFactory<OtherConfigInfo>.GetSingleton();
+                OtherConfigInfo otherConfigInfo = OtherConfigInfo.GetSingleton();
                 //GameAudio.PlayBackGroundAudioOnce(otherConfigInfo.GetLevelStartBirdAudioPath());
                 GameAudio.PlayBackGroundAudioOnce(otherConfigInfo.GetLevelStartPigAudioPath());
             }
@@ -474,7 +473,7 @@ namespace Bird_VS_Boar
                 //重新加载本关
                 GameStart();
                 //刷新相关UI面板
-                StandardWindow window = MonoSingletonFactory<WindowRoot>.GetSingleton().GetWindow("GameSceneWindow");
+                StandardWindow window = WindowRoot.GetSingleton().GetWindow("GameSceneWindow");
                 if (window == null || !window.GetPanel<GameInterfacePanel>("GameInterfacePanel", out var panel))
                 {
                     Debuger.LogError("窗口GameSceneWindow不存在或面板GameOverPanel不存在!!!");
@@ -498,7 +497,7 @@ namespace Bird_VS_Boar
                 GameStart();
                 Debuger.Log("上一关");
                 //刷新相关UI面板
-                StandardWindow window = MonoSingletonFactory<WindowRoot>.GetSingleton().GetWindow("GameSceneWindow");
+                StandardWindow window = WindowRoot.GetSingleton().GetWindow("GameSceneWindow");
                 if (window == null || !window.GetPanel<GameInterfacePanel>("GameInterfacePanel", out var panel))
                 {
                     Debuger.LogError("窗口GameSceneWindow不存在或面板GameOverPanel不存在!!!");
@@ -522,7 +521,7 @@ namespace Bird_VS_Boar
                 GameStart();
                 Debuger.Log("下一关");
                 //刷新相关UI面板
-                StandardWindow window = MonoSingletonFactory<WindowRoot>.GetSingleton().GetWindow("GameSceneWindow");
+                StandardWindow window = WindowRoot.GetSingleton().GetWindow("GameSceneWindow");
                 if (window == null || !window.GetPanel<GameInterfacePanel>("GameInterfacePanel", out var panel))
                 {
                     Debuger.LogError("窗口GameSceneWindow不存在或面板GameOverPanel不存在!!!");
@@ -541,20 +540,20 @@ namespace Bird_VS_Boar
         public static void ReturnLevel()
         {
             //销毁弹弓
-            MonoSingletonFactory<SlingShot>.ClearSingleton();
+            SlingShot.Clear();
             //销毁飞行路径
-            MonoSingletonFactory<FlyPath>.ClearSingleton();
+            FlyPath.Clear();
             //销毁2D相机
-            MonoSingletonFactory<Camera2D>.ClearSingleton();
+            Camera2D.Clear();
             RecycleSceneAllGameTagret(() => 
             {
                 //关闭游戏场景窗口
-                if (!MonoSingletonFactory<WindowRoot>.SingletonExist)
+                if (!WindowRoot.Exists)
                 {
                     Debuger.LogError("窗口根节点丢失");
                     return;
                 }
-                StandardWindow gameSceneWindow = MonoSingletonFactory<WindowRoot>.GetSingleton().GetWindow("GameSceneWindow");
+                StandardWindow gameSceneWindow = WindowRoot.GetSingleton().GetWindow("GameSceneWindow");
                 if (gameSceneWindow == null)
                 {
                     Debuger.LogError("登入窗口实例不存在");
@@ -565,7 +564,7 @@ namespace Bird_VS_Boar
                     Debuger.Log("返回关卡");
                     SceneLoad(EnumSceneType.LoginScene, () =>
                     {
-                        MonoSingletonFactory<WindowRoot>.GetSingleton().CreateWindow("GameLoginWindow", RenderMode.ScreenSpaceCamera, (gameLoginWindow) =>//加载游戏登入窗口
+                        WindowRoot.GetSingleton().CreateWindow("GameLoginWindow", RenderMode.ScreenSpaceCamera, (gameLoginWindow) =>//加载游戏登入窗口
                         {
                             gameLoginWindow.CanvasScaler.referenceResolution = new Vector2(1920, 1080);//设置画布尺寸
                             gameLoginWindow.CanvasScaler.uiScaleMode = CanvasScaler.ScaleMode.ScaleWithScreenSize;//设置适配的方式
@@ -609,20 +608,20 @@ namespace Bird_VS_Boar
             Farme.SceneLoad.LoadSceneAsync(sceneType.ToString(), LoadSceneMode.Single, () =>
             {
                 #region 清除Update行为
-                MonoSingletonFactory<ShareMono>.GetSingleton().ClearUpdate();
-                MonoSingletonFactory<ShareMono>.GetSingleton().ClearFixedUpdate();
-                MonoSingletonFactory<ShareMono>.GetSingleton().ClearLateUpdate();
+                ShareMono.GetSingleton().ClearUpdate();
+                ShareMono.GetSingleton().ClearFixedUpdate();
+                ShareMono.GetSingleton().ClearLateUpdate();
                 #endregion
                 #region 清除通过Resources加载的资源缓存
                 AssetBundleLoad.UnLoadMainAB(true);
                 //ResourcesLoad.ClearAllCache();
                 #endregion
                 #region 清除通过AudioClipManager加载的音效缓存
-                if (NotMonoSingletonFactory<OtherConfigInfo>.SingletonExist)
+                if (OtherConfigInfo.Exists)
                 {
                     AudioClipManager.UnLoadAllAudioClip(new string[] //忽略组
                     {
-                        NotMonoSingletonFactory<OtherConfigInfo>.GetSingleton().GetButtonAudioPath()
+                        OtherConfigInfo.GetSingleton().GetButtonAudioPath()
                     });
                 }               
                 #endregion                
@@ -675,9 +674,9 @@ namespace Bird_VS_Boar
         {
             if(m_Cor!=null)
             {
-                if (MonoSingletonFactory<ShareMono>.SingletonExist)
+                if (ShareMono.Exists)
                 {
-                    MonoSingletonFactory<ShareMono>.GetSingleton().StopCoroutine(m_Cor);
+                    ShareMono.GetSingleton().StopCoroutine(m_Cor);
                 }
                 m_Cor = null;
             }

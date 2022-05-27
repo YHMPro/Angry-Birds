@@ -51,9 +51,9 @@ namespace Bird_VS_Boar
             m_Anim=GetComponent<Animator>();
             if (m_NowMaxOrderInLayer == 0)
             {
-                if (NotMonoSingletonFactory<OtherConfigInfo>.SingletonExist)
+                if (OtherConfigInfo.Exists)
                 {
-                    m_NowMaxOrderInLayer = NotMonoSingletonFactory<OtherConfigInfo>.GetSingleton().ScoreOrderInLayer;
+                    m_NowMaxOrderInLayer = OtherConfigInfo.GetSingleton().ScoreOrderInLayer;
                 }
             }
         }
@@ -75,10 +75,10 @@ namespace Bird_VS_Boar
             --m_ScoreNum;
             if(m_ScoreNum == 0)
             {
-                if (NotMonoSingletonFactory<OtherConfigInfo>.SingletonExist)
+                if (OtherConfigInfo.Exists)
                 {
                     Debuger.Log("层级重置(Score)");
-                    m_NowMaxOrderInLayer = NotMonoSingletonFactory<OtherConfigInfo>.GetSingleton().ScoreOrderInLayer;
+                    m_NowMaxOrderInLayer = OtherConfigInfo.GetSingleton().ScoreOrderInLayer;
                 }
             }
         }
@@ -92,11 +92,11 @@ namespace Bird_VS_Boar
             }
             if (!GoReusePool.Take(typeof(Score).Name, out GameObject go))
             {
-                if (!NotMonoSingletonFactory<OtherConfigInfo>.SingletonExist)
+                if (!OtherConfigInfo.Exists)
                 {
                     return;
                 }
-                if (!GoLoad.Take(NotMonoSingletonFactory<OtherConfigInfo>.GetSingleton().GetScorePrefabPath(), out go))
+                if (!GoLoad.Take(OtherConfigInfo.GetSingleton().GetScorePrefabPath(), out go))
                 {
                     return;
                 }

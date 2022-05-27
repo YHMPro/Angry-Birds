@@ -7,19 +7,21 @@ using Bird_VS_Boar.LevelConfig;
 
 namespace Bird_VS_Boar
 {
-    public class Camera2D : MonoBehaviour
+    public class Camera2D : MonoSingletonBase<Camera2D>
     {
         private Camera m_Camera2D;
         private float m_XMin = 3;
         private float m_YMin = 4;
         private float m_XMax = 5;
         private float m_YMax = 5;
-        private void Awake()
+        protected override void Awake()
         {
+            base.Awake();
             m_Camera2D = GetComponent<Camera>();
         }
-        private void OnEnable()
+        protected override void OnEnable()
         {
+            base.OnEnable();
             //读取关卡配置信息来设置位置
             Debuger.Log("读取关卡配置信息来设置位置");
             LevelConfig.LevelConfig levelConfig = LevelConfigManager.GetLevelConfig(GameManager.NowLevelType + "_" + GameManager.NowLevelIndex);
@@ -31,17 +33,18 @@ namespace Bird_VS_Boar
             transform.position = levelConfig.Camera2DPosition.ToVector3();
         }
         // Start is called before the first frame update
-        private void Start()
+        protected override  void Start()
         {
-            MonoSingletonFactory<ShareMono>.GetSingleton().ApplyUpdateAction(EnumUpdateAction.Fixed, Follow);//暂时放在这里
+            base.Start();
+            ShareMono.GetSingleton().ApplyUpdateAction(EnumUpdateAction.Fixed, Follow);//暂时放在这里
             SetLimit(6, 10, 4.5f, 7.5f);
         }
 
-        private void OnDestroy()
+        protected override void OnDestroy()
         {
-            if (MonoSingletonFactory<ShareMono>.SingletonExist)
+            if (ShareMono.Exists)
             {
-                MonoSingletonFactory<ShareMono>.GetSingleton().RemoveUpdateAction(EnumUpdateAction.Fixed, Follow);//暂时放在这里
+                ShareMono.GetSingleton().RemoveUpdateAction(EnumUpdateAction.Fixed, Follow);//暂时放在这里
             }
         }
         public void BindBird()
@@ -55,7 +58,7 @@ namespace Bird_VS_Boar
             if (GameManager.NowCameraFollowTarget == null)
             {
                 //return;
-                aimPos = MonoSingletonFactory<SlingShot>.GetSingleton().transform.position;
+                aimPos = SlingShot.GetSingleton().transform.position;
             }
             else
             {
@@ -82,7 +85,7 @@ namespace Bird_VS_Boar
         }
         public void BreakBird()
         {
-            MonoSingletonFactory<ShareMono>.GetSingleton().RemoveUpdateAction(EnumUpdateAction.Fixed,Follow);
+            ShareMono.GetSingleton().RemoveUpdateAction(EnumUpdateAction.Fixed,Follow);
         }
         public Vector3 ScreenToWorldPoint(Vector3 vector3,float z=0)
         {
