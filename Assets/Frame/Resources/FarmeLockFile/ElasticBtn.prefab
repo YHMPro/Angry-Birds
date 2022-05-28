@@ -89,7 +89,7 @@ GameObject:
   - component: {fileID: 4105601757779667847}
   - component: {fileID: 994993475450298805}
   - component: {fileID: 4188759558172214128}
-  - component: {fileID: 8488741483793926063}
+  - component: {fileID: 7092840331985800473}
   m_Layer: 5
   m_Name: ElasticBtn
   m_TagString: Untagged
@@ -154,7 +154,7 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
---- !u!114 &8488741483793926063
+--- !u!114 &7092840331985800473
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -163,7 +163,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 8045524688994043712}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 65cfee55a858f3b4582413e3bf31bc25, type: 3}
+  m_Script: {fileID: 11500000, guid: 3a0f7546cc406fc41921dd233b3c8580, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   m_Navigation:

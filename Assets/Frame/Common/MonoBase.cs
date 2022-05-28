@@ -143,7 +143,7 @@ namespace Farme
         /// 自动调用  在OnEnable之后调用且慢于Start调用快于Update的第一帧调用
         /// OnEnable函数不能被子类完全重写
         /// </summary>
-        protected virtual void LateOnEnable() {  }    
+        protected virtual void LateOnEnable() {  }     
         #endregion
     }
 }

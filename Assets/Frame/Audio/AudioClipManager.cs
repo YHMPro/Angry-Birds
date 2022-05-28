@@ -58,8 +58,8 @@ namespace Farme.Audio
         /// <returns>是否获取成功</returns>
         public static bool GetAudioClip(string audioClipPath, out AudioClip result)
         {
-            //string[] data = Bird_VS_Boar.ProjectTool.ParsingRESPath(audioClipPath);
-            //return GetAudioClip(data[0], data[1], out result);
+            string[] data = Bird_VS_Boar.ProjectTool.ParsingRESPath(audioClipPath);
+            return GetAudioClip(data[0], data[1], out result);
             if (AudioClipDic.TryGetValue(audioClipPath, out result))
             {
                 return true;

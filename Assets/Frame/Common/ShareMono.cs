@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
 using Farme.Tool;
+using Bird_VS_Boar;
 namespace Farme
 {
     /// <summary>
@@ -58,7 +59,7 @@ namespace Farme
             DontDestroyOnLoad(this.gameObject);
         }
         protected override void OnDestroy()
-        {
+        {          
             ClearFixedUpdate();
             ClearLateUpdate();
             ClearUpdate();
@@ -80,7 +81,8 @@ namespace Farme
         /// </summary>
         private event UnityAction m_FixCallback;
         #endregion
-        #region 方法      
+        #region 方法   
+       
         /// <summary>
         /// 申请Update行为
         /// </summary>
@@ -133,10 +135,10 @@ namespace Farme
                     }
             }
         }
-        #region APPExit
-        private void OnApplicationQuit()
-        {          
-            
+        #region APPExit      
+        public void OnApplicationQuit()
+        {
+            GameManager.SaveLevelDataToThisLocality();
         }
         #endregion
         #region 不受Timescale影响
@@ -315,5 +317,6 @@ namespace Farme
             m_LateCallback = null;
         }
         #endregion
+
     }
 }

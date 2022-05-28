@@ -53,10 +53,10 @@ namespace Bird_VS_Boar
             {
                 OtherConfigInfo otherConfigInfo = OtherConfigInfo.GetSingleton();
                 //加载关卡类型界面背景
-                Debug.Log("后续需要更改会AB加载");
-                //string[] data = ProjectTool.ParsingRESPath(otherConfigInfo.GetLevelTypeInterfaceBGSpritePath());
-                //m_Bg.sprite = AssetBundleLoad.LoadAsset<Sprite>(data[0], data[1]);
-                m_Bg.sprite = ResLoad.Load<Sprite>(otherConfigInfo.GetLevelTypeInterfaceBGSpritePath());
+                Debug.Log("标记更改");
+                string[] data = ProjectTool.ParsingRESPath(otherConfigInfo.GetLevelTypeInterfaceBGSpritePath());
+                m_Bg.sprite = AssetBundleLoad.LoadAsset<Sprite>(data[0], data[1]);
+                //m_Bg.sprite = ResLoad.Load<Sprite>(otherConfigInfo.GetLevelTypeInterfaceBGSpritePath());
                 foreach (var levelType in Enum.GetValues(typeof(EnumGameLevelType)))
                 {
                     if ((EnumGameLevelType)levelType != EnumGameLevelType.None)

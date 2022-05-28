@@ -136,10 +136,10 @@ namespace Bird_VS_Boar
             }
             OtherConfigInfo otherConfigInfo = OtherConfigInfo.GetSingleton();
             //更新关卡界面背景
-            Debug.Log("AB包更改标记");
-            //string[] data = ProjectTool.ParsingRESPath(GameManager.NowSeasonConfigInfo.GetLevelInterfaceBGSpritePath());
-            //m_Bg.sprite = AssetBundleLoad.LoadAsset<Sprite>(data[0], data[1]);
-            m_Bg.sprite = ResLoad.Load<Sprite>(GameManager.NowSeasonConfigInfo.GetLevelInterfaceBGSpritePath());
+            Debug.Log("更改标记");
+            string[] data = ProjectTool.ParsingRESPath(GameManager.NowSeasonConfigInfo.GetLevelInterfaceBGSpritePath());
+            m_Bg.sprite = AssetBundleLoad.LoadAsset<Sprite>(data[0], data[1]);
+            //m_Bg.sprite = ResLoad.Load<Sprite>(GameManager.NowSeasonConfigInfo.GetLevelInterfaceBGSpritePath());
             //更新背景音乐
             GameAudio.PlayBackGroundAudio(GameManager.NowSeasonConfigInfo.GetSeasonAudioPath());           
             //回收关卡

@@ -191,9 +191,10 @@ namespace Bird_VS_Boar
             if (OtherConfigInfo.Exists)
             {
                 OtherConfigInfo otherConfigInfo = OtherConfigInfo.GetSingleton();
-                _=GoLoad.Take(otherConfigInfo.GetSlingShotPrefabPath());
-                _=GoLoad.Take(otherConfigInfo.GetFlyPathPrefabPath());
-                _ = GoLoad.Take(otherConfigInfo.GetCamera2DPrefabPath());
+
+                GoLoad.Take(otherConfigInfo.GetSlingShotPrefabPath());
+                GoLoad.Take(otherConfigInfo.GetFlyPathPrefabPath());
+                GoLoad.Take(otherConfigInfo.GetCamera2DPrefabPath());
             }
             //创建GameSceneWindow
             WindowRoot.GetSingleton().CreateWindow("GameSceneWindow", RenderMode.ScreenSpaceCamera, (window) =>
@@ -623,8 +624,8 @@ namespace Bird_VS_Boar
                 ShareMono.GetSingleton().ClearLateUpdate();
                 #endregion
                 #region 清除通过Resources加载的资源缓存
-                Debug.Log("AB包更改标记");
-                //ssetBundleLoad.UnLoadMainAB(true);
+                Debug.Log("更改标记");
+                //AssetBundleLoad.UnLoadMainAB(true);
                 //ResLoad.ClearAllCache();
                 #endregion
                 #region 清除通过AudioClipManager加载的音效缓存

@@ -48,6 +48,7 @@ namespace Bird_VS_Boar
         protected override void Awake()
         {
             base.Awake();
+            Debug.Log(1);
             RegisterComponentsTypes<LineRenderer>();
             m_As=GetComponent<AudioSource>();          
             m_SJ2D = GetComponent<SpringJoint2D>();

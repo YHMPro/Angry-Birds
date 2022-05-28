@@ -15,8 +15,8 @@ namespace Bird_VS_Boar
         {
             //Debuger.Enable = false;
 
-            //AssetBundleLoad.PackageCatalogueFile_URL = Application.streamingAssetsPath + "/";
-            //AssetBundleLoad.MainABName = "StandaloneWindows";
+            AssetBundleLoad.PackageCatalogueFile_URL = Application.streamingAssetsPath+"\\";
+            AssetBundleLoad.MainABName = "StandaloneWindows";
             LevelConfigManager.ReadConfigTableData();//读取配置表数据
             _=ShareMono.GetSingleton();
             //MonoSingletonFactory<DataManager>.GetSingleton(null, false);
