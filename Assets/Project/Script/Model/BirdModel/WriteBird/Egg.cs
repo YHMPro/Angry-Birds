@@ -7,7 +7,7 @@ using Farme.UI;
 using Farme.Tool;
 namespace Bird_VS_Boar
 {
-    public class Egg : MonoBehaviour,IDied
+    public class Egg : MonoBehaviour,IDied,IWeaken
     {
         public GameObject go => this.gameObject;
         /// <summary>
@@ -27,22 +27,31 @@ namespace Bird_VS_Boar
         /// <summary>
         /// 是否碰撞
         /// </summary>
-        private bool m_IsCollision = false;
-        /// <summary>
-        /// 碰撞盒子
-        /// </summary>
-        private CircleCollider2D m_CC2D = null;
+        private bool m_IsCollision = false;       
         /// <summary>
         /// 刚体
         /// </summary>
         private Rigidbody2D m_Rig2D = null;
+        /// <summary>
+        /// 速度
+        /// </summary>
+        public Vector2 Velocity
+        {
+            set
+            {
+                m_Rig2D.velocity = value;
+            }
+            get
+            {
+                return m_Rig2D.velocity;
+            }
+        }
         /// <summary>
         /// 射线检测的组
         /// </summary>
         protected string[] rayCastGroup = new string[] {"Land" };
         private void Awake()
         {
-            m_CC2D = GetComponent<CircleCollider2D>();
             m_Rig2D = GetComponent<Rigidbody2D>();
         }
 
@@ -73,17 +82,7 @@ namespace Bird_VS_Boar
             }
         }
 
-        #region Velocity
-        /// <summary>
-        /// 设置鸡蛋飞行速度
-        /// </summary>
-        /// <param name="velocity">速度</param>
-        public virtual void SetBirdFlyVelocity(Vector2 velocity)
-        {
-            m_Rig2D.velocity = velocity;
-        }
-        #endregion
-        
+    
         #region Died
         public void Died(bool isDestroy = false)
         {

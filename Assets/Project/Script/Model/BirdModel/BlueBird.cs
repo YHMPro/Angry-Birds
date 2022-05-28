@@ -38,7 +38,7 @@ namespace Bird_VS_Boar
                 float angle = Vector2.SignedAngle(Vector2.right, velocity.normalized);
                 angle += (i == 0) ? 10 : ((i == 1) ? 0 : -10);
                 velocity = new Vector2(Mathf.Cos(angle / 180.0f * Mathf.PI), Mathf.Sin(angle / 180.0f * Mathf.PI));
-                blueBird.SetBirdFlyVelocity(velocity * m_Rig2D.velocity.magnitude);
+                blueBird.Velocity = velocity * m_Rig2D.velocity.magnitude;
                 blueBird.AddOnBirdFlyUpdate_Common();
                 blueBird.ActiveTrailRenderer(true);                
             }

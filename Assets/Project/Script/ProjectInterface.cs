@@ -2,6 +2,20 @@
 using UnityEngine;
 namespace Bird_VS_Boar
 {
+    /// <summary>
+    /// 装备绑定接口
+    /// </summary>
+    public interface IEquipBinding:IInterfaceBase
+    {
+        void Binding(Transform bindingTarget);
+    }
+    /// <summary>
+    /// 削弱接口
+    /// </summary>
+    public interface IWeaken:IInterfaceBase
+    {
+        Vector2 Velocity { get; set; }
+    }
     public interface IGoods:IInterfaceBase
     {
         void Refresh();

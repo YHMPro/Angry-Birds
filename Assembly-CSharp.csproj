@@ -99,6 +99,7 @@
      <Compile Include="Assets\Project\Script\Model\BarrierModel\Wood.cs" />
      <Compile Include="Assets\Project\Script\Model\BirdModel\Bird.cs" />
      <Compile Include="Assets\Project\Script\Model\BirdModel\BlackBird.cs" />
+     <Compile Include="Assets\Project\Script\Model\BirdModel\BlackBird\Shockware.cs" />
      <Compile Include="Assets\Project\Script\Model\BirdModel\BlueBird.cs" />
      <Compile Include="Assets\Project\Script\Model\BirdModel\BlueBird\LittleBlueBird.cs" />
      <Compile Include="Assets\Project\Script\Model\BirdModel\GreenBird.cs" />
@@ -114,6 +115,7 @@
      <Compile Include="Assets\Project\Script\Model\Boom.cs" />
      <Compile Include="Assets\Project\Script\Model\Camera\Camera2D.cs" />
      <Compile Include="Assets\Project\Script\Model\Camera\CameraUI.cs" />
+     <Compile Include="Assets\Project\Script\Model\EquipModel\Staff.cs" />
      <Compile Include="Assets\Project\Script\Model\EquipModel\Wing.cs" />
      <Compile Include="Assets\Project\Script\Model\FlyPath\FlyPath.cs" />
      <Compile Include="Assets\Project\Script\Model\LevelModel\LevelConfig.cs" />
@@ -136,6 +138,7 @@
      <Compile Include="Assets\Project\Script\Model\UI\Bird\YellowBirdGoods.cs" />
      <Compile Include="Assets\Project\Script\Model\UI\Level.cs" />
      <Compile Include="Assets\Project\Script\Model\UI\LevelType.cs" />
+     <Compile Include="Assets\Project\Script\Model\UI\Panel\GameGlobalWindow\GameCheatPanel.cs" />
      <Compile Include="Assets\Project\Script\Model\UI\Panel\GameGlobalWindow\GameLoadingPanel.cs" />
      <Compile Include="Assets\Project\Script\Model\UI\Panel\GameGlobalWindow\GameSetPanel.cs" />
      <Compile Include="Assets\Project\Script\Model\UI\Panel\GameLoginWindow\GameLevelPanel.cs" />

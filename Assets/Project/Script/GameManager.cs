@@ -553,10 +553,10 @@ namespace Bird_VS_Boar
                     Debuger.LogError("窗口根节点丢失");
                     return;
                 }
-                StandardWindow gameSceneWindow = WindowRoot.GetSingleton().GetWindow("GameSceneWindow");
+                StandardWindow gameSceneWindow = WindowRoot.GetSingleton().GetWindow("GameSceneWindow");              
                 if (gameSceneWindow == null)
                 {
-                    Debuger.LogError("登入窗口实例不存在");
+                    Debuger.LogError("游戏窗口实例不存在");
                     return;
                 }
                 gameSceneWindow.SetState(EnumWindowState.Destroy, () =>//销毁游戏场景窗口
@@ -574,7 +574,17 @@ namespace Bird_VS_Boar
                             });                           
                         });
                     });
-                });                
+                });
+                StandardWindow gameGlobalWindow = WindowRoot.GetSingleton().GetWindow("GameGlobalWindow");
+                if (gameGlobalWindow == null)
+                {
+                    Debuger.LogError("全局窗口实例不存在");
+                    return;
+                }
+                if(gameGlobalWindow.GetPanel("GameCheatPanel",out GameCheatPanel gameCheatPanel))
+                {
+                    gameCheatPanel.SetState(EnumPanelState.Hide);
+                }
             },true);
             
         }
@@ -655,7 +665,7 @@ namespace Bird_VS_Boar
                     if (window.GetPanel("GameLoadingPanel", out GameLoadingPanel gameLoadingPanel))
                     {
                         //隔1秒隐藏
-                        ShareMono.GetSingleton().DelayAction(1, () =>
+                        ShareMono.GetSingleton().DelayAction(0, () =>
                         {
                             gameLoadingPanel.SetState(EnumPanelState.Hide, () =>
                             {

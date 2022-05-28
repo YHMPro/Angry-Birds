@@ -28,7 +28,7 @@ namespace Bird_VS_Boar
         {
             if (!m_IsReleaseSkill)
             {                
-                if (Input.GetMouseButtonDown(1))
+                if (Input.GetMouseButtonDown(0))
                 {
                     if (!WindowRoot.Exists)
                     {
@@ -57,11 +57,7 @@ namespace Bird_VS_Boar
             ShareMono.GetSingleton().RemoveUpdateAction(EnumUpdateAction.Standard,this. OnSkillUpdate_Common);
         }
         protected override void PlaySkillAudio()
-        {
-            //if (!BirdConfigInfo.BirdConfigInfoDic.TryGetValue(m_BirdType, out var config))
-            //{
-            //    return;
-            //}
+        {        
             PlayAudio(m_ConfigInfo.GetSkillAudioPaths());
         }
     }

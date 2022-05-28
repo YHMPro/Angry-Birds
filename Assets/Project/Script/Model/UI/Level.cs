@@ -205,7 +205,16 @@ namespace Bird_VS_Boar
                     GameManager.GameStart();
                 });          
             });
-           
+            StandardWindow gameGlobalWindow = WindowRoot.GetSingleton().GetWindow("GameGlobalWindow");
+            if (gameGlobalWindow == null)
+            {
+                Debuger.LogError("全局窗口实例不存在");
+                return;
+            }
+            if (gameGlobalWindow.GetPanel("GameCheatPanel", out GameCheatPanel gameCheatPanel))
+            {
+                gameCheatPanel.SetState(EnumPanelState.Show);
+            }
         }
         #endregion
     }

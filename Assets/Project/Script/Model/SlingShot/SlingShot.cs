@@ -118,7 +118,6 @@ namespace Bird_VS_Boar
             if (GetComponent("LeftRendererLine", out LineRenderer leftLR))
             {
                 leftLR.positionCount = 0;
-                Debuger.Log(leftLR.positionCount);
             }
             if (GetComponent("RightRendererLine", out LineRenderer rightLR))
             {
@@ -144,7 +143,7 @@ namespace Bird_VS_Boar
                 Camera2D.GetSingleton().BindBird();
             }
             GameLogic.NowComeBird.AddOnBirdFlyUpdate_Common();//添加小鸟飞行更新
-            GameLogic.NowComeBird.SetBirdFlyVelocity(ApplyingVelocity);//设置小鸟基于弹弓获得的初始速度
+            GameLogic.NowComeBird.Velocity=ApplyingVelocity;//设置小鸟基于弹弓获得的初始速度
             GameLogic.NowComeBird.IsFreeze_ZRotation = false;//解除小鸟Z轴选中冻结       
             //计算预瞄准点位置
             if (FlyPath.Exists)

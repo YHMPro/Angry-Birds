@@ -24,7 +24,7 @@ namespace Bird_VS_Boar
         GreenBird,
         LittleBlueBird
     }
-    public abstract class Bird : MonoBase,IBoom, IDiedAudio,IDied
+    public abstract class Bird : MonoBase,IBoom, IDiedAudio,IDied,IWeaken
     {
         public GameObject go => this.gameObject;
         /// <summary>
@@ -49,6 +49,7 @@ namespace Bird_VS_Boar
         /// 音效
         /// </summary>
         protected Audio m_Effect = null;
+        [SerializeField]
         /// <summary>
         /// 是否碰撞
         /// </summary>
@@ -57,6 +58,7 @@ namespace Bird_VS_Boar
         /// 是否能绑定鸟巢
         /// </summary>
         protected bool m_IsAbleBindBirdNets = false;
+        [SerializeField]
         /// <summary>
         /// 是否选中
         /// </summary>
@@ -96,7 +98,21 @@ namespace Bird_VS_Boar
         /// <summary>
         /// 射线检测的组
         /// </summary>
-        protected string[] rayCastGroup = new string[] { "Pig", "Barrier","Land" };      
+        protected string[] rayCastGroup = new string[] { "Pig", "Barrier","Land" };    
+        /// <summary>
+        /// 速度
+        /// </summary>
+        public Vector2 Velocity
+        {
+            set
+            {
+                m_Rig2D.velocity = value;
+            }
+            get
+            {
+                return m_Rig2D.velocity;
+            }
+        }
         /// <summary>
         /// 是否冻结Z轴选中
         /// </summary>
@@ -345,17 +361,7 @@ namespace Bird_VS_Boar
         {
 
         }
-        #endregion
-        #region Velocity
-        /// <summary>
-        /// 设置小鸟飞行速度
-        /// </summary>
-        /// <param name="velocity">速度</param>
-        public virtual void SetBirdFlyVelocity(Vector2 velocity)
-        {
-            m_Rig2D.velocity = velocity;
-        }      
-        #endregion
+        #endregion      
         #region Audio  
         /// <summary>
         /// 播放飞行音效

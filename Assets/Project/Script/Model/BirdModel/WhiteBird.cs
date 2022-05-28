@@ -56,7 +56,7 @@ namespace Bird_VS_Boar
                 float angle = Vector2.SignedAngle(Vector2.right, velocity.normalized);
                 angle += (i == 0) ? 15 : ((i == 1) ? 0 : -15);
                 velocity = new Vector2(Mathf.Cos(angle / 180.0f * Mathf.PI), Mathf.Sin(angle / 180.0f * Mathf.PI));
-                egg.SetBirdFlyVelocity(velocity * m_EggShootSpeed);           
+                egg.Velocity = velocity * m_EggShootSpeed;      
             }         
         }       
     }

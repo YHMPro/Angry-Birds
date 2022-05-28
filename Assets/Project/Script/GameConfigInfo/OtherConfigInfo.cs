@@ -105,6 +105,14 @@ namespace Bird_VS_Boar
         protected string[] m_StarAudioPaths;
         #endregion
         #region Prefab
+
+        #region 暂时先放这里获取
+        /// <summary>
+        /// 法杖预制路径
+        /// </summary>
+        protected string m_StaffPrefabPath;
+        #endregion
+
         /// <summary>
         /// 关卡类型预制路径
         /// </summary>
@@ -155,6 +163,7 @@ namespace Bird_VS_Boar
         public void InitConfigInfo()
         {
             m_CommonPath = GetType().Name + "/";
+            m_StaffPrefabPath = m_CommonPath + "Staff";
             m_LevelTypePrefabPath = m_CommonPath+ "LevelType";
             m_Camera2DPrefabPath = m_CommonPath+ "Camera2D";
             m_FlyPathPrefabPath = m_CommonPath+"FlyPath";
@@ -184,6 +193,11 @@ namespace Bird_VS_Boar
             
             
             #endregion
+        }
+
+        public string GetStaffPrefabPath()
+        {
+            return m_StaffPrefabPath;
         }
 
         public string GetLevelStartPigAudioPath()

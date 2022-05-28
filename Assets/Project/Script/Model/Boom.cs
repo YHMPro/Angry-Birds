@@ -13,7 +13,8 @@ namespace Bird_VS_Boar
     {
         None,
         PigBoom,
-        BirdBoom
+        BirdBoom,
+        BirdExplodeBoom
     }
     public class Boom : MonoBehaviour,IDied
     {

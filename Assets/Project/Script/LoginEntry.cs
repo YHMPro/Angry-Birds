@@ -62,6 +62,13 @@ namespace Bird_VS_Boar
                        
                     });
                 });
+                window.CreatePanel<GameCheatPanel>("UI/GameGlobalWindow/GameCheatPanel", "GameCheatPanel", EnumPanelLayer.BOTTOM, (panel) =>//加载面板
+                {
+                    panel.SetState(EnumPanelState.Hide, () =>
+                    {
+
+                    });
+                });
             });     
         }
 

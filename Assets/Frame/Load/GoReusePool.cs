@@ -33,8 +33,12 @@ namespace Farme
         {
             if (ReuseGoDic.TryGetValue(reuseGroup, out List<GameObject> goLi)&& goLi.Count>0)
             {            
-                GameObject go = goLi[0];              
+                GameObject go = goLi[0];                  
                 goLi.RemoveAt(0);
+                if (go == null)
+                {
+                    return null;
+                }
                 go.SetActive(true);
                 return go;
             }      
@@ -65,7 +69,10 @@ namespace Farme
             target.SetActive(false);
             if (ReuseGoDic.TryGetValue(reuseGroup, out List<GameObject> goLi))
             {
-                goLi.Add(target);
+                if (!goLi.Contains(target))
+                {
+                    goLi.Add(target);
+                }
                 return;
             }
             ReuseGoDic.Add(reuseGroup, new List<GameObject>() { target });
