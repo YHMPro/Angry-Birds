@@ -71,7 +71,7 @@ namespace Bird_VS_Boar
 
     }
     [Serializable]
-    public abstract class Barrier : MonoBase, IScore, IDiedAudio, IDied
+    public abstract class Barrier : MonoBase, IScore, IDiedAudio, IDied,IBoom
     {
         public GameObject go => this.gameObject;
         /// <summary>
@@ -282,7 +282,7 @@ namespace Bird_VS_Boar
         #region Boom
         public virtual void OpenBoom()
         {
-            Boom.OpenBoom(EnumBoomType.None,transform.position);                  
+            Boom.OpenBoom(EnumBoomType.PigBoom,transform.position);                  
         }
         #endregion
 

@@ -82,9 +82,10 @@ namespace Bird_VS_Boar
             m_StarText.text = starTotal.ToString();
             if (m_Bg.sprite == null)
             {
-                string[] data = ProjectTool.ParsingRESPath(SeasonConfigInfo.GetSeasonConfigInfo(m_GameLevelType).GetLevelTypeBGSpritePath());
-                m_Bg.sprite = AssetBundleLoad.LoadAsset<Sprite>(data[0], data[1]);
-                //m_Bg.sprite = ResourcesLoad.Load<Sprite>(SeasonConfigInfo.GetSeasonConfigInfo(m_GameLevelType).GetLevelTypeBGSpritePath(), true);
+                Debug.Log("AB包更改标记");
+                //string[] data = ProjectTool.ParsingRESPath(SeasonConfigInfo.GetSeasonConfigInfo(m_GameLevelType).GetLevelTypeBGSpritePath());
+                //m_Bg.sprite = AssetBundleLoad.LoadAsset<Sprite>(data[0], data[1]);
+                m_Bg.sprite = ResLoad.Load<Sprite>(SeasonConfigInfo.GetSeasonConfigInfo(m_GameLevelType).GetLevelTypeBGSpritePath());
             }       
         }
         #endregion

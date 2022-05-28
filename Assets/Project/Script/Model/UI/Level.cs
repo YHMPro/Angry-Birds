@@ -46,9 +46,10 @@ namespace Bird_VS_Boar
             {
                 if(m_StarsDefault == null)
                 {
-                    string[] data = ProjectTool.ParsingRESPath(GameManager.NowSeasonConfigInfo.GetStarDefaultSpritePath());
-                    m_StarsDefault=AssetBundleLoad.LoadAsset<Sprite>(data[0], data[1]);
-                    //m_StarsDefault = ResourcesLoad.Load<Sprite>(GameManager.NowSeasonConfigInfo.GetStarDefaultSpritePath(), true);              
+                    Debug.Log("AB包更改标记");
+                    //string[] data = ProjectTool.ParsingRESPath(GameManager.NowSeasonConfigInfo.GetStarDefaultSpritePath());
+                    //m_StarsDefault=AssetBundleLoad.LoadAsset<Sprite>(data[0], data[1]);
+                    m_StarsDefault = ResLoad.Load<Sprite>(GameManager.NowSeasonConfigInfo.GetStarDefaultSpritePath());              
                 }
                 return m_StarsDefault;
             }
@@ -66,9 +67,10 @@ namespace Bird_VS_Boar
             {
                 if (m_StarsFill == null)
                 {
-                    string[] data = ProjectTool.ParsingRESPath(GameManager.NowSeasonConfigInfo.GetStarFillSpritePath());
-                    m_StarsFill = AssetBundleLoad.LoadAsset<Sprite>(data[0], data[1]);
-                    //m_StarsFill = ResourcesLoad.Load<Sprite>(GameManager.NowSeasonConfigInfo.GetStarFillSpritePath(), true);               
+                    Debug.Log("AB包更改标记");
+                    //string[] data = ProjectTool.ParsingRESPath(GameManager.NowSeasonConfigInfo.GetStarFillSpritePath());
+                    //m_StarsFill = AssetBundleLoad.LoadAsset<Sprite>(data[0], data[1]);
+                    m_StarsFill = ResLoad.Load<Sprite>(GameManager.NowSeasonConfigInfo.GetStarFillSpritePath());               
                 }
                 return m_StarsFill;
             }
@@ -123,9 +125,10 @@ namespace Bird_VS_Boar
         private void RefreshUI()
         {
             #region 更新背景
-            string[] data = ProjectTool.ParsingRESPath(GameManager.NowSeasonConfigInfo.GetLevelBGSpritePath());
-            m_Img.sprite = AssetBundleLoad.LoadAsset<Sprite>(data[0], data[1]);
-            //m_Img.sprite = ResourcesLoad.Load<Sprite>(GameManager.NowSeasonConfigInfo.GetLevelBGSpritePath(), true);         
+            Debug.Log("AB包更改标记");
+            //string[] data = ProjectTool.ParsingRESPath(GameManager.NowSeasonConfigInfo.GetLevelBGSpritePath());
+            //m_Img.sprite = AssetBundleLoad.LoadAsset<Sprite>(data[0], data[1]);
+            m_Img.sprite = ResLoad.Load<Sprite>(GameManager.NowSeasonConfigInfo.GetLevelBGSpritePath());         
             #endregion
             #region 更新关卡所欲
             m_LevelIndex = 1;
@@ -140,9 +143,10 @@ namespace Bird_VS_Boar
                 Debuger.LogError("不存在此场景的配置:\n关卡类型:"+ GameManager.NowLevelType+"\n关卡索引:"+ m_LevelIndex);
                 return;
             }
-            data = ProjectTool.ParsingRESPath(GameManager.NowSeasonConfigInfo.GetLevelLockSpritePath());
-            m_LevelLock.sprite = AssetBundleLoad.LoadAsset<Sprite>(data[0], data[1]);
-            //m_LevelLock.sprite = ResourcesLoad.Load<Sprite>(GameManager.NowSeasonConfigInfo.GetLevelLockSpritePath(),true);
+            Debug.Log("AB包更改标记");
+            //data = ProjectTool.ParsingRESPath(GameManager.NowSeasonConfigInfo.GetLevelLockSpritePath());
+            //m_LevelLock.sprite = AssetBundleLoad.LoadAsset<Sprite>(data[0], data[1]);
+            m_LevelLock.sprite = ResLoad.Load<Sprite>(GameManager.NowSeasonConfigInfo.GetLevelLockSpritePath());
             m_LevelLock.gameObject.SetActive(!levelConfig.IsThrough);
             m_Btn.interactable = levelConfig.IsThrough;
             m_StarRect.gameObject.SetActive(levelConfig.IsThrough);

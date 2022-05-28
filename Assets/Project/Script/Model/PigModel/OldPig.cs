@@ -12,10 +12,5 @@ namespace Bird_VS_Boar
         }
 
 
-
-
-
-
-
     }
 }

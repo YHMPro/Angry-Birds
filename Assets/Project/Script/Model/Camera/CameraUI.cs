@@ -1,20 +1,15 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Farme;
 namespace Angry_Birds
 {
-    public class CameraUI : MonoBehaviour
+    public class CameraUI : MonoSingletonBase<CameraUI>
     {
-        // Start is called before the first frame update
-        void Start()
+        protected override void Awake()
         {
-
-        }
-
-        // Update is called once per frame
-        void Update()
-        {
-
+            base.Awake();
+            DontDestroyOnLoad(this.gameObject);
         }
     }
 }

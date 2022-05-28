@@ -613,8 +613,9 @@ namespace Bird_VS_Boar
                 ShareMono.GetSingleton().ClearLateUpdate();
                 #endregion
                 #region 清除通过Resources加载的资源缓存
-                AssetBundleLoad.UnLoadMainAB(true);
-                //ResourcesLoad.ClearAllCache();
+                Debug.Log("AB包更改标记");
+                //ssetBundleLoad.UnLoadMainAB(true);
+                //ResLoad.ClearAllCache();
                 #endregion
                 #region 清除通过AudioClipManager加载的音效缓存
                 if (OtherConfigInfo.Exists)
@@ -626,10 +627,42 @@ namespace Bird_VS_Boar
                 }               
                 #endregion                
                 GC.Collect();
+                //显示GameLoadingPanel
+                StandardWindow window = WindowRoot.GetSingleton().GetWindow("GameGlobalWindow");
+                if (window == null)
+                {
+                    Debuger.LogError("窗口GameGlobalWindow不存在");
+                    return;
+                }
+                if(window.GetPanel( "GameLoadingPanel", out GameLoadingPanel gameLoadingPanel) )
+                {
+                    gameLoadingPanel.SetState(EnumPanelState.Show, () =>
+                    {
+
+                    });
+                }         
             }, (result) => 
             {
                 if(result)
                 {
+                    //显示GameLoadingPanel
+                    StandardWindow window = WindowRoot.GetSingleton().GetWindow("GameGlobalWindow");
+                    if (window == null)
+                    {
+                        Debuger.LogError("窗口GameGlobalWindow不存在");
+                        return;
+                    }
+                    if (window.GetPanel("GameLoadingPanel", out GameLoadingPanel gameLoadingPanel))
+                    {
+                        //隔1秒隐藏
+                        ShareMono.GetSingleton().DelayAction(1, () =>
+                        {
+                            gameLoadingPanel.SetState(EnumPanelState.Hide, () =>
+                            {
+
+                            });
+                        });
+                    }
                     Debuger.Log("场景加载成功");
                     callback?.Invoke();
                 }

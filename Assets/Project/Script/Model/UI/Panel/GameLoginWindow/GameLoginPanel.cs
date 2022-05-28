@@ -47,7 +47,7 @@ namespace Bird_VS_Boar
                 {
 
                 });
-            });    
+            });
         }
         private void OnSet()
         {

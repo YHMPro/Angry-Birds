@@ -124,7 +124,7 @@ namespace Bird_VS_Boar
             base.Awake();
             m_ConfigInfo = BirdConfigInfo.GetBirdConfigInfo(m_BirdType);
             m_Sr =GetComponent<SpriteRenderer>();
-            m_CC2D = gameObject.AddComponent<CircleCollider2D>();
+            m_CC2D =GetComponent<CircleCollider2D>();
             m_Rig2D = GetComponent<Rigidbody2D>();
             m_Anim = GetComponent<Animator>();
             m_TRenderer = GetComponent<TrailRenderer>();
