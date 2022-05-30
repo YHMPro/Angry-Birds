@@ -53,7 +53,7 @@ namespace Bird_VS_Boar
             {
                 OtherConfigInfo otherConfigInfo = OtherConfigInfo.GetSingleton();
                 //加载关卡类型界面背景
-                Debug.Log("标记更改");
+                Debug.Log("更改标记");
                 string[] data = ProjectTool.ParsingRESPath(otherConfigInfo.GetLevelTypeInterfaceBGSpritePath());
                 m_Bg.sprite = AssetBundleLoad.LoadAsset<Sprite>(data[0], data[1]);
                 //m_Bg.sprite = ResLoad.Load<Sprite>(otherConfigInfo.GetLevelTypeInterfaceBGSpritePath());

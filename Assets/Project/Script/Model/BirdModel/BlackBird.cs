@@ -8,26 +8,15 @@ namespace Bird_VS_Boar
 {
     public class BlackBird : SkillBird
     {
+        private List<Rigidbody2D> m_BlownTarget = new List<Rigidbody2D>();
         /// <summary>
         /// 冲击波大小
         /// </summary>
-        private float m_ShockwareSize = 1.5f;
+        private float m_ShockwareSize = 5f;
         private float m_ExpandSize = 15f;
         private float m_RadiusMax = 1.5f;
         private float m_RadiusMin = 0.3f;
         [SerializeField]
-        private List<GameObject> m_DestroyGoLi = null;
-        private List<GameObject>  DestroyGoLi
-        {
-            get
-            {
-                if(m_DestroyGoLi==null)
-                {
-                    m_DestroyGoLi = new List<GameObject>();
-                }
-                return m_DestroyGoLi;
-            }
-        }
         private ContactFilter2D m_CFilter;
         private ContactPoint2D[] m_CPoints;
         protected override void Awake()
@@ -81,19 +70,25 @@ namespace Bird_VS_Boar
         private void ReleaseShockware()
         {
             int length = m_Rig2D.GetContacts(m_CFilter,m_CPoints);
-            Debug.Log("冲击波对象数量:" + length);
+            //Debug.Log("冲击波对象数量:" + length);
             Vector2 dir;
-            for(int i=0;i<length;i++)
+            Rigidbody2D rig2D;
+            for (int i=0;i<length;i++)
             {
-                Rigidbody2D rig2D = m_CPoints[i].rigidbody;
-                dir=(m_CPoints[i].point-(Vector2)transform.position).normalized;
-                rig2D.AddForceAtPosition(m_ShockwareSize * dir, m_CPoints[i].point, ForceMode2D.Impulse);
+                rig2D = m_CPoints[i].rigidbody;
+                if(!m_BlownTarget.Contains(rig2D))
+                {
+                    m_BlownTarget.Add(rig2D);
+                    dir = (m_CPoints[i].point - (Vector2)transform.position).normalized;
+                    rig2D.AddForceAtPosition(m_ShockwareSize * dir, m_CPoints[i].point, ForceMode2D.Impulse);
+                }               
             }
             float radius = m_CC2D.radius;
             radius += Time.deltaTime * m_ExpandSize;
             m_CC2D.radius = Mathf.Clamp(radius, m_RadiusMin, m_RadiusMax);
             if (m_CC2D.radius == m_RadiusMax)
             {
+                m_BlownTarget.Clear();
                 ShareMono.GetSingleton().RemoveUpdateAction(EnumUpdateAction.Standard, this.ReleaseShockware);
                 Died();//小鸟死亡          
             }

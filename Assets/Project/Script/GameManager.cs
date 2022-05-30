@@ -624,6 +624,7 @@ namespace Bird_VS_Boar
                 ShareMono.GetSingleton().ClearLateUpdate();
                 #endregion
                 #region 清除通过Resources加载的资源缓存
+                Debug.Log("清除缓存");
                 Debug.Log("更改标记");
                 //AssetBundleLoad.UnLoadMainAB(true);
                 //ResLoad.ClearAllCache();

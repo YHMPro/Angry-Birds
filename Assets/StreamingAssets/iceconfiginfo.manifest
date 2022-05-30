@@ -1,5 +1,5 @@
 ManifestFileVersion: 0
-CRC: 3501217350
+CRC: 786094468
 Hashes:
   AssetFileHash:
     serializedVersion: 2
@@ -37,15 +37,15 @@ ClassTypes:
   Script: {instanceID: 0}
 SerializeReferenceClassIdentifiers: []
 Assets:
-- Assets/_Resources/BarrierConfigInfo/IceConfigInfo/Long_RectangleBarrier.prefab
-- Assets/_Resources/BarrierConfigInfo/IceConfigInfo/Broken2.mp3
-- Assets/_Resources/BarrierConfigInfo/IceConfigInfo/Short_RectangleBarrier.prefab
-- Assets/_Resources/BarrierConfigInfo/IceConfigInfo/HollowSquareBarrier.prefab
-- Assets/_Resources/BarrierConfigInfo/IceConfigInfo/SolidTriangleBarrier.prefab
-- Assets/_Resources/BarrierConfigInfo/IceConfigInfo/HollowTriangleBarrier.prefab
-- Assets/_Resources/BarrierConfigInfo/IceConfigInfo/De1.mp3
-- Assets/_Resources/BarrierConfigInfo/IceConfigInfo/CircleBarrier.prefab
-- Assets/_Resources/BarrierConfigInfo/IceConfigInfo/Broken1.mp3
-- Assets/_Resources/BarrierConfigInfo/IceConfigInfo/SolidSquareBarrier.prefab
+- Assets/AssetsBundleRes/BarrierConfigInfo/IceConfigInfo/Long_RectangleBarrier.prefab
+- Assets/AssetsBundleRes/BarrierConfigInfo/IceConfigInfo/Broken2.mp3
+- Assets/AssetsBundleRes/BarrierConfigInfo/IceConfigInfo/Short_RectangleBarrier.prefab
+- Assets/AssetsBundleRes/BarrierConfigInfo/IceConfigInfo/HollowSquareBarrier.prefab
+- Assets/AssetsBundleRes/BarrierConfigInfo/IceConfigInfo/SolidTriangleBarrier.prefab
+- Assets/AssetsBundleRes/BarrierConfigInfo/IceConfigInfo/HollowTriangleBarrier.prefab
+- Assets/AssetsBundleRes/BarrierConfigInfo/IceConfigInfo/De1.mp3
+- Assets/AssetsBundleRes/BarrierConfigInfo/IceConfigInfo/CircleBarrier.prefab
+- Assets/AssetsBundleRes/BarrierConfigInfo/IceConfigInfo/Broken1.mp3
+- Assets/AssetsBundleRes/BarrierConfigInfo/IceConfigInfo/SolidSquareBarrier.prefab
 Dependencies:
 - S:/UnityPro2019.3.7f1/Project2/Angry-Birds/AssetBundles/StandaloneWindows/barrierconfiginfo

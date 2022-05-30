@@ -1,5 +1,5 @@
 ManifestFileVersion: 0
-CRC: 217068149
+CRC: 2922378113
 Hashes:
   AssetFileHash:
     serializedVersion: 2
@@ -37,12 +37,12 @@ ClassTypes:
   Script: {instanceID: 0}
 SerializeReferenceClassIdentifiers: []
 Assets:
-- Assets/_Resources/BirdConfigInfo/GreenBirdConfigInfo/Fly1.mp3
-- Assets/_Resources/BirdConfigInfo/GreenBirdConfigInfo/Co4.mp3
-- Assets/_Resources/BirdConfigInfo/GreenBirdConfigInfo/Select1.mp3
-- Assets/_Resources/BirdConfigInfo/GreenBirdConfigInfo/Co3.mp3
-- Assets/_Resources/BirdConfigInfo/GreenBirdConfigInfo/Bird.prefab
-- Assets/_Resources/BirdConfigInfo/GreenBirdConfigInfo/Co2.mp3
-- Assets/_Resources/BirdConfigInfo/GreenBirdConfigInfo/Co1.mp3
+- Assets/AssetsBundleRes/BirdConfigInfo/GreenBirdConfigInfo/Fly1.mp3
+- Assets/AssetsBundleRes/BirdConfigInfo/GreenBirdConfigInfo/Co4.mp3
+- Assets/AssetsBundleRes/BirdConfigInfo/GreenBirdConfigInfo/Select1.mp3
+- Assets/AssetsBundleRes/BirdConfigInfo/GreenBirdConfigInfo/Co3.mp3
+- Assets/AssetsBundleRes/BirdConfigInfo/GreenBirdConfigInfo/Bird.prefab
+- Assets/AssetsBundleRes/BirdConfigInfo/GreenBirdConfigInfo/Co2.mp3
+- Assets/AssetsBundleRes/BirdConfigInfo/GreenBirdConfigInfo/Co1.mp3
 Dependencies:
 - S:/UnityPro2019.3.7f1/Project2/Angry-Birds/AssetBundles/StandaloneWindows/commonres

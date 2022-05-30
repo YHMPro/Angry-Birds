@@ -1,5 +1,5 @@
 ManifestFileVersion: 0
-CRC: 1728035973
+CRC: 3498970573
 Hashes:
   AssetFileHash:
     serializedVersion: 2
@@ -37,15 +37,15 @@ ClassTypes:
   Script: {instanceID: 0}
 SerializeReferenceClassIdentifiers: []
 Assets:
-- Assets/_Resources/BarrierConfigInfo/RockConfigInfo/Broken2.mp3
-- Assets/_Resources/BarrierConfigInfo/RockConfigInfo/Long_RectangleBarrier.prefab
-- Assets/_Resources/BarrierConfigInfo/RockConfigInfo/HollowSquareBarrier.prefab
-- Assets/_Resources/BarrierConfigInfo/RockConfigInfo/Short_RectangleBarrier.prefab
-- Assets/_Resources/BarrierConfigInfo/RockConfigInfo/Broken1.mp3
-- Assets/_Resources/BarrierConfigInfo/RockConfigInfo/SolidTriangleBarrier.prefab
-- Assets/_Resources/BarrierConfigInfo/RockConfigInfo/CircleBarrier.prefab
-- Assets/_Resources/BarrierConfigInfo/RockConfigInfo/HollowTriangleBarrier.prefab
-- Assets/_Resources/BarrierConfigInfo/RockConfigInfo/De1.mp3
-- Assets/_Resources/BarrierConfigInfo/RockConfigInfo/SolidSquareBarrier.prefab
+- Assets/AssetsBundleRes/BarrierConfigInfo/RockConfigInfo/Broken2.mp3
+- Assets/AssetsBundleRes/BarrierConfigInfo/RockConfigInfo/Long_RectangleBarrier.prefab
+- Assets/AssetsBundleRes/BarrierConfigInfo/RockConfigInfo/HollowSquareBarrier.prefab
+- Assets/AssetsBundleRes/BarrierConfigInfo/RockConfigInfo/Short_RectangleBarrier.prefab
+- Assets/AssetsBundleRes/BarrierConfigInfo/RockConfigInfo/Broken1.mp3
+- Assets/AssetsBundleRes/BarrierConfigInfo/RockConfigInfo/SolidTriangleBarrier.prefab
+- Assets/AssetsBundleRes/BarrierConfigInfo/RockConfigInfo/CircleBarrier.prefab
+- Assets/AssetsBundleRes/BarrierConfigInfo/RockConfigInfo/HollowTriangleBarrier.prefab
+- Assets/AssetsBundleRes/BarrierConfigInfo/RockConfigInfo/De1.mp3
+- Assets/AssetsBundleRes/BarrierConfigInfo/RockConfigInfo/SolidSquareBarrier.prefab
 Dependencies:
 - S:/UnityPro2019.3.7f1/Project2/Angry-Birds/AssetBundles/StandaloneWindows/barrierconfiginfo

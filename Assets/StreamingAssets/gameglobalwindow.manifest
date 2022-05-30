@@ -1,5 +1,5 @@
 ManifestFileVersion: 0
-CRC: 1759697025
+CRC: 185432699
 Hashes:
   AssetFileHash:
     serializedVersion: 2
@@ -45,8 +45,8 @@ ClassTypes:
   Script: {instanceID: 0}
 SerializeReferenceClassIdentifiers: []
 Assets:
-- Assets/_Resources/UI/GameGlobalWindow/GameLoadingPanel.prefab
-- Assets/_Resources/UI/GameGlobalWindow/GameSetPanel.prefab
-- Assets/_Resources/UI/GameGlobalWindow/GameCheatPanel.prefab
+- Assets/AssetsBundleRes/UI/GameGlobalWindow/GameLoadingPanel.prefab
+- Assets/AssetsBundleRes/UI/GameGlobalWindow/GameSetPanel.prefab
+- Assets/AssetsBundleRes/UI/GameGlobalWindow/GameCheatPanel.prefab
 Dependencies:
 - S:/UnityPro2019.3.7f1/Project2/Angry-Birds/AssetBundles/StandaloneWindows/commonres

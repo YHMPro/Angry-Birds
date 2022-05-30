@@ -1,5 +1,5 @@
 ManifestFileVersion: 0
-CRC: 3733181012
+CRC: 1468031471
 Hashes:
   AssetFileHash:
     serializedVersion: 2
@@ -37,20 +37,20 @@ ClassTypes:
   Script: {instanceID: 0}
 SerializeReferenceClassIdentifiers: []
 Assets:
-- Assets/_Resources/BirdConfigInfo/PinkBirdConfigInfo/Bird.prefab
-- Assets/_Resources/BirdConfigInfo/PinkBirdConfigInfo/Co1.mp3
-- Assets/_Resources/BirdConfigInfo/PinkBirdConfigInfo/Skill3.mp3
-- Assets/_Resources/BirdConfigInfo/PinkBirdConfigInfo/Co4.mp3
-- Assets/_Resources/BirdConfigInfo/PinkBirdConfigInfo/Select1.mp3
-- Assets/_Resources/BirdConfigInfo/PinkBirdConfigInfo/Co2.mp3
-- Assets/_Resources/BirdConfigInfo/PinkBirdConfigInfo/Select3.mp3
-- Assets/_Resources/BirdConfigInfo/PinkBirdConfigInfo/Fly1.mp3
-- Assets/_Resources/BirdConfigInfo/PinkBirdConfigInfo/Fly3.mp3
-- Assets/_Resources/BirdConfigInfo/PinkBirdConfigInfo/Skill1.mp3
-- Assets/_Resources/BirdConfigInfo/PinkBirdConfigInfo/Skill2.mp3
-- Assets/_Resources/BirdConfigInfo/PinkBirdConfigInfo/Select2.mp3
-- Assets/_Resources/BirdConfigInfo/PinkBirdConfigInfo/Co5.mp3
-- Assets/_Resources/BirdConfigInfo/PinkBirdConfigInfo/Fly2.mp3
-- Assets/_Resources/BirdConfigInfo/PinkBirdConfigInfo/Co3.mp3
+- Assets/AssetsBundleRes/BirdConfigInfo/PinkBirdConfigInfo/Bird.prefab
+- Assets/AssetsBundleRes/BirdConfigInfo/PinkBirdConfigInfo/Co1.mp3
+- Assets/AssetsBundleRes/BirdConfigInfo/PinkBirdConfigInfo/Skill3.mp3
+- Assets/AssetsBundleRes/BirdConfigInfo/PinkBirdConfigInfo/Co4.mp3
+- Assets/AssetsBundleRes/BirdConfigInfo/PinkBirdConfigInfo/Select1.mp3
+- Assets/AssetsBundleRes/BirdConfigInfo/PinkBirdConfigInfo/Co2.mp3
+- Assets/AssetsBundleRes/BirdConfigInfo/PinkBirdConfigInfo/Select3.mp3
+- Assets/AssetsBundleRes/BirdConfigInfo/PinkBirdConfigInfo/Fly1.mp3
+- Assets/AssetsBundleRes/BirdConfigInfo/PinkBirdConfigInfo/Fly3.mp3
+- Assets/AssetsBundleRes/BirdConfigInfo/PinkBirdConfigInfo/Skill1.mp3
+- Assets/AssetsBundleRes/BirdConfigInfo/PinkBirdConfigInfo/Skill2.mp3
+- Assets/AssetsBundleRes/BirdConfigInfo/PinkBirdConfigInfo/Select2.mp3
+- Assets/AssetsBundleRes/BirdConfigInfo/PinkBirdConfigInfo/Co5.mp3
+- Assets/AssetsBundleRes/BirdConfigInfo/PinkBirdConfigInfo/Fly2.mp3
+- Assets/AssetsBundleRes/BirdConfigInfo/PinkBirdConfigInfo/Co3.mp3
 Dependencies:
 - S:/UnityPro2019.3.7f1/Project2/Angry-Birds/AssetBundles/StandaloneWindows/commonres

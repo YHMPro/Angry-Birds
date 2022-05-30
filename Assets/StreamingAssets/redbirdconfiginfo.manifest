@@ -1,5 +1,5 @@
 ManifestFileVersion: 0
-CRC: 1638800351
+CRC: 1493083945
 Hashes:
   AssetFileHash:
     serializedVersion: 2
@@ -37,8 +37,8 @@ ClassTypes:
   Script: {instanceID: 0}
 SerializeReferenceClassIdentifiers: []
 Assets:
-- Assets/_Resources/BirdConfigInfo/RedBirdConfigInfo/Select1.mp3
-- Assets/_Resources/BirdConfigInfo/RedBirdConfigInfo/Bird.prefab
-- Assets/_Resources/BirdConfigInfo/RedBirdConfigInfo/Fly1.mp3
+- Assets/AssetsBundleRes/BirdConfigInfo/RedBirdConfigInfo/Select1.mp3
+- Assets/AssetsBundleRes/BirdConfigInfo/RedBirdConfigInfo/Bird.prefab
+- Assets/AssetsBundleRes/BirdConfigInfo/RedBirdConfigInfo/Fly1.mp3
 Dependencies:
 - S:/UnityPro2019.3.7f1/Project2/Angry-Birds/AssetBundles/StandaloneWindows/commonres

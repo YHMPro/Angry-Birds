@@ -1,5 +1,5 @@
 ManifestFileVersion: 0
-CRC: 269186565
+CRC: 1693438632
 Hashes:
   AssetFileHash:
     serializedVersion: 2
@@ -15,8 +15,8 @@ ClassTypes:
   Script: {instanceID: 0}
 SerializeReferenceClassIdentifiers: []
 Assets:
-- Assets/angrybirdspng/INGAME_BIRDS_2.png
-- Assets/angrybirdspng/INGAME_PIGSDAY_1.png
-- Assets/angrybirdspng/BUTTONS_SHEET_1.png
-- Assets/angrybirdspng/INGAME_BIRDS_1.png
+- Assets/Res/angrybirdspng/INGAME_BIRDS_2.png
+- Assets/Res/angrybirdspng/INGAME_PIGSDAY_1.png
+- Assets/Res/angrybirdspng/BUTTONS_SHEET_1.png
+- Assets/Res/angrybirdspng/INGAME_BIRDS_1.png
 Dependencies: []

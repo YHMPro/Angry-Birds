@@ -1,5 +1,5 @@
 ManifestFileVersion: 0
-CRC: 1891364663
+CRC: 817402003
 Hashes:
   AssetFileHash:
     serializedVersion: 2
@@ -39,8 +39,8 @@ ClassTypes:
   Script: {instanceID: 0}
 SerializeReferenceClassIdentifiers: []
 Assets:
-- Assets/_Resources/PigConfigInfo/OldPigConfigInfo/Pig.prefab
-- Assets/_Resources/PigConfigInfo/OldPigConfigInfo/Hurt2.mp3
-- Assets/_Resources/PigConfigInfo/OldPigConfigInfo/Hurt1.mp3
+- Assets/AssetsBundleRes/PigConfigInfo/OldPigConfigInfo/Pig.prefab
+- Assets/AssetsBundleRes/PigConfigInfo/OldPigConfigInfo/Hurt2.mp3
+- Assets/AssetsBundleRes/PigConfigInfo/OldPigConfigInfo/Hurt1.mp3
 Dependencies:
 - S:/UnityPro2019.3.7f1/Project2/Angry-Birds/AssetBundles/StandaloneWindows/commonres

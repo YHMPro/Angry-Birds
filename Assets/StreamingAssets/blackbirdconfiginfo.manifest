@@ -1,5 +1,5 @@
 ManifestFileVersion: 0
-CRC: 2263270943
+CRC: 408395000
 Hashes:
   AssetFileHash:
     serializedVersion: 2
@@ -37,17 +37,17 @@ ClassTypes:
   Script: {instanceID: 0}
 SerializeReferenceClassIdentifiers: []
 Assets:
-- Assets/_Resources/BirdConfigInfo/BlackBirdConfigInfo/Select1.mp3
-- Assets/_Resources/BirdConfigInfo/BlackBirdConfigInfo/Co2.mp3
-- Assets/_Resources/BirdConfigInfo/BlackBirdConfigInfo/Bird.prefab
-- Assets/_Resources/BirdConfigInfo/BlackBirdConfigInfo/Co4.mp3
-- Assets/Animator/Bird/BirdBlack/Animator/BlackBirdDefault.anim
-- Assets/_Resources/BirdConfigInfo/BlackBirdConfigInfo/Fly1.mp3
-- Assets/Animator/Bird/BirdBlack/Animator/BlackBirdFly.anim
-- Assets/Animator/Bird/BirdBlack/Animator/BlackBird.controller
-- Assets/_Resources/BirdConfigInfo/BlackBirdConfigInfo/Co1.mp3
-- Assets/_Resources/BirdConfigInfo/BlackBirdConfigInfo/Co3.mp3
-- Assets/_Resources/BirdConfigInfo/BlackBirdConfigInfo/Skill1.mp3
-- Assets/Animator/Bird/BirdBlack/Animator/BlackBirdSkill.anim
+- Assets/AssetsBundleRes/BirdConfigInfo/BlackBirdConfigInfo/Select1.mp3
+- Assets/AssetsBundleRes/BirdConfigInfo/BlackBirdConfigInfo/Co2.mp3
+- Assets/AssetsBundleRes/BirdConfigInfo/BlackBirdConfigInfo/Bird.prefab
+- Assets/AssetsBundleRes/BirdConfigInfo/BlackBirdConfigInfo/Co4.mp3
+- Assets/AssetsBundleRes/Animator/Bird/BirdBlack/Animator/BlackBirdDefault.anim
+- Assets/AssetsBundleRes/BirdConfigInfo/BlackBirdConfigInfo/Fly1.mp3
+- Assets/AssetsBundleRes/Animator/Bird/BirdBlack/Animator/BlackBirdFly.anim
+- Assets/AssetsBundleRes/Animator/Bird/BirdBlack/Animator/BlackBird.controller
+- Assets/AssetsBundleRes/BirdConfigInfo/BlackBirdConfigInfo/Co1.mp3
+- Assets/AssetsBundleRes/BirdConfigInfo/BlackBirdConfigInfo/Co3.mp3
+- Assets/AssetsBundleRes/BirdConfigInfo/BlackBirdConfigInfo/Skill1.mp3
+- Assets/AssetsBundleRes/Animator/Bird/BirdBlack/Animator/BlackBirdSkill.anim
 Dependencies:
 - S:/UnityPro2019.3.7f1/Project2/Angry-Birds/AssetBundles/StandaloneWindows/commonres

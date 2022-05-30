@@ -1,5 +1,5 @@
 ManifestFileVersion: 0
-CRC: 2041017575
+CRC: 3925829995
 Hashes:
   AssetFileHash:
     serializedVersion: 2
@@ -33,11 +33,11 @@ ClassTypes:
   Script: {instanceID: 0}
 SerializeReferenceClassIdentifiers: []
 Assets:
-- Assets/_Resources/SeasonConfigInfo/AutumnConfigInfo/BG.png
-- Assets/_Resources/SeasonConfigInfo/AutumnConfigInfo/LevelTyoeBG.png
-- Assets/_Resources/SeasonConfigInfo/AutumnConfigInfo/LevelBg.png
-- Assets/angrybirdspng/Res/THEME_05_THEME_5.png
-- Assets/_Resources/SeasonConfigInfo/AutumnConfigInfo/LevelBGM.mp3
-- Assets/_Resources/SeasonConfigInfo/AutumnConfigInfo/SeasonBGM.mp3
-- Assets/_Resources/SeasonConfigInfo/AutumnConfigInfo/Map.prefab
+- Assets/AssetsBundleRes/SeasonConfigInfo/AutumnConfigInfo/BG.png
+- Assets/AssetsBundleRes/SeasonConfigInfo/AutumnConfigInfo/LevelTyoeBG.png
+- Assets/AssetsBundleRes/SeasonConfigInfo/AutumnConfigInfo/LevelBg.png
+- Assets/Res/angrybirdspng/Res/THEME_05_THEME_5.png
+- Assets/AssetsBundleRes/SeasonConfigInfo/AutumnConfigInfo/LevelBGM.mp3
+- Assets/AssetsBundleRes/SeasonConfigInfo/AutumnConfigInfo/SeasonBGM.mp3
+- Assets/AssetsBundleRes/SeasonConfigInfo/AutumnConfigInfo/Map.prefab
 Dependencies: []

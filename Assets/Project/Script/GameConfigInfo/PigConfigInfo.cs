@@ -47,6 +47,14 @@ namespace Bird_VS_Boar
             return pigConfigInfo;
         }
         /// <summary>
+        /// 质量
+        /// </summary>
+        protected float m_Mass = 0;
+        /// <summary>
+        /// 质量
+        /// </summary>
+        public float Mass => m_Mass;
+        /// <summary>
         /// 排序层级
         /// </summary>
         protected int m_OrderInLayer = 0;
@@ -139,6 +147,7 @@ namespace Bird_VS_Boar
         protected override void InitConfigInfo()
         {
             base.InitConfigInfo();
+            m_Mass = 1.2f;
             m_PigHurtAudioPath = CreateGroup("Hurt", 2);
         }
     }
@@ -158,6 +167,8 @@ namespace Bird_VS_Boar
         protected override void InitConfigInfo()
         {
             base.InitConfigInfo();
+            m_Mass = 1.5f;
+
             m_PigHurtAudioPath = CreateGroup("Hurt", 2);
         }
     }
@@ -177,6 +188,8 @@ namespace Bird_VS_Boar
         protected override void InitConfigInfo()
         {
             base.InitConfigInfo();
+            m_Mass = 1.8f;
+
             m_PigHurtAudioPath = CreateGroup("Hurt", 2);
         }
     }

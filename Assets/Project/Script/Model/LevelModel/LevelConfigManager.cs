@@ -112,7 +112,7 @@ namespace Bird_VS_Boar.LevelConfig
                 return;
             }
             string json = File.ReadAllText(m_FilePath, System.Text.Encoding.UTF8);
-            Debuger.Log("配置表数据:" + json);
+            Debuger.Log("读取配置表数据:" + json);
             m_LevelConfigDic = JsonConvert.DeserializeObject<Dictionary<string, LevelConfig>>(json);
         }
     }

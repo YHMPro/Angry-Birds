@@ -1,5 +1,5 @@
 ManifestFileVersion: 0
-CRC: 3380269190
+CRC: 1623520810
 Hashes:
   AssetFileHash:
     serializedVersion: 2
@@ -37,14 +37,14 @@ ClassTypes:
   Script: {instanceID: 0}
 SerializeReferenceClassIdentifiers: []
 Assets:
-- Assets/_Resources/BirdConfigInfo/WhiteBirdConfigInfo/Co4.mp3
-- Assets/_Resources/BirdConfigInfo/WhiteBirdConfigInfo/Bird.prefab
-- Assets/_Resources/BirdConfigInfo/WhiteBirdConfigInfo/Co5.mp3
-- Assets/_Resources/BirdConfigInfo/WhiteBirdConfigInfo/Co1.mp3
-- Assets/_Resources/BirdConfigInfo/WhiteBirdConfigInfo/Fly1.mp3
-- Assets/_Resources/BirdConfigInfo/WhiteBirdConfigInfo/Co2.mp3
-- Assets/_Resources/BirdConfigInfo/WhiteBirdConfigInfo/Skill1.mp3
-- Assets/_Resources/BirdConfigInfo/WhiteBirdConfigInfo/Select1.mp3
-- Assets/_Resources/BirdConfigInfo/WhiteBirdConfigInfo/Co3.mp3
+- Assets/AssetsBundleRes/BirdConfigInfo/WhiteBirdConfigInfo/Co4.mp3
+- Assets/AssetsBundleRes/BirdConfigInfo/WhiteBirdConfigInfo/Bird.prefab
+- Assets/AssetsBundleRes/BirdConfigInfo/WhiteBirdConfigInfo/Co5.mp3
+- Assets/AssetsBundleRes/BirdConfigInfo/WhiteBirdConfigInfo/Co1.mp3
+- Assets/AssetsBundleRes/BirdConfigInfo/WhiteBirdConfigInfo/Fly1.mp3
+- Assets/AssetsBundleRes/BirdConfigInfo/WhiteBirdConfigInfo/Co2.mp3
+- Assets/AssetsBundleRes/BirdConfigInfo/WhiteBirdConfigInfo/Skill1.mp3
+- Assets/AssetsBundleRes/BirdConfigInfo/WhiteBirdConfigInfo/Select1.mp3
+- Assets/AssetsBundleRes/BirdConfigInfo/WhiteBirdConfigInfo/Co3.mp3
 Dependencies:
 - S:/UnityPro2019.3.7f1/Project2/Angry-Birds/AssetBundles/StandaloneWindows/commonres

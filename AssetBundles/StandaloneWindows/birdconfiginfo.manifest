@@ -1,5 +1,5 @@
 ManifestFileVersion: 0
-CRC: 1447727703
+CRC: 3172048866
 Hashes:
   AssetFileHash:
     serializedVersion: 2
@@ -13,5 +13,5 @@ ClassTypes:
   Script: {instanceID: 0}
 SerializeReferenceClassIdentifiers: []
 Assets:
-- Assets/_Resources/BirdConfigInfo/De1.mp3
+- Assets/AssetsBundleRes/BirdConfigInfo/De1.mp3
 Dependencies: []
