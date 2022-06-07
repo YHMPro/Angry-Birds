@@ -389,7 +389,8 @@ namespace Farme
         /// <returns>是否存在</returns>
         private static bool FileExists(string filePath)
         {
-            if(File.Exists(filePath))
+            return true;
+            if (File.Exists(filePath))
             {
                 return true;
             }

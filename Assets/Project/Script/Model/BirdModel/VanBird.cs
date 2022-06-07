@@ -50,7 +50,7 @@ namespace Bird_VS_Boar
                 {                  
                     PlaySkillAudio();
                     Vector3 dir = (movePos - transform.position).normalized;                   
-                    m_Rig2D.velocity = dir * 15.0f;
+                    m_Rig2D.velocity = dir * 20f;
                     ShareMono.GetSingleton().RemoveUpdateAction(EnumUpdateAction.Standard,AimControlUpdate);
                     m_AimTran.gameObject.SetActive(false);
                 }

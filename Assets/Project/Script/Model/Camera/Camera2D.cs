@@ -13,7 +13,7 @@ namespace Bird_VS_Boar
         private float m_XMin = 3;
         private float m_YMin = 4;
         private float m_XMax = 5;
-        private float m_YMax = 5;
+        private float m_YMax = 4;
         protected override void Awake()
         {
             base.Awake();
@@ -36,15 +36,15 @@ namespace Bird_VS_Boar
         protected override  void Start()
         {
             base.Start();
-            ShareMono.GetSingleton().ApplyUpdateAction(EnumUpdateAction.Fixed, Follow);//暂时放在这里
-            SetLimit(6, 10, 4.5f, 7.5f);
+            ShareMono.GetSingleton().ApplyUpdateAction(EnumUpdateAction.Late, Follow);//暂时放在这里
+            SetLimit(6f, 15, 4.5f, 6.5f);
         }
 
         protected override void OnDestroy()
         {
             if (ShareMono.Exists)
             {
-                ShareMono.GetSingleton().RemoveUpdateAction(EnumUpdateAction.Fixed, Follow);//暂时放在这里
+                ShareMono.GetSingleton().RemoveUpdateAction(EnumUpdateAction.Late, Follow);//暂时放在这里
             }
         }
         public void BindBird()
@@ -85,7 +85,7 @@ namespace Bird_VS_Boar
         }
         public void BreakBird()
         {
-            ShareMono.GetSingleton().RemoveUpdateAction(EnumUpdateAction.Fixed,Follow);
+            ShareMono.GetSingleton().RemoveUpdateAction(EnumUpdateAction.Late, Follow);
         }
         public Vector3 ScreenToWorldPoint(Vector3 vector3,float z=0)
         {

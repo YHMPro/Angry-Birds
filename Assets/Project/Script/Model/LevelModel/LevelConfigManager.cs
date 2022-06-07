@@ -5,6 +5,8 @@ using System.IO;
 using UnityEngine;
 using Farme.Tool;
 using System.Text.RegularExpressions;
+using Farme;
+using System.Text;
 namespace Bird_VS_Boar.LevelConfig
 {
     /// <summary>
@@ -13,7 +15,15 @@ namespace Bird_VS_Boar.LevelConfig
     public class LevelConfigManager 
     {
         private static Dictionary<string, LevelConfig> m_LevelConfigDic = new Dictionary<string, LevelConfig>();
-        private static string m_FilePath = Application.streamingAssetsPath + "/" + "LevelConfig.json";
+        public static string m_FilePath = null;
+        public static string FilePath
+        {
+            get
+            {
+                return m_FilePath;
+            }
+            set { m_FilePath = value; }
+        }
         /// <summary>
         /// 获取关卡类型中的关卡数量
         /// </summary>
@@ -79,14 +89,12 @@ namespace Bird_VS_Boar.LevelConfig
         {          
             string json = JsonConvert.SerializeObject(m_LevelConfigDic);
             Debuger.Log("保存后配置表数据:" + json);
-            if (!File.Exists(m_FilePath))
+            FileInfo fileInfo = new FileInfo(m_FilePath);
+            using(FileStream fs= fileInfo.Exists? fileInfo.OpenWrite(): fileInfo.Create())
             {
-                File.Create(m_FilePath);
-            }
-            else
-            {
-                File.WriteAllText(m_FilePath, json, System.Text.Encoding.UTF8);
-            }     
+                byte[] data=Encoding.UTF8.GetBytes(json);
+                fs.Write(data, 0, data.Length);
+            }          
         }
         /// <summary>
         /// 获取关卡配置信息
@@ -106,13 +114,23 @@ namespace Bird_VS_Boar.LevelConfig
         /// </summary>
         public static void ReadConfigTableData()
         {
+            string json;
             if (!File.Exists(m_FilePath))
             {
-                Debuger.Log("配置文件不存在");
-                return;
+                json = AssetBundleLoad.LoadAsset<TextAsset>("config", "LevelConfig").text;
+                Debuger.Log("从AB包读取配置表数据:" + json);
             }
-            string json = File.ReadAllText(m_FilePath, System.Text.Encoding.UTF8);
-            Debuger.Log("读取配置表数据:" + json);
+            else 
+            {
+                FileInfo fileInfo = new FileInfo(m_FilePath);
+                using (FileStream fs = fileInfo.OpenRead())
+                {
+                    byte[] data = new byte[fs.Length];
+                    int length = fs.Read(data, 0, data.Length);
+                    json = Encoding.UTF8.GetString(data, 0, length);
+                    Debuger.Log("从本地读取配置表数据:" + json);
+                }
+            }        
             m_LevelConfigDic = JsonConvert.DeserializeObject<Dictionary<string, LevelConfig>>(json);
         }
     }

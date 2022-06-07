@@ -1,0 +1,23 @@
+ManifestFileVersion: 0
+CRC: 2326524147
+Hashes:
+  AssetFileHash:
+    serializedVersion: 2
+    Hash: 8e59ed0228726ed4a5c4f1db815a4d4e
+  TypeTreeHash:
+    serializedVersion: 2
+    Hash: 22357172b8cea85847937e8f62d0c077
+HashAppended: 0
+ClassTypes:
+- Class: 21
+  Script: {instanceID: 0}
+- Class: 28
+  Script: {instanceID: 0}
+- Class: 48
+  Script: {instanceID: 0}
+SerializeReferenceClassIdentifiers: []
+Assets:
+- Assets/AssetsBundleRes/Materials/LR.mat
+- Assets/AssetsBundleRes/Materials/Tail.mat
+- Assets/AssetsBundleRes/Materials/star.mat
+Dependencies: []

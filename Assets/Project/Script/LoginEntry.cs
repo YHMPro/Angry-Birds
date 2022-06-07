@@ -13,21 +13,13 @@ namespace Bird_VS_Boar
     {
         private void Awake()
         {
-            //Debuger.Enable = false;
-
-            AssetBundleLoad.PackageCatalogueFile_URL = Application.streamingAssetsPath+"\\";
-            AssetBundleLoad.MainABName = "StandaloneWindows";
-            LevelConfigManager.ReadConfigTableData();//读取配置表数据
-            _=ShareMono.GetSingleton();
-            //MonoSingletonFactory<DataManager>.GetSingleton(null, false);
+            AssetBundleLoad.MainABName = "Android";
+            AssetBundleLoad.PackageCatalogueFile_URL = Application.streamingAssetsPath+"/";
+            LevelConfigManager.FilePath = Application.persistentDataPath + "/LevelConfig.json";
+            LevelConfigManager.ReadConfigTableData();//读取配置表数据                                              
+            _ =ShareMono.GetSingleton();
             OtherConfigInfo.GetSingleton().InitConfigInfo();//创建单例并实例化配置信息
-            //WebDownloadTool.WebDownloadText(@"http://localhost/HotFix.txt", (hotfix) =>
-            //{
-            //    //LuaEnv luaEnv=new LuaEnv();
-            //    //luaEnv.DoString(hotfix);
-            //    Debuger.Log(hotfix);
-             
-            //});
+          
           
         }
 
@@ -38,6 +30,7 @@ namespace Bird_VS_Boar
             {
                 window.CanvasScaler.referenceResolution = new Vector2(1920, 1080);//设置画布尺寸
                 window.CanvasScaler.uiScaleMode = CanvasScaler.ScaleMode.ScaleWithScreenSize;//设置适配的方式
+                window.CanvasScaler.matchWidthOrHeight = 1;
                 window.Canvas.sortingOrder = 0;//设置画布层级
                 window.CreatePanel<GameLoginPanel>("UI/GameLoginWindow/GameLoginPanel", "GameLoginPanel", EnumPanelLayer.BOTTOM, (panel) =>//加载面板
                 {
@@ -48,6 +41,7 @@ namespace Bird_VS_Boar
             {
                 window.CanvasScaler.referenceResolution = new Vector2(1920, 1080);//设置画布尺寸
                 window.CanvasScaler.uiScaleMode = CanvasScaler.ScaleMode.ScaleWithScreenSize;//设置适配的方式
+                window.CanvasScaler.matchWidthOrHeight = 1;
                 window.CreatePanel<GameSetPanel>("UI/GameGlobalWindow/GameSetPanel", "GameSetPanel", EnumPanelLayer.TOP, (panel) =>//加载面板
                 {
                     panel.SetState(EnumPanelState.Hide, () =>

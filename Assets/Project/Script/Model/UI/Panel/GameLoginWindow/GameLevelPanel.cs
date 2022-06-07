@@ -136,7 +136,7 @@ namespace Bird_VS_Boar
             }
             OtherConfigInfo otherConfigInfo = OtherConfigInfo.GetSingleton();
             //更新关卡界面背景
-            Debug.Log("更改标记");
+            //Debug.Log("更改标记");
             string[] data = ProjectTool.ParsingRESPath(GameManager.NowSeasonConfigInfo.GetLevelInterfaceBGSpritePath());
             m_Bg.sprite = AssetBundleLoad.LoadAsset<Sprite>(data[0], data[1]);
             //m_Bg.sprite = ResLoad.Load<Sprite>(GameManager.NowSeasonConfigInfo.GetLevelInterfaceBGSpritePath());

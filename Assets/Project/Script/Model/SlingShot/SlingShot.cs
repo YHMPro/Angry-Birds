@@ -15,6 +15,8 @@ namespace Bird_VS_Boar
     {
         private AudioSource m_As;
         private SpringJoint2D m_SJ2D;
+        private LineRenderer m_leftLR;
+        private LineRenderer m_rightLR;
         private float m_ApplyingMaxSpeed = 15.0f;
         public float StretchDis
         {
@@ -31,7 +33,7 @@ namespace Bird_VS_Boar
                 return m_SJ2D.enabled;
             }
         }
-
+        private Vector2 m_ApplyingVelocity = Vector2.zero;
         public Vector2 ApplyingVelocity
         {
             get
@@ -50,7 +52,9 @@ namespace Bird_VS_Boar
             base.Awake();
             Debug.Log(1);
             RegisterComponentsTypes<LineRenderer>();
-            m_As=GetComponent<AudioSource>();          
+            m_leftLR = GetComponent<LineRenderer>("LeftRendererLine");
+            m_rightLR = GetComponent<LineRenderer>("RightRendererLine");
+            m_As = GetComponent<AudioSource>();          
             m_SJ2D = GetComponent<SpringJoint2D>();
         }
         protected override void Start()
@@ -64,19 +68,16 @@ namespace Bird_VS_Boar
                 }
             }
             m_As.outputAudioMixerGroup = AudioMixerManager.GetAudioMixerGroup("Effect");
+            //m_TRenderer.material = AssetBundleLoad.LoadAsset<Material>("material", "Tail");
+            m_leftLR.material= AssetBundleLoad.LoadAsset<Material>("materials", "LR");
+            m_leftLR.positionCount = 0;
+            m_leftLR.startWidth = 0.2f;
+            m_leftLR.endWidth = 0.1f;
+            m_rightLR.material = AssetBundleLoad.LoadAsset<Material>("materials", "LR");
+            m_rightLR.positionCount = 0;
+            m_rightLR.startWidth = 0.2f;
+            m_rightLR.endWidth = 0.1f;
 
-            if (GetComponent("LeftRendererLine", out LineRenderer leftLR))
-            {
-                leftLR.positionCount = 0;
-                leftLR.startWidth = 0.2f;
-                leftLR.endWidth = 0.1f;
-            }
-            if (GetComponent("RightRendererLine", out LineRenderer rightLR))
-            {
-                rightLR.positionCount = 0;
-                rightLR.startWidth = 0.2f;
-                rightLR.endWidth = 0.1f;
-            }                    
         }
 
         protected override void OnEnable()
@@ -95,24 +96,18 @@ namespace Bird_VS_Boar
 
         public void RendererLine(Vector3 drawLineEndPoint)
         {
-            if (GetComponent("LeftRendererLine",out LineRenderer leftLR))
+            if (m_leftLR.positionCount != 2)
             {
-                if(leftLR.positionCount!=2)
-                {
-                    leftLR.positionCount = 2;
-                }
-                leftLR.SetPosition(0, leftLR.transform.position);
-                leftLR.SetPosition(1, drawLineEndPoint);
+                m_leftLR.positionCount = 2;
             }
-            if(GetComponent("RightRendererLine", out LineRenderer rightLR))
+            m_leftLR.SetPosition(0, m_leftLR.transform.position);
+            m_leftLR.SetPosition(1, drawLineEndPoint);
+            if (m_rightLR.positionCount != 2)
             {
-                if (rightLR.positionCount != 2)
-                {
-                    rightLR.positionCount = 2;
-                }
-                rightLR.SetPosition(0, rightLR.transform.position);
-                rightLR.SetPosition(1, drawLineEndPoint);
+                m_rightLR.positionCount = 2;
             }
+            m_rightLR.SetPosition(0, m_rightLR.transform.position);
+            m_rightLR.SetPosition(1, drawLineEndPoint);
         }
         public void ClearLine()
         {
@@ -143,14 +138,14 @@ namespace Bird_VS_Boar
             {
                 Camera2D.GetSingleton().BindBird();
             }
+            GameLogic.NowComeBird.Velocity = m_ApplyingVelocity;//设置小鸟基于弹弓获得的初始速度
             GameLogic.NowComeBird.AddOnBirdFlyUpdate_Common();//添加小鸟飞行更新
-            GameLogic.NowComeBird.Velocity=ApplyingVelocity;//设置小鸟基于弹弓获得的初始速度
             GameLogic.NowComeBird.IsFreeze_ZRotation = false;//解除小鸟Z轴选中冻结       
             //计算预瞄准点位置
             if (FlyPath.Exists)
             {
                 FlyPath flyPath = FlyPath.GetSingleton();
-                flyPath.SetFlyPath(0.2f,0.2f);
+                //flyPath.SetFlyPath(0.2f,0.2f);
                 flyPath.ActiveFlyPath(false);               
             }          
         }
@@ -171,10 +166,10 @@ namespace Bird_VS_Boar
 
         public Vector2 CountPathPoint(float time)
         {
-            Vector2 v = ApplyingVelocity;
+            m_ApplyingVelocity = ApplyingVelocity;
             Vector2 pos = Vector2.zero;
-            pos.x = v.x * time;
-            pos.y = v.y * time + 0.5f * Physics2D.gravity.y * time * time;
+            pos.x = m_ApplyingVelocity.x * time;
+            pos.y = m_ApplyingVelocity.y * time + 0.5f * Physics2D.gravity.y * time * time;
             return pos;
         }
         

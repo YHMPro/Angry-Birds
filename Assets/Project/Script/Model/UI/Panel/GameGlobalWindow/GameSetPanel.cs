@@ -16,6 +16,7 @@ namespace Bird_VS_Boar
         private Slider m_EffectVolume;
         private ElasticBtn m_DataControlBtn;
         private ElasticBtn m_CloseBtn;
+        private ElasticBtn m_ExitBtn;
         protected override void Awake()
         {
             base.Awake();
@@ -28,7 +29,7 @@ namespace Bird_VS_Boar
             m_EffectVolume=GetComponent<Slider>("EffectVolume");
             m_DataControlBtn = GetComponent<ElasticBtn>("DataControlBtn");
             m_CloseBtn = GetComponent<ElasticBtn>("CloseBtn");
-
+            m_ExitBtn = GetComponent<ElasticBtn>("ExitGame");
             
         }
 
@@ -41,6 +42,7 @@ namespace Bird_VS_Boar
             m_ButtonVolume.onValueChanged.AddListener(OnButtonVolume);
             m_BgVolume.onValueChanged.AddListener(OnBgVolume);
             m_EffectVolume.onValueChanged.AddListener(OnEffectVolume);
+            m_ExitBtn.onClick.AddListener(OnExitGame);
         }
 
         protected override void OnDestroy()
@@ -74,6 +76,10 @@ namespace Bird_VS_Boar
         }
 
         #region ButtonEvent
+        private void OnExitGame()
+        {
+            GameManager.ExitGame();
+        }
         private void OnClose()
         {
             SetState(EnumPanelState.Hide, () => 

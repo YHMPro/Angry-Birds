@@ -163,7 +163,7 @@ namespace Bird_VS_Boar
             base.Start();
             InitTrailRenderer();//初始化拖尾                               
             m_Sr.sortingOrder = m_ConfigInfo.OrderInLayer;//设置自身渲染层级
-
+            m_TRenderer.material = AssetBundleLoad.LoadAsset<Material>("materials", "Tail");
         }
         protected override void OnDisable()
         {
@@ -280,6 +280,7 @@ namespace Bird_VS_Boar
                         }
                         //小鸟面朝发射方向
                         transform.eulerAngles = new Vector3(0, 0, -Vector2.SignedAngle(-dir.normalized, Vector2.right));
+                        
                     }             
                 }
             }

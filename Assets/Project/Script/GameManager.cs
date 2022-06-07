@@ -201,6 +201,7 @@ namespace Bird_VS_Boar
             {
                 window.CanvasScaler.referenceResolution = new Vector2(1920, 1080);//设置画布尺寸
                 window.CanvasScaler.uiScaleMode = CanvasScaler.ScaleMode.ScaleWithScreenSize;//设置适配的方式
+                window.CanvasScaler.matchWidthOrHeight = 1;
                 window.CreatePanel<GoodsPanel>("UI/GameSceneWindow/GoodsPanel", "GoodsPanel", EnumPanelLayer.MIDDLE, (panel) =>//加载面板
                 {
 
@@ -625,7 +626,7 @@ namespace Bird_VS_Boar
                 #endregion
                 #region 清除通过Resources加载的资源缓存
                 Debug.Log("清除缓存");
-                Debug.Log("更改标记");
+                //Debug.Log("更改标记");
                 //AssetBundleLoad.UnLoadMainAB(true);
                 //ResLoad.ClearAllCache();
                 #endregion
@@ -694,7 +695,15 @@ namespace Bird_VS_Boar
         }
         #endregion
 
-       
+        #region 退出
+        /// <summary>
+        /// 退出
+        /// </summary>
+        public static void ExitGame()
+        {
+            Application.Quit();
+        }
+        #endregion
 
         #region Data
         /// <summary>
@@ -702,6 +711,7 @@ namespace Bird_VS_Boar
         /// </summary>
         public static void ResetLevelData()
         {
+           
             LevelConfigManager.ResetLevelData();
         }
         /// <summary>

@@ -82,7 +82,7 @@ namespace Bird_VS_Boar
             m_StarText.text = starTotal.ToString();
             if (m_Bg.sprite == null)
             {
-                Debug.Log("更改标记");
+                //Debug.Log("更改标记");
                 string[] data = ProjectTool.ParsingRESPath(SeasonConfigInfo.GetSeasonConfigInfo(m_GameLevelType).GetLevelTypeBGSpritePath());
                 m_Bg.sprite = AssetBundleLoad.LoadAsset<Sprite>(data[0], data[1]);
                 //m_Bg.sprite = ResLoad.Load<Sprite>(SeasonConfigInfo.GetSeasonConfigInfo(m_GameLevelType).GetLevelTypeBGSpritePath());
@@ -114,7 +114,7 @@ namespace Bird_VS_Boar
                     {
                         gameLoginWindow.CreatePanel<GameLevelPanel>("UI/GameLoginWindow/GameLevelPanel", "GameLevelPanel", EnumPanelLayer.MIDDLE, (panel) =>
                         {
-                            Debuger.Log(panel);
+                            Debuger.Log("GameLevelPanel面板创建");
                         });
                     }
                    
